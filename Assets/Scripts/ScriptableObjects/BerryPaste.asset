@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
+  m_Name: BerryPaste
+  m_EditorClassIdentifier: 
+  itemName: Berry Paste
+  description: Can be used as a salve.
+  icon: {fileID: 21300000, guid: 9cdab212ab7f0b4419ece32ad0643737, type: 3}
+  itemType: 1
+  isCrafted: 1
+  isUsedInCrafting: 0
+  isConsumable: 1
+  healthRestoreAmount: 10
+  hungerRestoreAmount: 0
+  energyRestoreAmount: 0

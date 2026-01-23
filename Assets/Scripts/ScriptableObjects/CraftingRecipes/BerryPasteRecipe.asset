@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699c362b845bba249a82952d46c9896a, type: 3}
+  m_Name: BerryPasteRecipe
+  m_EditorClassIdentifier: 
+  recipeName: Berry Paste
+  resultItem: {fileID: 11400000, guid: ae319edcd62aa2547bd56bad0be0a883, type: 2}
+  resultAmount: 1
+  ingredients:
+  - item: {fileID: 11400000, guid: cf0ba2e803cdc8742ba6ca0059c1c2b6, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: fdf89f0734aace24380a72d95aaebde9, type: 2}
+    amount: 1

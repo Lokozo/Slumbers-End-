@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
+  m_Name: Berry
+  m_EditorClassIdentifier: 
+  itemName: Berry
+  description: Fresh and edible.
+  icon: {fileID: 21300000, guid: 49865424bab1485489559a6b411977a5, type: 3}
+  itemType: 1
+  isCrafted: 0
+  isUsedInCrafting: 1

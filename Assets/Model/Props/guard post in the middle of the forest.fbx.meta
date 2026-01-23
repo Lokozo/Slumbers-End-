@@ -1,0 +1,692 @@
+fileFormatVersion: 2
+guid: 446831f5374c973458e1fd0434ff6bc7
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Diy solar panel_d solar panel diffuse
+    second: {fileID: 2800000, guid: ba6b3b2c34ac7b34494edbdf08b279bc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Table diffuse table inside_d.001
+    second: {fileID: 2800000, guid: 6254b920285a3fb4fb4d7c07a8fda8e7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Table normal table inside_n
+    second: {fileID: 2800000, guid: ae47beb6974fb064f84a2932077966ab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Table rough table inside_r
+    second: {fileID: 2800000, guid: 1f20795f54e91d44babd039cb596a85b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bark diffuse tree.001_d
+    second: {fileID: 2800000, guid: bb6a51937f6f056499a1b8c883e40424, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bark rough tree.001_r
+    second: {fileID: 2800000, guid: 3ac6524326902fd46b057cd828e16ec3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bed diffuse bed _d
+    second: {fileID: 2800000, guid: a8085fc3ad5a6dc43a5b3c9b1c988250, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bed normal bed _n
+    second: {fileID: 2800000, guid: ff2b000a2c91b27459ca58fca8502e7b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bed rough bed _r
+    second: {fileID: 2800000, guid: 622194b1dbedc474e894c860eb18dcd6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: big debris diffuse debris big.001_d
+    second: {fileID: 2800000, guid: 376f0497b1fa97243bb32bef211b91b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: big debris normal debris big.001_n
+    second: {fileID: 2800000, guid: c4ffa199ac6622b429f8747616589593, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: big debris rough debris big.001_r
+    second: {fileID: 2800000, guid: 20eb7293ce8ac6346988c1d713da8675, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: big sign diffuse sign_d
+    second: {fileID: 2800000, guid: df419bff30cae9d4e843d8bfe363acdd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: big sign rough sign_r
+    second: {fileID: 2800000, guid: e58cc60403cb6e04b94c86a355ffae8c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bootom building diffuse Building.001_d
+    second: {fileID: 2800000, guid: 8e82a48c106330d47ac51dfeae1c03f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bootom building rough Building.001_r
+    second: {fileID: 2800000, guid: 84ca0ce57598d13459409751405a83bb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bridge runnel and stone_lamp_BaseColor
+    second: {fileID: 2800000, guid: 42c41b49964a3ea4ab08b737cffe7b18, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bridge runnel and stone_lamp_Metallic
+    second: {fileID: 2800000, guid: 02f5481247869cc46aceb5ab63a4b150, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bridge runnel and stone_lamp_Normal
+    second: {fileID: 2800000, guid: 2fb0d6ec2aa48034cbe7c1395e27e6b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bridge runnel and stone_lamp_Roughness
+    second: {fileID: 2800000, guid: 25f3e4c453167724b9926acd334d8584, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: building top diffuse Building_d
+    second: {fileID: 2800000, guid: f564bd192caf74f478fdd9b0b0666a22, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: building top normal Building_n
+    second: {fileID: 2800000, guid: e2f751467780aa146b73e31547a59d1b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: building top rough Building_r
+    second: {fileID: 2800000, guid: a02e3b7ce8ed92a4f85532a700df364c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: car batery diffuse car battery_d
+    second: {fileID: 2800000, guid: 4b741a8e67e5d5d4b964c7889e3f0641, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: car batery normal car battery_n
+    second: {fileID: 2800000, guid: 4db0554dc0a29d34a9515b2ce21eaf71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: car batery rough car battery_r
+    second: {fileID: 2800000, guid: 2cd26308a71fa9448a5ae0f097f3dc39, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: concrete barrier diffuse concrete barrier.001_d
+    second: {fileID: 2800000, guid: df4ac14e65b1d3c45bba2b2e963efc1d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: concrete barrier rough concrete barrier.001_r
+    second: {fileID: 2800000, guid: 28fb065d443366b4e98eeaba157ececc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cone diffuse Cone.003_d
+    second: {fileID: 2800000, guid: 356d1583925d9bb458688d890e7f790b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cone normalCone.003_n
+    second: {fileID: 2800000, guid: 406ee3a3430d1074b8946b5bd25edd6e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cone rough Cone.003_r
+    second: {fileID: 2800000, guid: 4b026dc21f5c1244aa9babcbb9c0eb2f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: debris.001_d_debris_Diffuse
+    second: {fileID: 2800000, guid: 9b058e464098e4d4493d6e90fcdb0beb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: debris.001_r_debris_rough
+    second: {fileID: 2800000, guid: 82df464093403a546a2ebe4cc5b3315d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: destroyed building  rough destroyed wall_r
+    second: {fileID: 2800000, guid: 3ef0130bcd9f74e4f98923d253140d6f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: destroyed building big diffuse destroyed building_d
+    second: {fileID: 2800000, guid: 166e234a07b7e1b4c956e52c73e826d6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: destroyed building big rough destroyed building_r
+    second: {fileID: 2800000, guid: 719d3f8775d13634999ebd232a66df50, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: destroyed building diffuse destroyed wall_d
+    second: {fileID: 2800000, guid: bfec1e9f6585aa24a94625833147791c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_detail 2_BaseColor
+    second: {fileID: 2800000, guid: a9bd8e26661dc154dabe65731c5ea884, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_detail 2_Metallic
+    second: {fileID: 2800000, guid: 305b9c7bc9c08c54197c5c3b7d774180, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_detail 2_Roughness
+    second: {fileID: 2800000, guid: 22c4ade05d2ceb94088bafae2702a361, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_matras_BaseColor
+    second: {fileID: 2800000, guid: 470ac3e68066491418fc16961321677d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_matras_Metallic
+    second: {fileID: 2800000, guid: d85ed02ca7cd73449b53eee0efba7ce1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_matras_Normal
+    second: {fileID: 2800000, guid: 4da31a44097d2e541bfc39ec7015c6c7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_matras_Roughness
+    second: {fileID: 2800000, guid: 091d03db4b048df47a899a723e160dbd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_pallet_BaseColor
+    second: {fileID: 2800000, guid: 8f91fadf2e1c2274b9ab93a585e86ffd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_pallet_Metallic
+    second: {fileID: 2800000, guid: 28422130de0392c43b8c94432e33756e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_pallet_Normal
+    second: {fileID: 2800000, guid: ada40424e44057246b6c7128026c4dcc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_pallet_Roughness
+    second: {fileID: 2800000, guid: 06e878516b993e24f8202a3e7b415234, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_plastic_BaseColor
+    second: {fileID: 2800000, guid: e4645e21620c8ee46a60069f15c644fb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_plastic_Metallic
+    second: {fileID: 2800000, guid: a31cab819d04c7544b451195b235c94a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_plastic_Normal
+    second: {fileID: 2800000, guid: e9179481798f3d24cbf72cece13f8e5a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_plastic_Roughness
+    second: {fileID: 2800000, guid: 6d68858380ee8a145a418268c88e1f44, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_standing light_BaseColor
+    second: {fileID: 2800000, guid: 45c699c123f854745be640a66b79a0f7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_standing light_Metallic
+    second: {fileID: 2800000, guid: a0188fe6acfbf8942b3e3297821905b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_standing light_Normal
+    second: {fileID: 2800000, guid: 34f00da99393f3a43bc7ee3992ccd41d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_standing light_Roughness
+    second: {fileID: 2800000, guid: 383a7dc82e60f664e8c754b6dbcac6e7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_table_BaseColor
+    second: {fileID: 2800000, guid: 15ecf6def0e2f314ab123307ba57e50e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_table_Metallic
+    second: {fileID: 2800000, guid: de7e524a94e82574398030d7b36ebf65, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_table_Normal
+    second: {fileID: 2800000, guid: bcba671c562422e42be20ffeff43fbd6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_table_Roughness
+    second: {fileID: 2800000, guid: 510fad3c0e06f0349ad27f6f6400e11a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_wire fence_BaseColor
+    second: {fileID: 2800000, guid: b1dbafde2575ca747b236e1e2422fbcb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_wire fence_Metallic
+    second: {fileID: 2800000, guid: ee92e91ce09b9954eb6784be872f1e3b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_wire fence_Normal
+    second: {fileID: 2800000, guid: 6fb4b42a40cb6bc49a3d4f71f13bbb4b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: exp 1_wire fence_Roughness
+    second: {fileID: 2800000, guid: 9b64a6f08033de94abeaf08e7ac22066, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass bigg diffuse grass large 2_d
+    second: {fileID: 2800000, guid: 75f7ac27fcb6b6a40a32a2007a799673, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass bigg normal grass large 2_n
+    second: {fileID: 2800000, guid: 727ed3e9a86e01c4ba78a61e1ec9351b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass biggrough grass large 2_r
+    second: {fileID: 2800000, guid: a48980f81e5984d408e1a23e123dca00, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass med diffuse grass large_d
+    second: {fileID: 2800000, guid: 98273b55f8186784bb44c330aaac82ba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass med normal grass large_n
+    second: {fileID: 2800000, guid: 6425f1c5e144552409cf1e86462a9025, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass med rough grass large_r
+    second: {fileID: 2800000, guid: 47b50d1a2eb942a4cb0e9730a308abd5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass small diffuse grass_d
+    second: {fileID: 2800000, guid: 532f8d8d47ce86e478528a5b278548f8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass small normal grass_n
+    second: {fileID: 2800000, guid: ae8d566e15ccedd4190d044020b3b3f4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: grass small rough grass_r
+    second: {fileID: 2800000, guid: 2bfc9b3278447e146a396bcb769b4529, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ground diffuse terrain_d
+    second: {fileID: 2800000, guid: 55a313c74a6a1124c8c3602d8a33705e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: kompor diffuse portable kompor_d
+    second: {fileID: 2800000, guid: 5058413cb9bd5ad4f9a2f12c9d56710e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: kompor rough portable kompor_r
+    second: {fileID: 2800000, guid: 75abcf69e6bb4994496d0c083a471d40, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leaf diffuse leaves.001_d
+    second: {fileID: 2800000, guid: fea3c6eda43d1e74b92223b25da7517b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leaf rough leaves.001_r
+    second: {fileID: 2800000, guid: 1967e56c47ed2c745947afcd46dffbed, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liquid tank_d_liquid_tank_diffuse
+    second: {fileID: 2800000, guid: e246ab1f9484642418c42e45e9b61f28, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liquid tank_n_liquid_tank_normal
+    second: {fileID: 2800000, guid: 9f4e945f6579ec545bcbb9a0a68c3f95, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liquid tank_r_liquid_tank_rough
+    second: {fileID: 2800000, guid: 22ac9c4afd51ed747b5ec85350882adb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: road bl diffuse road obj_d
+    second: {fileID: 2800000, guid: 13e858f4e83c8e2479f4a11e8536b6a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: road bl normal road obj_n
+    second: {fileID: 2800000, guid: c3924c5ad7fd8304c95649d8d5d1f574, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: road bl rough road obj_r
+    second: {fileID: 2800000, guid: d2496df40828f1a42bacb937a49e8876, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: small debris diffuse debris small_d
+    second: {fileID: 2800000, guid: 27e15898b7f7dce4d93dae11212cc1a4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: small debris normal debris small_n
+    second: {fileID: 2800000, guid: 1ab3a40186e454b4dba7a0f797a275cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: small debris rough debris small_r
+    second: {fileID: 2800000, guid: bf72621daeb433d479757ba68cd644b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: snack diffuse bottle and mug_d
+    second: {fileID: 2800000, guid: 2f9e4d32a229aed40b2da769feedbe9c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: snack normal bottle and mug_n
+    second: {fileID: 2800000, guid: f85e7dc5508e669448dd91b891c1563a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: snack rough bottle and mug_r
+    second: {fileID: 2800000, guid: 0cfad312ed08f3f4f9e613e33c450277, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: standing light diffuse small portable light_d
+    second: {fileID: 2800000, guid: e363bbdbaca779647a0a40482545fd43, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: standing light normal small portable light_n
+    second: {fileID: 2800000, guid: 9613f9eb7e0b5fe45b1415ff0f43c879, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: standing light rough small portable light_r
+    second: {fileID: 2800000, guid: 61749641d6425094d8937e3046d736c9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: stone diffuse stone.001_d
+    second: {fileID: 2800000, guid: 0fa2ec4572ab54b4890aa08d438ec4de, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: stone normal stone.001_n
+    second: {fileID: 2800000, guid: ebdc83ee97033b84bac1f26d36976038, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: stone rough stone.001_r
+    second: {fileID: 2800000, guid: 8dcf8d977b19953428fe7b2670c31d0c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: table diffuse Diy table_d
+    second: {fileID: 2800000, guid: 2eeda2782e18dcf44a26b7e30f34e483, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: table rough Diy table_r
+    second: {fileID: 2800000, guid: 0fe691e39b30ff44e879a793854fbf86, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tent building rough Building _r
+    second: {fileID: 2800000, guid: d7584db732969ca45a59c57c0ff81081, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tent diffuse Building _d.002
+    second: {fileID: 2800000, guid: b96d8d4eb19a3b44d87dac1115b48f93, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tong empty diffuse tong open_d
+    second: {fileID: 2800000, guid: a719f50ed34019f4fb142f546e41a6bf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tong empty normal tong open_n
+    second: {fileID: 2800000, guid: 59d9927b1f81bb74aa865b3531f9baf1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tong empty rough tong open_r
+    second: {fileID: 2800000, guid: 544de00c5f8a68244a7e98489227ea96, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tong_d tong diffuse
+    second: {fileID: 2800000, guid: d13fd0ea5271409489657310fe3eaa83, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: water tank Diffuse water tank _d
+    second: {fileID: 2800000, guid: c8ac3f15ca4c42641a8359a70d62b61c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: water tank normal water tank _n
+    second: {fileID: 2800000, guid: a5ac0576f6b70754d8f81c871c08ba1c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: water tank rough water tank _r
+    second: {fileID: 2800000, guid: 2edf20ae735344e439ec8db9b00f30c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wheel diffuse old tire_d
+    second: {fileID: 2800000, guid: 50d464ae206f8e44499ca0d8891bcfbc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wheel normal old tire_n
+    second: {fileID: 2800000, guid: e8016958a16e9bb488d87ad021dd957f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wood floor diffuse wooden floor_d
+    second: {fileID: 2800000, guid: 582e89591fc8aea45990b9d0148b5e7a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wood floor rough wooden floor_r
+    second: {fileID: 2800000, guid: 55d417ec366f1f242aa3c1d7d279edf4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden chair diffuse diy chair_d
+    second: {fileID: 2800000, guid: c20834ec37d10aa469ad7ca8c17843dc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden chair normal diy chair_n
+    second: {fileID: 2800000, guid: c881b4ee781468d4a87b879c2d3f397e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden chair rough diy chair_r
+    second: {fileID: 2800000, guid: 1e3d0a186b625424b82c08d083b22c66, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden stack diffuse wood  stack_d
+    second: {fileID: 2800000, guid: 3d75343fa76b05841b15d1627c945d5e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden stack normal wood  stack_n
+    second: {fileID: 2800000, guid: b132900aa204cb24c8cdc599b0588b67, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wooden stack rough wood  stack_r
+    second: {fileID: 2800000, guid: 4987f2ed8bbadc142b7d49614b9ceb63, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

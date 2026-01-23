@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
+  m_Name: Log
+  m_EditorClassIdentifier: 
+  itemName: Log
+  description: A sturdy piece of wood.
+  icon: {fileID: 21300000, guid: cc551459e0c3b7a4e8cf0bffba50014f, type: 3}
+  itemType: 0
+  isCrafted: 0
+  isUsedInCrafting: 1
