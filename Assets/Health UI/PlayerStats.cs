@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance;
+
     public float maxHealth = 100f;
     public float maxHunger = 100f;
     public float maxEnergy = 100f;
@@ -10,28 +12,60 @@ public class PlayerStats : MonoBehaviour
     public float hunger;
     public float energy;
 
-    void Start()
+    [Header("Energy Recovery Settings")]
+    public float energyRecoverRate = 5f; // How much energy to recover per second
+
+    [Header("Passive Drain Settings")]
+    public float hungerDrainAmount = 5f;
+    public float hungerDrainInterval = 20f;
+    private float hungerTimer;
+
+    void Awake()
     {
+        if (Instance == null) Instance = this;
         health = maxHealth;
         hunger = maxHunger;
         energy = maxEnergy;
     }
 
+    void Update()
+    {
+        // 1. Passive Hunger Drain
+        HandleHungerDrain();
+
+        // 2. Energy Recovery
+        // This will only run if energy is less than max.
+        // It will recover energy "non-permanently" because it clamps at maxEnergy.
+        if (energy < maxEnergy)
+        {
+            // We multiply by Time.deltaTime to recover per second, not per frame
+            ModifyEnergy(energyRecoverRate * Time.deltaTime);
+        }
+    }
+
+    private void HandleHungerDrain()
+    {
+        hungerTimer += Time.deltaTime;
+        if (hungerTimer >= hungerDrainInterval)
+        {
+            ModifyHunger(-hungerDrainAmount);
+            Debug.Log($"<color=orange>Passive Hunger Drain:</color> Current Hunger: {hunger}");
+            hungerTimer = 0f;
+        }
+    }
+
     public void ModifyHealth(float amount)
     {
         health = Mathf.Clamp(health + amount, 0f, maxHealth);
-        Debug.Log($"Health: {health}");
     }
 
     public void ModifyHunger(float amount)
     {
         hunger = Mathf.Clamp(hunger + amount, 0f, maxHunger);
-        Debug.Log($"Hunger: {hunger}");
     }
 
     public void ModifyEnergy(float amount)
     {
         energy = Mathf.Clamp(energy + amount, 0f, maxEnergy);
-        Debug.Log($"Energy: {energy}");
     }
 }
