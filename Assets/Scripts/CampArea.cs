@@ -45,11 +45,11 @@ public class CampArea : MonoBehaviour
         {
             campSiteModel.SetActive(true);
             campIsSet = true;
-            TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
-            if (tutorialUI != null)
-            {
-                tutorialUI.HideInstruction(); // Fades it out cleanly
-            }
+            //TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
+            //if (tutorialUI != null)
+            //{
+            //    tutorialUI.HideInstruction();
+            //}
         }
     }
 
@@ -61,11 +61,11 @@ public class CampArea : MonoBehaviour
             other.GetComponent<PlayerController>().SetCampZone(this);
             
             hasCampPrompt = true;
-            TutorialUIManager tutorial = FindAnyObjectByType<TutorialUIManager>();
-            if (hasCampPrompt && tutorial != null)
-            {
-                tutorial.ShowInteractionInstruction("Hold E to set up camp");
-            }
+            //TutorialUIManager tutorial = FindAnyObjectByType<TutorialUIManager>();
+            //if (hasCampPrompt && tutorial != null)
+            //{
+            //    tutorial.ShowInteractionInstruction("Hold E to set up camp");
+            //}
         }
     }
 

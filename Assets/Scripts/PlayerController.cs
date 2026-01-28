@@ -7,11 +7,13 @@ public class PlayerController : MonoBehaviour
     private InputSystem_Actions playerInputs;
     private Animator animator;
     private CharacterController controller;
+    private PlayerStats stats; // Assumed for energy logic
 
     [Header("Weapon Data Assets")]
     public WeaponItem axeData;
     public WeaponItem gunData;
 
+    [Header("Movement Settings")]
     public float speed = 5f;
     public float origSpeed = 5f;
     public float runMulti = 1.25f;
@@ -20,20 +22,23 @@ public class PlayerController : MonoBehaviour
     public float rotationFactorPerFrame = 150f;
     float energyCostPerSecond = 10f;
 
+    [Header("State Flags")]
     public bool movementLocked = false;
-    public Vector2 currentMovementInput;
-    private Vector3 velocity;
-
     public bool isClimbing = false;
-    public Ladder currentLadder;
-
     private bool isMovementPressed;
     private bool isRunPressed = false;
     private bool isGrounded;
 
-    private bool campActive = false;
-    private CampArea nearCampArea;
+    public Vector2 currentMovementInput;
+    private Vector3 velocity;
 
+    [Header("Tutorial System")]
+    [SerializeField] private bool enableTutorial = true;
+    private bool hasShownMoveTutorial = false;
+    private bool hasShownRunTutorial = false;
+    private bool hasCompletedMovementTutorial = false;
+
+    [Header("Weapon Objects & Slots")]
     public GameObject axe;
     public GameObject gun;
     public Transform weaponGunEquip;
@@ -45,13 +50,26 @@ public class PlayerController : MonoBehaviour
     private WeaponType equippedWeapon = WeaponType.None;
     private float transitionDuration = 0.5f;
 
+    [Header("Interaction & Camp")]
+    private bool campActive = false;
+    private CampArea nearCampArea;
+
     private void Awake()
     {
         playerInputs = new InputSystem_Actions();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        stats = GetComponent<PlayerStats>();
 
         InitializeInputActions();
+    }
+
+    private void Start()
+    {
+        if (enableTutorial && TutorialUIManager.Instance != null)
+        {
+            TutorialUIManager.Instance.ShowStep("moveTutorial", "Press WASD to move");
+        }
     }
 
     private void OnEnable() => playerInputs.Player.Enable();
@@ -66,23 +84,21 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Handle Push/Pull Logic
         var pushPull = GetComponent<PlayerPushPull>();
         bool isPushing = pushPull != null && pushPull.IsPushing;
 
-        // HANDLE PUSHABLE LAYER WEIGHT - COMMENTED OUT
-
-        int pushLayerIndex = animator.GetLayerIndex("Pushable");
-        if (pushLayerIndex != -1)
-        {
-            float targetWeight = isPushing ? 1f : 0f;
-            float currentWeight = animator.GetLayerWeight(pushLayerIndex);
-            animator.SetLayerWeight(pushLayerIndex, Mathf.MoveTowards(currentWeight, targetWeight, Time.deltaTime * 5f));
-        }
-
+        HandlePushLayerWeight(isPushing);
 
         if (isPushing)
         {
             pushPull.UpdatePushMovement(currentMovementInput);
+        }
+
+        // Tutorial Check
+        if (enableTutorial && !hasCompletedMovementTutorial)
+        {
+            CheckRunTutorial();
         }
 
         MovePlayer(isPushing);
@@ -94,11 +110,14 @@ public class PlayerController : MonoBehaviour
     {
         playerInputs.Player.Move.performed += HandleMovementInput;
         playerInputs.Player.Move.canceled += HandleMovementInput;
+
         playerInputs.Player.Jump.performed += HandleJumpInput;
         playerInputs.Player.Sprint.started += ctx => isRunPressed = true;
         playerInputs.Player.Sprint.canceled += ctx => isRunPressed = false;
+
         playerInputs.Player.EquipAxe.performed += ctx => ToggleWeapon(WeaponType.Axe);
         playerInputs.Player.EquipGun.performed += ctx => ToggleWeapon(WeaponType.Gun);
+
         playerInputs.Player.Interact.performed += ctx => HandleInteract();
     }
 
@@ -106,22 +125,30 @@ public class PlayerController : MonoBehaviour
     {
         currentMovementInput = context.ReadValue<Vector2>();
         isMovementPressed = currentMovementInput.sqrMagnitude > 0.01f;
+
+        if (enableTutorial && isMovementPressed && !hasShownMoveTutorial)
+        {
+            hasShownMoveTutorial = true;
+            TutorialUIManager.Instance?.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
+        }
     }
 
     private void HandleJumpInput(InputAction.CallbackContext context)
     {
-        if (isGrounded) velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        if (isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
     }
 
     private void MovePlayer(bool pushing)
     {
         if (!controller.enabled) return;
 
-        // 1. Calculate Speed
+        // 1. Determine Speed & Energy Consumption
         if (isRunPressed && isMovementPressed && !pushing)
         {
             speed = origSpeed * runMulti;
-            // Null check to prevent the crash you were seeing
             if (PlayerStats.Instance != null)
                 PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
@@ -136,7 +163,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsWalking", isMovementPressed);
 
         // 2. Direction logic
-        Vector3 moveDir = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);  // Use both X and Y for all cases (pushing or not)
+        Vector3 moveDir = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
 
         // 3. Apply Rotation (only if not pushing)
         if (moveDir.sqrMagnitude > 0.01f && !pushing)
@@ -145,14 +172,41 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationFactorPerFrame * Time.deltaTime);
         }
 
-        // 4. Final Move
+        // 4. Final Movement
         controller.Move(moveDir.normalized * speed * Time.deltaTime + velocity * Time.deltaTime);
+    }
+
+    private void HandlePushLayerWeight(bool isPushing)
+    {
+        int pushLayerIndex = animator.GetLayerIndex("Pushable");
+        if (pushLayerIndex != -1)
+        {
+            float targetWeight = isPushing ? 1f : 0f;
+            float currentWeight = animator.GetLayerWeight(pushLayerIndex);
+            animator.SetLayerWeight(pushLayerIndex, Mathf.MoveTowards(currentWeight, targetWeight, Time.deltaTime * 5f));
+        }
+    }
+
+    private void CheckRunTutorial()
+    {
+        if (hasShownMoveTutorial && !hasShownRunTutorial)
+        {
+            if (isMovementPressed && isRunPressed)
+            {
+                hasShownRunTutorial = true;
+                hasCompletedMovementTutorial = true;
+                TutorialUIManager.Instance?.Hide();
+            }
+        }
     }
 
     private void HandleGroundedCheck()
     {
         isGrounded = controller.isGrounded;
-        if (isGrounded && velocity.y < 0) velocity.y = -2f;
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
     }
 
     private void ApplyGravity()
@@ -163,6 +217,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // --- WEAPONS AND INTERACTION ---
+
+    private void HandleInteract()
+    {
+        // Try Push/Pull first
+        var pushPull = GetComponent<PlayerPushPull>();
+        if (pushPull != null)
+        {
+            pushPull.TogglePushPull();
+            if (pushPull.IsPushing) return; // Exit if we just started pushing
+        }
+
+        // Then try Camp
+        if (nearCampArea != null && !campActive)
+        {
+            nearCampArea.ActivateCamp();
+            campActive = true;
+        }
+    }
 
     private void ToggleWeapon(WeaponType weaponType)
     {
@@ -249,32 +321,6 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         animator.SetLayerWeight(layerIndex, targetWeight);
-    }
-
-    private void HandleInteract()
-    {
-        var pushPull = GetComponent<PlayerPushPull>();
-        var climb = GetComponent<PlayerClimbing>();
-
-        if (climb != null)
-        {
-            // If we are on a ladder OR already climbing, E handles the ladder.
-            // We'll need a way to know we are near a ladder, or just let ToggleClimb handle it.
-            climb.ToggleClimb();
-            if (climb.isClimbing) return; // Don't do other interactions if we just started climbing
-        }
-
-        if (pushPull != null)
-        {
-            pushPull.TogglePushPull();
-            if (pushPull.IsPushing) return;
-        }
-
-        if (nearCampArea != null && !campActive)
-        {
-            nearCampArea.ActivateCamp();
-            campActive = true;
-        }
     }
 
     public void SetCampZone(CampArea area) => nearCampArea = area;

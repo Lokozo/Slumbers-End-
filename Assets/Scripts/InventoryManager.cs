@@ -8,9 +8,12 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryMenu;
     public InventoryUI inventoryUI;
 
+    private static bool hasOpenedInventoryOnce = false;
     private bool isInventoryOpen = false;
 
     public static InventoryManager Instance;
+
+    
 
     private void Awake()
     {
@@ -56,6 +59,11 @@ public class InventoryManager : MonoBehaviour
         // Cursor state
         //Cursor.lockState = isInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
         //Cursor.visible = isInventoryOpen;
+        if (isInventoryOpen && !hasOpenedInventoryOnce)
+        {
+            hasOpenedInventoryOnce = true;
+            TutorialUIManager.Instance?.Hide();
+        }
     }
 
     private void OnEnable()

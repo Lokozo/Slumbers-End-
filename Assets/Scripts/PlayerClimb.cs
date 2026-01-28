@@ -12,7 +12,10 @@ public class PlayerClimb : MonoBehaviour
     public float climbCheckDistance = 0.5f;
     public LayerMask climbableLayer;
 
+    private bool canClimb = false;
+
     private bool isClimbing = false;
+
 
     private void Awake()
     {
@@ -20,6 +23,31 @@ public class PlayerClimb : MonoBehaviour
         controller = GetComponent<CharacterController>();
         inputActions = new InputSystem_Actions();
     }
+
+    private void Update()
+    {
+        if (isClimbing) return;
+
+        bool detected = Physics.Raycast(
+            climbCheckPoint.position,
+            transform.forward,
+            climbCheckDistance,
+            climbableLayer
+        );
+
+        if (detected && !canClimb)
+        {
+            canClimb = true;
+
+            TutorialUIManager.Instance.ShowStep("climbTutorial", "Press Space to climb");
+        }
+        else if (!detected && canClimb)
+        {
+            canClimb = false;
+            TutorialUIManager.Instance?.Hide();
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -41,6 +69,9 @@ public class PlayerClimb : MonoBehaviour
         if (Physics.Raycast(climbCheckPoint.position, transform.forward, out RaycastHit hit, climbCheckDistance, climbableLayer))
         {
             Debug.Log("Climbable detected! Press Space to climb.");
+
+            
+
             StartClimb();
         }
         else
@@ -54,6 +85,7 @@ public class PlayerClimb : MonoBehaviour
         isClimbing = true;
         animator.SetTrigger("ClimbEdge");
 
+        TutorialUIManager.Instance?.Hide();
         // Disable character controller during climb
         controller.enabled = false;
     }

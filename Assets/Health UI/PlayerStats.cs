@@ -4,10 +4,12 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
 
+    [Header("Max Values")]
     public float maxHealth = 100f;
     public float maxHunger = 100f;
     public float maxEnergy = 100f;
 
+    [Header("Current Values")]
     public float health;
     public float hunger;
     public float energy;
@@ -19,13 +21,31 @@ public class PlayerStats : MonoBehaviour
     public float hungerDrainAmount = 5f;
     public float hungerDrainInterval = 20f;
     private float hungerTimer;
-
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null) Instance = this;
-        health = maxHealth;
-        hunger = maxHunger;
-        energy = maxEnergy;
+        if (Instance == null)
+        {
+       
+            Instance = this;
+            health = maxHealth;
+            hunger = maxHunger;
+            energy = maxEnergy;
+
+            DontDestroyOnLoad(gameObject);
+            InitializeIfNeeded();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void InitializeIfNeeded()
+    {
+        if (health <= 0f) health = maxHealth;
+        if (hunger <= 0f) hunger = maxHunger;
+        if (energy <= 0f) energy = maxEnergy;
+
     }
 
     void Update()

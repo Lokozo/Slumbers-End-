@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2408902862926831467}
   - component: {fileID: 8046827874552948482}
-  - component: {fileID: 4030126335749760157}
+  - component: {fileID: 4070530141449973141}
   m_Layer: 5
   m_Name: Energy Bar
   m_TagString: Untagged
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4030126335749760157
+--- !u!114 &4070530141449973141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,23 +175,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 445674315979568587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25b6a9e5b60d5904585db20343df6fff, type: 3}
+  m_Script: {fileID: 11500000, guid: 65347512768afa145b0a7310fe4f724a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   slider: {fileID: 8046827874552948482}
   gradient:
     serializedVersion: 2
-    key0: {r: 0.81568635, g: 0.24705884, b: 0.18431373, a: 1}
-    key1: {r: 1, g: 0.78070736, b: 0, a: 1}
-    key2: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32768
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -207,9 +208,10 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: -1
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   fill: {fileID: 7399342800632106073}
+  smoothSpeed: 5
 --- !u!1 &925936212986934605
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8924946959237783535}
   m_Layer: 5
-  m_Name: Player UI
+  m_Name: Player Stats UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,8 +237,8 @@ RectTransform:
   m_GameObject: {fileID: 925936212986934605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 283464521711487886}
   - {fileID: 475614669328712477}
@@ -333,7 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 475614669328712477}
   - component: {fileID: 7139837553449285679}
-  - component: {fileID: 7839777739071709118}
+  - component: {fileID: 6718811396623615571}
   m_Layer: 5
   m_Name: Hunger Bar
   m_TagString: Untagged
@@ -414,7 +416,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7839777739071709118
+--- !u!114 &6718811396623615571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -423,31 +425,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5271376951917774687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25b6a9e5b60d5904585db20343df6fff, type: 3}
+  m_Script: {fileID: 11500000, guid: 07108433f3698af428d5acff59bf9d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   slider: {fileID: 7139837553449285679}
   gradient:
     serializedVersion: 2
-    key0: {r: 0.81568635, g: 0.24705884, b: 0.18431373, a: 1}
-    key1: {r: 1, g: 0.78070736, b: 0, a: 1}
-    key2: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 0}
+    key0: {r: 1, g: 0.58497024, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32768
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
+    atime0: 1002
+    atime1: 30609
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -455,9 +458,10 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: -1
-    m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 3
   fill: {fileID: 6190717411851155005}
+  smoothSpeed: 5
 --- !u!1 &5581667609522009861
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,10 +776,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b6a9e5b60d5904585db20343df6fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   slider: {fileID: 661348048649086792}
   gradient:
     serializedVersion: 2
-    key0: {r: 0.81568635, g: 0.24705884, b: 0.18431373, a: 1}
+    key0: {r: 0.81568635, g: 0.25490198, b: 0.18039216, a: 1}
     key1: {r: 1, g: 0.78070736, b: 0, a: 1}
     key2: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -804,6 +809,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 3017177795867131643}
+  smoothSpeed: 5
 --- !u!1 &6546421430464856879
 GameObject:
   m_ObjectHideFlags: 0
