@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool isRunPressed = false;
     private bool isGrounded;
 
-    public Vector2 currentMovementInput;
+    private Vector2 currentMovementInput;
     private Vector3 velocity;
 
     [Header("Tutorial System")]

@@ -14,6 +14,25 @@ public class PlayerStats : MonoBehaviour
     public float hunger;
     public float energy;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeIfNeeded();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void InitializeIfNeeded()
+    {
+        if (health <= 0f) health = maxHealth;
+        if (hunger <= 0f) hunger = maxHunger;
+        if (energy <= 0f) energy = maxEnergy;
     [Header("Energy Recovery Settings")]
     public float energyRecoverRate = 5f; // How much energy to recover per second
 
