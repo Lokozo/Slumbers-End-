@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
+  m_Name: Metal Scrap
+  m_EditorClassIdentifier: 
+  itemName: ScrapMetal
+  description: Peice of Metal use for Crafting.
+  icon: {fileID: 21300000, guid: a758eef338d095944880e1d850731062, type: 3}
+  itemType: 0
+  isCrafted: 0
+  isUsedInCrafting: 1
+  isConsumable: 0
+  healthRestoreAmount: 0
+  hungerRestoreAmount: 0
+  energyRestoreAmount: 0

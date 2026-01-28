@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     public float comboResetTime = 1.2f;
     public float attackDamage = 20f;
 
+    public WeaponItem currentWeaponData;
+
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -49,25 +51,21 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        if (comboStep == 0)
-        {
-            animator.SetTrigger("Combo1");
-        }
-        else if (comboStep == 1)
-        {
-            animator.SetTrigger("Combo2");
-        }
-        else if (comboStep == 2)
-        {
-            animator.SetTrigger("Combo3");
-        }
+        if (currentWeaponData == null) return;
 
+        // Trigger the animation based on current step
+        if (comboStep == 0) animator.SetTrigger("Combo1");
+        else if (comboStep == 1) animator.SetTrigger("Combo2");
+        else if (comboStep == 2) animator.SetTrigger("Combo3");
+
+        // Increment and LOOP back to 0
         comboStep++;
-        if (comboStep > 2) comboStep = 2;
+        if (comboStep > 2)
+        {
+            comboStep = 0; // This allows the next click to trigger Combo1 immediately
+        }
 
         comboTimer = 0f;
-
-        // ✅ Damage enemies during attack
         DealDamageToEnemies();
     }
 
@@ -95,4 +93,5 @@ public class PlayerAttack : MonoBehaviour
 
         animator.Play("Idle", 0);
     }
+
 }

@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
     private InputSystem_Actions playerInputs;
     private Animator animator;
     private CharacterController controller;
+    private PlayerStats stats;
+
+    [Header("Weapon Data Assets")]
+    public WeaponItem axeData;
+    public WeaponItem gunData;
+    private PlayerAttack playerAttackScript;
 
     public float speed = 5f;
     public float origSpeed = 5f;
@@ -14,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     public float rotationFactorPerFrame = 150f;
+    float energyCostPerSecond = 10f;
 
     private Vector2 currentMovementInput;
     private Vector3 currentMovement;
@@ -52,6 +59,8 @@ public class PlayerController : MonoBehaviour
         playerInputs = new InputSystem_Actions();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        stats = GetComponent<PlayerStats>();
+
         InitializeInputActions();
 
         if (controller == null)
@@ -134,41 +143,48 @@ public class PlayerController : MonoBehaviour
     }
 
     private void MovePlayer()
-{
-        if (!controller.enabled)
-            return;
-
-    bool isWalking = animator.GetBool("IsWalking");
-    bool isRunning = animator.GetBool("IsRunning");
-
-    if (isMovementPressed && !isWalking) animator.SetBool("IsWalking", true);
-    else if (!isMovementPressed && isWalking) animator.SetBool("IsWalking", false);
-
-    if (isMovementPressed)
     {
-        if (isRunPressed)
+        if (!controller.enabled) return;
+
+        bool isWalking = animator.GetBool("IsWalking");
+        bool isRunning = animator.GetBool("IsRunning");
+
+        if (isMovementPressed && !isWalking) animator.SetBool("IsWalking", true);
+        else if (!isMovementPressed && isWalking) animator.SetBool("IsWalking", false);
+
+        if (isMovementPressed)
         {
-            speed = origSpeed * runMulti;
-            if (!isRunning) animator.SetBool("IsRunning", true);
+            // CHECK: Is the run button pressed AND is there energy left?
+            if (isRunPressed)
+            {
+                speed = origSpeed * runMulti;
+
+                PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
+
+                if (!isRunning) animator.SetBool("IsRunning", true);
+            }
+            else
+            {
+                // If energy is 0 or run is not pressed, go back to normal speed
+                speed = origSpeed;
+                if (isRunning) animator.SetBool("IsRunning", false);
+            }
         }
-        else
+        else if (isRunning)
         {
-            speed = origSpeed;
-            if (isRunning) animator.SetBool("IsRunning", false);
+            animator.SetBool("IsRunning", false);
         }
-    }
-    else if (isRunning)
-    {
-        animator.SetBool("IsRunning", false);
-    }
 
-    Vector3 moveDirection = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
-    Vector3 move = moveDirection.normalized * speed * Time.deltaTime;
+        Vector3 moveDirection = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
+        Vector3 move = moveDirection.normalized * speed * Time.deltaTime;
 
-    if (moveDirection.sqrMagnitude > 0.01f)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+        }
+
+        controller.Move(move + velocity * Time.deltaTime);
     }
 
     controller.Move(move + velocity * Time.deltaTime);

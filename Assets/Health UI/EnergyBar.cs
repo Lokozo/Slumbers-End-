@@ -25,8 +25,12 @@ public class EnergyBar : MonoBehaviour
 
     void Update()
     {
-        float target = stats.energy;
-        slider.value = Mathf.Lerp(slider.value, target, Time.deltaTime * smoothSpeed);
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        if (PlayerStats.Instance != null)
+        {
+            float target = PlayerStats.Instance.energy;
+            slider.value = Mathf.Lerp(slider.value, target, Time.deltaTime * smoothSpeed);
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
+
     }
 }
