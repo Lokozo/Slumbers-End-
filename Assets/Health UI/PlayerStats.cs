@@ -27,11 +27,6 @@ public class PlayerStats : MonoBehaviour
         {
             Instance = this;
 
-<<<<<<< Updated upstream
-=======
-           
-
->>>>>>> Stashed changes
             DontDestroyOnLoad(gameObject);
             InitializeIfNeeded();
         }
@@ -39,7 +34,7 @@ public class PlayerStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
-<<<<<<< Updated upstream
+
         health = maxHealth;
         hunger = maxHunger;
         energy = maxEnergy;
@@ -51,19 +46,10 @@ public class PlayerStats : MonoBehaviour
         if (health <= 0f) health = maxHealth;
         if (hunger <= 0f) hunger = maxHunger;
         if (energy <= 0f) energy = maxEnergy;
-=======
->>>>>>> Stashed changes
 
         health = maxHealth;
         hunger = maxHunger;
         energy = maxEnergy;
-    }
-
-    void InitializeIfNeeded()
-    {
-        if (health <= 0f) health = maxHealth;
-        if (hunger <= 0f) hunger = maxHunger;
-        if (energy <= 0f) energy = maxEnergy;
     }
 
     void Update()
