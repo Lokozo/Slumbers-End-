@@ -30,6 +30,13 @@ public class PlayerController : MonoBehaviour
     private bool isRunPressed = false;
     private bool isGrounded;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool enableTutorial = true;
+
+    private bool hasShownMoveTutorial = false;
+    private bool hasShownRunTutorial = false;
+    private bool hasCompletedMovementTutorial = false;
+
     private bool campActive = false;
     private CampArea nearCampArea;
 
@@ -62,11 +69,28 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Animator missing from Player!");
     }
 
+    private void Start()
+    {
+        if (enableTutorial)
+        {
+            TutorialUIManager.Instance?.ShowStep(
+                "moveTutorial",
+                "Press A or D to move"
+            );
+        }
+    }
+
+
     private void OnEnable() => playerInputs.Player.Enable();
     private void OnDisable() => playerInputs.Player.Disable();
 
     private void Update()
     {
+        if (enableTutorial && !hasCompletedMovementTutorial)
+        {
+            CheckRunTutorial();
+        }
+
         if (isClimbing)
         {
             animator.SetBool("IsWalking", false);
@@ -99,6 +123,15 @@ public class PlayerController : MonoBehaviour
         currentMovement.x = currentMovementInput.x;
         currentMovement.z = currentMovementInput.y;
         isMovementPressed = currentMovementInput.sqrMagnitude > 0.01f;
+        //////tutorial
+        if (enableTutorial && isMovementPressed && !hasShownMoveTutorial)
+        {
+            hasShownMoveTutorial = true;
+
+            TutorialUIManager.Instance.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
+        }
+        /////
+
     }
 
     private void HandleJumpInput(InputAction.CallbackContext context)
@@ -154,6 +187,21 @@ public class PlayerController : MonoBehaviour
         controller.Move(move + velocity * Time.deltaTime);
     }
 
+    controller.Move(move + velocity * Time.deltaTime);
+}
+
+    private void CheckRunTutorial()
+    {
+        if (hasShownMoveTutorial && !hasShownRunTutorial)
+        {
+            if (isMovementPressed && isRunPressed)
+            {
+                hasShownRunTutorial = true;
+                hasCompletedMovementTutorial = true;
+                TutorialUIManager.Instance?.Hide();
+            }
+        }
+    }
 
     private void HandleGroundedCheck()
     {

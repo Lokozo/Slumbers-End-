@@ -9,7 +9,14 @@ public class HealthBar : MonoBehaviour
     public Image fill;
 
     [SerializeField] private float smoothSpeed = 5f;
-    
+
+    void Awake()
+    {
+        if (stats == null)
+            stats = FindFirstObjectByType<PlayerStats>();
+    }
+
+
     void Start()
     {
         slider.maxValue = stats.maxHealth;

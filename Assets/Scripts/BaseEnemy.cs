@@ -87,7 +87,7 @@ public class BaseEnemy : MonoBehaviour
         TutorialUIManager tutorial = FindAnyObjectByType<TutorialUIManager>();
         if (hasCombatPrompt && tutorial != null)
         {
-            tutorial.ShowInteractionInstruction("Click Left Mouse Button to attack");
+            //tutorial.ShowInteractionInstruction("Click Left Mouse Button to attack");
         }
 
         if (player == null)
@@ -233,7 +233,7 @@ public class BaseEnemy : MonoBehaviour
             TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
             if (tutorialUI != null)
             {
-                tutorialUI.HideInstruction(); // Fades it out cleanly
+               // tutorialUI.HideInstruction(); // Fades it out cleanly
             }
         }
     }
