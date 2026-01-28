@@ -31,11 +31,12 @@ public class ResourceInteraction : MonoBehaviour
     public GameObject checkIcon;
     private bool hasBeenCollected = false;
 
+    
+
     [Header("Lootable Metadata")]
     public string lootableDisplayName;  // set in Inspector
     public TextMeshProUGUI lootableNameText;
 
-    private static bool hasShownInstruction = false;
 
 
     private void Awake()
@@ -110,6 +111,8 @@ public class ResourceInteraction : MonoBehaviour
         InventoryMenu?.SetActive(true);
         ResourcePanel?.SetActive(true);
 
+        TutorialUIManager.Instance?.Hide();
+
         if (lootableNameText != null)
             lootableNameText.text = lootableDisplayName;
 
@@ -124,6 +127,8 @@ public class ResourceInteraction : MonoBehaviour
         ResourcePanel?.SetActive(false);
         magnifyingGlassIcon?.SetActive(false);
         checkIcon?.SetActive(false);
+
+        panelOpened = false;
 
         Time.timeScale = 1f;
         //Cursor.lockState = CursorLockMode.Locked;
@@ -146,11 +151,10 @@ public class ResourceInteraction : MonoBehaviour
         hasBeenCollected = true;
         Debug.Log("Inventory contains: " + PlayerInventory.Instance.GetInventory().Count + " items.");
 
-        TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
-        if (tutorialUI != null)
-        {
-            tutorialUI.HideInstruction(); // Fades it out cleanly
-        }
+        TutorialUIManager.Instance?.Hide();
+        TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
+
+   
 
     }
 
@@ -173,15 +177,7 @@ public class ResourceInteraction : MonoBehaviour
                 magnifyingGlassIcon?.SetActive(true);
                 checkIcon?.SetActive(false);
 
-                if (!hasShownInstruction)
-                {
-                    hasShownInstruction = true;
-                    TutorialUIManager tutorial = FindAnyObjectByType<TutorialUIManager>();
-                    if (tutorial != null)
-                    {
-                        tutorial.ShowInteractionInstruction("Hold E to examine");
-                    }
-                }
+                TutorialUIManager.Instance?.ShowStep("examineTutorial","Hold E to examine");
 
             }
 
@@ -198,6 +194,11 @@ public class ResourceInteraction : MonoBehaviour
             magnifyingGlassIcon?.SetActive(false);
             checkIcon?.SetActive(false);
             holdTimer = 0f;
+
+            
+            TutorialUIManager.Instance?.Hide();
+            
         }
     }
+
 }

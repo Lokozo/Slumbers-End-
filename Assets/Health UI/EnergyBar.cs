@@ -10,6 +10,12 @@ public class EnergyBar : MonoBehaviour
 
     [SerializeField] private float smoothSpeed = 5f;
 
+    void Awake()
+    {
+        if (stats == null)
+            stats = FindFirstObjectByType<PlayerStats>();
+    }
+
     void Start()
     {
         slider.maxValue = stats.maxEnergy;
