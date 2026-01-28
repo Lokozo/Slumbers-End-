@@ -7,13 +7,13 @@ public class PlayerController : MonoBehaviour
     private InputSystem_Actions playerInputs;
     private Animator animator;
     private CharacterController controller;
-    private PlayerStats stats;
+    private PlayerStats stats; // Assumed for energy logic
 
     [Header("Weapon Data Assets")]
     public WeaponItem axeData;
     public WeaponItem gunData;
-    private PlayerAttack playerAttackScript;
 
+    [Header("Movement Settings")]
     public float speed = 5f;
     public float origSpeed = 5f;
     public float runMulti = 1.25f;
@@ -22,24 +22,23 @@ public class PlayerController : MonoBehaviour
     public float rotationFactorPerFrame = 150f;
     float energyCostPerSecond = 10f;
 
-    private Vector2 currentMovementInput;
-    private Vector3 currentMovement;
-    private Vector3 velocity;
-
+    [Header("State Flags")]
+    public bool movementLocked = false;
+    public bool isClimbing = false;
     private bool isMovementPressed;
     private bool isRunPressed = false;
     private bool isGrounded;
 
-    [Header("Tutorial")]
-    [SerializeField] private bool enableTutorial = true;
+    private Vector2 currentMovementInput;
+    private Vector3 velocity;
 
+    [Header("Tutorial System")]
+    [SerializeField] private bool enableTutorial = true;
     private bool hasShownMoveTutorial = false;
     private bool hasShownRunTutorial = false;
     private bool hasCompletedMovementTutorial = false;
 
-    private bool campActive = false;
-    private CampArea nearCampArea;
-
+    [Header("Weapon Objects & Slots")]
     public GameObject axe;
     public GameObject gun;
     public Transform weaponGunEquip;
@@ -49,10 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private enum WeaponType { None, Axe, Gun }
     private WeaponType equippedWeapon = WeaponType.None;
-
     private float transitionDuration = 0.5f;
 
-    public bool isClimbing = false; // shared with PlayerClimb
+    [Header("Interaction & Camp")]
+    private bool campActive = false;
+    private CampArea nearCampArea;
 
     private void Awake()
     {
@@ -62,42 +62,46 @@ public class PlayerController : MonoBehaviour
         stats = GetComponent<PlayerStats>();
 
         InitializeInputActions();
-
-        if (controller == null)
-            Debug.LogError("CharacterController missing from Player!");
-        if (animator == null)
-            Debug.LogError("Animator missing from Player!");
     }
 
     private void Start()
     {
-        if (enableTutorial)
+        if (enableTutorial && TutorialUIManager.Instance != null)
         {
-            TutorialUIManager.Instance?.ShowStep(
-                "moveTutorial",
-                "Press A or D to move"
-            );
+            TutorialUIManager.Instance.ShowStep("moveTutorial", "Press WASD to move");
         }
     }
-
 
     private void OnEnable() => playerInputs.Player.Enable();
     private void OnDisable() => playerInputs.Player.Disable();
 
     private void Update()
     {
+        if (isClimbing || movementLocked)
+        {
+            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsRunning", false);
+            return;
+        }
+
+        // Handle Push/Pull Logic
+        var pushPull = GetComponent<PlayerPushPull>();
+        bool isPushing = pushPull != null && pushPull.IsPushing;
+
+        HandlePushLayerWeight(isPushing);
+
+        if (isPushing)
+        {
+            pushPull.UpdatePushMovement(currentMovementInput);
+        }
+
+        // Tutorial Check
         if (enableTutorial && !hasCompletedMovementTutorial)
         {
             CheckRunTutorial();
         }
 
-        if (isClimbing)
-        {
-            animator.SetBool("IsWalking", false);
-            return;
-        }
-
-        MovePlayer();
+        MovePlayer(isPushing);
         ApplyGravity();
         HandleGroundedCheck();
     }
@@ -120,18 +124,13 @@ public class PlayerController : MonoBehaviour
     private void HandleMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        currentMovement.z = currentMovementInput.y;
         isMovementPressed = currentMovementInput.sqrMagnitude > 0.01f;
-        //////tutorial
+
         if (enableTutorial && isMovementPressed && !hasShownMoveTutorial)
         {
             hasShownMoveTutorial = true;
-
-            TutorialUIManager.Instance.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
+            TutorialUIManager.Instance?.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
         }
-        /////
-
     }
 
     private void HandleJumpInput(InputAction.CallbackContext context)
@@ -142,53 +141,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MovePlayer()
+    private void MovePlayer(bool pushing)
     {
         if (!controller.enabled) return;
 
-        bool isWalking = animator.GetBool("IsWalking");
-        bool isRunning = animator.GetBool("IsRunning");
-
-        if (isMovementPressed && !isWalking) animator.SetBool("IsWalking", true);
-        else if (!isMovementPressed && isWalking) animator.SetBool("IsWalking", false);
-
-        if (isMovementPressed)
+        // 1. Determine Speed & Energy Consumption
+        if (isRunPressed && isMovementPressed && !pushing)
         {
-            // CHECK: Is the run button pressed AND is there energy left?
-            if (isRunPressed)
-            {
-                speed = origSpeed * runMulti;
-
+            speed = origSpeed * runMulti;
+            if (PlayerStats.Instance != null)
                 PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
-                if (!isRunning) animator.SetBool("IsRunning", true);
-            }
-            else
-            {
-                // If energy is 0 or run is not pressed, go back to normal speed
-                speed = origSpeed;
-                if (isRunning) animator.SetBool("IsRunning", false);
-            }
+            animator.SetBool("IsRunning", true);
         }
-        else if (isRunning)
+        else
         {
+            speed = pushing ? origSpeed * 0.5f : origSpeed;
             animator.SetBool("IsRunning", false);
         }
 
-        Vector3 moveDirection = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
-        Vector3 move = moveDirection.normalized * speed * Time.deltaTime;
+        animator.SetBool("IsWalking", isMovementPressed);
 
-        if (moveDirection.sqrMagnitude > 0.01f)
+        // 2. Direction logic
+        Vector3 moveDir = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
+
+        // 3. Apply Rotation (only if not pushing)
+        if (moveDir.sqrMagnitude > 0.01f && !pushing)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+            Quaternion targetRot = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationFactorPerFrame * Time.deltaTime);
         }
 
-        controller.Move(move + velocity * Time.deltaTime);
+        // 4. Final Movement
+        controller.Move(moveDir.normalized * speed * Time.deltaTime + velocity * Time.deltaTime);
     }
 
-    controller.Move(move + velocity * Time.deltaTime);
-}
+    private void HandlePushLayerWeight(bool isPushing)
+    {
+        int pushLayerIndex = animator.GetLayerIndex("Pushable");
+        if (pushLayerIndex != -1)
+        {
+            float targetWeight = isPushing ? 1f : 0f;
+            float currentWeight = animator.GetLayerWeight(pushLayerIndex);
+            animator.SetLayerWeight(pushLayerIndex, Mathf.MoveTowards(currentWeight, targetWeight, Time.deltaTime * 5f));
+        }
+    }
 
     private void CheckRunTutorial()
     {
@@ -215,34 +212,39 @@ public class PlayerController : MonoBehaviour
     private void ApplyGravity()
     {
         if (!controller.enabled) return;
-
-        if (controller.isGrounded && velocity.y < 0)
-            velocity.y = -2f;
-
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
+    // --- WEAPONS AND INTERACTION ---
+
+    private void HandleInteract()
+    {
+        // Try Push/Pull first
+        var pushPull = GetComponent<PlayerPushPull>();
+        if (pushPull != null)
+        {
+            pushPull.TogglePushPull();
+            if (pushPull.IsPushing) return; // Exit if we just started pushing
+        }
+
+        // Then try Camp
+        if (nearCampArea != null && !campActive)
+        {
+            nearCampArea.ActivateCamp();
+            campActive = true;
+        }
+    }
 
     private void ToggleWeapon(WeaponType weaponType)
     {
-        if (equippedWeapon == weaponType)
-        {
-            UnequipWeapon(weaponType);
-        }
-        else
-        {
-            StartCoroutine(SwitchWeapon(weaponType));
-        }
+        if (equippedWeapon == weaponType) UnequipWeapon(weaponType);
+        else StartCoroutine(SwitchWeapon(weaponType));
     }
 
     private IEnumerator SwitchWeapon(WeaponType newWeapon)
     {
-        if (equippedWeapon != WeaponType.None)
-        {
-            yield return StartCoroutine(UnequipWeaponRoutine(equippedWeapon));
-        }
-
+        if (equippedWeapon != WeaponType.None) yield return StartCoroutine(UnequipWeaponRoutine(equippedWeapon));
         equippedWeapon = newWeapon;
 
         if (newWeapon == WeaponType.Axe)
@@ -283,9 +285,7 @@ public class PlayerController : MonoBehaviour
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 0f, transitionDuration));
             UnequipWeaponObject(gun, weaponUnequipHip);
         }
-
         yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, transitionDuration));
-        Invoke(nameof(SetLayerWeightZero), 1.5f);
     }
 
     private void EquipWeaponObject(GameObject weapon, Transform equipSlot)
@@ -302,57 +302,28 @@ public class PlayerController : MonoBehaviour
         weapon.transform.localRotation = Quaternion.identity;
     }
 
-    private void SetLayerWeightZero()
-    {
-        SetLayerWeight("Arms", 0f);
-    }
-
     private void SetLayerWeight(string layerName, float weight)
     {
         int layerIndex = animator.GetLayerIndex(layerName);
-        if (layerIndex >= 0)
-            animator.SetLayerWeight(layerIndex, weight);
+        if (layerIndex >= 0) animator.SetLayerWeight(layerIndex, weight);
     }
 
     private IEnumerator SmoothLayerWeightTransition(string layerName, float targetWeight, float duration)
     {
         int layerIndex = animator.GetLayerIndex(layerName);
+        if (layerIndex < 0) yield break;
         float currentWeight = animator.GetLayerWeight(layerIndex);
         float elapsedTime = 0f;
-
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float newWeight = Mathf.Lerp(currentWeight, targetWeight, elapsedTime / duration);
-            animator.SetLayerWeight(layerIndex, newWeight);
+            animator.SetLayerWeight(layerIndex, Mathf.Lerp(currentWeight, targetWeight, elapsedTime / duration));
             yield return null;
         }
-
         animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
-    private void HandleInteract()
-    {
-        if (nearCampArea != null && !campActive)
-        {
-            Debug.Log("Player starting camp setup...");
-            nearCampArea.ActivateCamp();    ///
-            campActive = true;
-        }
-    }
-
-    public void SetCampZone(CampArea area)
-    {
-        nearCampArea = area;
-    }
-
-    public void ClearCampZone()
-    {
-        nearCampArea = null;
-        campActive = false;
-    }
-    public void ResetVelocity()
-    {
-        velocity = Vector3.zero;
-    }
+    public void SetCampZone(CampArea area) => nearCampArea = area;
+    public void ClearCampZone() { nearCampArea = null; campActive = false; }
+    public void ResetVelocity() => velocity = Vector3.zero;
 }

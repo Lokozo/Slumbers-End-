@@ -40,10 +40,32 @@ public class PlayerStats : MonoBehaviour
     public float hungerDrainAmount = 5f;
     public float hungerDrainInterval = 20f;
     private float hungerTimer;
-
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+
+            DontDestroyOnLoad(gameObject);
+            InitializeIfNeeded();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        health = maxHealth;
+        hunger = maxHunger;
+        energy = maxEnergy;
+
+    }
+
+    private void InitializeIfNeeded()
+    {
+        if (health <= 0f) health = maxHealth;
+        if (hunger <= 0f) hunger = maxHunger;
+        if (energy <= 0f) energy = maxEnergy;
+
         health = maxHealth;
         hunger = maxHunger;
         energy = maxEnergy;
