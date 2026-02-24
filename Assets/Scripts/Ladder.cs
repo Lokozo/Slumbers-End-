@@ -1,10 +1,24 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
+    public Transform LadderModel;
+    public Transform climbPoint;
     public Transform topExit;
     public Transform bottomExit;
 
-    [Tooltip("The direction the model faces while climbing (usually Vector3.forward)")]
-    public Vector3 ladderFaceDirection = Vector3.forward;
+    // Direction the PLAYER should face
+    public Transform faceDirection;
+
+    public Vector3 FaceDirection
+    {
+        get
+        {
+            return faceDirection != null
+                ? faceDirection.forward
+                : transform.forward;
+        }
+    }
+
+    
 }

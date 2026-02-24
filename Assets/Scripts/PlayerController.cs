@@ -165,11 +165,15 @@ public class PlayerController : MonoBehaviour
         // 2. Direction logic
         Vector3 moveDir = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
 
-        // 3. Apply Rotation (only if not pushing)
-        if (moveDir.sqrMagnitude > 0.01f && !pushing)
+        // 3. Apply Rotation (only if not pushing AND not climbing)
+        if (moveDir.sqrMagnitude > 0.01f && !pushing && !isClimbing)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationFactorPerFrame * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                rotationFactorPerFrame * Time.deltaTime
+            );
         }
 
         // 4. Final Movement
@@ -220,21 +224,31 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract()
     {
-        // Try Push/Pull first
+        Debug.Log("HandleInteract called!"); // Add this to confirm the method runs
+        // 1️⃣ CLIMB FIRST
+        var climbing = GetComponent<PlayerClimbing>();
+        if (climbing != null)
+        {
+            climbing.ToggleClimb();
+            if (climbing.isClimbing) return;
+        }
+
+        // 2️⃣ PUSH / PULL
         var pushPull = GetComponent<PlayerPushPull>();
         if (pushPull != null)
         {
             pushPull.TogglePushPull();
-            if (pushPull.IsPushing) return; // Exit if we just started pushing
+            if (pushPull.IsPushing) return;
         }
 
-        // Then try Camp
+        // 3️⃣ CAMP
         if (nearCampArea != null && !campActive)
         {
             nearCampArea.ActivateCamp();
             campActive = true;
         }
     }
+
 
     private void ToggleWeapon(WeaponType weaponType)
     {
