@@ -1,5 +1,129 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.FilePathAttribute;
 
+public class SpecialMutantMale : BaseEnemy
+{
+    public GameObject rockPrefab;
+    public GameObject slamEffectPrefab;
+    public Transform throwPoint;
+    public float throwForce = 15f;
+
+    /*
+    protected override void Attack()
+    {
+        isAttacking = true;
+        velocity.x = 0;
+
+        animator.SetBool("IsWalking", false);
+
+        if (Random.value > 0.5f)
+        {
+            animator.SetTrigger("GroundSlam");
+            //Invoke(nameof(SlamDamage), 0.6f);
+        }
+        else
+        {
+            animator.SetTrigger("Throw");
+            //Invoke(nameof(ThrowRock), 0.4f);
+        }
+
+        Invoke(nameof(EndAttack), 1.5f);
+    }*/
+
+    public float slamRange = 2f;
+    public float throwRange = 5f;
+
+    protected override void Attack()
+    {
+        if (player == null) return;
+
+        isAttacking = true;
+        velocity = Vector3.zero;
+
+        animator.SetBool("IsWalking", false);
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance <= slamRange || Random.value < 0.5f)
+        {
+            animator.SetTrigger("GroundSlam");
+        }
+        else if (distance <= slamRange || Random.value > 0.5f)
+        {
+            animator.SetTrigger("Attack");
+        }
+        else if (distance <= throwRange)
+        {
+            animator.SetTrigger("Throw");
+        }
+        else
+        {
+            isAttacking = false;
+            return;
+        }
+
+        //Invoke(nameof(EndAttack), 1.5f);
+    }
+
+
+    private void SlamDamage()
+    {
+        if (player == null) return;
+
+        float dist = Vector3.Distance(transform.position, player.position);
+        if (dist <= attackRadius)
+        {
+            PlayerHealth hp = player.GetComponent<PlayerHealth>();
+            if (hp != null) hp.TakeDamage((int)(attackDamage * 2));
+        }
+        StartCoroutine(PlaySlamFX(transform.position));
+    }
+
+    private IEnumerator PlaySlamFX(Vector3 pos)
+    {
+        GameObject fx = Instantiate(slamEffectPrefab, pos, Quaternion.Euler(-90f, 0f, 0f)); //Instantiate(slamEffectPrefab, pos, Quaternion.identity);
+
+        ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+
+        yield return null; // IMPORTANT: wait 1 frame
+
+        //if (ps != null)
+        //{
+            //ps.Clear();
+            //ps.Play();
+            //ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        //}
+
+        //Destroy(fx, ps != null ? ps.main.duration + ps.main.startLifetime.constantMax : 2f);
+    }
+
+    private void ThrowRock()
+    {
+        if (rockPrefab == null || throwPoint == null) return;
+
+        GameObject rock = Instantiate(rockPrefab, throwPoint.position, throwPoint.rotation);
+        Rigidbody rb = rock.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = throwPoint.forward * throwForce;
+        }
+    }
+
+    public override void AnimEvent_ThrowRock()
+    {
+        ThrowRock();
+    }
+
+    public override void AnimEvent_SlamDamage()
+    {
+        SlamDamage();
+    }
+}
+/*
+using UnityEngine;
 public class SpecialMutantMale : MonoBehaviour
 {
     private enum EnemyState { Idle, Patrol, Chase }
@@ -193,4 +317,4 @@ public class SpecialMutantMale : MonoBehaviour
 
     private void ApplyGravity() { if (!isGrounded) velocity.y += gravity * Time.deltaTime; }
 }
-    
+*/
