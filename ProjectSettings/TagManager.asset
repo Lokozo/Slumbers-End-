@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PushnPull
+  - Enemy
   layers:
   - Default
   - TransparentFX

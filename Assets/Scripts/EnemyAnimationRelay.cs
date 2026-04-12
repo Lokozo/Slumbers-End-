@@ -30,7 +30,6 @@ public class EnemyAnimationRelay : MonoBehaviour
         enemy.AnimEvent_Summon();
     }
 
-
     public void SlamDamage()
     {
         enemy.AnimEvent_SlamDamage();
@@ -39,5 +38,14 @@ public class EnemyAnimationRelay : MonoBehaviour
     public void EndAttack()
     {
         enemy.AnimEvent_EndAttack();
+    }
+
+    // this is for summoning enemies, so they can call this at the end of their spawn animation to enable their behavior
+    public void EndSpawn()
+    {
+        if (enemy != null)
+        {
+            enemy.EndSpawn();
+        }
     }
 }

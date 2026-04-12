@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2164143760157262641}
   m_Layer: 0
   m_Name: SP_Female Mutant
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +33,8 @@ Transform:
   m_Children:
   - {fileID: 6599895046047726993}
   - {fileID: 8993964318540735492}
+  - {fileID: 8532796500583490078}
+  - {fileID: 977426664877407477}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9175714611781354965
@@ -47,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffb10ebce1b21a49afbaf3446a0d6be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpecialMutantFemale
+  currentState: 0
   speed: 1.5
   chaseSpeed: 2.5
   gravity: -9.81
@@ -59,11 +62,25 @@ MonoBehaviour:
   attackInterval: 5
   attackDamage: 15
   attackRadius: 1.5
-  spitPrefab: {fileID: 0}
-  spitPoint: {fileID: 0}
+  attackPoint: {fileID: 8532796500583490078}
+  fixedZ: 0
+  enemyTag: Enemy
+  faction: 1
+  attackAngle: 60
+  spitPrefab: {fileID: 619400622261134924, guid: b08ee67ab68a45547a56b6ff5fb597bf, type: 3}
+  spitPoint: {fileID: 8532796500583490078}
   spitForce: 12
-  zombiePrefab: {fileID: 0}
-  summonPoint: {fileID: 0}
+  zombiePrefab: {fileID: 7153572883765907017, guid: f646fa19491cb9a43a2423332c948577, type: 3}
+  summonPoint: {fileID: 977426664877407477}
+  summonEffectPrefab: {fileID: 2369674476736621770, guid: 78ca61f77fa26814482a651175da07cd, type: 3}
+  spitRange: 5
+  summonRange: 10
+  summonPrefabs:
+  - {fileID: 7153572883765907017, guid: f646fa19491cb9a43a2423332c948577, type: 3}
+  - {fileID: 7153572883765907017, guid: f646fa19491cb9a43a2423332c948577, type: 3}
+  summonCount: 2
+  summonSpread: 2
+  summonCooldown: 0
 --- !u!143 &2164143760157262641
 CharacterController:
   m_ObjectHideFlags: 0
@@ -153,8 +170,70 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8061988610296370073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8532796500583490078}
+  m_Layer: 0
+  m_Name: Attackpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8532796500583490078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061988610296370073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.255, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6322935558193016594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8237811641541267646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977426664877407477}
+  m_Layer: 0
+  m_Name: SummonPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977426664877407477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237811641541267646}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6322935558193016594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6637515228335938170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,8 +305,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3381135236522354682}
   m_SourcePrefab: {fileID: 100100000, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
+--- !u!1 &5826630145099212587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
+  m_PrefabInstance: {fileID: 6637515228335938170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3381135236522354682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5826630145099212587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
 --- !u!4 &6599895046047726993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
