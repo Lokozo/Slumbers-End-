@@ -1,9 +1,244 @@
 fileFormatVersion: 2
 guid: 446831f5374c973458e1fd0434ff6bc7
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GL_basic_Glass material
+    second: {fileID: 2100000, guid: 990248d22667d3e488a8d5797dd2eff8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 2e9e3f250b6c20c4f8c8880bebc734a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bark
+    second: {fileID: 2100000, guid: 6a535a9acc4171e4f9261a67d549d9c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bed
+    second: {fileID: 2100000, guid: f0b9850c68e9f2d4eae70e6e1c22f5be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bed.001
+    second: {fileID: 2100000, guid: e06632a9a78807e41af75827c74f054b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: big debris
+    second: {fileID: 2100000, guid: 59a4444651b128542b21dce06aa2d3f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bottle & other
+    second: {fileID: 2100000, guid: 60c542647b4232e4e93c0596e9f47258, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bottom building
+    second: {fileID: 2100000, guid: b958376009e87414f800c6a7d2e66e06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: broken tire
+    second: {fileID: 2100000, guid: 2fd80986e6300f54daf5751623d27f16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: broken tire.001
+    second: {fileID: 2100000, guid: b4bcb4febdfa8254caff0073bee17eed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: building tent
+    second: {fileID: 2100000, guid: 199f696946490024588f3c2b659a1fea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: car bat.002
+    second: {fileID: 2100000, guid: e32630bf259dcb44a9266a7dd938ccd2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: chair
+    second: {fileID: 2100000, guid: 9e01198484a9eeb4d8a7ea95db7dfb68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: concrete barrier
+    second: {fileID: 2100000, guid: f9b776d7b03a6ec4b928c35df10fd67d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: debris
+    second: {fileID: 2100000, guid: ed5b966e9a5f87946a80411112c6d8e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: destroyed building big
+    second: {fileID: 2100000, guid: 04f3776804e75ba4383f941251dd0865, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: destroyed wall
+    second: {fileID: 2100000, guid: afc7935f49e91fe498cab41f91f5802e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass big
+    second: {fileID: 2100000, guid: df03d9cc66074a74babc152dd70cd5e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass med
+    second: {fileID: 2100000, guid: 4363df4be408dfa4589204e25c4b7014, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass small
+    second: {fileID: 2100000, guid: 67a476824af888241923a9c16e5d7f44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ground
+    second: {fileID: 2100000, guid: ebbfe4e5c1a498a489988057190888b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lamp
+    second: {fileID: 2100000, guid: d3f06a75751ec7341b18f6dc60686cce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lamp.001
+    second: {fileID: 2100000, guid: 1cc9055434c29774698396ef02b1b9e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: new cone
+    second: {fileID: 2100000, guid: 494af8dcb896d36429adbcd0202525bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pallet
+    second: {fileID: 2100000, guid: 59adc288e4abb7343a91963902f2935e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: road ba
+    second: {fileID: 2100000, guid: 875d56f51c38b4d4ba03100d989ef8a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sign_BAKED
+    second: {fileID: 2100000, guid: 04a092a70d25b2a4b85c08708d824992, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: small debris
+    second: {fileID: 2100000, guid: 97b56512eda89374988cf3ef8f88a9bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: small generator.002
+    second: {fileID: 2100000, guid: 5c4357946baa86d458fd10dd1c33c1d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: solar panel
+    second: {fileID: 2100000, guid: 342ebc8726994604c9bfcb7c507c8bb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standing light
+    second: {fileID: 2100000, guid: 08c2ecf21d5f27a45abcd48e32bd03fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standing light.001
+    second: {fileID: 2100000, guid: e2ab334c3f0c6814e8c7f3f86126ddfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stone_
+    second: {fileID: 2100000, guid: 64744141dfc3db3489df851a1d942604, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stove
+    second: {fileID: 2100000, guid: ac3fc1f004bdfae4c85f54f5869e5067, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: table
+    second: {fileID: 2100000, guid: 92a624b9fb2406e44a246be001f2e30a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: table .001
+    second: {fileID: 2100000, guid: 2b773073b4ce6f54fa7bf84774ad4848, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: table.001
+    second: {fileID: 2100000, guid: fe7185bbdc490d8418819b887231051b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tong
+    second: {fileID: 2100000, guid: 119161bd62a939b43b8913bd3d7b6b71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tong empty
+    second: {fileID: 2100000, guid: e11c50ebf3263534fbf94c5271901e89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: top building
+    second: {fileID: 2100000, guid: 6a525fb0c2451754c9ce6df8c4dc0e5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trash
+    second: {fileID: 2100000, guid: 44772113dc8be174ab51e0880fb89a8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree leaf
+    second: {fileID: 2100000, guid: ca492244a7429e74fae1704fbb23e02c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: water tank.001
+    second: {fileID: 2100000, guid: abcbbbff80a482e4f8c7d7412c8feed4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wire
+    second: {fileID: 2100000, guid: e64a8c2c7cadcb34dbceac8b473988a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wire fence
+    second: {fileID: 2100000, guid: c89e5be93112df54296b5738c992f6f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood floor
+    second: {fileID: 2100000, guid: 4a96febad3b42ad4393d8fe605f22fa1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood stack
+    second: {fileID: 2100000, guid: 17a0de5166cccdc4ab58667408396ee4, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
@@ -641,6 +876,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8

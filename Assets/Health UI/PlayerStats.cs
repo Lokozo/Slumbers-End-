@@ -27,20 +27,26 @@ public class PlayerStats : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
+
+            DontDestroyOnLoad(gameObject);
             InitializeIfNeeded();
         }
         else
         {
             Destroy(gameObject);
         }
+
     }
 
-    void InitializeIfNeeded()
+    public void InitializeIfNeeded()
     {
         if (health <= 0f) health = maxHealth;
         if (hunger <= 0f) hunger = maxHunger;
         if (energy <= 0f) energy = maxEnergy;
+
+        health = maxHealth;
+        hunger = maxHunger;
+        energy = maxEnergy;
     }
 
     //void Awake()
