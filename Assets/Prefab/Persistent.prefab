@@ -91,20 +91,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ba9352dff189e41a06ed2eb023ec03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectives:
-  - id: 1
-    title: Reach the Radio Tower
-    description: "With his belongings packed and his journey home begun, Bear\u2019s
-      first goal is to contact his family. Traverse the forested slopes down toward
-      the radio tower to find a signal."
-    isCompleted: 0
-  - id: 2
-    title: Contact Bear's Family
-    description: After reaching the radio tower, Bear finds that it isn't running.
-      No power, no signal. To get through, he must get the radio tower working.
-    isCompleted: 0
+  mainObjectives:
+  - {fileID: 0}
   objectivesParent: {fileID: 0}
-  objectiveItemPrefab: {fileID: 3337022552781776207, guid: a5388cfc0938f2c4db531aa378b22bc7, type: 3}
+  mainObjectivePrefab: {fileID: 0}
+  subObjectivePrefab: {fileID: 0}
 --- !u!1 &3222780909452876923
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,3 +286,6 @@ MonoBehaviour:
   health: 0
   hunger: 0
   energy: 0
+  energyRecoverRate: 5
+  hungerDrainAmount: 5
+  hungerDrainInterval: 20

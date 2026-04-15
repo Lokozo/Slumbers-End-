@@ -1,27 +1,38 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ObjectivesManager : MonoBehaviour
 {
     public static ObjectivesManager Instance;
 
-    public List<Objective> objectives = new List<Objective>();
-    private Dictionary<string, ObjectiveUI> objectiveUIItems = new Dictionary<string, ObjectiveUI>();
+    [Header("Objective Data")]
+    public List<MainObjective> mainObjectives = new List<MainObjective>();
 
-    public Transform objectivesParent;      // Assigned dynamically on scene load
-    public GameObject objectiveItemPrefab; // Assign your ObjectiveItem prefab here in inspector
+    [Header("UI References")]
+    public Transform objectivesParent;
+    public GameObject objectivesPanel;  //
 
-    private int currentObjectiveIndex = 0;
-    private ObjectiveUI currentObjectiveUI;
+    public GameObject mainObjectivePrefab;
+    public GameObject subObjectivePrefab;
+
+    private int currentMainIndex = 0;
+    private int currentSubIndex = 0;
+
+    private MainObjectiveUI currentMainUI;
+
+    
+
+    // NEW: runtime copy of subobjectives
+    private List<SubObjective> runtimeSubObjectives = new List<SubObjective>();
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -29,93 +40,169 @@ public class ObjectivesManager : MonoBehaviour
         }
     }
 
-    private void ShowCurrentObjective()
+    private void Start()
     {
-        if (currentObjectiveIndex < 0 || currentObjectiveIndex >= objectives.Count)
+        if (objectivesParent == null)
         {
-            Debug.Log("No more objectives to show.");
+           //objectivesParent = GameObject.Find("ObjectivesPanel")?.transform;
+
+
+            if (objectivesParent == null)
+                Debug.LogWarning("ObjectivesPanel not found in Start!");
+        }
+
+        StartCurrentObjective();
+    }
+
+    // =============================
+    // START CURRENT MAIN OBJECTIVE
+    // =============================
+    private void StartCurrentObjective()
+    {
+        if (currentMainIndex >= mainObjectives.Count)
+        {
+            Debug.Log("All main objectives completed!");
             return;
         }
 
-        Objective currentObjective = objectives[currentObjectiveIndex];
-
-        // Instantiate UI prefab for current objective under the current objectivesParent
-        GameObject objUIgo = Instantiate(objectiveItemPrefab, objectivesParent);
-        currentObjectiveUI = objUIgo.GetComponent<ObjectiveUI>();
-        currentObjectiveUI.Setup(currentObjective);
-
-        // Register UI so it can be updated later
-        RegisterObjectiveUI(currentObjective.id, currentObjectiveUI);
-    }
-
-    public void RegisterObjectiveUI(string id, ObjectiveUI ui)
-    {
-        if (!objectiveUIItems.ContainsKey(id))
-            objectiveUIItems.Add(id, ui);
-    }
-
-    public void CompleteObjective(string objectiveID)
-    {
-        if (Instance == null)
+        if (objectivesParent == null)
         {
-            Debug.LogError("ObjectivesManager instance is null!");
+            Debug.LogWarning("ObjectivesParent not assigned!");
             return;
         }
-        StartCoroutine(CompleteObjectiveRoutine(objectiveID));
-        Debug.Log("COMPLETE");
+
+        // Destroy old UI
+        foreach (Transform child in objectivesParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        currentMainUI = null;
+
+        MainObjective main = mainObjectives[currentMainIndex];
+
+        // -----------------------------
+        // BUILD RUNTIME SUBOBJECTIVE LIST
+        // -----------------------------
+        runtimeSubObjectives = new List<SubObjective>();
+
+        if (main.subObjectives != null && main.subObjectives.Count > 0)
+        {
+            runtimeSubObjectives.AddRange(main.subObjectives);
+        }
+        else
+        {
+            runtimeSubObjectives.Add(new SubObjective
+            {
+                id = main.id + "_dummy",
+                description = main.description
+            });
+        }
+
+        // Spawn UI
+        GameObject mainUIObj = Instantiate(mainObjectivePrefab, objectivesParent);
+        currentMainUI = mainUIObj.GetComponent<MainObjectiveUI>();
+
+        currentMainUI.subPrefab = subObjectivePrefab;
+        currentMainUI.Setup(main);
+
+        currentSubIndex = 0;
+
+        ActivateCurrentSubObjective();
+
+        Debug.Log("Starting Main Objective: " + main.title);
     }
 
-    private IEnumerator CompleteObjectiveRoutine(string objectiveID)
+    // =============================
+    // ACTIVATE CURRENT SUB OBJECTIVE
+    // =============================
+    private void ActivateCurrentSubObjective()
     {
-        if (currentObjectiveIndex >= objectives.Count) yield break;
+        if (currentSubIndex >= runtimeSubObjectives.Count)
+            return;
 
-        Objective obj = objectives.Find(o => o.id == objectiveID);
-        if (obj != null && !obj.isCompleted && objectiveUIItems.ContainsKey(objectiveID))
+        SubObjective sub = runtimeSubObjectives[currentSubIndex];
+
+        currentMainUI.AddSubObjective(sub);
+
+        sub.onStartEvent?.Invoke();
+    }
+
+    // =============================
+    // COMPLETE SUB OBJECTIVE
+    // =============================
+    public void CompleteSubObjective(string subID)
+    {
+        if (currentMainIndex >= mainObjectives.Count) return;
+
+        if (currentSubIndex >= runtimeSubObjectives.Count) return;
+
+        SubObjective sub = runtimeSubObjectives[currentSubIndex];
+
+        if (sub.id != subID || sub.isCompleted) return;
+
+        StartCoroutine(CompleteSubRoutine(sub));
+    }
+
+    private IEnumerator CompleteSubRoutine(SubObjective sub)
+    {
+        sub.isCompleted = true;
+
+        currentMainUI.CompleteSubObjective(sub.id);
+
+        sub.onCompleteEvent?.Invoke();
+
+        yield return new WaitForSeconds(0.5f);
+
+        currentSubIndex++;
+
+        if (currentSubIndex >= runtimeSubObjectives.Count)
         {
-            obj.isCompleted = true;
-
-            var ui = objectiveUIItems[objectiveID];
-
-            if (ui != null)
-            {
-                ui.UpdateUIState();
-
-                yield return ui.PlayCompletionAnimation();
-
-                if (ui != null)
-                {
-                    Destroy(ui.gameObject);
-                    objectiveUIItems.Remove(objectiveID);
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"ObjectiveUI for ID {objectiveID} is null or already destroyed.");
-                objectiveUIItems.Remove(objectiveID);
-            }
-
-            currentObjectiveIndex++;
-            if (currentObjectiveIndex < objectives.Count)
-            {
-                ShowCurrentObjective();
-            }
-            else
-            {
-                Debug.Log("All objectives completed!");
-            }
+            CompleteMainObjective();
+        }
+        else
+        {
+            ActivateCurrentSubObjective();
         }
     }
 
-    private void DetermineCurrentObjectiveIndex()
+    // =============================
+    // COMPLETE MAIN OBJECTIVE
+    // =============================
+    public void CompleteMainObjective()
     {
-        currentObjectiveIndex = objectives.FindIndex(o => !o.isCompleted);
-        if (currentObjectiveIndex == -1)
+        if (currentMainUI != null)
+            currentMainUI.PlayMainCompletion();
+
+        currentMainUI = null;
+
+        currentMainIndex++;
+
+        StartCurrentObjective();
+    }
+
+    // =============================
+    // COMPLETE BY TRIGGER ID
+    // =============================
+    public void CompleteObjective(string id)
+    {
+        if (currentMainIndex >= mainObjectives.Count) return;
+
+        SubObjective sub = runtimeSubObjectives.Find(s => s.id == id);
+
+        if (sub != null)
         {
-            // No incomplete objectives: all completed
-            currentObjectiveIndex = objectives.Count;
+            CompleteSubObjective(sub.id);
+        }
+        else
+        {
+            CompleteMainObjective();
         }
     }
 
+    // =============================
+    // SCENE LOADING
+    // =============================
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -128,28 +215,26 @@ public class ObjectivesManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Find the UI container in the new scene
-        objectivesParent = GameObject.Find("ObjectivesPanel")?.transform;
+        var canvas = GameObject.Find("GameUICanvas");
 
-        if (objectivesParent == null)
+        if (canvas == null)
         {
-            Debug.LogWarning("ObjectivesPanel not found in scene!");
+            Debug.LogError("[ObjectivesManager] GameUICanvas NOT found!");
             return;
         }
 
-        // Destroy all old UI children in the panel
-        foreach (Transform child in objectivesParent)
-            Destroy(child.gameObject);
+        objectivesPanel = canvas.transform.Find("ObjectivesPanel")?.gameObject;
 
-        // Clear dictionary since those UI elements are destroyed
-        objectiveUIItems.Clear();
+        if (objectivesPanel == null)
+        {
+            Debug.LogError("[ObjectivesManager] ObjectivesPanel NOT found!");
+            return;
+        }
 
-        // Determine which objective should be currently shown
-        DetermineCurrentObjectiveIndex();
+        objectivesParent = objectivesPanel.transform;
 
-        if (currentObjectiveIndex < objectives.Count)
-            ShowCurrentObjective();
-        else
-            Debug.Log("All objectives completed!");
+        Debug.Log("[ObjectivesManager] ObjectivesPanel successfully assigned.");
+
+        StartCurrentObjective();
     }
 }

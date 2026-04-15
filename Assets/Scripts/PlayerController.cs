@@ -78,8 +78,9 @@ public class PlayerController : MonoBehaviour
                 "Press A or D to move"
             );
         }
-    }
 
+        
+    }
 
     private void OnEnable() => playerInputs.Player.Enable();
     private void OnDisable() => playerInputs.Player.Disable();
@@ -123,15 +124,13 @@ public class PlayerController : MonoBehaviour
         currentMovement.x = currentMovementInput.x;
         currentMovement.z = currentMovementInput.y;
         isMovementPressed = currentMovementInput.sqrMagnitude > 0.01f;
-        //////tutorial
+
+        // Tutorial
         if (enableTutorial && isMovementPressed && !hasShownMoveTutorial)
         {
             hasShownMoveTutorial = true;
-
             TutorialUIManager.Instance.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
         }
-        /////
-
     }
 
     private void HandleJumpInput(InputAction.CallbackContext context)
@@ -154,18 +153,15 @@ public class PlayerController : MonoBehaviour
 
         if (isMovementPressed)
         {
-            // CHECK: Is the run button pressed AND is there energy left?
             if (isRunPressed)
             {
                 speed = origSpeed * runMulti;
-
                 PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
                 if (!isRunning) animator.SetBool("IsRunning", true);
             }
             else
             {
-                // If energy is 0 or run is not pressed, go back to normal speed
                 speed = origSpeed;
                 if (isRunning) animator.SetBool("IsRunning", false);
             }
@@ -186,9 +182,6 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(move + velocity * Time.deltaTime);
     }
-
-    controller.Move(move + velocity * Time.deltaTime);
-}
 
     private void CheckRunTutorial()
     {
@@ -222,7 +215,6 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
-
 
     private void ToggleWeapon(WeaponType weaponType)
     {
@@ -336,7 +328,7 @@ public class PlayerController : MonoBehaviour
         if (nearCampArea != null && !campActive)
         {
             Debug.Log("Player starting camp setup...");
-            nearCampArea.ActivateCamp();    ///
+            nearCampArea.ActivateCamp();
             campActive = true;
         }
     }
@@ -351,6 +343,7 @@ public class PlayerController : MonoBehaviour
         nearCampArea = null;
         campActive = false;
     }
+
     public void ResetVelocity()
     {
         velocity = Vector3.zero;

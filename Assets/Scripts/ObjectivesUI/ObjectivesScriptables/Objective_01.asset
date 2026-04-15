@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c14f7c57f5e994f956aebaff3b1cb2, type: 3}
+  m_Name: Objective_01
+  m_EditorClassIdentifier: Assembly-CSharp::MainObjective
+  id: Reach_Radio_Tower
+  title: Reach the Radio Tower
+  description: "Bear\u2019s first priority is to contact his family. Descend the
+    forested slopes and reach the radio tower to find a signal."
+  subObjectives:
+  - id: Reach_Radio_Tower_dummy
+    description: Reach the Radio Tower.
+    isCompleted: 0
+    onStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleteEvent:
+      m_PersistentCalls:
+        m_Calls: []
