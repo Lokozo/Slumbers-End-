@@ -10,6 +10,8 @@ public class SpecialMutantMale : BaseEnemy
     public Transform throwPoint;
     public float throwForce = 15f;
 
+
+
     /*
     protected override void Attack()
     {
@@ -70,22 +72,44 @@ public class SpecialMutantMale : BaseEnemy
 
     private void SlamDamage()
     {
+        Vector3 fxPos = transform.position + Vector3.down * 1f;
+        //    StartCoroutine(PlaySlamFX(pos));
+        StartCoroutine(PlaySlamFX(fxPos));
         if (player == null) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
+
         if (dist <= attackRadius)
         {
             PlayerHealth hp = player.GetComponent<PlayerHealth>();
-            if (hp != null) hp.TakeDamage((int)(attackDamage * 2));
+            if (hp != null)
+                hp.TakeDamage((int)(attackDamage * 2));
         }
-        StartCoroutine(PlaySlamFX(transform.position));
     }
 
     private IEnumerator PlaySlamFX(Vector3 pos)
     {
-        GameObject fx = Instantiate(slamEffectPrefab, pos, Quaternion.Euler(-90f, 0f, 0f)); //Instantiate(slamEffectPrefab, pos, Quaternion.identity);
+        GameObject fx = Instantiate(
+            slamEffectPrefab,
+            pos,
+            Quaternion.Euler(-90f, 0f, 0f)
+        );
+
+        //GameObject fx = Instantiate(slamEffectPrefab, fxPos, Quaternion.Euler(-90f, 0f, 0f)); //Instantiate(slamEffectPrefab, pos, Quaternion.identity);
+
+
 
         ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+
+        if (ps != null)
+        {
+            ps.Play();
+            Destroy(fx, ps.main.duration + ps.main.startLifetime.constantMax);
+        }
+        else
+        {
+            Destroy(fx, 2f);
+        }
 
         yield return null; // IMPORTANT: wait 1 frame
 

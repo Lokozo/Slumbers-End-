@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
+    [SerializeField]
     protected enum EnemyState { Idle, Patrol, Chase }
+    [SerializeField]
     protected EnemyState currentState;
 
     protected Animator animator;
@@ -42,6 +45,19 @@ public class BaseEnemy : MonoBehaviour
     public float attackRadius = 1.5f;
     public Transform attackPoint;
     protected float attackTimer = 0f;
+    public float fixedZ = 0f;
+
+    protected bool isSpawning = false;
+
+    public string enemyTag = "Enemy";
+
+    public enum Faction
+    {
+        Player,
+        Enemy
+    }
+
+    public Faction faction = Faction.Enemy;
 
     void Start()
     {
@@ -62,10 +78,17 @@ public class BaseEnemy : MonoBehaviour
         idleTimer = idleDuration;
     }
 
-    void Update()
-    {
+    public void Update()
+    {/*
+        Vector3 pos = transform.position;
+        pos.z = fixedZ;
+        transform.position = pos;*/
+
+        //if (isSpawning) return;
+
         HandleGroundedCheck();
         ApplyGravity();
+
 
         attackTimer += Time.deltaTime;
 
@@ -88,7 +111,76 @@ public class BaseEnemy : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+
+        Debug.Log(gameObject.name + " STATE: " + currentState);
     }
+
+    void ForceEndSpawn()
+    {
+        isSpawning = false;
+    }
+
+    public void PlaySpawnAnimation()
+    {
+        
+        /*
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator STILL NULL on " + gameObject.name);
+            return;
+        }*/
+
+        //animator.Rebind();
+        //animator.Update(0f);
+
+        //Debug.Log("Spawn animation triggered on: " + gameObject.name);
+        //animator.SetTrigger("Spawn");
+
+        StartCoroutine(SpawnRoutine());
+    }
+
+    private IEnumerator SpawnRoutine()
+    {
+        isSpawning = true;
+
+        animator = GetComponentInChildren<Animator>();
+
+        animator.Rebind();
+        animator.Update(0f);
+
+        animator.SetBool("Spawn", true);
+
+        yield return new WaitForSeconds(1.2f);
+
+        isSpawning = false;
+    }
+
+    // unused for now 
+    private IEnumerator PlaySpawn()
+    {
+        yield return null; // wait 1 frame
+
+        animator = GetComponentInChildren<Animator>();
+        animator.Rebind();
+        animator.Update(0f);
+
+        animator.SetBool("Spawn", true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        animator.SetBool("Spawn", false);
+    }
+
+    public void EndSpawn()
+    {
+        isSpawning = false;
+    }
+
 
     // =========================
     // CHASE
@@ -106,7 +198,8 @@ public class BaseEnemy : MonoBehaviour
 
         if (distance > stoppingDistance)
         {
-            animator.SetBool("IsWalking", true);
+            if (!isSpawning)
+                animator.SetBool("IsWalking", true);
 
             Vector3 dir = (player.position - transform.position).normalized;
 
@@ -122,7 +215,8 @@ public class BaseEnemy : MonoBehaviour
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            if (!isSpawning)
+                animator.SetBool("IsWalking", true);
             velocity.x = 0;
         }
 
@@ -151,6 +245,7 @@ public class BaseEnemy : MonoBehaviour
     protected void HitPlayer()
     {
         if (hasDealtDamage || player == null) return;
+        if (!player.CompareTag("Player")) return;
 
         Vector3 origin = attackPoint != null ? attackPoint.position : transform.position;
 
@@ -300,7 +395,12 @@ public class BaseEnemy : MonoBehaviour
 
     public void SetPlayer(Transform newPlayer)
     {
+        if (newPlayer == null) return;
+
+        if (!newPlayer.CompareTag("Player")) return;
+
         player = newPlayer;
+        currentState = EnemyState.Chase;
     }
 
     public void ClearPlayer()
