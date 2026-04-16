@@ -157,12 +157,14 @@ public class PlayerController : MonoBehaviour
                 speed = origSpeed * runMulti;
                 PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
-                if (!isRunning) animator.SetBool("IsRunning", true);
+                //if (!isRunning) 
+                animator.SetBool("IsRunning", true);
             }
             else
             {
                 speed = origSpeed;
-                if (isRunning) animator.SetBool("IsRunning", false);
+                //if (isRunning) 
+                animator.SetBool("IsRunning", false);
             }
             //change from main, check which of the two works best
             //  |
@@ -356,15 +358,15 @@ public class PlayerController : MonoBehaviour
         animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
-    private void HandleInteract()
-    {
-        if (nearCampArea != null && !campActive)
-        {
-            Debug.Log("Player starting camp setup...");
-            nearCampArea.ActivateCamp();
-            campActive = true;
-        }
-    }
+    //private void HandleInteract()
+    //{
+    //    if (nearCampArea != null && !campActive)
+    //    {
+    //        Debug.Log("Player starting camp setup...");
+    //        nearCampArea.ActivateCamp();
+    //        campActive = true;
+    //    }
+    //}
 
     public void SetCampZone(CampArea area)
     {

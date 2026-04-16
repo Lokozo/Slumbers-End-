@@ -3,6 +3,8 @@
 # The folder that stores the cached asset import metadata,
 # local to the machine, and should not be tracked by Git.
 /Library/
+# Unity User Settings (local editor layout, search settings, etc.)
+/UserSettings/
 
 # The folder that stores project settings that are local to the machine,
 # and should not be tracked by Git.
