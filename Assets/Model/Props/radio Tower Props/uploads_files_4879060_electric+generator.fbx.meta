@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 777a4c9d970e865429f100c86f8f32ec
+guid: 4356bb031a2461242837f5772d3c3f8c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,28 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: floor
-    second: {fileID: 2100000, guid: d7788a6a25ce2d44c9f2c391e257a0dc, type: 2}
+      name: Barks
+    second: {fileID: 2100000, guid: ce298ce045f59a1438c84d270ab063b2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: logwall
-    second: {fileID: 2100000, guid: cdbe5c3e897368645a4bc029d074d0a8, type: 2}
+      name: Generator
+    second: {fileID: 2100000, guid: 9c4204b0ed08cd14bad76d027a1fbc43, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: rock
-    second: {fileID: 2100000, guid: 343120e191f742645a8fcb7cdb817732, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: roof
-    second: {fileID: 2100000, guid: 0bfd3540fc1d1a54694fcd3c0584af17, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wood2
-    second: {fileID: 2100000, guid: 46c1c6bd26697d44e82f16bd78b31065, type: 2}
+      name: Leaves
+    second: {fileID: 2100000, guid: 1681770cc151443419d4186356aa1478, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
