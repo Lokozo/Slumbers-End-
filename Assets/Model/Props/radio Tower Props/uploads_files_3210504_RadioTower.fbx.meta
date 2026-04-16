@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 777a4c9d970e865429f100c86f8f32ec
+guid: 8e550c382ee79f44081e27f61b6759cb
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,28 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: floor
-    second: {fileID: 2100000, guid: d7788a6a25ce2d44c9f2c391e257a0dc, type: 2}
+      name: Antennas
+    second: {fileID: 2100000, guid: 13fd98ca8f736ec408636a795f1f9d75, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: logwall
-    second: {fileID: 2100000, guid: cdbe5c3e897368645a4bc029d074d0a8, type: 2}
+      name: Foot
+    second: {fileID: 2100000, guid: 6a7e5d135f505034cb994ff769e9f28b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: rock
-    second: {fileID: 2100000, guid: 343120e191f742645a8fcb7cdb817732, type: 2}
+      name: Grid
+    second: {fileID: 2100000, guid: 5de44e8acf49d014ab5a0cda18dfe69f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: roof
-    second: {fileID: 2100000, guid: 0bfd3540fc1d1a54694fcd3c0584af17, type: 2}
+      name: Ladder - Columns - X cross
+    second: {fileID: 2100000, guid: 316d5ef306dd52244b3192405678432d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: wood2
-    second: {fileID: 2100000, guid: 46c1c6bd26697d44e82f16bd78b31065, type: 2}
+      name: Lamp
+    second: {fileID: 2100000, guid: 7b2a3730a0ef9914aa7edd5fe6af1769, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tower
+    second: {fileID: 2100000, guid: de1fdd001b8299541bd6743d56e885f3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
