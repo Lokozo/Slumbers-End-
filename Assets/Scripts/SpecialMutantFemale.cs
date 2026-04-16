@@ -1,5 +1,68 @@
 using UnityEngine;
 
+public class SpecialMutantFemale : BaseEnemy
+{
+    public GameObject spitPrefab;
+    public Transform spitPoint;
+    public float spitForce = 12f;
+
+    public GameObject zombiePrefab;
+    public Transform summonPoint;
+
+    protected override void Attack()
+    {
+        isAttacking = true;
+        velocity.x = 0;
+
+        animator.SetBool("IsWalking", false);
+
+        if (Random.value > 0.5f)
+        {
+            animator.SetTrigger("Spit");
+            Invoke(nameof(Spit), 0.4f);
+        }
+        else
+        {
+            animator.SetTrigger("Summon");
+            Invoke(nameof(Summon), 0.6f);
+        }
+
+        Invoke(nameof(EndAttack), 1.5f);
+    }
+
+    private void Spit()
+    {
+        if (spitPrefab == null || spitPoint == null) return;
+
+        GameObject spit = Instantiate(spitPrefab, spitPoint.position, spitPoint.rotation);
+        Rigidbody rb = spit.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = spitPoint.forward * spitForce;
+        }
+    }
+
+    private void Summon()
+    {
+        if (zombiePrefab != null && summonPoint != null)
+        {
+            Instantiate(zombiePrefab, summonPoint.position, Quaternion.identity);
+        }
+    }
+
+    public override void AnimEvent_Spit()
+    {
+        Spit();
+    }
+
+    public override void AnimEvent_Summon()
+    {
+        Summon();
+    }
+}
+
+/*
 public class SpecialMutantFemale : MonoBehaviour
 {
     private enum EnemyState { Idle, Patrol, Chase }
@@ -182,3 +245,4 @@ public class SpecialMutantFemale : MonoBehaviour
 
     private void ApplyGravity() { if (!isGrounded) velocity.y += gravity * Time.deltaTime; }
 }
+*/
