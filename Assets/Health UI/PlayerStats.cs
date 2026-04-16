@@ -34,9 +34,10 @@ public class PlayerStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
-    void InitializeIfNeeded()
+    public void InitializeIfNeeded()
     {
         if (health <= 0f) health = maxHealth;
         if (hunger <= 0f) hunger = maxHunger;
