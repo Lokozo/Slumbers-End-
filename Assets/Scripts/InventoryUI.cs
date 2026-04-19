@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
 
 public class InventoryUI : MonoBehaviour
@@ -7,44 +6,78 @@ public class InventoryUI : MonoBehaviour
     public GameObject slotPrefab;
     public Transform slotContainer;
 
-    // Description Panel Fields
     public GameObject descriptionPanel;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
 
-    private List<ItemSlot> slotInstances = new List<ItemSlot>();
+    public int gridWidth = 5;
+    public int gridHeight = 2;
+
+    private ItemSlot[,] gridSlots;
+
+    private void OnEnable()
+    {
+        if (gridSlots == null)
+            GenerateGrid();
+
+        RefreshUI();
+    }
+
+    void GenerateGrid()
+    {
+        gridSlots = new ItemSlot[gridWidth, gridHeight];
+
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                GameObject slotObj = Instantiate(slotPrefab, slotContainer);
+                ItemSlot slot = slotObj.GetComponent<ItemSlot>();
+
+                slot.parentUI = this;
+                gridSlots[x, y] = slot;
+            }
+        }
+    }
 
     public void RefreshUI()
     {
-        Debug.Log("Refreshing Inventory UI...");
-        if (PlayerInventory.Instance == null) return;
 
+        if (PlayerInventory.Instance == null) return;
         var inventory = PlayerInventory.Instance.GetInventory();
 
-        foreach (Transform child in slotContainer)
-            Destroy(child.gameObject);
-        slotInstances.Clear();
+        if (gridSlots == null)
+            GenerateGrid();
+
+        
+
+        // Clear slots safely
+        foreach (var slot in gridSlots)
+        {
+            if (slot != null)
+                slot.ClearSlot();
+        }
+
+        int index = 0;
 
         foreach (var pair in inventory)
         {
-            GameObject slotObj = Instantiate(slotPrefab, slotContainer);
-            ItemSlot slot = slotObj.GetComponent<ItemSlot>();
+            int x = index % gridWidth;
+            int y = index / gridWidth;
 
-            // Set reference to parent UI
-            slot.parentUI = this;
+            if (y >= gridHeight) break;
 
-            slot.SetSlot(pair.Key, pair.Value, SlotContextType.Inventory);
-            slotInstances.Add(slot);
+            Item item = pair.Key;
+            int quantity = pair.Value;
+
+            gridSlots[x, y].SetSlot(item, quantity, SlotContextType.Inventory);
+
+            index++;
         }
-
-        //Hide description panel by default
-        if (descriptionPanel != null)
-            descriptionPanel.SetActive(false);
 
         ClearDescription();
     }
 
-    // This is called by ItemSlot
     public void ShowItemDescription(Item item)
     {
         if (descriptionPanel == null) return;
@@ -56,6 +89,8 @@ public class InventoryUI : MonoBehaviour
 
     public void ClearDescription()
     {
+        if (descriptionPanel == null) return;
+
         itemNameText.text = "";
         itemDescriptionText.text = "";
         descriptionPanel.SetActive(false);
@@ -79,5 +114,4 @@ public class InventoryUI : MonoBehaviour
         selectedItem = null;
         ClearDescription();
     }
-
 }

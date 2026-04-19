@@ -14,8 +14,6 @@ public class WeaponItem : Item
 
     [Header("Combat Stats")]
     public float damage;
-    public float attackRange;
-    public float attackSpeed;
 
     [Header("Ranged Only")]
     public int maxAmmo;
