@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 7e35e6b46f788de45a572b09e1e3051d
+guid: 0d232f6eb19773845a75f18c1b6f685a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Concrete Wall
-    second: {fileID: 2100000, guid: 4cea4993508a70d4c9c1c8766c5c121a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Rebar Material.005
-    second: {fileID: 2100000, guid: 58540b43cb3ca7449835f0c9b5a8af47, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
