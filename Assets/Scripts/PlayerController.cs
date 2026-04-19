@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+       
         if (enableTutorial && TutorialUIManager.Instance != null)
         {
             TutorialUIManager.Instance.ShowStep("moveTutorial", "Press WASD to move");
@@ -79,6 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (isClimbing || movementLocked)
         {
             animator.SetBool("IsWalking", false);
