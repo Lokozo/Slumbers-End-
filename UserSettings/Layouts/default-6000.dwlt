@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 49
+  controlID: 17
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 50
+  controlID: 18
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 51
+  controlID: 19
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -253,7 +253,7 @@ MonoBehaviour:
   - {fileID: 16}
   - {fileID: 12}
   m_Selected: 0
-  m_LastSelected: 1
+  m_LastSelected: 3
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -420,20 +420,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 60c50000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 647afeffc6ebfeff222effffa64bffffaa4bffffc8d4ffffa6ddffff16fbffff9ec500000cc600008ec70000dec8000094c900009ec9000088ca0000f2db0000
+      m_ExpandedIDs: 5c86ffffa8daffff3edcffff5adcffff16fbffff6ec90000f8ca0000eecd000096ce000076d200009ed20000e8d20000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: uploads_files_3540800_TentFBX
-        m_OriginalName: uploads_files_3540800_TentFBX
+        m_Name: RockSlab
+        m_OriginalName: RockSlab
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -29938
+        m_UserData: 53992
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: stairs
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -492,13 +492,13 @@ MonoBehaviour:
     m_SceneHandles: 
     m_ShowAllHits: 0
     m_SkipHidden: 0
-    m_SearchArea: 0
+    m_SearchArea: 1
     m_Folders:
     - Assets/Scenes/Chapters
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
-    m_OriginalText: 
+    m_OriginalText: stairs
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
@@ -510,10 +510,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 678}
-    m_SelectedIDs: 54c50000
-    m_LastClickedID: 50516
-    m_ExpandedIDs: 0000000050c40000c4c40000c8c40000e2c400003c350100343a01002a3c0100dc9c0100449d010074a1010042a5010050a501005aa5010000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 2cc50000
+    m_LastClickedID: 50476
+    m_ExpandedIDs: 0000000070c400001ac500001ec500004206010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -542,7 +542,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000050c40000
+    m_ExpandedIDs: 0000000070c40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000070a10100243a0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1318,9 +1318,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 81.29647, y: 1.8046297, z: 9.768401}
+    m_Target: {x: 39.087772, y: 19.352106, z: 30.573025}
     speed: 2
-    m_Value: {x: 81.29647, y: 1.8046297, z: 9.768401}
+    m_Value: {x: 39.087772, y: 19.352106, z: 30.573025}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 2
@@ -1366,13 +1366,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.28577417, y: -0.17886227, z: 0.054790836, w: 0.9400053}
+    m_Target: {x: 0.13709287, y: -0.049905937, z: 0.0074419607, w: 0.9894187}
     speed: 2
-    m_Value: {x: 0.2858986, y: -0.17601766, z: 0.053925976, w: 0.9404105}
+    m_Value: {x: 0.13855678, y: -0.049887486, z: 0.0075157657, w: 0.9890687}
   m_Size:
-    m_Target: 8.158915
+    m_Target: 20.214901
     speed: 2
-    m_Value: 8.543366
+    m_Value: 19.344402
   m_Ortho:
     m_Target: 0
     speed: 2
