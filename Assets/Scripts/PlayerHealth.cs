@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         playerController = GetComponent<PlayerController>();
         playerAttack = GetComponent<PlayerAttack>();
 
@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (isDead) return;
-
+        Debug.Log("Taking damage: " + damage);
         stats.ModifyHealth(-damage); // use ModifyHealth in PlayerStats
 
         animator.SetTrigger("isHit");

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private CharacterController controller;
     private PlayerStats stats; // Assumed for energy logic
+    private PlayerAttack playerAttack;
 
     [Header("Weapon Data Assets")]
     public WeaponItem axeData;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInputs = new InputSystem_Actions();
         controller = GetComponent<CharacterController>();
+        playerAttack = GetComponent<PlayerAttack>();
         animator = GetComponent<Animator>();
         stats = GetComponent<PlayerStats>();
 
@@ -66,13 +68,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-       
         if (enableTutorial && TutorialUIManager.Instance != null)
         {
             TutorialUIManager.Instance.ShowStep("moveTutorial", "Press WASD to move");
         }
-
-        
     }
 
     private void OnEnable() => playerInputs.Player.Enable();
@@ -80,9 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
-
-        if (isClimbing || movementLocked)
+        if (isClimbing || movementLocked || (playerAttack != null && playerAttack.IsAttacking()))
         {
             animator.SetBool("IsWalking", false);
             animator.SetBool("IsRunning", false);
@@ -131,11 +128,10 @@ public class PlayerController : MonoBehaviour
         currentMovementInput = context.ReadValue<Vector2>();
         isMovementPressed = currentMovementInput.sqrMagnitude > 0.01f;
 
-        // Tutorial
         if (enableTutorial && isMovementPressed && !hasShownMoveTutorial)
         {
             hasShownMoveTutorial = true;
-            TutorialUIManager.Instance.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
+            TutorialUIManager.Instance?.ShowStep("movementRunTutorial", "Hold Left Shift while moving to run");
         }
     }
 
@@ -154,29 +150,11 @@ public class PlayerController : MonoBehaviour
         // 1. Determine Speed & Energy Consumption
         if (isRunPressed && isMovementPressed && !pushing)
         {
-            //from my branch
-            if (isRunPressed)
-            {
-                speed = origSpeed * runMulti;
+            speed = origSpeed * runMulti;
+            if (PlayerStats.Instance != null)
                 PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
-                //if (!isRunning) 
-                animator.SetBool("IsRunning", true);
-            }
-            else
-            {
-                speed = origSpeed;
-                //if (isRunning) 
-                animator.SetBool("IsRunning", false);
-            }
-            //change from main, check which of the two works best
-            //  |
-            //  V
-            //speed = origSpeed * runMulti;
-            //if (PlayerStats.Instance != null)
-            //    PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
-
-            //animator.SetBool("IsRunning", true);
+            animator.SetBool("IsRunning", true);
         }
         else
         {
@@ -249,7 +227,7 @@ public class PlayerController : MonoBehaviour
     private void HandleInteract()
     {
         Debug.Log("HandleInteract called!"); // Add this to confirm the method runs
-        // CLIMB FIRST
+        // 1️⃣ CLIMB FIRST
         var climbing = GetComponent<PlayerClimbing>();
         if (climbing != null)
         {
@@ -257,7 +235,7 @@ public class PlayerController : MonoBehaviour
             if (climbing.isClimbing) return;
         }
 
-        //  PUSH / PULL
+        // 2️⃣ PUSH / PULL
         var pushPull = GetComponent<PlayerPushPull>();
         if (pushPull != null)
         {
@@ -265,7 +243,7 @@ public class PlayerController : MonoBehaviour
             if (pushPull.IsPushing) return;
         }
 
-        // CAMP
+        // 3️⃣ CAMP
         if (nearCampArea != null && !campActive)
         {
             nearCampArea.ActivateCamp();
@@ -284,11 +262,13 @@ public class PlayerController : MonoBehaviour
     {
         if (equippedWeapon != WeaponType.None) yield return StartCoroutine(UnequipWeaponRoutine(equippedWeapon));
         equippedWeapon = newWeapon;
-
         if (newWeapon == WeaponType.Axe)
         {
             animator.SetBool("Equip Axe", true);
             EquipWeaponObject(axe, weaponAxeEquip);
+
+            playerAttack.currentWeaponData = axeData; // ✅ FIX
+
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 1f, transitionDuration));
@@ -297,6 +277,9 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Equip Pistol", true);
             EquipWeaponObject(gun, weaponGunEquip);
+
+            playerAttack.currentWeaponData = gunData; // ✅ FIX
+
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 1f, transitionDuration));
@@ -361,37 +344,7 @@ public class PlayerController : MonoBehaviour
         animator.SetLayerWeight(layerIndex, targetWeight);
     }
 
-    //private void HandleInteract()
-    //{
-    //    if (nearCampArea != null && !campActive)
-    //    {
-    //        Debug.Log("Player starting camp setup...");
-    //        nearCampArea.ActivateCamp();
-    //        campActive = true;
-    //    }
-    //}
-
-    public void SetCampZone(CampArea area)
-    {
-        nearCampArea = area;
-    }
-
-    public void ClearCampZone()
-    {
-        nearCampArea = null;
-        campActive = false;
-    }
-
-    public void ResetVelocity()
-    {
-        velocity = Vector3.zero;
-    }
+    public void SetCampZone(CampArea area) => nearCampArea = area;
+    public void ClearCampZone() { nearCampArea = null; campActive = false; }
+    public void ResetVelocity() => velocity = Vector3.zero;
 }
-//change from main, check which of the two works best
-            //  |
-            //  V
-    //public void SetCampZone(CampArea area) => nearCampArea = area;
-    //public void ClearCampZone() { nearCampArea = null; campActive = false; }
-    //public void ResetVelocity() => velocity = Vector3.zero;
-    //
-//}

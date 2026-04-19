@@ -1,0 +1,26 @@
+# Blender MTL File: 'guard_house_guard_house.blend'
+# Material Count: 2
+
+newmtl FrontColor.002
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_1.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Elements and Door\\guard_house_elements_and_door__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Elements and Door\\guard_house_elements_and_door__gloss.png
+
+newmtl Material.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_7.png
