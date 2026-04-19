@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private CharacterController controller;
     private PlayerStats stats; // Assumed for energy logic
+    private PlayerAttack playerAttack;
 
     [Header("Weapon Data Assets")]
     public WeaponItem axeData;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInputs = new InputSystem_Actions();
         controller = GetComponent<CharacterController>();
+        playerAttack = GetComponent<PlayerAttack>();
         animator = GetComponent<Animator>();
         stats = GetComponent<PlayerStats>();
 
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isClimbing || movementLocked)
+        if (isClimbing || movementLocked || (playerAttack != null && playerAttack.IsAttacking()))
         {
             animator.SetBool("IsWalking", false);
             animator.SetBool("IsRunning", false);
@@ -260,11 +262,13 @@ public class PlayerController : MonoBehaviour
     {
         if (equippedWeapon != WeaponType.None) yield return StartCoroutine(UnequipWeaponRoutine(equippedWeapon));
         equippedWeapon = newWeapon;
-
         if (newWeapon == WeaponType.Axe)
         {
             animator.SetBool("Equip Axe", true);
             EquipWeaponObject(axe, weaponAxeEquip);
+
+            playerAttack.currentWeaponData = axeData; // ✅ FIX
+
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 1f, transitionDuration));
@@ -273,6 +277,9 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Equip Pistol", true);
             EquipWeaponObject(gun, weaponGunEquip);
+
+            playerAttack.currentWeaponData = gunData; // ✅ FIX
+
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 1f, transitionDuration));
