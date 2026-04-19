@@ -3865,6 +3865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbc5bb8eed208a44b30fea26f0045ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
+  weaponType: 0
   comboResetTime: 1
   attackDamage: 20
   currentWeaponData: {fileID: 0}
@@ -6228,7 +6230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9052193226410818736, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9075556040049398873, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: stats

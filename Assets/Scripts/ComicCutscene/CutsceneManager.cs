@@ -20,7 +20,7 @@ public class CutsceneManager : MonoBehaviour
     private int currentPanelIndex = 0;
 
     private bool isPlaying = false;
-    private bool isTransitioning = false;   // SINGLE LOCK ONLY
+    private bool isTransitioning = false;
 
     public static bool IsCutscenePlaying { get; private set; }
 
@@ -69,8 +69,12 @@ public class CutsceneManager : MonoBehaviour
         isTransitioning = false;
         currentPanelIndex = 0;
 
+        // Wait until fadeImage is found
         while (fadeImage == null)
+        {
+            SafeInitUI();
             yield return null;
+        }
 
         if (cutsceneParent == null)
         {
@@ -83,7 +87,9 @@ public class CutsceneManager : MonoBehaviour
         currentCutscene = cutsceneParent;
         currentCutscene.SetActive(true);
 
+        // FORCE BLACK SCREEN IMMEDIATELY (FIX)
         fadeImage.gameObject.SetActive(true);
+        fadeImage.color = new Color(0, 0, 0, 1f);
 
         panels.Clear();
 
@@ -92,7 +98,7 @@ public class CutsceneManager : MonoBehaviour
             panels.Add(child.gameObject);
             child.gameObject.SetActive(false);
         }
-
+        
         currentPanelIndex = 0;
         isPlaying = true;
         isTransitioning = false;
@@ -109,6 +115,7 @@ public class CutsceneManager : MonoBehaviour
     {
         panels[currentPanelIndex].SetActive(true);
 
+        // Fade FROM black into panel
         yield return StartCoroutine(Fade(0, panelFadeDuration));
 
         if (continuePrompt != null)
@@ -147,7 +154,7 @@ public class CutsceneManager : MonoBehaviour
             continuePrompt.SetActive(true);
 
         isPlaying = true;
-        isTransitioning = false;   // IMPORTANT RESET
+        isTransitioning = false;
     }
 
     private IEnumerator EndCutsceneRoutine()
@@ -190,15 +197,18 @@ public class CutsceneManager : MonoBehaviour
 
     private void SafeInitUI()
     {
-        
         GameObject uiRoot = GameObject.Find("GameUICanvas");
 
         if (uiRoot != null)
         {
-            fadeImage = uiRoot.transform.Find("FadeImage")?.GetComponent<Image>();
-            //continuePrompt = uiRoot.transform.Find("ContinuePrompt")?.gameObject;
+            Transform fade = uiRoot.transform.Find("FadeImage");
+
+            if (fade != null)
+                fadeImage = fade.GetComponent<Image>();
         }
 
+        if (continuePrompt != null)
+            continuePrompt.SetActive(false);
     }
 
     private void OnEnable()
