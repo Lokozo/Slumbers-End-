@@ -1,17 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using static WeaponItem;
 
 public class PlayerAttack : MonoBehaviour
 {
     private Animator animator;
     private InputSystem_Actions inputActions;
     private PlayerAttackRadius attackRadius;
+    private PlayerAttackGunRange gunRange;
+
+    private bool isAttacking = false;
+    private bool canAttack = true;
+    private bool attackQueued = false;
+    public bool isRanged;
+    public WeaponType weaponType;
 
     private int comboStep = 0;
     private float comboTimer = 0f;
+
+    [Header("Attack Settings")]
     public float comboResetTime = 1.2f;
     public float attackDamage = 20f;
 
+    [Header("Weapon")]
     public WeaponItem currentWeaponData;
 
     private void Awake()
@@ -34,11 +46,40 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        attackRadius = GetComponentInChildren<PlayerAttackRadius>(); // ✅ Detect radius script
+        gunRange = GetComponentInChildren<PlayerAttackGunRange>();
+        attackRadius = GetComponentInChildren<PlayerAttackRadius>();
     }
 
     void Update()
     {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Unlock attack when animation almost finishes
+        if (!canAttack && IsInComboState(state) && state.normalizedTime >= 0.9f)
+        {
+            canAttack = true;
+            isAttacking = false;
+        }
+
+        // Process queued attack
+        if (attackQueued && canAttack)
+        {
+            string animName = "Combo " + (comboStep + 1);
+            animator.Play(animName, 0);
+
+            isAttacking = true;
+
+            canAttack = false;
+            attackQueued = false;
+
+            comboStep++;
+            if (comboStep > 2)
+                comboStep = 0;
+
+            comboTimer = 0f;
+        }
+
+        // Reset combo if too slow
         if (comboStep > 0)
         {
             comboTimer += Time.deltaTime;
@@ -49,49 +90,98 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    public bool IsAttacking()
+    {
+        return isAttacking;
+    }
+
+    private bool IsInComboState(AnimatorStateInfo state)
+    {
+        return state.IsName("Combo 1") ||
+               state.IsName("Combo 2") ||
+               state.IsName("Combo 3");
+    }
+
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        if (currentWeaponData == null) return;
-
-        // Trigger the animation based on current step
-        if (comboStep == 0) animator.SetTrigger("Combo1");
-        else if (comboStep == 1) animator.SetTrigger("Combo2");
-        else if (comboStep == 2) animator.SetTrigger("Combo3");
-
-        // Increment and LOOP back to 0
-        comboStep++;
-        if (comboStep > 2)
-        {
-            comboStep = 0; // This allows the next click to trigger Combo1 immediately
-        }
-
-        comboTimer = 0f;
-        DealDamageToEnemies();
+        Debug.Log("Attack pressed");
+        attackQueued = true;
     }
 
-    private void DealDamageToEnemies()
+    // 🔥 CLOSEST ENEMY DAMAGE
+    public void AnimEvent_DealDamage()
     {
-        if (attackRadius == null) return;
-
-        foreach (BaseEnemy enemy in attackRadius.detectedEnemies)
+        if (currentWeaponData == null)
         {
-            if (enemy != null)
+            Debug.LogError("No weapon equipped!");
+            return;
+        }
+
+        List<BaseEnemy> targets = null;
+        Vector3 origin;
+
+        // 🔫 GUN (RANGED)
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        {
+            if (gunRange == null)
             {
-                enemy.TakeDamage(attackDamage);
+                Debug.LogError("Gun range not found!");
+                return;
+            }
+
+            targets = gunRange.detectedEnemies;
+            origin = gunRange.transform.position;
+        }
+        // 🪓 AXE (MELEE)
+        else
+        {
+            if (attackRadius == null)
+            {
+                Debug.LogError("Attack radius not found!");
+                return;
+            }
+
+            targets = attackRadius.detectedEnemies;
+            origin = attackRadius.transform.position;
+        }
+
+        if (targets == null || targets.Count == 0) return;
+
+        BaseEnemy closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (BaseEnemy enemy in targets)
+        {
+            if (enemy == null) continue;
+
+            // OPTIONAL: only hit enemies in front
+            Vector3 dir = (enemy.transform.position - transform.position).normalized;
+            float dot = Vector3.Dot(transform.forward, dir);
+            if (dot < 0.3f) continue;
+
+            float distance = Vector3.Distance(origin, enemy.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
             }
         }
-    }
 
+        if (closestEnemy != null)
+        {
+            closestEnemy.TakeDamage(currentWeaponData.damage);
+            Debug.Log("Hit closest enemy: " + closestEnemy.name);
+        }
+    }
     public void ResetCombo()
     {
         comboStep = 0;
         comboTimer = 0f;
-
-        animator.ResetTrigger("Combo1");
-        animator.ResetTrigger("Combo2");
-        animator.ResetTrigger("Combo3");
+        canAttack = true;
+        attackQueued = false;
+        isAttacking = false;
 
         animator.Play("Idle", 0);
     }
-
 }

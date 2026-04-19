@@ -1,0 +1,104 @@
+# Blender MTL File: 'guard_house_guard_house.blend'
+# Material Count: 8
+
+newmtl FrontColor
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Roof\\guard_house_roof__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Roof\\guard_house_roof__gloss.png
+
+newmtl FrontColor.001
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_6.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Lights\\Guard_House_Lights__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Lights\\Guard_House_Lights__gloss.png
+
+newmtl FrontColor.002
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_1.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Elements and Door\\guard_house_elements_and_door__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Elements and Door\\guard_house_elements_and_door__gloss.png
+
+newmtl FrontColor.003
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_4.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Floor\\Guard_House_Floor__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Floor\\Guard_House_Floor__gloss.png
+
+newmtl FrontColor.004
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_2.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Frames\\Guard_House_Frames__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Frames\\Guard_House_Frames__gloss.png
+
+newmtl FrontColor.005
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_3.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Ceiling\\Guard_House_Ceiling__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Ceiling\\Guard_House_Ceiling__gloss.png
+
+newmtl FrontColor.006
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_5.png
+map_Bump I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Walls\\Guard_House_Walls__nmap.png
+map_Ks I:\\3D_Asset_Packages\\For Sale\\Guard_House\\Guard_House\\Walls\\Guard_House_Walls__gloss.png
+
+newmtl Material.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd I:\3D_Asset_Packages\For Sale\Guard_House\Guard_House\Guard_House\Guard_House_Guard_House\_auto_7.png
