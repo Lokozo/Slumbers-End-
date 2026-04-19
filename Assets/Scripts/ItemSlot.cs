@@ -12,7 +12,6 @@ public class ItemSlot : MonoBehaviour
     private int currentQuantity;
     private SlotContextType contextType;
 
-    //  Link to parent InventoryUI
     [HideInInspector] public InventoryUI parentUI;
 
     private void Awake()
@@ -21,7 +20,16 @@ public class ItemSlot : MonoBehaviour
             button.onClick.AddListener(OnClick);
     }
 
-    
+    public void ClearSlot()
+    {
+        currentItem = null;
+        currentQuantity = 0;
+
+        iconImage.sprite = null;
+        iconImage.enabled = false;
+
+        quantityText.text = "";
+    }
 
     public void SetSlot(Item item, int quantity, SlotContextType context)
     {
@@ -31,16 +39,20 @@ public class ItemSlot : MonoBehaviour
 
         iconImage.sprite = item.icon;
         iconImage.enabled = true;
-        quantityText.text = quantity > 1 ? quantity.ToString() : "";
+        if (item.isEquipped)
+        {
+            quantityText.text = "Equiped"; // or "Equipped"
+        }
+        else
+        {
+            quantityText.text = quantity > 1 ? quantity.ToString() : "";
+        }
     }
 
     private void OnClick()
     {
-        //Debug.Log($"Clicked on {currentItem?.itemName} x{currentQuantity}");
         if (parentUI != null && currentItem != null)
         {
-            parentUI.ShowItemDescription(currentItem);
-
             parentUI.SetSelectedItem(currentItem);
         }
     }

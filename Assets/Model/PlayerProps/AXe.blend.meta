@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: HandlePBR
-    second: {fileID: 2100000, guid: ed91fa164dbc01f4a90f89b9bcf93eeb, type: 2}
+    second: {fileID: 2100000, guid: 45919e5f341bc8d49ab75d1855f7d3fe, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: HeadPBR
-    second: {fileID: 2100000, guid: 8bf08e0056e13e242bce406c8d86393b, type: 2}
+    second: {fileID: 2100000, guid: a2f182fd18952fe4eafea140b9428b48, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
