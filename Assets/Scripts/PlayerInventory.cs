@@ -10,6 +10,9 @@ public class PlayerInventory : MonoBehaviour
 
     public InventoryUI inventoryUI;
 
+    public WeaponItem startingWeapon;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -32,20 +35,35 @@ public class PlayerInventory : MonoBehaviour
         //Instance = this;
         //DontDestroyOnLoad(gameObject); // <-- THIS KEEPS IT ALIVE
     }
-
-    public void AddItem(Item item, int amount)
+    void Start()
     {
-        if (resourceInventory.ContainsKey(item))
+        if (startingWeapon != null)
         {
-            resourceInventory[item] += amount;
+            Item weaponInstance = Instantiate(startingWeapon);
+            weaponInstance.isEquipped = true;
+
+            resourceInventory.Add(weaponInstance, 1);
+
+            Debug.Log("Starting axe added to inventory");
         }
-        else
+    }
+
+    public void AddItem(Item item, int quantity = 1)
+    {
+        if (item is WeaponItem)
         {
-            resourceInventory[item] = amount;
+            Item uniqueItem = Instantiate(item);
+            resourceInventory[uniqueItem] = 1;
+            Debug.Log($"Added weapon: {item.itemName}");
+            return;
         }
 
-        Debug.Log($"Collected {amount}x {item.itemName}");
-        inventoryUI?.RefreshUI();
+        if (resourceInventory.ContainsKey(item))
+            resourceInventory[item] += quantity;
+        else
+            resourceInventory[item] = quantity;
+
+        Debug.Log($"{quantity} {item.itemName}(s) added.");
     }
 
     public bool HasItem(Item item, int amount)

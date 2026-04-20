@@ -10,7 +10,11 @@ public class Item : ScriptableObject
     public ItemType itemType;
 
     public bool isCrafted;        
-    public bool isUsedInCrafting;
+    public bool isUsedInCrafting; 
+    public bool isEquipped;
+
+    public int width = 1;
+    public int height = 1;
 
     [Header("Consumable Effects")]
     public bool isConsumable;
@@ -23,22 +27,9 @@ public class Item : ScriptableObject
         Consumable,    // Items that can be used (berries, potions, bandages)
         QuestItem,    // Items related to quests (keys, artifacts)
         //Tool,          // Tools like hammer, knife, etc.
-        //Equipment,     // Optional: Wearables like clothes or armor
+        Equipment,     // Optional: Wearables like clothes or armor
         //QuestItem,     // Optional: If you have story-related items
         //UpgradePart    // Items used to enhance or upgrade tools
     }
 
-    public override bool Equals(object obj)
-    {
-        if (obj is Item other)
-        {
-            return itemName == other.itemName;
-        }
-        return false;
-    }
-
-    public override int GetHashCode()
-    {
-        return itemName.GetHashCode();
-    }
 }
