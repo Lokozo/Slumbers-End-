@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7639932648635910246}
   m_Layer: 0
   m_Name: SP_Male Mutant
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9568c9c3c82ecf444b9ebda7e36636a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpecialMutantMale
+  currentState: 0
   speed: 1.2
   chaseSpeed: 2
   gravity: -9.81
@@ -158,6 +159,9 @@ MonoBehaviour:
   attackDamage: 30
   attackRadius: 2
   attackPoint: {fileID: 4612875350246863929}
+  fixedZ: 0
+  enemyTag: Enemy
+  faction: 1
   attackAngle: 60
   rockPrefab: {fileID: 112606807682960240, guid: 4037c2d5b58c83e46baddf409a28454f, type: 3}
   slamEffectPrefab: {fileID: 2369674476736621770, guid: 6af8328fbb0b7304b86535999ffef095, type: 3}

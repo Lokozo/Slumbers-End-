@@ -5,22 +5,32 @@ public class Projectile : MonoBehaviour
     public float damage = 10f;
     public float lifetime = 5f;
 
+    public Transform owner;
+
     void Start()
     {
         Destroy(gameObject, lifetime);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        // ignore owner completely
+        if (owner != null && other.transform.root == owner)
+            return;
 
-        PlayerHealth hp = other.GetComponent<PlayerHealth>();
+        // ignore ALL enemies
+        if (other.CompareTag("Enemy"))
+            return;
 
-        if (hp != null)
+
+        if (other.CompareTag("Player"))
         {
-            hp.TakeDamage((int)damage);
+            PlayerHealth hp = other.GetComponent<PlayerHealth>();
+            if (hp != null)
+            {
+                hp.TakeDamage((int)damage);
+                Destroy(gameObject);
+            }
         }
-
-        Destroy(gameObject);
     }
 }

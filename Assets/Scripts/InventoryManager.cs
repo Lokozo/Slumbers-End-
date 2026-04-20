@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     void Update()
     {
