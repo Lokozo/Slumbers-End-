@@ -91,20 +91,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ba9352dff189e41a06ed2eb023ec03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectives:
-  - id: 1
-    title: Reach the Radio Tower
-    description: "With his belongings packed and his journey home begun, Bear\u2019s
-      first goal is to contact his family. Traverse the forested slopes down toward
-      the radio tower to find a signal."
-    isCompleted: 0
-  - id: 2
-    title: Contact Bear's Family
-    description: After reaching the radio tower, Bear finds that it isn't running.
-      No power, no signal. To get through, he must get the radio tower working.
-    isCompleted: 0
+  mainObjectives:
+  - {fileID: 0}
   objectivesParent: {fileID: 0}
-  objectiveItemPrefab: {fileID: 3337022552781776207, guid: a5388cfc0938f2c4db531aa378b22bc7, type: 3}
+  objectivesPanel: {fileID: 0}
+  mainObjectivePrefab: {fileID: 0}
+  subObjectivePrefab: {fileID: 0}
 --- !u!1 &3222780909452876923
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +223,7 @@ Transform:
   - {fileID: 2246803741441240698}
   - {fileID: 5329467391837439494}
   - {fileID: 6898718404675693416}
+  - {fileID: 6062660665159990534}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1583004970944635308
@@ -295,3 +288,52 @@ MonoBehaviour:
   health: 0
   hunger: 0
   energy: 0
+  energyRecoverRate: 5
+  hungerDrainAmount: 5
+  hungerDrainInterval: 20
+--- !u!1 &8889781707424901202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6062660665159990534}
+  - component: {fileID: 8493572568419213945}
+  m_Layer: 0
+  m_Name: CutsceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6062660665159990534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889781707424901202}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.1764603, y: -5.15134, z: 4.324417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3428534135447628918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8493572568419213945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889781707424901202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543d811defaed5b4b831f483ac67c962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
+  fadeImage: {fileID: 0}
+  fadeDuration: 1
