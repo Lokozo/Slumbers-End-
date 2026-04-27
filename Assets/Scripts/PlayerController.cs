@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         playerInputs.Player.Move.performed += HandleMovementInput;
         playerInputs.Player.Move.canceled += HandleMovementInput;
 
-        playerInputs.Player.Jump.performed += HandleJumpInput;
+        //playerInputs.Player.Jump.performed += HandleJumpInput;
         playerInputs.Player.Sprint.started += ctx => isRunPressed = true;
         playerInputs.Player.Sprint.canceled += ctx => isRunPressed = false;
 
