@@ -30,7 +30,13 @@ public class PlayerAttack : MonoBehaviour
     {
         inputActions = new InputSystem_Actions();
     }
+    public void SetWeapon(WeaponItem weapon)
+    {
+        currentWeaponData = weapon;
 
+        Debug.Log("SetWeapon called → " + weapon +
+                  " from: " + new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().Name);
+    }
     private void OnEnable()
     {
         inputActions.Enable();
@@ -145,33 +151,53 @@ public class PlayerAttack : MonoBehaviour
             origin = attackRadius.transform.position;
         }
 
-        if (targets == null || targets.Count == 0) return;
-
-        BaseEnemy closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (BaseEnemy enemy in targets)
+        if (targets != null && targets.Count > 0)
         {
-            if (enemy == null) continue;
+            BaseEnemy closestEnemy = null;
+            float closestDistance = Mathf.Infinity;
 
-            // OPTIONAL: only hit enemies in front
-            Vector3 dir = (enemy.transform.position - transform.position).normalized;
-            float dot = Vector3.Dot(transform.forward, dir);
-            if (dot < 0.3f) continue;
-
-            float distance = Vector3.Distance(origin, enemy.transform.position);
-
-            if (distance < closestDistance)
+            foreach (BaseEnemy enemy in targets)
             {
-                closestDistance = distance;
-                closestEnemy = enemy;
+                if (enemy == null) continue;
+
+                Vector3 dir = (enemy.transform.position - transform.position).normalized;
+                float dot = Vector3.Dot(transform.forward, dir);
+                if (dot < 0.3f) continue;
+
+                float distance = Vector3.Distance(origin, enemy.transform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                }
+            }
+
+            if (closestEnemy != null)
+            {
+                closestEnemy.TakeDamage(currentWeaponData.damage);
+                Debug.Log("Hit closest enemy: " + closestEnemy.name);
             }
         }
 
-        if (closestEnemy != null)
+        // =========================
+        // 🧨 ADD THIS PART HERE
+        // =========================
+        Collider[] hits = Physics.OverlapSphere(origin, 5f);
+
+        foreach (Collider hit in hits)
         {
-            closestEnemy.TakeDamage(currentWeaponData.damage);
-            Debug.Log("Hit closest enemy: " + closestEnemy.name);
+            BreakableObject breakable = hit.GetComponent<BreakableObject>();
+
+            if (breakable != null)
+            {
+                Vector3 dir = (hit.transform.position - transform.position).normalized;
+                float dot = Vector3.Dot(transform.forward, dir);
+                if (dot < 0.3f) continue;
+
+                Debug.Log("Hit breakable: " + hit.name);
+                breakable.TakeDamage(currentWeaponData.damage);
+            }
         }
     }
     public void ResetCombo()
