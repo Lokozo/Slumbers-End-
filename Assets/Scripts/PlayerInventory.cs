@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,12 +39,24 @@ public class PlayerInventory : MonoBehaviour
     {
         if (startingWeapon != null)
         {
-            Item weaponInstance = Instantiate(startingWeapon);
+            WeaponItem weaponInstance = Instantiate(startingWeapon);
             weaponInstance.isEquipped = true;
 
             resourceInventory.Add(weaponInstance, 1);
 
             Debug.Log("Starting axe added to inventory");
+
+            // 🔥 ADD THIS PART
+            PlayerAttack attack = FindObjectOfType<PlayerAttack>();
+
+            if (attack != null)
+            {
+                attack.SetWeapon(weaponInstance);
+            }
+            else
+            {
+                Debug.LogError("PlayerAttack not found!");
+            }
         }
     }
 

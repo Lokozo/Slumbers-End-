@@ -254,8 +254,19 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleWeapon(WeaponType weaponType)
     {
-        if (equippedWeapon == weaponType) UnequipWeapon(weaponType);
-        else StartCoroutine(SwitchWeapon(weaponType));
+        // If already equipped → DO NOTHING
+        if (equippedWeapon == weaponType)
+            return;
+
+        equippedWeapon = weaponType;
+
+        // ✅ Set weapon immediately
+        if (weaponType == WeaponType.Axe)
+            playerAttack.SetWeapon(axeData);
+        else if (weaponType == WeaponType.Gun)
+            playerAttack.SetWeapon(gunData);
+
+        StartCoroutine(SwitchWeapon(weaponType));
     }
 
     private IEnumerator SwitchWeapon(WeaponType newWeapon)
@@ -267,8 +278,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Equip Axe", true);
             EquipWeaponObject(axe, weaponAxeEquip);
 
-            playerAttack.currentWeaponData = axeData; // ✅ FIX
-
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
             yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 1f, transitionDuration));
@@ -277,8 +286,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Equip Pistol", true);
             EquipWeaponObject(gun, weaponGunEquip);
-
-            playerAttack.currentWeaponData = gunData; // ✅ FIX
 
             SetLayerWeight("Equip Layer", 1f);
             yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
