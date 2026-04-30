@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 112606807682960240, guid: 4037c2d5b58c83e46baddf409a28454f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 782465143937929674, guid: 4037c2d5b58c83e46baddf409a28454f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.880811
@@ -2634,10 +2638,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SP_Male Mutant
       objectReference: {fileID: 0}
-    - target: {fileID: 9069403496699547110, guid: b54b5ec0fd7e19845b8710f856c3f73c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4396,6 +4396,8 @@ MonoBehaviour:
   attackInterval: 3
   attackDamage: 15
   attackRadius: 1.5
+  attackPoint: {fileID: 0}
+  attackAngle: 60
 --- !u!1 &1276401703607109561
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,7 +4710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1573080473596169801
 Transform:
   m_ObjectHideFlags: 0
@@ -9390,6 +9392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbc5bb8eed208a44b30fea26f0045ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
+  weaponType: 0
   comboResetTime: 1
   attackDamage: 20
   currentWeaponData: {fileID: 0}
@@ -10044,7 +10048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5825801627712842959
 GameObject:
   m_ObjectHideFlags: 0
@@ -10384,6 +10388,8 @@ MonoBehaviour:
   attackInterval: 3
   attackDamage: 15
   attackRadius: 1.5
+  attackPoint: {fileID: 0}
+  attackAngle: 60
 --- !u!95 &6067630649971586771
 Animator:
   serializedVersion: 7
