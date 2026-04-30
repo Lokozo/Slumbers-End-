@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -11,6 +11,9 @@ public class ItemSlot : MonoBehaviour
     private Item currentItem;
     private int currentQuantity;
     private SlotContextType contextType;
+
+    private float lastClickTime = 0f;
+    private float doubleClickTime = 0.3f;
 
     [HideInInspector] public InventoryUI parentUI;
 
@@ -48,12 +51,53 @@ public class ItemSlot : MonoBehaviour
             quantityText.text = quantity > 1 ? quantity.ToString() : "";
         }
     }
+    private void TransferToCampsite()
+    {
+        if (currentItem == null) return;
 
+        PlayerInventory.Instance.RemoveItem(currentItem, 1);
+        CampsiteInventory.Instance.AddItem(currentItem, 1);
+
+        parentUI.RefreshUI();
+    }
     private void OnClick()
     {
-        if (parentUI != null && currentItem != null)
+        if (currentItem == null) return;
+
+        float timeSinceLastClick = Time.time - lastClickTime;
+
+        if (timeSinceLastClick <= doubleClickTime)
         {
-            parentUI.SetSelectedItem(currentItem);
+            // 🔥 DOUBLE CLICK → transfer 1
+            TransferOne();
         }
+        else
+        {
+            // Single click → select
+            if (parentUI != null)
+            {
+                parentUI.SetSelectedItem(currentItem);
+            }
+        }
+
+        lastClickTime = Time.time;
+    }
+    private void TransferOne()
+    {
+        if (currentItem == null) return;
+
+        if (contextType == SlotContextType.Inventory)
+        {
+            PlayerInventory.Instance.RemoveItem(currentItem, 1);
+            CampsiteInventory.Instance.AddItem(currentItem, 1);
+        }
+        else if (contextType == SlotContextType.Campsite)
+        {
+            CampsiteInventory.Instance.RemoveItem(currentItem, 1);
+            PlayerInventory.Instance.AddItem(currentItem, 1);
+        }
+
+        FindObjectOfType<InventoryUI>()?.RefreshUI();
+        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
     }
 }
