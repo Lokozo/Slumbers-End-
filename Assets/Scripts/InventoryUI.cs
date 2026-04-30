@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class InventoryUI : MonoBehaviour
@@ -22,7 +22,29 @@ public class InventoryUI : MonoBehaviour
 
         RefreshUI();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Item selected = GetSelectedItem();
 
+            if (selected != null)
+            {
+                var inventory = PlayerInventory.Instance.GetInventory();
+
+                if (inventory.ContainsKey(selected))
+                {
+                    int amount = inventory[selected]; // 🔥 get ALL quantity
+
+                    PlayerInventory.Instance.RemoveItem(selected, amount);
+                    CampsiteInventory.Instance.AddItem(selected, amount);
+
+                    RefreshUI();
+                    FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+                }
+            }
+        }
+    }
     void GenerateGrid()
     {
         gridSlots = new ItemSlot[gridWidth, gridHeight];

@@ -4,5 +4,6 @@ public enum SlotContextType
     Storage,
     Crafting,
     CraftingOutput,
-    Other
+    Other,
+    Campsite
 }
