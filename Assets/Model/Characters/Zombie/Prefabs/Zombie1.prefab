@@ -1769,7 +1769,6 @@ GameObject:
   m_Component:
   - component: {fileID: 578376449398627443}
   - component: {fileID: 7389507112651452681}
-  - component: {fileID: 9165588666934437154}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: Untagged
@@ -1829,32 +1828,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9165588666934437154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4493914613880827488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e8b5063d926ade4e91d98f12740b423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseEnemy
-  speed: 1.5
-  chaseSpeed: 3
-  gravity: -9.81
-  health: 100
-  patrolDistance: 5
-  rotationSpeed: 5
-  idleDuration: 2
-  chaseRange: 7
-  stoppingDistance: 1.2
-  attackInterval: 3
-  attackDamage: 15
-  attackRadius: 1.5
-  attackPoint: {fileID: 0}
-  attackAngle: 60
 --- !u!1 &4710940672626480558
 GameObject:
   m_ObjectHideFlags: 0

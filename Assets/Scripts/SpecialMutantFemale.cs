@@ -1,55 +1,214 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpecialMutantFemale : BaseEnemy
 {
+    [Header("Spit")]
     public GameObject spitPrefab;
     public Transform spitPoint;
     public float spitForce = 12f;
+    public float spitRange = 7f;
 
+    [Header("Summon")]
     public GameObject zombiePrefab;
     public Transform summonPoint;
+    public GameObject summonEffectPrefab;
+    public float summonRange = 10f;
+    public float summonFXOffset = -0.5f;
+
+    [Header("Summon Limit")]
+    public int maxSummonedEnemies = 5;
+    private int currentSummoned = 0;
+
+    // =========================
+    // FACE PLAYER (FIX)
+    // =========================
+    private void FacePlayer()
+    {
+        if (player == null) return;
+
+        Vector3 dir = (player.position - transform.position).normalized;
+        float yRotation = Mathf.Sign(dir.x) * 90f;
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.Euler(0, yRotation, 0),
+            rotationSpeed * Time.deltaTime
+        );
+    }
+
+    // =========================
+    // ATTACK
+    // =========================
 
     protected override void Attack()
     {
+        if (player == null) return;
+
         isAttacking = true;
         velocity.x = 0;
 
+        FacePlayer(); 
+
         animator.SetBool("IsWalking", false);
 
-        if (Random.value > 0.5f)
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance <= spitRange)
         {
             animator.SetTrigger("Spit");
             Invoke(nameof(Spit), 0.4f);
         }
-        else
+        else if (distance <= summonRange)
         {
             animator.SetTrigger("Summon");
             Invoke(nameof(Summon), 0.6f);
         }
+        else
+        {
+            isAttacking = false;
+            return;
+        }
 
         Invoke(nameof(EndAttack), 1.5f);
     }
+
+    private void OnValidate()
+    {
+        if (summonRange > chaseRange)
+            summonRange = chaseRange;
+
+        if (spitRange > summonRange)
+            spitRange = summonRange;
+    }
+
+    // =========================
+    // CHASE
+    // =========================
+
+    protected override void HandleChase()
+    {
+        if (player == null)
+        {
+            currentState = EnemyState.Idle;
+            return;
+        }
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance < spitRange * 0.8f)
+        {
+            FacePlayer(); 
+
+            animator.SetBool("IsWalking", true);
+
+            Vector3 dir = (transform.position - player.position).normalized;
+
+            velocity.x = dir.x * chaseSpeed;
+            velocity.z = 0;
+        }
+        else if (distance <= summonRange)
+        {
+            FacePlayer();
+
+            animator.SetBool("IsWalking", false);
+            velocity.x = 0;
+        }
+        else
+        {
+            animator.SetBool("IsWalking", true);
+
+            Vector3 dir = (player.position - transform.position).normalized;
+
+            velocity.x = dir.x * chaseSpeed;
+            velocity.z = 0;
+        }
+
+        if (distance > chaseRange * 1.5f)
+        {
+            currentState = EnemyState.Idle;
+        }
+    }
+
+    // =========================
+    // SPIT
+    // =========================
 
     private void Spit()
     {
         if (spitPrefab == null || spitPoint == null) return;
 
         GameObject spit = Instantiate(spitPrefab, spitPoint.position, spitPoint.rotation);
-        Rigidbody rb = spit.GetComponent<Rigidbody>();
 
+        Rigidbody rb = spit.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.linearVelocity = spitPoint.forward * spitForce;
         }
     }
 
+    // =========================
+    // SUMMON
+    // =========================
+
     private void Summon()
     {
-        if (zombiePrefab != null && summonPoint != null)
+        if (zombiePrefab == null || summonPoint == null)
         {
-            Instantiate(zombiePrefab, summonPoint.position, Quaternion.identity);
+            Debug.LogError("Summon failed: missing prefab or summonPoint");
+            return;
         }
+
+        if (currentSummoned >= maxSummonedEnemies)
+            return;
+
+        Vector3 spawnPos = summonPoint.position;
+
+        GameObject obj = Instantiate(zombiePrefab, spawnPos, Quaternion.identity);
+
+        currentSummoned++;
+
+        BaseEnemy enemy = obj.GetComponentInChildren<BaseEnemy>();
+        if (enemy != null)
+        {
+            enemy.SetStateChase();
+            StartCoroutine(TrackSummonedEnemy(enemy));
+        }
+
+        Vector3 fxPos = spawnPos + Vector3.up * summonFXOffset;
+        StartCoroutine(PlaySummonFX(fxPos));
     }
+
+    private IEnumerator TrackSummonedEnemy(BaseEnemy enemy)
+    {
+        while (enemy != null)
+        {
+            yield return null;
+        }
+
+        currentSummoned = Mathf.Max(0, currentSummoned - 1);
+    }
+
+    private IEnumerator PlaySummonFX(Vector3 pos)
+    {
+        GameObject fx = Instantiate(
+            summonEffectPrefab,
+            pos,
+            Quaternion.Euler(-90f, 0f, 0f)
+        );
+
+        ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+
+        Destroy(fx, ps != null
+            ? ps.main.duration + ps.main.startLifetime.constantMax
+            : 2f);
+
+        yield return null;
+    }
+
+    // =========================
+    // ANIMATION EVENTS
+    // =========================
 
     public override void AnimEvent_Spit()
     {
@@ -59,6 +218,25 @@ public class SpecialMutantFemale : BaseEnemy
     public override void AnimEvent_Summon()
     {
         Summon();
+    }
+
+    // =========================
+    // GIZMOS
+    // =========================
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spitRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, summonRange);
+
+        if (summonPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(summonPoint.position, 0.2f);
+        }
     }
 }
 
