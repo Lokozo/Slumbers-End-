@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7669357636443045310}
   - component: {fileID: 5817093453220700444}
   - component: {fileID: 8153349250708836186}
+  - component: {fileID: 5068036227003745423}
   m_Layer: 5
   m_Name: GameUICanvas
   m_TagString: Untagged
@@ -124,6 +125,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectivesUIController
   objectivesPanel: {fileID: 6406034526259456837}
+--- !u!114 &5068036227003745423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612583610238818197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c95885de782baa4785520b9c4933cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  inventoryMenu: {fileID: 1613085926073482514}
+  resourcePanel: {fileID: 4888866829008896437}
+  resourceContentPanel: {fileID: 7242007232637492010}
+  magnifyingGlassIcon: {fileID: 8846277109941549250}
+  checkIcon: {fileID: 1577482879715262661}
+  lootableNameText: {fileID: 9129823125779551235}
 --- !u!1 &1577482879715262661
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +154,7 @@ GameObject:
   - component: {fileID: 8056187622899545514}
   - component: {fileID: 1567973306442335103}
   - component: {fileID: 3323074920247370052}
+  - component: {fileID: 7200893031307492353}
   m_Layer: 5
   m_Name: CheckIcon
   m_TagString: Untagged
@@ -199,6 +219,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7200893031307492353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577482879715262661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 4
 --- !u!1 &1613085926073482514
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +244,7 @@ GameObject:
   - component: {fileID: 7797539464073342573}
   - component: {fileID: 814943718452282317}
   - component: {fileID: 6757457299352002383}
+  - component: {fileID: 6213488347902943955}
   - component: {fileID: 691014560093832768}
   m_Layer: 5
   m_Name: InventoryMenu
@@ -305,6 +339,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6213488347902943955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613085926073482514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 0
 --- !u!114 &691014560093832768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +382,7 @@ GameObject:
   - component: {fileID: 749516702778088858}
   - component: {fileID: 1716510389214265831}
   - component: {fileID: 9129823125779551235}
+  - component: {fileID: 8107297687327019699}
   m_Layer: 5
   m_Name: LootableObjectNameText
   m_TagString: Untagged
@@ -460,6 +508,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8107297687327019699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516516066503054324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 5
 --- !u!1 &2600179891257786496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1075,7 @@ GameObject:
   - component: {fileID: 6700271130447236756}
   - component: {fileID: 3299480162622519034}
   - component: {fileID: 4753937406829424167}
+  - component: {fileID: 8538893112402923502}
   m_Layer: 5
   m_Name: ResourcesPanel
   m_TagString: Untagged
@@ -1106,6 +1168,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8538893112402923502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888866829008896437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 1
 --- !u!1 &5103930800274573985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,6 +1297,7 @@ GameObject:
   - component: {fileID: 1886908314656977522}
   - component: {fileID: 578687757488001234}
   - component: {fileID: 7714907076615744430}
+  - component: {fileID: 2485457517783450863}
   m_Layer: 5
   m_Name: ResourcesContentPanel
   m_TagString: Untagged
@@ -1310,6 +1386,19 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &2485457517783450863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6324146563878678445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 2
 --- !u!1 &6406034526259456837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,6 +1893,7 @@ GameObject:
   - component: {fileID: 8158312707655977364}
   - component: {fileID: 193168744292747084}
   - component: {fileID: 2413465530474502350}
+  - component: {fileID: 6722460536104499837}
   m_Layer: 5
   m_Name: MagnifyingGlassIcon
   m_TagString: Untagged
@@ -1868,6 +1958,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6722460536104499837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846277109941549250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 3
 --- !u!1 &9052193226410818736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,7 +2030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

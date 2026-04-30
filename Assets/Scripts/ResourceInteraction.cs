@@ -45,6 +45,18 @@ public class ResourceInteraction : MonoBehaviour
             lootableDisplayName = gameObject.name;
     }
 
+    private void Start()
+    {
+        var ui = UIManager.Instance;
+
+        InventoryMenu = ui.inventoryMenu;
+        ResourcePanel = ui.resourcePanel;
+        ResourceContentPanel = ui.resourceContentPanel;
+        magnifyingGlassIcon = ui.magnifyingGlassIcon;
+        checkIcon = ui.checkIcon;
+        lootableNameText = ui.lootableNameText;
+    }
+
     private void Update()
     {
         if (!playerInRange || hasBeenCollected) return;
