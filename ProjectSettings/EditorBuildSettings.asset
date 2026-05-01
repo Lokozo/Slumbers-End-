@@ -27,24 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Chapters/Chapter 6.unity
     guid: 23377c8218d02ff46b77cd2a30aeeb30
   - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 7.unity
-    guid: 78e181fed6d43b14b8dba27e665c8d7f
-  - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 8.unity
-    guid: aa9f554ea389211439e65a046cd5d5c5
-  - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 9.unity
-    guid: aebd0c0d385381a419cf92bb26fb60e8
-  - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 10.unity
-    guid: 586955900ab8c384aac414121bec94b2
-  - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 11.unity
-    guid: 5afa40c4f44f6e748b04f33e7af2090a
-  - enabled: 1
-    path: Assets/Scenes/Chapters/Chapter 12.unity
-    guid: e652ecb3a8f81e04b8321f58740f493f
-  - enabled: 1
     path: Assets/Scenes/Chapters/Campsite.unity
     guid: a6169bd5109087e40a105cf413b0e502
   m_configObjects:
