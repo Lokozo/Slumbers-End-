@@ -15,7 +15,7 @@ public class ItemSlot : MonoBehaviour
     private float lastClickTime = 0f;
     private float doubleClickTime = 0.3f;
 
-    [HideInInspector] public InventoryUI parentUI;
+    public MonoBehaviour parentUI;
 
     private void Awake()
     {
@@ -51,15 +51,7 @@ public class ItemSlot : MonoBehaviour
             quantityText.text = quantity > 1 ? quantity.ToString() : "";
         }
     }
-    private void TransferToCampsite()
-    {
-        if (currentItem == null) return;
 
-        PlayerInventory.Instance.RemoveItem(currentItem, 1);
-        CampsiteInventory.Instance.AddItem(currentItem, 1);
-
-        parentUI.RefreshUI();
-    }
     private void OnClick()
     {
         if (currentItem == null) return;
@@ -68,15 +60,19 @@ public class ItemSlot : MonoBehaviour
 
         if (timeSinceLastClick <= doubleClickTime)
         {
-            // 🔥 DOUBLE CLICK → transfer 1
+            // DOUBLE CLICK → transfer
             TransferOne();
         }
         else
         {
-            // Single click → select
-            if (parentUI != null)
+            // SINGLE CLICK → select
+            if (parentUI is InventoryUI invUI)
             {
-                parentUI.SetSelectedItem(currentItem);
+                invUI.SetSelectedItem(currentItem);
+            }
+            else if (parentUI is CampsiteInventoryUI campUI)
+            {
+                campUI.SetSelectedItem(currentItem);
             }
         }
 
@@ -97,6 +93,17 @@ public class ItemSlot : MonoBehaviour
             PlayerInventory.Instance.AddItem(currentItem, 1);
         }
 
+        // ✅ Refresh correct UI
+        if (parentUI is InventoryUI invUI)
+        {
+            invUI.RefreshUI();
+        }
+        else if (parentUI is CampsiteInventoryUI campUI)
+        {
+            campUI.RefreshInventoryDisplay();
+        }
+
+        // ✅ Refresh the other UI too
         FindObjectOfType<InventoryUI>()?.RefreshUI();
         FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
     }
