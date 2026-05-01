@@ -1042,20 +1042,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ba9352dff189e41a06ed2eb023ec03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectives:
-  - id: 1
-    title: Reach the Radio Tower
-    description: "With his belongings packed and his journey home begun, Bear\u2019s
-      first goal is to contact his family. Traverse the forested slopes down toward
-      the radio tower to find a signal."
-    isCompleted: 0
-  - id: 2
-    title: Contact Bear's Family
-    description: After reaching the radio tower, Bear finds that it isn't running.
-      No power, no signal. To get through, he must get the radio tower working.
-    isCompleted: 0
+  mainObjectives: []
   objectivesParent: {fileID: 6506180627705732256}
-  objectiveItemPrefab: {fileID: 3337022552781776207, guid: a5388cfc0938f2c4db531aa378b22bc7, type: 3}
+  objectivesPanel: {fileID: 0}
+  mainObjectivePrefab: {fileID: 0}
+  subObjectivePrefab: {fileID: 0}
 --- !u!4 &485205281
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,9 +1427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2d89b1f5c325148a8cb5f9ad3532ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instructionTextObjectName: InstructionText
   instructionText: {fileID: 2113277508}
   fadeDuration: 1
-  delayBeforeNextStep: 3.5
 --- !u!4 &675359696
 Transform:
   m_ObjectHideFlags: 0
@@ -3329,8 +3320,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbc5bb8eed208a44b30fea26f0045ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
+  weaponType: 0
   comboResetTime: 1
   attackDamage: 20
+  currentWeaponData: {fileID: 0}
 --- !u!114 &1741903674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3858,6 +3852,9 @@ MonoBehaviour:
   health: 0
   hunger: 0
   energy: 0
+  energyRecoverRate: 5
+  hungerDrainAmount: 5
+  hungerDrainInterval: 20
 --- !u!4 &2017563013
 Transform:
   m_ObjectHideFlags: 0
@@ -4223,7 +4220,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -5199,6 +5197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 4410284243065207808}
+  startingWeapon: {fileID: 0}
 --- !u!223 &2002117410123851114
 Canvas:
   m_ObjectHideFlags: 0
@@ -5870,6 +5869,8 @@ MonoBehaviour:
   descriptionPanel: {fileID: 7479925126704926225}
   itemNameText: {fileID: 6618707019892987491}
   itemDescriptionText: {fileID: 7372718913946927883}
+  gridWidth: 5
+  gridHeight: 2
 --- !u!224 &4521232311904837419
 RectTransform:
   m_ObjectHideFlags: 0
