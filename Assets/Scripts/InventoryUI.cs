@@ -10,6 +10,8 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
 
+    [HideInInspector] public MonoBehaviour parentUI;
+
     public int gridWidth = 5;
     public int gridHeight = 2;
 
@@ -26,25 +28,36 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Item selected = GetSelectedItem();
+            TransferAllSelectedItem();
+        }
 
-            if (selected != null)
-            {
-                var inventory = PlayerInventory.Instance.GetInventory();
-
-                if (inventory.ContainsKey(selected))
-                {
-                    int amount = inventory[selected]; // 🔥 get ALL quantity
-
-                    PlayerInventory.Instance.RemoveItem(selected, amount);
-                    CampsiteInventory.Instance.AddItem(selected, amount);
-
-                    RefreshUI();
-                    FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
-                }
-            }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameObject.SetActive(false);
+            ClearSelectedItem();
         }
     }
+    void TransferAllSelectedItem()
+    {
+        Item selected = GetSelectedItem();
+        if (selected == null) return;
+
+        var inventory = PlayerInventory.Instance.GetInventory(); // ✅ FIXED
+
+        if (!inventory.ContainsKey(selected)) return;
+
+        int amount = inventory[selected];
+
+        PlayerInventory.Instance.RemoveItem(selected, amount);
+        CampsiteInventory.Instance.AddItem(selected, amount);
+
+        RefreshUI();
+
+        var campsiteUI = FindObjectOfType<CampsiteInventoryUI>();
+        if (campsiteUI != null)
+            campsiteUI.RefreshInventoryDisplay();
+    }
+
     void GenerateGrid()
     {
         gridSlots = new ItemSlot[gridWidth, gridHeight];

@@ -10,6 +10,7 @@ public class CampsiteInventoryUI : MonoBehaviour
     public int gridWidth = 5;
     public int gridHeight = 4;
 
+    private Item selectedItem;
     private IEnumerator WaitForInventory()
     {
         while (CampsiteInventory.Instance == null)
@@ -19,13 +20,41 @@ public class CampsiteInventoryUI : MonoBehaviour
 
         RefreshInventoryDisplay();
     }
-
-    public void Update()
+    void Update()
     {
-        foreach (var pair in PlayerInventory.Instance.GetInventory())
+        // 🔥 Q = move ALL from campsite → player
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log($"Item: {pair.Key.itemName}, Qty: {pair.Value}");
+            TransferAllSelectedItem();
         }
+
+        // 🔥 ESC = close UI
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameObject.SetActive(false);
+            ClearSelectedItem();
+        }
+    }
+
+    void TransferAllSelectedItem()
+    {
+        if (selectedItem == null) return;
+
+        var inventory = CampsiteInventory.Instance.GetInventory();
+
+        if (!inventory.ContainsKey(selectedItem)) return;
+
+        int amount = inventory[selectedItem];
+
+        // 🔥 THIS is the reverse transfer
+        CampsiteInventory.Instance.RemoveItem(selectedItem, amount);
+        PlayerInventory.Instance.AddItem(selectedItem, amount);
+
+        RefreshInventoryDisplay();
+
+        var playerUI = FindObjectOfType<InventoryUI>();
+        if (playerUI != null)
+            playerUI.RefreshUI();
     }
 
     public void RefreshInventoryDisplay()
@@ -65,7 +94,7 @@ public class CampsiteInventoryUI : MonoBehaviour
             {
                 GameObject slotObj = Instantiate(ItemSlotPrefab, InventorySlotContainer);
                 ItemSlot slot = slotObj.GetComponent<ItemSlot>();
-
+                slot.parentUI = this; // ✅ VERY IMPORTANT
                 gridSlots[x, y] = slot;
             }
         }
@@ -79,5 +108,19 @@ public class CampsiteInventoryUI : MonoBehaviour
     {
         if (CampsiteInventory.Instance != null)
             CampsiteInventory.Instance.OnInventoryChanged -= RefreshInventoryDisplay;
+    }
+    public Item GetSelectedItem()
+    {
+        return selectedItem;
+    }
+
+    public void SetSelectedItem(Item item)
+    {
+        selectedItem = item;
+    }
+
+    public void ClearSelectedItem()
+    {
+        selectedItem = null;
     }
 }
