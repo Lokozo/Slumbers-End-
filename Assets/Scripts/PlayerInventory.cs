@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     public WeaponItem startingWeapon;
 
+    public System.Action OnInventoryChanged;
 
     void Awake()
     {
@@ -62,11 +63,19 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(Item item, int quantity = 1)
     {
+        if (item == null)
+        {
+            Debug.LogError("❌ Tried to add NULL item to inventory!");
+            return;
+        }
+
         if (item is WeaponItem)
         {
             Item uniqueItem = Instantiate(item);
             resourceInventory[uniqueItem] = 1;
             Debug.Log($"Added weapon: {item.itemName}");
+
+            OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
             return;
         }
 
@@ -76,6 +85,8 @@ public class PlayerInventory : MonoBehaviour
             resourceInventory[item] = quantity;
 
         Debug.Log($"{quantity} {item.itemName}(s) added.");
+
+        OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
     }
 
     public bool HasItem(Item item, int amount)
@@ -88,12 +99,16 @@ public class PlayerInventory : MonoBehaviour
         if (HasItem(item, amount))
         {
             resourceInventory[item] -= amount;
+
             if (resourceInventory[item] <= 0)
             {
                 resourceInventory.Remove(item);
             }
+
+            OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
             return true;
         }
+
         return false;
     }
 
