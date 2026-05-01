@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 5572995381721948105}
   - component: {fileID: 6558183381726783950}
   - component: {fileID: 44973960314278873}
+  - component: {fileID: 4363473143724240270}
   m_Layer: 5
   m_Name: ResourceItemUI
   m_TagString: Untagged
@@ -546,3 +547,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4363473143724240270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169744470827695640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2383e2e294633242b431ec42854294c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  item: {fileID: 0}
+  amount: 0
