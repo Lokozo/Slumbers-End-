@@ -1626,7 +1626,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2374281090784520945, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       insertIndex: 0
       addedObject: {fileID: 257207159}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4049079341337219530, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1978270255}
   m_SourcePrefab: {fileID: 100100000, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
 --- !u!1 &604468978
 GameObject:
@@ -3087,6 +3090,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f8413d694261647b08c546eb4953af, type: 3}
+--- !u!4 &1029255892 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3463193611749394790, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 603685669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1034212589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23f8413d694261647b08c546eb4953af, type: 3}
@@ -4994,6 +5002,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958420697}
   m_Mesh: {fileID: 2181850053089846298, guid: c674681945410b343a4c253dc14a8bb7, type: 3}
+--- !u!1 &1978270247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4049079341337219530, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 603685669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1978270255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978270247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e47f646c70a2f49b8ad7323ccc4283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
+  climbCheckPoint: {fileID: 1029255892}
+  climbCheckDistance: 0.5
+  climbableLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1981683279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23f8413d694261647b08c546eb4953af, type: 3}
