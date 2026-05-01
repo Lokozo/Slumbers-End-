@@ -39584,6 +39584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
+  startingWeapon: {fileID: 0}
 --- !u!33 &2008726535567533744
 MeshFilter:
   m_ObjectHideFlags: 0
