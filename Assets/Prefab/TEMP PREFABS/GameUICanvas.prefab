@@ -479,6 +479,8 @@ MonoBehaviour:
   descriptionPanel: {fileID: 8901643698713141394}
   itemNameText: {fileID: 5160187795552811232}
   itemDescriptionText: {fileID: 8797743700541992328}
+  gridWidth: 5
+  gridHeight: 2
 --- !u!1 &4213834764821017539
 GameObject:
   m_ObjectHideFlags: 0
