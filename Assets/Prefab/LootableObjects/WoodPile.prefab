@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6862120666953502809
+--- !u!1 &1439729531719838521
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7644528402980645650}
-  - component: {fileID: 8756566327656396383}
-  - component: {fileID: 1747901033732944283}
+  - component: {fileID: 1393930498195145876}
+  - component: {fileID: 6786032243955497344}
+  - component: {fileID: 7294072220510100958}
   m_Layer: 0
-  m_Name: tree leaf.004
+  m_Name: stump1_MID_RES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7644528402980645650
+--- !u!4 &1393930498195145876
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6862120666953502809}
+  m_GameObject: {fileID: 1439729531719838521}
   serializedVersion: 2
-  m_LocalRotation: {x: 2.910383e-10, y: 2.220446e-16, z: 0.0000000037234695, w: 1}
-  m_LocalPosition: {x: -0, y: 0.000000019073486, z: 0}
-  m_LocalScale: {x: 0.9999998, y: 1.0000001, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.91, y: -0.64, z: 0.59}
+  m_LocalScale: {x: 100, y: 100.00004, z: 100.00004}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5538146675856405407}
+  m_Father: {fileID: 314751599087480567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8756566327656396383
+--- !u!33 &6786032243955497344
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6862120666953502809}
-  m_Mesh: {fileID: -3314191846033137503, guid: 446831f5374c973458e1fd0434ff6bc7, type: 3}
---- !u!23 &1747901033732944283
+  m_GameObject: {fileID: 1439729531719838521}
+  m_Mesh: {fileID: -4311420028539554267, guid: 497ef08a7751f8442823e4c28bcfd5a5, type: 3}
+--- !u!23 &7294072220510100958
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6862120666953502809}
+  m_GameObject: {fileID: 1439729531719838521}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ca492244a7429e74fae1704fbb23e02c, type: 2}
+  - {fileID: -5488876190657952706, guid: 497ef08a7751f8442823e4c28bcfd5a5, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,7 +89,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7313598643102795384
+--- !u!1 &5326719778502342345
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,47 +97,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5538146675856405407}
-  - component: {fileID: 3275616673906597842}
-  - component: {fileID: 1970542846711282744}
+  - component: {fileID: 314751599087480567}
+  - component: {fileID: 4838250839988983442}
+  - component: {fileID: 5632798566875334807}
+  - component: {fileID: 104584755760151090}
   m_Layer: 0
-  m_Name: tree.006
+  m_Name: WoodPile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5538146675856405407
+--- !u!4 &314751599087480567
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313598643102795384}
+  m_GameObject: {fileID: 5326719778502342345}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42899007, y: 0.54418945, z: 0.5633325, w: -0.44997984}
-  m_LocalPosition: {x: 101.20014, y: 33.09379, z: 12.69368}
-  m_LocalScale: {x: 84.90866, y: 84.908646, z: 84.90863}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -61.67, y: 1.92, z: 1.7069473}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7644528402980645650}
+  - {fileID: 1393930498195145876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3275616673906597842
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313598643102795384}
-  m_Mesh: {fileID: -1488782047757773719, guid: 446831f5374c973458e1fd0434ff6bc7, type: 3}
---- !u!23 &1970542846711282744
+--- !u!23 &4838250839988983442
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313598643102795384}
+  m_GameObject: {fileID: 5326719778502342345}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -156,7 +149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6a535a9acc4171e4f9261a67d549d9c3, type: 2}
+  - {fileID: 2100000, guid: 8f3647874dc0f6c489f31d50a50528af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,3 +172,50 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5632798566875334807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326719778502342345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d2b0c86d652ad48a1371765adbeda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnifyingGlassIcon: {fileID: 0}
+  InventoryMenu: {fileID: 0}
+  ResourcePanel: {fileID: 0}
+  ResourceContentPanel: {fileID: 0}
+  ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  holdTimeToOpen: 1
+  possibleDrops:
+  - item: {fileID: 11400000, guid: fd465c51d09d8b14fafd6f2a910c31ef, type: 2}
+    dropChance: 1
+    minAmount: 3
+    maxAmount: 8
+  checkIcon: {fileID: 0}
+  lootableDisplayName: Wood Pile
+  lootableNameText: {fileID: 0}
+--- !u!65 &104584755760151090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326719778502342345}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.79, y: 2, z: 3.1169953}
+  m_Center: {x: 1.59, y: 0, z: -1.0584977}

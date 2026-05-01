@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class CampsiteInventoryUI : MonoBehaviour
@@ -6,14 +6,22 @@ public class CampsiteInventoryUI : MonoBehaviour
     public Transform InventorySlotContainer;
     public GameObject ItemSlotPrefab;
 
-    private void OnEnable()
+    private ItemSlot[,] gridSlots;
+    public int gridWidth = 5;
+    public int gridHeight = 4;
+
+    private IEnumerator WaitForInventory()
     {
+        while (CampsiteInventory.Instance == null)
+            yield return null;
+
+        CampsiteInventory.Instance.OnInventoryChanged += RefreshInventoryDisplay;
+
         RefreshInventoryDisplay();
     }
 
     public void Update()
     {
-        Debug.Log("Inventory count: " + PlayerInventory.Instance.GetInventory().Count);
         foreach (var pair in PlayerInventory.Instance.GetInventory())
         {
             Debug.Log($"Item: {pair.Key.itemName}, Qty: {pair.Value}");
@@ -22,26 +30,54 @@ public class CampsiteInventoryUI : MonoBehaviour
 
     public void RefreshInventoryDisplay()
     {
-        var inventory = PlayerInventory.Instance.GetInventory();//
+        if (gridSlots == null)
+            GenerateGrid();
 
-        foreach (Transform child in InventorySlotContainer)
+        var inventory = CampsiteInventory.Instance.GetInventory();
+
+        foreach (var slot in gridSlots)
         {
-            Destroy(child.gameObject);
+            if (slot != null)
+                slot.ClearSlot();
         }
 
-        foreach (var pair in PlayerInventory.Instance.GetInventory())
-        {
-            Item item = pair.Key;
-            int quantity = pair.Value;
+        int index = 0;
 
-            if (item != null && quantity > 0)
+        foreach (var pair in inventory)
+        {
+            int x = index % gridWidth;
+            int y = index / gridWidth;
+
+            if (y >= gridHeight) break;
+
+            gridSlots[x, y].SetSlot(pair.Key, pair.Value, SlotContextType.Campsite);
+
+            index++;
+        }
+    }
+    void GenerateGrid()
+    {
+        gridSlots = new ItemSlot[gridWidth, gridHeight];
+
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
             {
-                GameObject slotGO = Instantiate(ItemSlotPrefab, InventorySlotContainer);
-                slotGO.GetComponent<ItemSlot>().SetSlot(item, quantity, SlotContextType.Inventory);
+                GameObject slotObj = Instantiate(ItemSlotPrefab, InventorySlotContainer);
+                ItemSlot slot = slotObj.GetComponent<ItemSlot>();
+
+                gridSlots[x, y] = slot;
             }
         }
-
     }
 
-
+    private void OnEnable()
+    {
+        StartCoroutine(WaitForInventory());
+    }
+    private void OnDisable()
+    {
+        if (CampsiteInventory.Instance != null)
+            CampsiteInventory.Instance.OnInventoryChanged -= RefreshInventoryDisplay;
+    }
 }
