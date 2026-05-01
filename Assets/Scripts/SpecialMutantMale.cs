@@ -5,32 +5,198 @@ using static UnityEditor.FilePathAttribute;
 
 public class SpecialMutantMale : BaseEnemy
 {
+    [Header("Attacks")]
     public GameObject rockPrefab;
     public GameObject slamEffectPrefab;
     public Transform throwPoint;
     public float throwForce = 15f;
 
-    /*
+    [Header("Ranges")]
+    public float meleeRange = 2f;
+    public float slamRange = 3.5f;
+    public float throwRange = 7f;
+
+    // =========================
+    // ATTACK LOGIC (NO RANDOM)
+    // =========================
+
     protected override void Attack()
     {
+        if (player == null) return;
+
         isAttacking = true;
-        velocity.x = 0;
+        velocity = Vector3.zero;
 
         animator.SetBool("IsWalking", false);
 
-        if (Random.value > 0.5f)
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance <= meleeRange)
+        {
+            animator.SetTrigger("Attack");
+            Invoke(nameof(HitPlayer), 0.4f);
+        }
+        else if (distance <= slamRange)
         {
             animator.SetTrigger("GroundSlam");
             Invoke(nameof(SlamDamage), 0.6f);
         }
-        else
+        else if (distance <= throwRange)
         {
             animator.SetTrigger("Throw");
-            Invoke(nameof(ThrowRock), 0.4f);
+        }
+        else
+        {
+            isAttacking = false;
+            return;
         }
 
         Invoke(nameof(EndAttack), 1.5f);
-    }*/
+    }
+
+    private void OnValidate()
+    {
+        if (throwRange > chaseRange)
+            throwRange = chaseRange;
+
+        if (slamRange > throwRange)
+            slamRange = throwRange;
+
+        if (meleeRange > slamRange)
+            meleeRange = slamRange;
+    }
+
+    // =========================
+    // SLAM DAMAGE
+    // =========================
+
+    private void SlamDamage()
+    {
+        if (player == null) return;
+
+        float dist = Vector3.Distance(transform.position, player.position);
+
+        if (dist <= attackRadius)
+        {
+            PlayerHealth hp = player.GetComponent<PlayerHealth>();
+            if (hp != null)
+                hp.TakeDamage((int)(attackDamage * 2)); // stronger slam
+        }
+
+        StartCoroutine(PlaySlamFX(transform.position));
+    }
+
+    private IEnumerator PlaySlamFX(Vector3 pos)
+    {
+        GameObject fx = Instantiate(
+            slamEffectPrefab,
+            pos,
+            Quaternion.Euler(-90f, 0f, 0f)
+        );
+
+        ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+
+        yield return null;
+
+        if (ps != null)
+        {
+            ps.Clear();
+            ps.Play();
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        Destroy(fx, ps != null
+            ? ps.main.duration + ps.main.startLifetime.constantMax
+            : 2f);
+    }
+
+    // =========================
+    // THROW ROCK
+    // =========================
+
+    private void ThrowRock()
+    {
+        if (rockPrefab == null || throwPoint == null) return;
+
+        GameObject rock = Instantiate(
+            rockPrefab,
+            throwPoint.position,
+            throwPoint.rotation
+        );
+
+        Rigidbody rb = rock.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = throwPoint.forward * throwForce;
+        }
+    }
+
+    // =========================
+    // ANIMATION EVENTS
+    // =========================
+
+    public override void AnimEvent_ThrowRock()
+    {
+        ThrowRock();
+    }
+
+    public override void AnimEvent_SlamDamage()
+    {
+        SlamDamage();
+    }
+
+    public override void AnimEvent_HitPlayer()
+    {
+        HitPlayer(); // stronger basic attack hook
+    }
+
+    // =========================
+    // GIZMOS
+    // =========================
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, slamRange);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, throwRange);
+    }
+}
+
+/*
+public class SpecialMutantMale : BaseEnemy
+{
+    public GameObject rockPrefab;
+    public GameObject slamEffectPrefab;
+    public Transform throwPoint;
+    public float throwForce = 15f;
+
+
+    //protected override void Attack()
+    //{
+    //    isAttacking = true;
+    //    velocity.x = 0;
+
+    //    animator.SetBool("IsWalking", false);
+
+    //    if (Random.value > 0.5f)
+    //    {
+    //        animator.SetTrigger("GroundSlam");
+    //        Invoke(nameof(SlamDamage), 0.6f);
+    //    }
+    //    else
+    //    {
+    //        animator.SetTrigger("Throw");
+    //        Invoke(nameof(ThrowRock), 0.4f);
+    //    }
+
+    //    Invoke(nameof(EndAttack), 1.5f);
+    //}
 
     public float slamRange = 2f;
     public float throwRange = 5f;
@@ -122,6 +288,8 @@ public class SpecialMutantMale : BaseEnemy
         SlamDamage();
     }
 }
+*/
+
 ///*
 //using UnityEngine;
 //public class SpecialMutantMale : MonoBehaviour
