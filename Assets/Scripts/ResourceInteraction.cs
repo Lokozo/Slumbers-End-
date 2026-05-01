@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
@@ -61,10 +61,17 @@ public class ResourceInteraction : MonoBehaviour
     {
         if (!playerInRange || hasBeenCollected) return;
 
-        if (Keyboard.current.eKey.wasPressedThisFrame && panelOpened) // "e" key
+        // TAKE ALL (Q)
+        if (panelOpened && Keyboard.current.qKey.wasPressedThisFrame)
         {
-            // Second press: collect and close
             CollectResource();
+            ClosePanels(); // ← only if you want it to close
+            return;
+        }
+
+        // EXIT (ESC)
+        if (panelOpened && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
             ClosePanels();
             return;
         }
@@ -115,6 +122,9 @@ public class ResourceInteraction : MonoBehaviour
             uiElement.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = pair.Key.itemName;
             uiElement.transform.Find("ItemAmount").GetComponent<TextMeshProUGUI>().text = "x" + pair.Value;
             uiElement.transform.Find("ItemIcon").GetComponent<Image>().sprite = pair.Key.icon;
+
+            var itemUI = uiElement.AddComponent<ResourceItemUI>();
+            itemUI.Setup(pair.Key, pair.Value, this);
         }
     }
 
@@ -160,18 +170,42 @@ public class ResourceInteraction : MonoBehaviour
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
+        currentDropList.Clear();
+
+        // Clear UI
+        foreach (Transform child in ResourceContentPanel)
+        {
+            Destroy(child.gameObject);
+        }
+
         hasBeenCollected = true;
+
         Debug.Log("Inventory contains: " + PlayerInventory.Instance.GetInventory().Count + " items.");
 
         TutorialUIManager.Instance?.Hide();
         TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
-
-   
-
+        // EXIT (ESC)
+       
+        // ❌ DO NOT CLOSE PANELS
     }
+    public void RemoveItem(Item item, int amountToRemove = 1)
+    {
+        if (currentDropList.ContainsKey(item))
+        {
+            currentDropList[item] -= amountToRemove;
 
+            if (currentDropList[item] <= 0)
+            {
+                currentDropList.Remove(item);
+            }
+        }
 
-
+        if (currentDropList.Count == 0)
+        {
+            hasBeenCollected = true;
+            ClosePanels();
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
