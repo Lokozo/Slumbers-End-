@@ -20,6 +20,7 @@ public class ResourceInteraction : MonoBehaviour
     private bool playerInRange = false;
     private float holdTimer = 0f;
     private bool panelOpened = false;
+    private bool hasGeneratedLoot = false;
 
     [Header("Item Drops")]
     public List<ItemDropData> possibleDrops;
@@ -61,28 +62,38 @@ public class ResourceInteraction : MonoBehaviour
     {
         if (!playerInRange || hasBeenCollected) return;
 
-        // TAKE ALL (Q)
-        if (panelOpened && Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            CollectResource();
-            ClosePanels(); // ← only if you want it to close
-            return;
-        }
-
-        // EXIT (ESC)
+        // EXIT (ESC) ✅ FIX
         if (panelOpened && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             ClosePanels();
             return;
         }
 
+        // TAKE ALL (Q)
+        if (panelOpened && Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            CollectResource();
+            ClosePanels();
+            return;
+        }
+
+        // OPEN (Hold E)
         if (!panelOpened && Keyboard.current.eKey.isPressed)
         {
             holdTimer += Time.unscaledDeltaTime;
 
             if (holdTimer >= holdTimeToOpen)
             {
-                GenerateRandomResources();
+                if (!hasGeneratedLoot)
+                {
+                    GenerateRandomResources(); // first time
+                    hasGeneratedLoot = true;
+                }
+                else
+                {
+                    RebuildUI(); // 🔥 show existing loot
+                }
+
                 OpenPanels();
                 panelOpened = true;
             }
@@ -92,6 +103,42 @@ public class ResourceInteraction : MonoBehaviour
             holdTimer = 0f;
         }
     }
+    private void RebuildUI()
+    {
+        // Clear UI first
+        foreach (Transform child in ResourceContentPanel)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (currentDropList.Count == 0)
+        {
+            Debug.Log("Loot is empty");
+        }
+
+        foreach (var pair in currentDropList)
+        {
+            if (pair.Key == null)
+            {
+                Debug.LogError("❌ NULL item in RebuildUI");
+                continue;
+            }
+
+            GameObject uiElement = Instantiate(ResourceItemUIPrefab, ResourceContentPanel);
+
+            uiElement.transform.Find("ItemName")
+                .GetComponent<TextMeshProUGUI>().text = pair.Key.itemName;
+
+            uiElement.transform.Find("ItemAmount")
+                .GetComponent<TextMeshProUGUI>().text = "x" + pair.Value;
+
+            uiElement.transform.Find("ItemIcon")
+                .GetComponent<Image>().sprite = pair.Key.icon;
+
+            var itemUI = uiElement.GetComponent<ResourceItemUI>();
+            itemUI.Setup(pair.Key, pair.Value, this);
+        }
+    }
 
     private void GenerateRandomResources()
     {
@@ -99,9 +146,19 @@ public class ResourceInteraction : MonoBehaviour
 
         foreach (var drop in possibleDrops)
         {
+            // ✅ NOW it's valid
+            Debug.Log("Drop item: " + drop.item);
+
+            if (drop == null || drop.item == null)
+            {
+                Debug.LogError("❌ NULL item in possibleDrops!");
+                continue;
+            }
+
             if (Random.value <= drop.dropChance)
             {
                 int amount = Random.Range(drop.minAmount, drop.maxAmount + 1);
+
                 if (currentDropList.ContainsKey(drop.item))
                     currentDropList[drop.item] += amount;
                 else
@@ -115,15 +172,33 @@ public class ResourceInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Populate new UI
         foreach (var pair in currentDropList)
         {
-            GameObject uiElement = Instantiate(ResourceItemUIPrefab, ResourceContentPanel);
-            uiElement.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = pair.Key.itemName;
-            uiElement.transform.Find("ItemAmount").GetComponent<TextMeshProUGUI>().text = "x" + pair.Value;
-            uiElement.transform.Find("ItemIcon").GetComponent<Image>().sprite = pair.Key.icon;
+            if (pair.Key == null)
+            {
+                Debug.LogError("❌ NULL item reached UI!");
+                continue;
+            }
 
-            var itemUI = uiElement.AddComponent<ResourceItemUI>();
+            GameObject uiElement = Instantiate(ResourceItemUIPrefab, ResourceContentPanel);
+
+            uiElement.transform.Find("ItemName")
+                .GetComponent<TextMeshProUGUI>().text = pair.Key.itemName;
+
+            uiElement.transform.Find("ItemAmount")
+                .GetComponent<TextMeshProUGUI>().text = "x" + pair.Value;
+
+            uiElement.transform.Find("ItemIcon")
+                .GetComponent<Image>().sprite = pair.Key.icon;
+
+            var itemUI = uiElement.GetComponent<ResourceItemUI>();
+
+            if (itemUI == null)
+            {
+                Debug.LogError("❌ ResourceItemUI missing on prefab!");
+                return;
+            }
+
             itemUI.Setup(pair.Key, pair.Value, this);
         }
     }

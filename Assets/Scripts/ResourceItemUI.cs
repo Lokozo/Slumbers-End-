@@ -24,12 +24,28 @@ public class ResourceItemUI : MonoBehaviour, IPointerClickHandler
 
     void TransferSingle()
     {
-        if (PlayerInventory.Instance == null) return;
+        if (PlayerInventory.Instance == null)
+        {
+            Debug.LogError("❌ PlayerInventory is NULL");
+            return;
+        }
+
+        if (item == null)
+        {
+            Debug.LogError("❌ ResourceItemUI has NULL item!");
+            return;
+        }
+
+        if (parent == null)
+        {
+            Debug.LogError("❌ ResourceItemUI has NULL parent!");
+            return;
+        }
 
         PlayerInventory.Instance.AddItem(item, 1);
         amount--;
 
-        parent.RemoveItem(item, 1); // ✅ FIX
+        parent.RemoveItem(item, 1);
 
         if (amount <= 0)
         {
@@ -37,8 +53,9 @@ public class ResourceItemUI : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            transform.Find("ItemAmount")
-                .GetComponent<TMPro.TextMeshProUGUI>().text = "x" + amount;
+            var text = transform.Find("ItemAmount")?.GetComponent<TMPro.TextMeshProUGUI>();
+            if (text != null)
+                text.text = "x" + amount;
         }
     }
 }
