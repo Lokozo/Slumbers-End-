@@ -13,8 +13,13 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.SetPlayer(other.transform.root);
-            enemy.SetStateChase();
+            PlayerHealth ph = other.GetComponentInParent<PlayerHealth>();
+
+            if (ph != null)
+            {
+                enemy.SetPlayer(ph.transform);
+                enemy.SetStateChase();
+            }
         }
     }
 
