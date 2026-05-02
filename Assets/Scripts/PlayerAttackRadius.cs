@@ -28,6 +28,7 @@ public class PlayerAttackRadius : MonoBehaviour
         {
             detectedEnemies.Add(enemy);
             Debug.Log($"[AttackRadius] Enemy detected: {enemy.name}");
+            Debug.Log("Hit: " + other.name + " | Root: " + other.transform.root.name);
         }
     }
 
