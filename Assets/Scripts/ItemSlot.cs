@@ -56,7 +56,7 @@ public class ItemSlot : MonoBehaviour
     {
         if (currentItem == null) return;
 
-        float timeSinceLastClick = Time.time - lastClickTime;
+        float timeSinceLastClick = Time.unscaledTime - lastClickTime;
 
         if (timeSinceLastClick <= doubleClickTime)
         {
@@ -76,7 +76,7 @@ public class ItemSlot : MonoBehaviour
             }
         }
 
-        lastClickTime = Time.time;
+        lastClickTime = Time.unscaledTime;
     }
     private void TransferOne()
     {
