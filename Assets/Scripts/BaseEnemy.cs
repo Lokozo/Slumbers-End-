@@ -41,6 +41,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     public float attackDamage = 15f;
     public float attackRadius = 1.5f;
     public Transform attackPoint;
+    public EnemyAttackRadius attackRadiusTrigger;
     protected float attackTimer = 0f;
 
     void Start()
@@ -96,6 +97,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected virtual void HandleChase()
     {
+        Debug.Log("Targeting: " + player.name);
         if (player == null)
         {
             currentState = EnemyState.Idle;
@@ -135,11 +137,13 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected virtual void Attack()
     {
+        if (player == null) return;
         isAttacking = true;
         hasDealtDamage = false;
 
         velocity = Vector3.zero;
 
+        velocity.x = 0;
         animator.SetBool("IsWalking", false);
         animator.SetTrigger("Attack");
 
@@ -148,29 +152,43 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         //Invoke(nameof(EndAttack), 1.0f);
     }
 
+    //protected void HitPlayer()
+    //{
+    //    if (hasDealtDamage || player == null) return;
+
+    //    Vector3 origin = attackPoint != null ? attackPoint.position : transform.position;
+
+    //    Vector3 toPlayer = player.position - origin;
+    //    float dist = toPlayer.magnitude;
+
+    //    if (dist > attackRadius) return;
+
+    //    Vector3 dirToPlayer = toPlayer.normalized;
+
+    //    float dot = Vector3.Dot(transform.forward, dirToPlayer);
+    //    float dotThreshold = Mathf.Cos((attackAngle * 0.5f) * Mathf.Deg2Rad);
+
+    //    if (dot <= dotThreshold) return;
+
+    //    PlayerHealth hp = player.GetComponent<PlayerHealth>();
+    //    if (hp != null)
+    //    {
+    //        hp.TakeDamage((int)attackDamage);
+    //        hasDealtDamage = true;
+    //    }
+    //}
+
     protected void HitPlayer()
     {
-        if (hasDealtDamage || player == null) return;
+        if (player == null) return;
 
-        Vector3 origin = attackPoint != null ? attackPoint.position : transform.position;
-
-        Vector3 toPlayer = player.position - origin;
-        float dist = toPlayer.magnitude;
-
+        float dist = Vector3.Distance(transform.position, player.position);
         if (dist > attackRadius) return;
-
-        Vector3 dirToPlayer = toPlayer.normalized;
-
-        float dot = Vector3.Dot(transform.forward, dirToPlayer);
-        float dotThreshold = Mathf.Cos((attackAngle * 0.5f) * Mathf.Deg2Rad);
-
-        if (dot <= dotThreshold) return;
 
         PlayerHealth hp = player.GetComponent<PlayerHealth>();
         if (hp != null)
         {
             hp.TakeDamage((int)attackDamage);
-            hasDealtDamage = true;
         }
     }
 
@@ -181,7 +199,6 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     // =========================
     // STATES
-    // =========================
 
     protected void HandleIdle()
     {

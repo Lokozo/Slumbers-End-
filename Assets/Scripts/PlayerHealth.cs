@@ -8,23 +8,46 @@ public class PlayerHealth : MonoBehaviour
     private PlayerAttack playerAttack;
     private bool isDead = false;
 
-    void Start()
+    //void Start()
+    //{
+    //    animator = GetComponentInChildren<Animator>();
+    //    playerController = GetComponent<PlayerController>();
+    //    playerAttack = GetComponent<PlayerAttack>();
+
+    //    if (stats == null)
+    //        stats = GetComponent<PlayerStats>();
+    //}
+
+    void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         playerController = GetComponent<PlayerController>();
         playerAttack = GetComponent<PlayerAttack>();
 
+        stats = FindFirstObjectByType<PlayerStats>();
+
         if (stats == null)
-            stats = GetComponent<PlayerStats>();
+        {
+            Debug.LogError("PlayerStats not found in scene!");
+        }
     }
 
     public void TakeDamage(int damage)
     {
         if (isDead) return;
-        Debug.Log("Taking damage: " + damage);
-        stats.ModifyHealth(-damage); // use ModifyHealth in PlayerStats
 
-        animator.SetTrigger("isHit");
+        if (stats == null)
+        {
+            Debug.LogError("TakeDamage failed: stats is NULL");
+            return;
+        }
+
+        Debug.Log("Taking damage: " + damage);
+
+        stats.ModifyHealth(-damage);
+
+        if (animator != null)
+            animator.SetTrigger("isHit");
 
         if (stats.health <= 0)
         {

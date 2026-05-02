@@ -10,7 +10,8 @@ public class UIRegister : MonoBehaviour
         ResourceContentPanel,
         MagnifyingGlass,
         CheckIcon,
-        LootableNameText
+        LootableNameText,
+        PushPullIcon
     }
 
     public UIType type;
@@ -43,6 +44,9 @@ public class UIRegister : MonoBehaviour
 
             case UIType.LootableNameText:
                 ui.lootableNameText = GetComponent<TextMeshProUGUI>();
+                break;
+            case UIType.PushPullIcon:
+                ui.pushPullIcon = gameObject;
                 break;
         }
     }

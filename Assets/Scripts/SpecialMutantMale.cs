@@ -34,12 +34,12 @@ public class SpecialMutantMale : BaseEnemy
         if (distance <= meleeRange)
         {
             animator.SetTrigger("Attack");
-            Invoke(nameof(HitPlayer), 0.4f);
+            //Invoke(nameof(HitPlayer), 0.4f);
         }
         else if (distance <= slamRange)
         {
             animator.SetTrigger("GroundSlam");
-            Invoke(nameof(SlamDamage), 0.6f);
+            //Invoke(nameof(SlamDamage), 0.6f);
         }
         else if (distance <= throwRange)
         {
