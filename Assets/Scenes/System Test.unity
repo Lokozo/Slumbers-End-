@@ -2696,23 +2696,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54b5ec0fd7e19845b8710f856c3f73c, type: 3}
---- !u!114 &1948046822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4049079341539902510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e47f646c70a2f49b8ad7323ccc4283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  climbCheckPoint: {fileID: 2181172009103499173}
-  climbCheckDistance: 0.5
-  climbableLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1948046827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8190,7 +8173,6 @@ GameObject:
   - component: {fileID: 3732635293395573703}
   - component: {fileID: 5303072984394519470}
   - component: {fileID: 1013901950506250154}
-  - component: {fileID: 1948046822}
   - component: {fileID: 1948046827}
   - component: {fileID: 1948046834}
   - component: {fileID: 5303072984394519471}
@@ -9450,6 +9432,7 @@ MonoBehaviour:
   weaponType: 0
   comboResetTime: 1
   attackDamage: 20
+  staminaCostPerAttack: 10
   currentWeaponData: {fileID: 0}
 --- !u!114 &5303072984394519471
 MonoBehaviour:

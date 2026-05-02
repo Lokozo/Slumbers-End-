@@ -199,6 +199,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipKnife"",
+                    ""type"": ""Button"",
+                    ""id"": ""64ce2f63-8d03-40f8-ac67-67f37f5779f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -546,7 +555,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""43c6320b-080a-413c-945e-5ad719896abe"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -557,7 +566,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""012353e8-314e-45fd-8dd8-1babbadc8010"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -606,6 +615,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UpDownTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08d35d20-9828-4145-bdb7-78fd7310c117"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipKnife"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1205,6 +1225,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_EquipAxe = m_Player.FindAction("EquipAxe", throwIfNotFound: true);
         m_Player_EquipGun = m_Player.FindAction("EquipGun", throwIfNotFound: true);
         m_Player_UpDownTrigger = m_Player.FindAction("UpDownTrigger", throwIfNotFound: true);
+        m_Player_EquipKnife = m_Player.FindAction("EquipKnife", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1310,6 +1331,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EquipAxe;
     private readonly InputAction m_Player_EquipGun;
     private readonly InputAction m_Player_UpDownTrigger;
+    private readonly InputAction m_Player_EquipKnife;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1369,6 +1391,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/UpDownTrigger".
         /// </summary>
         public InputAction @UpDownTrigger => m_Wrapper.m_Player_UpDownTrigger;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipKnife".
+        /// </summary>
+        public InputAction @EquipKnife => m_Wrapper.m_Player_EquipKnife;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1431,6 +1457,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UpDownTrigger.started += instance.OnUpDownTrigger;
             @UpDownTrigger.performed += instance.OnUpDownTrigger;
             @UpDownTrigger.canceled += instance.OnUpDownTrigger;
+            @EquipKnife.started += instance.OnEquipKnife;
+            @EquipKnife.performed += instance.OnEquipKnife;
+            @EquipKnife.canceled += instance.OnEquipKnife;
         }
 
         /// <summary>
@@ -1478,6 +1507,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UpDownTrigger.started -= instance.OnUpDownTrigger;
             @UpDownTrigger.performed -= instance.OnUpDownTrigger;
             @UpDownTrigger.canceled -= instance.OnUpDownTrigger;
+            @EquipKnife.started -= instance.OnEquipKnife;
+            @EquipKnife.performed -= instance.OnEquipKnife;
+            @EquipKnife.canceled -= instance.OnEquipKnife;
         }
 
         /// <summary>
@@ -1862,6 +1894,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUpDownTrigger(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipKnife" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipKnife(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

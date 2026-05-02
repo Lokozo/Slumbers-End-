@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -108,6 +109,15 @@
                     "name": "UpDownTrigger",
                     "type": "Button",
                     "id": "a6082959-1687-4cf5-8aec-8adc9a0535a0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EquipKnife",
+                    "type": "Button",
+                    "id": "64ce2f63-8d03-40f8-ac67-67f37f5779f3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -459,7 +469,7 @@
                 {
                     "name": "",
                     "id": "43c6320b-080a-413c-945e-5ad719896abe",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -470,7 +480,7 @@
                 {
                     "name": "",
                     "id": "012353e8-314e-45fd-8dd8-1babbadc8010",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -519,6 +529,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UpDownTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "08d35d20-9828-4145-bdb7-78fd7310c117",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipKnife",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
