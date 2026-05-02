@@ -23,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
     public float comboResetTime = 1.2f;
     public float attackDamage = 20f;
 
+    public float staminaCostPerAttack = 10f;
+
     [Header("Weapon")]
     public WeaponItem currentWeaponData;
 
@@ -110,6 +112,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        // ❌ No stamina → cannot attack
+        if (PlayerStats.Instance.energy < staminaCostPerAttack)
+        {
+            Debug.Log("Not enough stamina!");
+            return;
+        }
+
         Debug.Log("Attack pressed");
         attackQueued = true;
     }
@@ -117,6 +126,23 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 CLOSEST ENEMY DAMAGE
     public void AnimEvent_DealDamage()
     {
+        if (currentWeaponData == null)
+        {
+            Debug.LogError("No weapon equipped!");
+            return;
+        }
+
+        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
+        {
+            PlayerStats.Instance.ModifyEnergy(-staminaCostPerAttack);
+        }
+
+        if (currentWeaponData == null)
+        {
+            Debug.LogError("No weapon equipped!");
+            return;
+        }
+
         if (currentWeaponData == null)
         {
             Debug.LogError("No weapon equipped!");

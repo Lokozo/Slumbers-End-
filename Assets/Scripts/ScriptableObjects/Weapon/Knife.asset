@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Gun
-  description: A Rusted Pistol
-  icon: {fileID: 0}
+  description: Aria my knife
+  icon: {fileID: 1342643738, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
+  isEquipped: 0
   width: 1
   height: 1
   isConsumable: 0
@@ -25,6 +26,6 @@ MonoBehaviour:
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
   weaponType: 0
-  damage: 0
-  maxAmmo: 7
-  reloadTime: 1
+  damage: 5
+  maxAmmo: 0
+  reloadTime: 0
