@@ -3884,6 +3884,7 @@ GameObject:
   - component: {fileID: 2317775381121957155}
   - component: {fileID: 7561746359183529937}
   - component: {fileID: 524330876806081417}
+  - component: {fileID: 2659202323850831212}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3905,6 +3906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5048895755848465240}
+  - {fileID: 6989472148089949161}
   - {fileID: 4171203671001417006}
   - {fileID: 8369219219229878806}
   - {fileID: 7991124671955696403}
@@ -3950,6 +3952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axeData: {fileID: 11400000, guid: 17cb026ad2c062c4390e5b62f308ba3a, type: 2}
   gunData: {fileID: 11400000, guid: c1033ce62599c1b4b982dc305d4b65d8, type: 2}
+  knifeData: {fileID: 11400000, guid: 90b7c1be0e0794844a58ca7e8d092306, type: 2}
   speed: 10
   origSpeed: 2
   runMulti: 2.25
@@ -4071,7 +4074,7 @@ MonoBehaviour:
   detectionRange: 1.5
   ladderLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   ladderExitSpeed: 2.5
   ladderExitStopDistance: 0.05
 --- !u!114 &524330876806081417
@@ -4089,8 +4092,26 @@ MonoBehaviour:
   pushRange: 1.5
   pushableLayer:
     serializedVersion: 2
-    m_Bits: 0
-  pushPoint: {fileID: 0}
+    m_Bits: 128
+  pushPoint: {fileID: 6989472148089949161}
+  pushPromptUI: {fileID: 0}
+--- !u!114 &2659202323850831212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238039082113987673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e47f646c70a2f49b8ad7323ccc4283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
+  climbCheckPoint: {fileID: 2666925095507847218}
+  climbCheckDistance: 0.5
+  climbableLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6457088044486128642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4615,6 +4636,59 @@ Transform:
   - {fileID: 7734943202430743912}
   m_Father: {fileID: 5688809747383460015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7764558533634469986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6989472148089949161}
+  - component: {fileID: 7729590884970412382}
+  m_Layer: 0
+  m_Name: PushPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6989472148089949161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764558533634469986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.79, z: 1.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2822265576785357143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7729590884970412382
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764558533634469986}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7766053830845747196
 GameObject:
   m_ObjectHideFlags: 0
