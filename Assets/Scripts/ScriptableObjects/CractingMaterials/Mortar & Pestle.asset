@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
-  m_Name: MortarAndPestle
+  m_Name: Mortar & Pestle
   m_EditorClassIdentifier: 
   itemName: Mortar & Pestle
   description: Used to grind berries into paste or powder.

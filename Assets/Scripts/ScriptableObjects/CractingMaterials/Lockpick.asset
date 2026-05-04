@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
-  m_Name: Lock PIck
+  m_Name: Lockpick
   m_EditorClassIdentifier: 
-  itemName: Lock PIck
-  description: 'Tool To Open lock door/chest
+  itemName: Lockpick
+  description: 'A tool to open any lock.
+
 
 '
   icon: {fileID: 256623474, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
@@ -21,6 +22,8 @@ MonoBehaviour:
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  maxStack: 3
+  maxUses: 1
   width: 1
   height: 1
   isConsumable: 0
