@@ -13,6 +13,10 @@ public class Item : ScriptableObject
     public bool isUsedInCrafting; 
     public bool isEquipped;
 
+    [Header("Stack & Durability")]
+    public int maxStack = 1;
+    public int maxUses = 1;
+
     public int width = 1;
     public int height = 1;
 
