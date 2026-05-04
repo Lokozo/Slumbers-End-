@@ -19,6 +19,8 @@ MonoBehaviour:
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  maxStack: 10
+  maxUses: 1
   width: 1
   height: 1
   isConsumable: 0

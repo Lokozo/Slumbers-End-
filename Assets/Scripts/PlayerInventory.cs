@@ -82,9 +82,9 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
 
+        // Weapons (no stacking)
         if (item is WeaponItem)
         {
-            // ❌ REMOVE Instantiate
             resourceInventory[item] = 1;
 
             Debug.Log($"Added weapon: {item.itemName}");
@@ -92,14 +92,19 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
 
-        if (resourceInventory.ContainsKey(item))
-            resourceInventory[item] += quantity;
-        else
-            resourceInventory[item] = quantity;
+        int currentAmount = 0;
+        resourceInventory.TryGetValue(item, out currentAmount);
 
-        Debug.Log($"{quantity} {item.itemName}(s) added.");
+        int newAmount = currentAmount + quantity;
 
-        OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
+        // 🔥 APPLY MAX STACK
+        newAmount = Mathf.Min(newAmount, item.maxStack);
+
+        resourceInventory[item] = newAmount;
+
+        Debug.Log($"{item.itemName} now: {newAmount}/{item.maxStack}");
+
+        OnInventoryChanged?.Invoke();
     }
 
     public bool HasItem(Item item, int amount)
