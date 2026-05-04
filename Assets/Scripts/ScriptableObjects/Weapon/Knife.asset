@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3279f591ff6f6a84290088ebe879f32c, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
-  itemName: Gun
+  itemName: Knife
   description: Aria my knife
   icon: {fileID: 1342643738, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 3

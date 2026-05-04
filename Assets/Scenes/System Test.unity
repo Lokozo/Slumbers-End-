@@ -2691,6 +2691,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SP_Male Mutant
       objectReference: {fileID: 0}
+    - target: {fileID: 9069403496699547110, guid: b54b5ec0fd7e19845b8710f856c3f73c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2713,6 +2717,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   pushPoint: {fileID: 770776601}
+  pushPromptUI: {fileID: 0}
 --- !u!114 &1948046834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2752,7 +2757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2057214929
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4434,6 +4439,7 @@ MonoBehaviour:
   attackDamage: 15
   attackRadius: 1.5
   attackPoint: {fileID: 0}
+  attackRadiusTrigger: {fileID: 0}
   attackAngle: 60
 --- !u!1 &1276401703607109561
 GameObject:
@@ -7398,6 +7404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axeData: {fileID: 0}
   gunData: {fileID: 0}
+  knifeData: {fileID: 0}
   speed: 10
   origSpeed: 2
   runMulti: 2.75
@@ -7410,10 +7417,13 @@ MonoBehaviour:
   enableTutorial: 1
   axe: {fileID: 6337737563397468566}
   gun: {fileID: 1591203666445388301}
+  knife: {fileID: 0}
   weaponGunEquip: {fileID: 3240691886752065655}
   weaponAxeEquip: {fileID: 6082664079508343188}
+  weaponKnifeEquip: {fileID: 0}
   weaponUnequipBackpack: {fileID: 4482608081879712298}
   weaponUnequipHip: {fileID: 7830538328495747854}
+  weaponUnequipLeft: {fileID: 0}
 --- !u!4 &3575336475693268410
 Transform:
   m_ObjectHideFlags: 0
@@ -10426,6 +10436,7 @@ MonoBehaviour:
   attackDamage: 15
   attackRadius: 1.5
   attackPoint: {fileID: 0}
+  attackRadiusTrigger: {fileID: 0}
   attackAngle: 60
 --- !u!95 &6067630649971586771
 Animator:
