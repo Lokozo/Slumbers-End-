@@ -17,13 +17,7 @@ public class InventoryUI : MonoBehaviour
 
     private ItemSlot[,] gridSlots;
 
-    private void OnEnable()
-    {
-        if (gridSlots == null)
-            GenerateGrid();
-
-        RefreshUI();
-    }
+   
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -49,7 +43,9 @@ public class InventoryUI : MonoBehaviour
         int amount = inventory[selected];
 
         PlayerInventory.Instance.RemoveItem(selected, amount);
+        FindObjectOfType<InventoryUI>()?.RefreshUI();
         CampsiteInventory.Instance.AddItem(selected, amount);
+        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
 
         RefreshUI();
 
@@ -148,5 +144,19 @@ public class InventoryUI : MonoBehaviour
     {
         selectedItem = null;
         ClearDescription();
+    }
+    private void OnEnable()
+    {
+        PlayerInventory.Instance.OnInventoryChanged += RefreshUI;
+        RefreshUI();
+        if (gridSlots == null)
+            GenerateGrid();
+
+        RefreshUI();
+    }
+
+    private void OnDisable()
+    {
+        PlayerInventory.Instance.OnInventoryChanged -= RefreshUI;
     }
 }

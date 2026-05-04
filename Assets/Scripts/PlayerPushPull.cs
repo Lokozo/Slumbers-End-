@@ -8,6 +8,9 @@ public class PlayerPushPull : MonoBehaviour
     [Header("Setup")]
     public Transform pushPoint; // The "Push" empty object from your screenshot
 
+    [Header("UI")]
+    public GameObject pushPromptUI;
+
     private PushableObject currentObject;
     private Animator animator;
 
@@ -16,6 +19,46 @@ public class PlayerPushPull : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+    private bool hasDetectedPushable;
+
+    private void Start()
+    {
+        pushPromptUI = UIManager.Instance.pushPullIcon;
+    }
+
+    private void Update()
+    {
+        if (IsPushing)
+        {
+            if (pushPromptUI != null)
+                pushPromptUI.SetActive(false);
+            return;
+        }
+
+        Vector3 rayOrigin = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.2f);
+
+        if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit hit, pushRange, pushableLayer))
+        {
+            if (hit.collider.GetComponent<PushableObject>() != null)
+            {
+                // SHOW ICON
+                if (pushPromptUI != null)
+                    pushPromptUI.SetActive(true);
+
+                //  SHOW TUTORIAL (only once)
+                TutorialUIManager.Instance?.ShowStep(
+                    "pushPullTutorial",
+                    "Press E to grab objects. Move to push or pull."
+                );
+
+                return;
+            }
+        }
+
+        // HIDE ICON
+        if (pushPromptUI != null)
+            pushPromptUI.SetActive(false);
     }
 
     public void TogglePushPull()
@@ -32,10 +75,11 @@ public class PlayerPushPull : MonoBehaviour
         {
             // ATTACH
             Vector3 rayOrigin = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.2f);
-
+            
             if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit hit, pushRange, pushableLayer))
             {
                 currentObject = hit.collider.GetComponent<PushableObject>();
+                
                 if (currentObject != null)
                 {
                     currentObject.SetPhysics(false); // Disable physics so it follows player perfectly
@@ -45,6 +89,7 @@ public class PlayerPushPull : MonoBehaviour
                     currentObject.transform.localRotation = Quaternion.identity;
 
                     animator.SetBool("IsPushing", true);
+                
                 }
             }
         }

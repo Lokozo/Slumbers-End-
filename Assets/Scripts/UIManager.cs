@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject magnifyingGlassIcon;
     public GameObject checkIcon;
     public TMPro.TextMeshProUGUI lootableNameText;
+    public GameObject pushPullIcon;
 
     private void Awake()
     {

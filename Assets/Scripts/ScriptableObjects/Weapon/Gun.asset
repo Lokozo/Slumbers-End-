@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Gun
   description: A Rusted Pistol
-  icon: {fileID: 0}
+  icon: {fileID: 60990798, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
+  isEquipped: 0
   width: 1
   height: 1
   isConsumable: 0
