@@ -42,9 +42,13 @@ public class ItemSlot : MonoBehaviour
 
         iconImage.sprite = item.icon;
         iconImage.enabled = true;
-        if (item.isEquipped)
+
+        if (item is WeaponItem)
         {
-            quantityText.text = "Equiped"; // or "Equipped"
+            if (item.isEquipped)
+                quantityText.text = "Equipped";
+            else
+                quantityText.text = "Equipped"; // 🔥 ADD THIS
         }
         else
         {
@@ -56,7 +60,7 @@ public class ItemSlot : MonoBehaviour
     {
         if (currentItem == null) return;
 
-        float timeSinceLastClick = Time.time - lastClickTime;
+        float timeSinceLastClick = Time.unscaledTime - lastClickTime;
 
         if (timeSinceLastClick <= doubleClickTime)
         {
@@ -76,11 +80,28 @@ public class ItemSlot : MonoBehaviour
             }
         }
 
-        lastClickTime = Time.time;
+        lastClickTime = Time.unscaledTime;
+    }
+    private void RefreshUI()
+    {
+        if (parentUI is InventoryUI invUI)
+            invUI.RefreshUI();
+        else if (parentUI is CampsiteInventoryUI campUI)
+            campUI.RefreshInventoryDisplay();
+
+        FindObjectOfType<InventoryUI>()?.RefreshUI();
+        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
     }
     private void TransferOne()
     {
         if (currentItem == null) return;
+
+        // 🔥 BLOCK IF EQUIPPED
+        if (currentItem is WeaponItem w && w.isEquipped)
+        {
+            Debug.Log("Cannot transfer equipped weapon!");
+            return;
+        }
 
         if (contextType == SlotContextType.Inventory)
         {
@@ -93,18 +114,6 @@ public class ItemSlot : MonoBehaviour
             PlayerInventory.Instance.AddItem(currentItem, 1);
         }
 
-        // ✅ Refresh correct UI
-        if (parentUI is InventoryUI invUI)
-        {
-            invUI.RefreshUI();
-        }
-        else if (parentUI is CampsiteInventoryUI campUI)
-        {
-            campUI.RefreshInventoryDisplay();
-        }
-
-        // ✅ Refresh the other UI too
-        FindObjectOfType<InventoryUI>()?.RefreshUI();
-        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+        RefreshUI();
     }
 }

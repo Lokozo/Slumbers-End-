@@ -10,8 +10,9 @@ public class PlayerInventory : MonoBehaviour
 
     public InventoryUI inventoryUI;
 
-    public WeaponItem startingWeapon;
+    public List<WeaponItem> startingWeapons;
 
+    public System.Action OnInventoryChanged;
 
     void Awake()
     {
@@ -35,38 +36,59 @@ public class PlayerInventory : MonoBehaviour
         //Instance = this;
         //DontDestroyOnLoad(gameObject); // <-- THIS KEEPS IT ALIVE
     }
+    public bool HasWeapon(WeaponItem weapon)
+    {
+        foreach (var item in resourceInventory.Keys)
+        {
+            if (item is WeaponItem w && w.itemName == weapon.itemName)
+                return true;
+        }
+        return false;
+    }
     void Start()
     {
-        if (startingWeapon != null)
+        PlayerAttack attack = FindObjectOfType<PlayerAttack>();
+
+        bool firstWeaponEquipped = false;
+
+        foreach (WeaponItem weapon in startingWeapons)
         {
-            WeaponItem weaponInstance = Instantiate(startingWeapon);
-            weaponInstance.isEquipped = true;
+            if (weapon == null) continue;
 
-            resourceInventory.Add(weaponInstance, 1);
+            WeaponItem instance = Instantiate(weapon);
 
-            Debug.Log("Starting axe added to inventory");
+            // ✅ ONLY first weapon is equipped
+            instance.isEquipped = false;
 
-            // 🔥 ADD THIS PART
-            PlayerAttack attack = FindObjectOfType<PlayerAttack>();
+            resourceInventory.Add(instance, 1);
+            Debug.Log("Added starting weapon: " + instance.itemName);
 
-            if (attack != null)
+            if (!firstWeaponEquipped && attack != null)
             {
-                attack.SetWeapon(weaponInstance);
-            }
-            else
-            {
-                Debug.LogError("PlayerAttack not found!");
+                instance.isEquipped = true;
+                attack.SetWeapon(instance);
+                firstWeaponEquipped = true;
             }
         }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public void AddItem(Item item, int quantity = 1)
     {
+        if (item == null)
+        {
+            Debug.LogError("❌ Tried to add NULL item to inventory!");
+            return;
+        }
+
         if (item is WeaponItem)
         {
-            Item uniqueItem = Instantiate(item);
-            resourceInventory[uniqueItem] = 1;
+            // ❌ REMOVE Instantiate
+            resourceInventory[item] = 1;
+
             Debug.Log($"Added weapon: {item.itemName}");
+            OnInventoryChanged?.Invoke();
             return;
         }
 
@@ -76,6 +98,8 @@ public class PlayerInventory : MonoBehaviour
             resourceInventory[item] = quantity;
 
         Debug.Log($"{quantity} {item.itemName}(s) added.");
+
+        OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
     }
 
     public bool HasItem(Item item, int amount)
@@ -88,12 +112,16 @@ public class PlayerInventory : MonoBehaviour
         if (HasItem(item, amount))
         {
             resourceInventory[item] -= amount;
+
             if (resourceInventory[item] <= 0)
             {
                 resourceInventory.Remove(item);
             }
+
+            OnInventoryChanged?.Invoke(); // 🔥 ADD THIS
             return true;
         }
+
         return false;
     }
 
