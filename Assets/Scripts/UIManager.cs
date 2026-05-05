@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject checkIcon;
     public TMPro.TextMeshProUGUI lootableNameText;
     public GameObject pushPullIcon;
+    public GameObject breakableIcon;
 
     private void Awake()
     {

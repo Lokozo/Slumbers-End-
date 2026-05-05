@@ -134,6 +134,7 @@ MonoBehaviour:
   checkIcon: {fileID: 1577482879715262661}
   lootableNameText: {fileID: 9129823125779551235}
   pushPullIcon: {fileID: 1055166364744695395}
+  breakableIcon: {fileID: 1921551271094896881}
 --- !u!114 &8153349250708836186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIRegister
-  type: 6
+  type: 7
 --- !u!1 &2013538001782376369
 GameObject:
   m_ObjectHideFlags: 0
