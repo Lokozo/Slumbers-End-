@@ -4,6 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public CanvasGroup fadeGroup;
+    public float fadeDuration = 0.5f;
+
+    private bool isLoading = false;
+
+    void Awake()
+    {
+        if (fadeGroup == null)
+        {
+            fadeGroup = FindFirstObjectByType<CanvasGroup>();
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
@@ -22,13 +35,14 @@ public class SceneLoader : MonoBehaviour
 
     void LoadNextScene()
     {
+        if (isLoading) return;
+
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextIndex = currentIndex + 1;
 
-        // Prevent going out of bounds
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
         {
-            StartCoroutine(LoadSceneAsyncRoutine(nextIndex));
+            StartCoroutine(LoadSceneWithFade(nextIndex));
         }
         else
         {
@@ -36,13 +50,32 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadSceneAsyncRoutine(int sceneIndex)
+    IEnumerator LoadSceneWithFade(int sceneIndex)
     {
+        isLoading = true;
+
+        yield return StartCoroutine(Fade(1)); // fade to black
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+    }
+
+    IEnumerator Fade(float target)
+    {
+        float time = 0f;
+        float start = fadeGroup.alpha;
+
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            fadeGroup.alpha = Mathf.Lerp(start, target, time / fadeDuration);
+            yield return null;
+        }
+
+        fadeGroup.alpha = target;
     }
 }

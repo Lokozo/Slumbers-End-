@@ -18,6 +18,11 @@ MonoBehaviour:
   itemType: 1
   isCrafted: 1
   isUsedInCrafting: 0
+  isEquipped: 0
+  maxStack: 1
+  maxUses: 1
+  width: 1
+  height: 1
   isConsumable: 1
   healthRestoreAmount: 10
   hungerRestoreAmount: 0

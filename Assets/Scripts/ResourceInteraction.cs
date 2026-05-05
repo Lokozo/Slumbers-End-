@@ -28,7 +28,7 @@ public class ResourceInteraction : MonoBehaviour
 
     private Dictionary<Item, int> currentDropList = new Dictionary<Item, int>();
 
-    
+
     public GameObject checkIcon;
     private bool hasBeenCollected = false;
 
@@ -274,7 +274,7 @@ public class ResourceInteraction : MonoBehaviour
         TutorialUIManager.Instance?.Hide();
         TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
         // EXIT (ESC)
-       
+
         // ❌ DO NOT CLOSE PANELS
     }
     public void RemoveItem(Item item, int amountToRemove = 1)
@@ -312,7 +312,7 @@ public class ResourceInteraction : MonoBehaviour
                 magnifyingGlassIcon?.SetActive(true);
                 checkIcon?.SetActive(false);
 
-                TutorialUIManager.Instance?.ShowStep("examineTutorial","Hold E to examine");
+                TutorialUIManager.Instance?.ShowStep("examineTutorial", "Hold E to examine");
 
             }
 
@@ -330,9 +330,9 @@ public class ResourceInteraction : MonoBehaviour
             checkIcon?.SetActive(false);
             holdTimer = 0f;
 
-            
+
             TutorialUIManager.Instance?.Hide();
-            
+
         }
     }
 

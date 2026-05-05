@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Metal Scrap
   m_EditorClassIdentifier: 
   itemName: ScrapMetal
-  description: Peice of Metal use for Crafting.
+  description: A piece of metal use for crafting.
   icon: {fileID: 21300000, guid: a758eef338d095944880e1d850731062, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
+  isEquipped: 0
+  maxStack: 1
+  maxUses: 1
+  width: 1
+  height: 1
   isConsumable: 0
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
