@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -57,23 +58,55 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return;
+
         isDead = true;
 
         animator.SetTrigger("Die");
 
-        // 🔥 Disable ALL scripts except this one
+        StartCoroutine(HandleDeath());
+    }
+    IEnumerator HandleDeath()
+    {
+        // wait for death animation
+        yield return new WaitForSeconds(2f);
+
+        Respawn();
+    }
+    void EnablePlayer()
+    {
+        isDead = false;
+
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
 
         foreach (var script in scripts)
         {
-            if (script != this)
-                script.enabled = false;
+            script.enabled = true;
         }
 
         CharacterController cc = GetComponent<CharacterController>();
-        if (cc != null)
-            cc.enabled = false;
+        if (cc != null) cc.enabled = true;
 
-        Debug.Log("Player died.");
+        Debug.Log("Player Respawned");
+    }
+    void Respawn()
+    {
+        Debug.Log("Respawning...");
+
+        // 🔄 Load saved position
+        float x = PlayerPrefs.GetFloat("PosX");
+        float y = PlayerPrefs.GetFloat("PosY");
+        float z = PlayerPrefs.GetFloat("PosZ");
+
+        transform.position = new Vector3(x, y, z);
+
+        // ❤️ Restore some health (optional)
+        stats.health = stats.maxHealth * 0.5f;
+
+        // 🎒 Apply inventory penalty
+        PlayerInventory.Instance.ApplyDeathPenalty();
+
+        // 🔓 Re-enable player
+        EnablePlayer();
     }
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CampArea : MonoBehaviour
@@ -11,6 +11,9 @@ public class CampArea : MonoBehaviour
 
     private bool hasCampPrompt = false;
 
+    private float lastSaveTime = 0f;
+    private float saveCooldown = 2f;
+
     void OnEnable()
     {
         SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -19,6 +22,33 @@ public class CampArea : MonoBehaviour
     void OnDisable()
     {
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+    void Start()
+    {
+        if (PlayerPrefs.HasKey("Health"))
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player == null)
+            {
+                Debug.LogError("Player not found!");
+                return;
+            }
+
+            PlayerStats stats = PlayerStats.Instance;
+
+            stats.health = PlayerPrefs.GetFloat("Health");
+            stats.hunger = PlayerPrefs.GetFloat("Hunger");
+            stats.energy = PlayerPrefs.GetFloat("Energy");
+
+            float x = PlayerPrefs.GetFloat("PosX");
+            float y = PlayerPrefs.GetFloat("PosY");
+            float z = PlayerPrefs.GetFloat("PosZ");
+
+            player.transform.position = new Vector3(x, y, z); // ✅ FIXED
+
+            Debug.Log("Game Loaded!");
+        }
     }
 
     private void OnSceneUnloaded(Scene scene)
@@ -32,10 +62,15 @@ public class CampArea : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerWithinRange && campIsSet && !isCampSceneLoaded)
+        if (Input.GetKeyDown(KeyCode.E) && playerWithinRange && campIsSet)
         {
-            SceneManager.LoadScene("Campsite", LoadSceneMode.Additive);
-            isCampSceneLoaded = true;
+            SaveGame(); // ✅ SAVE FIRST
+
+            if (!isCampSceneLoaded)
+            {
+                SceneManager.LoadScene("Campsite", LoadSceneMode.Additive);
+                isCampSceneLoaded = true;
+            }
         }
     }
 
@@ -58,14 +93,16 @@ public class CampArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerWithinRange = true;
+
+            // ✅ cooldown check
+            if (Time.time - lastSaveTime > saveCooldown)
+            {
+                SaveGame();
+                lastSaveTime = Time.time;
+            }
+
             other.GetComponent<PlayerController>().SetCampZone(this);
-            
             hasCampPrompt = true;
-            //TutorialUIManager tutorial = FindAnyObjectByType<TutorialUIManager>();
-            //if (hasCampPrompt && tutorial != null)
-            //{
-            //    tutorial.ShowInteractionInstruction("Hold E to set up camp");
-            //}
         }
     }
 
@@ -76,5 +113,31 @@ public class CampArea : MonoBehaviour
             playerWithinRange = false;
             other.GetComponent<PlayerController>().ClearCampZone();
         }
+    }
+    void SaveGame()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player not found!");
+            return;
+        }
+
+        PlayerStats stats = PlayerStats.Instance;
+
+        Vector3 pos = player.transform.position;
+
+        PlayerPrefs.SetFloat("Health", stats.health);
+        PlayerPrefs.SetFloat("Hunger", stats.hunger);
+        PlayerPrefs.SetFloat("Energy", stats.energy);
+
+        PlayerPrefs.SetFloat("PosX", pos.x);
+        PlayerPrefs.SetFloat("PosY", pos.y);
+        PlayerPrefs.SetFloat("PosZ", pos.z);
+
+        PlayerPrefs.Save();
+
+        Debug.Log("Game Saved at Campsite!");
     }
 }
