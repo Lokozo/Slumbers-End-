@@ -32,7 +32,7 @@ public class ResourceInteraction : MonoBehaviour
     public GameObject checkIcon;
     private bool hasBeenCollected = false;
 
-    
+    private LockableObject lockable;
 
     [Header("Lootable Metadata")]
     public string lootableDisplayName;  // set in Inspector
@@ -50,6 +50,7 @@ public class ResourceInteraction : MonoBehaviour
     {
         var ui = UIManager.Instance;
 
+        lockable = GetComponent<LockableObject>();
         InventoryMenu = ui.inventoryMenu;
         ResourcePanel = ui.resourcePanel;
         ResourceContentPanel = ui.resourceContentPanel;
@@ -84,14 +85,27 @@ public class ResourceInteraction : MonoBehaviour
 
             if (holdTimer >= holdTimeToOpen)
             {
+                // 🔒 CHECK LOCK FIRST
+                if (lockable != null && lockable.isLocked)
+                {
+                    bool unlocked = lockable.TryUnlock();
+
+                    if (!unlocked)
+                    {
+                        holdTimer = 0f;
+                        return; // ❌ STOP opening
+                    }
+                }
+
+                // ✅ OPEN LOOT (your existing logic)
                 if (!hasGeneratedLoot)
                 {
-                    GenerateRandomResources(); // first time
+                    GenerateRandomResources();
                     hasGeneratedLoot = true;
                 }
                 else
                 {
-                    RebuildUI(); // 🔥 show existing loot
+                    RebuildUI();
                 }
 
                 OpenPanels();
