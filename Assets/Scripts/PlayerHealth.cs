@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -58,16 +58,21 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
+
         animator.SetTrigger("Die");
 
-        if (playerController != null)
-            playerController.enabled = false;
+        // 🔥 Disable ALL scripts except this one
+        MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
 
-        if (playerAttack != null)
-            playerAttack.enabled = false;
+        foreach (var script in scripts)
+        {
+            if (script != this)
+                script.enabled = false;
+        }
 
         CharacterController cc = GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
+        if (cc != null)
+            cc.enabled = false;
 
         Debug.Log("Player died.");
     }

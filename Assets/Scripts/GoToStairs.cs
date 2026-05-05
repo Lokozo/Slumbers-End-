@@ -31,10 +31,10 @@ public class GoToStairs : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // 🔑 THIS IS WHY YOU WERE FLOATING
-        if (!IsMovingByStairs)
-        {
-            ApplyGravity();
-        }
+            if (!IsMovingByStairs && controller.enabled)
+            {
+                ApplyGravity();
+            }
     }
 
     // =======================
@@ -120,19 +120,23 @@ public class GoToStairs : MonoBehaviour
     // =======================
 
     private void ApplyGravity()
-    {
-        if (controller.isGrounded)
-        {
-            if (verticalVelocity < 0f)
-                verticalVelocity = groundedStick;
-        }
-        else
-        {
-            verticalVelocity += gravity * Time.deltaTime;
-        }
+{
+    // 🚨 FIX: don't run if controller is disabled
+    if (controller == null || !controller.enabled)
+        return;
 
-        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+    if (controller.isGrounded)
+    {
+        if (verticalVelocity < 0f)
+            verticalVelocity = groundedStick;
     }
+    else
+    {
+        verticalVelocity += gravity * Time.deltaTime;
+    }
+
+    controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+}
 
     // =======================
     // EXIT INTENT
