@@ -22,6 +22,7 @@ public class CutsceneStarter : MonoBehaviour
     {
         yield return new WaitUntil(() => CutsceneManager.Instance != null);
 
+
         yield return null;
 
         if (cutsceneParent != null)
