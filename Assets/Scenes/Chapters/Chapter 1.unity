@@ -2996,6 +2996,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709581015}
   m_Mesh: {fileID: 2181850053089846298, guid: c674681945410b343a4c253dc14a8bb7, type: 3}
+--- !u!114 &711113497 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 691014560093832768, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 620160970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620160974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1030fa19fc7b5f543a63fb218dbf5698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &713804367
 GameObject:
   m_ObjectHideFlags: 0
@@ -9043,11 +9054,11 @@ PrefabInstance:
     - target: {fileID: 5659552088334164877, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: inventoryUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 711113497}
     - target: {fileID: 5659552088334164877, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: InventoryMenu
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 620160974}
     - target: {fileID: 6958209340973450090, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: m_Name
       value: Persistent
