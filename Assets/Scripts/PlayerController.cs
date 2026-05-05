@@ -304,6 +304,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator SwitchWeapon(WeaponType newWeapon, WeaponType previousWeapon)
     {
+        ResetAllCombatLayers();
 
         if (previousWeapon != WeaponType.None)
             yield return StartCoroutine(UnequipWeaponRoutine(previousWeapon));
@@ -424,6 +425,12 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         animator.SetLayerWeight(layerIndex, targetWeight);
+    }
+    private void ResetAllCombatLayers()
+    {
+        SetLayerWeight("Combat Axe", 0f);
+        SetLayerWeight("Combat Knife", 0f);
+        SetLayerWeight("Combat Pistol", 0f);
     }
 
     public void SetCampZone(CampArea area) => nearCampArea = area;
