@@ -18,8 +18,8 @@ TagManager:
   - Ladder
   - Stairs
   - Enemy
-  - Breakable
-  - 
+  - Post-Process
+  - Breakables
   - 
   - 
   - 

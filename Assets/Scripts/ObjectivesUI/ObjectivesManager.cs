@@ -237,4 +237,8 @@ public class ObjectivesManager : MonoBehaviour
 
         StartCurrentObjective();
     }
+    public void CompleteCurrentObjective()
+    {
+        Debug.Log("Objective Completed");
+    }
 }

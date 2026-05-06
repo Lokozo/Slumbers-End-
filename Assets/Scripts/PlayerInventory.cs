@@ -36,6 +36,23 @@ public class PlayerInventory : MonoBehaviour
         //Instance = this;
         //DontDestroyOnLoad(gameObject); // <-- THIS KEEPS IT ALIVE
     }
+    public bool HasResource(Item item)
+    {
+        return resourceInventory.ContainsKey(item)
+            && resourceInventory[item] > 0;
+    }
+    public void RemoveResource(Item item, int amount)
+    {
+        if (!resourceInventory.ContainsKey(item))
+            return;
+
+        resourceInventory[item] -= amount;
+
+        if (resourceInventory[item] <= 0)
+            resourceInventory.Remove(item);
+
+        inventoryUI.RefreshUI();
+    }
     public bool HasWeapon(WeaponItem weapon)
     {
         foreach (var item in resourceInventory.Keys)
