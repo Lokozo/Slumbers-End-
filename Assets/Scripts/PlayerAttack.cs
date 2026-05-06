@@ -149,8 +149,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
-        // ❌ No enemy → DO NOT ATTACK
-        if (!hasValidTarget)
+        // ✅ Allow melee attacks even without enemies
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged && !hasValidTarget)
         {
             Debug.Log("[ATTACK BLOCKED] Enemy not in actual range");
             return;
@@ -164,7 +164,17 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 CLOSEST ENEMY DAMAGE
     public void AnimEvent_DealDamage()
     {
-        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged && (attackRadius.detectedEnemies == null || attackRadius.detectedEnemies.Count == 0))
+        bool noEnemies =
+        attackRadius.detectedEnemies == null ||
+        attackRadius.detectedEnemies.Count == 0;
+
+        bool noBreakables =
+            attackRadius.detectedBreakables == null ||
+            attackRadius.detectedBreakables.Count == 0;
+
+        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged
+            && noEnemies
+            && noBreakables)
         {
             return;
         }
@@ -205,11 +215,20 @@ public class PlayerAttack : MonoBehaviour
             PlayerStats.Instance.ModifyEnergy(-staminaCostPerAttack);
         }
 
-        // ❌ NOTHING DETECTED
-        if (targets == null || targets.Count == 0)
+        // ✅ DAMAGE ENEMIES ONLY IF ANY EXIST
+        if (targets != null && targets.Count > 0)
         {
-            Debug.Log("[DAMAGE] No enemy inside trigger");
-            return;
+            foreach (BaseEnemy enemy in targets)
+            {
+                if (enemy == null)
+                    continue;
+
+                Debug.Log($"[DAMAGE] {currentWeaponData.weaponType} hit {enemy.name}");
+
+                enemy.TakeDamage(currentWeaponData.damage);
+
+                break;
+            }
         }
 
         // ✅ DAMAGE FIRST VALID ENEMY
@@ -224,16 +243,41 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // =========================
-        // 🪓 BREAKABLES (MELEE ONLY)
+        // BREAKABLES / OBSTACLES
         // =========================
         if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
         {
-            foreach (BreakableObject breakable in attackRadius.detectedBreakables)
+            // 🪓 AXE → BIG BREAKABLES
+            if (currentWeaponData.itemName.Contains("Axe"))
             {
-                if (breakable == null) continue;
+                foreach (BreakableObject breakable in attackRadius.detectedBreakables)
+                {
+                    if (breakable == null)
+                        continue;
 
-                Debug.Log($"[BREAKABLE HIT] {breakable.name}");
-                breakable.TakeDamage(currentWeaponData.damage);
+                    Debug.Log("[AXE HIT] " + breakable.name);
+
+                    breakable.TakeDamage(currentWeaponData.damage);
+                }
+            }
+
+            // 🔪 KNIFE → SMALL OBSTACLES
+            if (currentWeaponData.itemName.Contains("Knife"))
+            {
+                Collider[] hits = Physics.OverlapSphere(
+                    attackRadius.transform.position,
+                    attackRadius.GetComponent<SphereCollider>().radius
+                );
+
+                foreach (Collider hit in hits)
+                {
+                    SmallObstacle obstacle = hit.GetComponent<SmallObstacle>();
+
+                    if (obstacle != null)
+                    {
+                        obstacle.HitObstacle();
+                    }
+                }
             }
         }
     }

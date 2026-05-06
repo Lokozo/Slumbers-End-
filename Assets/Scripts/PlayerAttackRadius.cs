@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlayerAttackRadius : MonoBehaviour
 {
     public List<BaseEnemy> detectedEnemies = new List<BaseEnemy>();
+
     public List<BreakableObject> detectedBreakables = new List<BreakableObject>();
 
     private SphereCollider sphereCollider;
@@ -24,23 +25,39 @@ public class PlayerAttackRadius : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
 
         if (enemy != null && !detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Add(enemy);
-            Debug.Log($"[AttackRadius] Enemy detected: {enemy.name}");
+        }
+
+        BreakableObject breakable = other.GetComponent<BreakableObject>();
+
+        if (breakable != null && !detectedBreakables.Contains(breakable))
+        {
+            detectedBreakables.Add(breakable);
+
+            Debug.Log("[ATTACK RADIUS] Breakable detected: " + breakable.name);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
 
         if (enemy != null && detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Remove(enemy);
-            Debug.Log($"[AttackRadius] Enemy left: {enemy.name}");
+        }
+
+        BreakableObject breakable = other.GetComponent<BreakableObject>();
+
+        if (breakable != null && detectedBreakables.Contains(breakable))
+        {
+            detectedBreakables.Remove(breakable);
+
+            Debug.Log("[ATTACK RADIUS] Breakable removed: " + breakable.name);
         }
     }
 
