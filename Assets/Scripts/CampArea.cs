@@ -14,6 +14,8 @@ public class CampArea : MonoBehaviour
     private float lastSaveTime = 0f;
     private float saveCooldown = 2f;
 
+
+
     void OnEnable()
     {
         SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -45,7 +47,15 @@ public class CampArea : MonoBehaviour
             float y = PlayerPrefs.GetFloat("PosY");
             float z = PlayerPrefs.GetFloat("PosZ");
 
-            player.transform.position = new Vector3(x, y, z); // ✅ FIXED
+            CharacterController cc = player.GetComponent<CharacterController>();
+
+            if (cc != null)
+                cc.enabled = false;
+
+            player.transform.position = new Vector3(x, y, z);
+
+            if (cc != null)
+                cc.enabled = true;
 
             Debug.Log("Game Loaded!");
         }
@@ -94,12 +104,12 @@ public class CampArea : MonoBehaviour
         {
             playerWithinRange = true;
 
-            // ✅ cooldown check
-            if (Time.time - lastSaveTime > saveCooldown)
-            {
-                SaveGame();
-                lastSaveTime = Time.time;
-            }
+           PlayerHealth health = other.GetComponent<PlayerHealth>();
+
+        if (health != null && !health.IsDead)
+        {
+            SaveGame();
+        }
 
             other.GetComponent<PlayerController>().SetCampZone(this);
             hasCampPrompt = true;

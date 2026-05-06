@@ -52,7 +52,7 @@ public class CampsiteInventoryUI : MonoBehaviour
 
         RefreshInventoryDisplay();
 
-        var playerUI = FindObjectOfType<InventoryUI>();
+        var playerUI = FindFirstObjectByType<InventoryUI>();
         if (playerUI != null)
             playerUI.RefreshUI();
     }
