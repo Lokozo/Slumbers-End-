@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour, IDamageable
+public class BreakableObject : MonoBehaviour
 {
     public float health = 30f;
 
     public void TakeDamage(float damage)
     {
         health -= damage;
+
+        Debug.Log(name + " took damage");
 
         if (health <= 0)
         {
@@ -16,10 +18,8 @@ public class BreakableObject : MonoBehaviour, IDamageable
 
     void DestroyObject()
     {
-        Debug.Log("Fence destroyed!");
+        Debug.Log(name + " destroyed!");
 
-        // Optional: particles / sound
         Destroy(gameObject);
     }
-
 }
