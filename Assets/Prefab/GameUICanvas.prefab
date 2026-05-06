@@ -137,7 +137,6 @@ MonoBehaviour:
   lootableNameText: {fileID: 9129823125779551235}
   pushPullIcon: {fileID: 1055166364744695395}
   breakableIcon: {fileID: 1921551271094896881}
-  blackOverlay: {fileID: 3928633488137836249}
 --- !u!114 &8153349250708836186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,8 +1322,6 @@ GameObject:
   - component: {fileID: 2462624284953236379}
   - component: {fileID: 5440438265891113072}
   - component: {fileID: 8211478595487916648}
-  - component: {fileID: 706319039573609516}
-  - component: {fileID: 1865589223779424605}
   m_Layer: 0
   m_Name: BlackOverlay
   m_TagString: Untagged
@@ -1389,31 +1386,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &706319039573609516
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928633488137836249}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!114 &1865589223779424605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928633488137836249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
-  type: 8
 --- !u!1 &3972295772159697145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,13 +2708,14 @@ GameObject:
   - component: {fileID: 851364116747647115}
   - component: {fileID: 8330597082866397907}
   - component: {fileID: 6759724982530236572}
+  - component: {fileID: 7078229889488076459}
   m_Layer: 5
   m_Name: ChapterTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &851364116747647115
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2759,7 +2732,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 373}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8330597082866397907
@@ -2794,8 +2767,6 @@ MonoBehaviour:
 
 
 
-
-
     Chapter #: Title'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -2823,8 +2794,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2867,6 +2838,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &7078229889488076459
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529110483408968025}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6677803940920875011
 GameObject:
   m_ObjectHideFlags: 0

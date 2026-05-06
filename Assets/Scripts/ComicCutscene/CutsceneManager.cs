@@ -245,6 +245,14 @@ public class CutsceneManager : MonoBehaviour
         IsCutscenePlaying = false;
 
         yield return StartCoroutine(Fade(0, endFadeDuration));
+
+        SceneLoader loader = FindFirstObjectByType<SceneLoader>();
+
+        if (loader != null)
+        {
+            loader.SetWaitingForCutscene(false);
+            loader.StartCoroutine(loader.ShowChapterTitle());
+        }
     }
 
     private IEnumerator Fade(float targetAlpha, float duration)

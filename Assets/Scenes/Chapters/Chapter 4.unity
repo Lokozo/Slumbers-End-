@@ -1770,6 +1770,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3928633488137836249, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 72803736}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &72803740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6759724982530236572, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!225 &72803741 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7078229889488076459, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &75718202
 GameObject:
   m_ObjectHideFlags: 0
@@ -16566,6 +16582,18 @@ PrefabInstance:
       propertyPath: fadeGroup
       value: 
       objectReference: {fileID: 72803738}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitle
+      value: 'ACT 2: UNSETTLING TRUTH\n\n\nChapter 4: Silver Pine Town'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleText
+      value: 
+      objectReference: {fileID: 72803740}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleGroup
+      value: 
+      objectReference: {fileID: 72803741}
     - target: {fileID: 4686602905416301906, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader

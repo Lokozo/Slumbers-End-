@@ -10,20 +10,16 @@ public class CutsceneStarter : MonoBehaviour
 
     private IEnumerator Start()
     {
-
         if (blackOverlay != null)
             blackOverlay.SetActive(true);
-        // wait for manager
+
         yield return new WaitUntil(() => CutsceneManager.Instance != null);
 
-       
-        //blackOverlay = UIManager.Instance.blackOverlay;
+        yield return null;
 
-         // FORCE BLACK ON LOAD
-
-        yield return null; // wait 1 frame
-
-
+        SceneLoader loader = FindFirstObjectByType<SceneLoader>();
+        if (loader != null)
+            loader.SetWaitingForCutscene(true);
 
         if (cutsceneParent != null)
         {

@@ -2667,9 +2667,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1267059068}
     - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitle
+      value: '\n\n\nChapter 2: Radio Tower'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: fadeDuration
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleText
+      value: 
+      objectReference: {fileID: 1267059069}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleGroup
+      value: 
+      objectReference: {fileID: 1267059070}
     - target: {fileID: 4686602905416301906, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -3808,6 +3820,22 @@ GameObject:
 --- !u!225 &1267059068 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 1890165206704548668, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1267059066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1267059069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6759724982530236572, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1267059066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!225 &1267059070 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7078229889488076459, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 1267059066}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1279193760
