@@ -1644,10 +1644,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUICanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 612583610238818197, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4269091431064255845, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1752,11 +1748,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9052193226410818736, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 706319039573609516, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+    - {fileID: 1865589223779424605, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1764,6 +1758,32 @@ PrefabInstance:
 --- !u!1 &72803737 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4654259610636562611, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &72803738 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1890165206704548668, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &72803739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3928633488137836249, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &72803740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6759724982530236572, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!225 &72803741 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7078229889488076459, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 72803736}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &75718202
@@ -8748,6 +8768,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7547173781441192211, guid: a89522e1196f2a04c84071fa4792ba82, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 1890850413}
+    - target: {fileID: 7547173781441192211, guid: a89522e1196f2a04c84071fa4792ba82, type: 3}
+      propertyPath: blackOverlay
+      value: 
+      objectReference: {fileID: 72803739}
     - target: {fileID: 7547173781441192211, guid: a89522e1196f2a04c84071fa4792ba82, type: 3}
       propertyPath: cutsceneParent
       value: 
@@ -16550,6 +16578,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: fadeGroup
+      value: 
+      objectReference: {fileID: 72803738}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitle
+      value: 'ACT 2: UNSETTLING TRUTH\n\n\nChapter 4: Silver Pine Town'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleText
+      value: 
+      objectReference: {fileID: 72803740}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleGroup
+      value: 
+      objectReference: {fileID: 72803741}
     - target: {fileID: 4686602905416301906, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -25401,6 +25445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedEnemies: []
+  detectedBreakables: []
 --- !u!135 &962039120
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -52447,6 +52492,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887990237}
   m_Mesh: {fileID: -4283242957333271226, guid: 446831f5374c973458e1fd0434ff6bc7, type: 3}
+--- !u!114 &1890850413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8211478595487916648, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 72803736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72803739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1895673788
 GameObject:
   m_ObjectHideFlags: 0

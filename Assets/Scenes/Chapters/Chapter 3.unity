@@ -16285,6 +16285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedEnemies: []
+  detectedBreakables: []
 --- !u!135 &962039120
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20456,6 +20457,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: fadeGroup
+      value: 
+      objectReference: {fileID: 1175228856}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitle
+      value: '\n\n\nChapter 3: Quarantine Zone'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: fadeDuration
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleText
+      value: 
+      objectReference: {fileID: 1175228857}
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: chapterTitleGroup
+      value: 
+      objectReference: {fileID: 1175228858}
     - target: {fileID: 4686602905416301906, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -20804,6 +20825,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+--- !u!225 &1175228856 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1890165206704548668, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1175228855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1175228857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6759724982530236572, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1175228855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!225 &1175228858 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7078229889488076459, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1175228855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1187771356
 GameObject:
   m_ObjectHideFlags: 0

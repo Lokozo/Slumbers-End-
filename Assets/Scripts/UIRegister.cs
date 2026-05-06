@@ -11,7 +11,9 @@ public class UIRegister : MonoBehaviour
         MagnifyingGlass,
         CheckIcon,
         LootableNameText,
-        PushPullIcon
+        PushPullIcon,
+        BreakableIcon
+        //BlackOverlay
     }
 
     public UIType type;
@@ -48,6 +50,12 @@ public class UIRegister : MonoBehaviour
             case UIType.PushPullIcon:
                 ui.pushPullIcon = gameObject;
                 break;
+            case UIType.BreakableIcon:
+                ui.breakableIcon = gameObject;
+                break;
+            //case UIType.BlackOverlay:
+            //    ui.blackOverlay = gameObject;
+            //    break;
         }
     }
 }

@@ -35,14 +35,22 @@ public class TutorialUIManager : MonoBehaviour
         }
     }
 
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        BreakableObject.OnAnyBreakableDestroyed += HandleBreakableDestroyed;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        BreakableObject.OnAnyBreakableDestroyed -= HandleBreakableDestroyed;
+    }
+
+    private void HandleBreakableDestroyed()
+    {
+        Hide();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -49,7 +49,8 @@ public class PlayerPushPull : MonoBehaviour
                 //  SHOW TUTORIAL (only once)
                 TutorialUIManager.Instance?.ShowStep(
                     "pushPullTutorial",
-                    "Press E to grab objects. Move to push or pull."
+                    "Press E to grab moveable objects." +
+                    "\nMove to push or pull it."    
                 );
 
                 return;

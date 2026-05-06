@@ -1,19 +1,51 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+
 
 public class SceneLoader : MonoBehaviour
 {
     public CanvasGroup fadeGroup;
     public float fadeDuration = 0.5f;
+    public CanvasGroup chapterTitleGroup;
+    public float titleFadeDuration = 0.5f;
+    public float titleDisplayTime = 2f;
 
+    public TextMeshProUGUI chapterTitleText;
+
+    [TextArea]
+    public string chapterTitle;
+
+    private bool waitingForCutscene = false;
     private bool isLoading = false;
+
+    private bool hasShownTitle = false;
 
     void Awake()
     {
         if (fadeGroup == null)
         {
             fadeGroup = FindFirstObjectByType<CanvasGroup>();
+        }
+    }
+
+    void Start()
+    {
+        chapterTitleText.text = string.IsNullOrEmpty(chapterTitle)
+        ? "CHAPTER"
+        : chapterTitle;
+
+        //  Ensure title starts hidden
+        if (chapterTitleGroup != null)
+            chapterTitleGroup.alpha = 0f;
+
+        //  Start fade system
+        if (fadeGroup != null)
+        {
+            fadeGroup.alpha = 1f;
+            StartCoroutine(SceneStartRoutine());
         }
     }
 
@@ -54,13 +86,31 @@ public class SceneLoader : MonoBehaviour
     {
         isLoading = true;
 
-        yield return StartCoroutine(Fade(1)); // fade to black
+        yield return StartCoroutine(Fade(1));
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
         while (!asyncLoad.isDone)
         {
             yield return null;
+        }
+
+        yield return null;
+
+        yield return StartCoroutine(Fade(0));
+
+        isLoading = false;
+    }
+
+    IEnumerator SceneStartRoutine()
+    {
+        yield return StartCoroutine(Fade(0));
+
+        yield return null;
+
+        if (!waitingForCutscene)
+        {
+            StartCoroutine(ShowChapterTitle());
         }
     }
 
@@ -77,5 +127,43 @@ public class SceneLoader : MonoBehaviour
         }
 
         fadeGroup.alpha = target;
+    }
+
+    public IEnumerator ShowChapterTitle()
+    {
+        if (chapterTitleGroup == null || hasShownTitle)
+            yield break;
+
+        hasShownTitle = true;
+
+        float t = 0;
+
+        // Fade IN
+        while (t < titleFadeDuration)
+        {
+            t += Time.deltaTime;
+            chapterTitleGroup.alpha = Mathf.Lerp(0, 1, t / titleFadeDuration);
+            yield return null;
+        }
+
+        chapterTitleGroup.alpha = 1;
+
+        yield return new WaitForSeconds(titleDisplayTime);
+
+        // Fade OUT
+        t = 0;
+        while (t < titleFadeDuration)
+        {
+            t += Time.deltaTime;
+            chapterTitleGroup.alpha = Mathf.Lerp(1, 0, t / titleFadeDuration);
+            yield return null;
+        }
+
+        chapterTitleGroup.alpha = 0;
+    }
+
+    public void SetWaitingForCutscene(bool value)
+    {
+        waitingForCutscene = value;
     }
 }
