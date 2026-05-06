@@ -17,6 +17,17 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // If scene starts black, fade it out
+        if (fadeGroup != null)
+        {
+            fadeGroup.alpha = 1f; // start fully black
+            StartCoroutine(Fade(0)); // fade to visible
+        }
+
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
@@ -62,6 +73,13 @@ public class SceneLoader : MonoBehaviour
         {
             yield return null;
         }
+
+        // WAIT ONE FRAME to ensure scene is fully ready
+        yield return null;
+
+        yield return StartCoroutine(Fade(0)); // <-- fade back in
+
+        isLoading = false;
     }
 
     IEnumerator Fade(float target)

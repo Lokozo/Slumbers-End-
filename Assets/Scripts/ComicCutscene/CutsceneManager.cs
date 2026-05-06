@@ -11,7 +11,9 @@ public class CutsceneManager : MonoBehaviour
     [Header("UI")]
     public Image fadeImage;
     public GameObject continuePrompt;
-    public GameObject initialBlackout;
+
+    private GameObject blackOverlay;
+
 
     [Header("Timing")]
     public float panelFadeDuration = 0.3f;   // was 0.15
@@ -30,6 +32,8 @@ public class CutsceneManager : MonoBehaviour
 
     private Coroutine fadeCoroutine;
 
+    //private CutsceneStarter CutsceneStarterRef;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,14 +44,14 @@ public class CutsceneManager : MonoBehaviour
 
         Instance = this;
 
-        SafeInitUI();
+        //CutsceneStarterRef = FindFirstObjectByType<CutsceneStarter>();
 
-        //  CRITICAL: force black BEFORE first frame renders
-        if (fadeImage != null)
-        {
-            fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(0, 0, 0, 1f);
-        }
+        SafeInitUI();
+    }
+
+    private void Start()
+    {
+
     }
 
     private void Update()
@@ -95,9 +99,12 @@ public class CutsceneManager : MonoBehaviour
         currentCutscene = cutsceneParent;
         currentCutscene.SetActive(true);
 
-        // FORCE BLACK SCREEN IMMEDIATELY (FIX)
-        fadeImage.gameObject.SetActive(true);
-        fadeImage.color = new Color(0, 0, 0, 1f);
+        blackOverlay = GameObject.Find("BlackOverlay");
+
+        if (blackOverlay == null)
+        {
+            Debug.LogWarning("BlackOverlay not found!");
+        }
 
         panels.Clear();  //
 
@@ -128,40 +135,40 @@ public class CutsceneManager : MonoBehaviour
     #endregion
 
     private IEnumerator FadeAndStart()
-{
-    GameObject firstPanel = panels[currentPanelIndex];
-    firstPanel.SetActive(true);
-
-    CanvasGroup cg = firstPanel.GetComponent<CanvasGroup>();
-    cg.alpha = 0f;
-
-    // 1. Ensure we are internally blacked out
-    fadeImage.color = new Color(0, 0, 0, 1f);
-    fadeImage.gameObject.SetActive(true);
-
-    // 2. NOW it is safe to turn off the static blackout image 
-    // because the FadeImage is currently covering it at 100% alpha.
-    if (initialBlackout != null)
-        initialBlackout.SetActive(false);
-
-    yield return new WaitForSeconds(0.15f);
-
-    // 3. Fade IN panel
-    float time = 0f;
-    while (time < panelFadeDuration)
     {
-        cg.alpha = Mathf.Lerp(0f, 1f, time / panelFadeDuration);
-        time += Time.deltaTime;
-        yield return null;
+        GameObject firstPanel = panels[currentPanelIndex];
+        firstPanel.SetActive(true);
+
+        CanvasGroup cg = firstPanel.GetComponent<CanvasGroup>();
+        cg.alpha = 0f;
+
+        // 1. Ensure we are internally blacked out
+        fadeImage.color = new Color(0, 0, 0, 1f);
+        fadeImage.gameObject.SetActive(true);
+
+        // RELEASE BLACK OVERLAY (SAFE MOMENT)
+        if (blackOverlay != null)
+        {
+            blackOverlay.SetActive(false);
+            Debug.Log("CutsceneManager turned off BlackOverlay");
+        }
+
+        // 3. Fade IN panel
+        float time = 0f;
+        while (time < panelFadeDuration)
+        {
+            cg.alpha = Mathf.Lerp(0f, 1f, time / panelFadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        cg.alpha = 1f;
+
+        // 4. Reveal everything
+        yield return StartCoroutine(Fade(0f, sceneFadeDuration));
+
+        if (continuePrompt != null)
+            continuePrompt.SetActive(true);
     }
-    cg.alpha = 1f;
-
-    // 4. Reveal everything
-    yield return StartCoroutine(Fade(0f, sceneFadeDuration));
-
-    if (continuePrompt != null)
-        continuePrompt.SetActive(true);
-}
 
     private IEnumerator NextPanelRoutine()
     {
@@ -285,11 +292,10 @@ public class CutsceneManager : MonoBehaviour
             yield return null;
         }
 
+        // Just ensure fadeImage is active
         fadeImage.gameObject.SetActive(true);
 
-        // IMPORTANT: reset fade state before starting transition
         fadeImage.color = new Color(0, 0, 0, 0f);
-
         // Fade TO black ONLY
         yield return StartCoroutine(Fade(1f, sceneFadeDuration));
 
@@ -300,7 +306,7 @@ public class CutsceneManager : MonoBehaviour
         yield return StartCoroutine(PlayRoutine(cutsceneParent));
     }
 
-   
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -316,7 +322,6 @@ public class CutsceneManager : MonoBehaviour
         SafeInitUI();
 
         // Re-enable the static blackout so the NEXT scene starts dark too
-        if (initialBlackout != null)
-            initialBlackout.SetActive(true);
+        
     }
 }

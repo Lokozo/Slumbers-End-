@@ -2662,6 +2662,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1106595230299478699, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
+      propertyPath: fadeGroup
+      value: 
+      objectReference: {fileID: 1267059068}
     - target: {fileID: 4686602905416301906, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -3795,6 +3799,11 @@ PrefabInstance:
 --- !u!1 &1267059067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2112740055992086028, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1267059066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1267059068 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1890165206704548668, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 1267059066}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1279193760

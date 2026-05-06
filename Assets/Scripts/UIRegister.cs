@@ -13,6 +13,7 @@ public class UIRegister : MonoBehaviour
         LootableNameText,
         PushPullIcon,
         BreakableIcon
+        //BlackOverlay
     }
 
     public UIType type;
@@ -52,6 +53,9 @@ public class UIRegister : MonoBehaviour
             case UIType.BreakableIcon:
                 ui.breakableIcon = gameObject;
                 break;
+            //case UIType.BlackOverlay:
+            //    ui.blackOverlay = gameObject;
+            //    break;
         }
     }
 }
