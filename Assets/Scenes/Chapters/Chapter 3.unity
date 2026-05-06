@@ -20832,7 +20832,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1175228857 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6759724982530236572, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3818879602710453441, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 1175228855}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -20843,7 +20843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!225 &1175228858 stripped
 CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 7078229889488076459, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6219146102731407023, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 1175228855}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1187771356
