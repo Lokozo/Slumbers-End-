@@ -89,8 +89,8 @@ public class ItemSlot : MonoBehaviour
         else if (parentUI is CampsiteInventoryUI campUI)
             campUI.RefreshInventoryDisplay();
 
-        FindObjectOfType<InventoryUI>()?.RefreshUI();
-        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+        FindFirstObjectByType<InventoryUI>()?.RefreshUI();
+        FindFirstObjectByType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
     }
     private void TransferOne()
     {

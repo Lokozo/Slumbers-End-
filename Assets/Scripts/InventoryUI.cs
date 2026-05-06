@@ -43,9 +43,9 @@ public class InventoryUI : MonoBehaviour
         int amount = inventory[selected];
 
         PlayerInventory.Instance.RemoveItem(selected, amount);
-        FindObjectOfType<InventoryUI>()?.RefreshUI();
+        FindFirstObjectByType<InventoryUI>()?.RefreshUI();
         CampsiteInventory.Instance.AddItem(selected, amount);
-        FindObjectOfType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+        FindFirstObjectByType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
 
         RefreshUI();
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlayerAttackRadius : MonoBehaviour
 {
     public List<BaseEnemy> detectedEnemies = new List<BaseEnemy>();
+    public List<BreakableObject> detectedBreakables = new List<BreakableObject>();
 
     private SphereCollider sphereCollider;
 
@@ -23,22 +24,23 @@ public class PlayerAttackRadius : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+
         if (enemy != null && !detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Add(enemy);
             Debug.Log($"[AttackRadius] Enemy detected: {enemy.name}");
-            Debug.Log("Hit: " + other.name + " | Root: " + other.transform.root.name);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+
         if (enemy != null && detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Remove(enemy);
-            Debug.Log($"[AttackRadius] Enemy left detection: {enemy.name}");
+            Debug.Log($"[AttackRadius] Enemy left: {enemy.name}");
         }
     }
 
@@ -50,7 +52,6 @@ public class PlayerAttackRadius : MonoBehaviour
         if (detectedEnemies.Count > 0)
         {
             string enemyNames = string.Join(", ", detectedEnemies.ConvertAll(e => e != null ? e.name : "Destroyed"));
-            Debug.Log($"[AttackRadius] Enemies currently detected: {enemyNames}");
         }
     }
 
