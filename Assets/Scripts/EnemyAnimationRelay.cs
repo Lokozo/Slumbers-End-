@@ -11,6 +11,7 @@ public class EnemyAnimationRelay : MonoBehaviour
 
     public void Hit()
     {
+        Debug.Log("HIT EVENT CALLED");
         enemy.AnimEvent_HitPlayer();
     }
 

@@ -23,7 +23,8 @@ public class PlayerAttackGunRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+
         if (enemy != null && !detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Add(enemy);
@@ -32,7 +33,8 @@ public class PlayerAttackGunRange : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
+        BaseEnemy enemy = other.GetComponentInParent<BaseEnemy>();
+
         if (enemy != null && detectedEnemies.Contains(enemy))
         {
             detectedEnemies.Remove(enemy);

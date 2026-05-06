@@ -47,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
     }
     void Start()
     {
-        PlayerAttack attack = FindObjectOfType<PlayerAttack>();
+        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
 
         bool firstWeaponEquipped = false;
 
@@ -162,4 +162,31 @@ public class PlayerInventory : MonoBehaviour
             Debug.LogError("[PlayerInventory] InventoryUI not found in new scene!");
     }
 
+    public void ApplyDeathPenalty()
+    {
+        Debug.Log("Applying death penalty...");
+
+        List<Item> keys = new List<Item>(resourceInventory.Keys);
+
+        foreach (Item item in keys)
+        {
+            // ❌ Skip weapons
+            if (item is WeaponItem) continue;
+
+            int currentAmount = resourceInventory[item];
+
+            int loss = Mathf.CeilToInt(currentAmount * 0.2f);
+
+            resourceInventory[item] -= loss;
+
+            if (resourceInventory[item] <= 0)
+            {
+                resourceInventory.Remove(item);
+            }
+
+            Debug.Log($"{item.itemName} lost: {loss}");
+        }
+
+        OnInventoryChanged?.Invoke();
+    }
 }
