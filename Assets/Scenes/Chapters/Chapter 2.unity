@@ -4981,7 +4981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CinematicTrigger
   playerCam: {fileID: 147149058}
   objectiveCam: {fileID: 360559867}
-  duration: 2.5
+  duration: 5
 --- !u!65 &1675697163
 BoxCollider:
   m_ObjectHideFlags: 0

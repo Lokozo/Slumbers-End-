@@ -47,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
     }
     void Start()
     {
-        PlayerAttack attack = FindObjectOfType<PlayerAttack>();
+        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
 
         bool firstWeaponEquipped = false;
 

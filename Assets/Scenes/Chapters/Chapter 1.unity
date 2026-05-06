@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299020882974058634, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,7 +178,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 299020882974058634, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 98666150}
   m_SourcePrefab: {fileID: 100100000, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
 --- !u!1001 &11496842
 PrefabInstance:
@@ -518,6 +521,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &98666146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 299020882974058634, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+  m_PrefabInstance: {fileID: 8869489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &98666150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98666146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450434801fe584e49b2828baafbf74a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &110891759
 GameObject:
   m_ObjectHideFlags: 0
@@ -8958,7 +8978,7 @@ PrefabInstance:
     - target: {fileID: 3218924305343639938, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: inventoryUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 711113497}
     - target: {fileID: 3218924305343639938, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: startingWeapon
       value: 

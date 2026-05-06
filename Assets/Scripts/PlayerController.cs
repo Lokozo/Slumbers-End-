@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private PlayerStats stats; // Assumed for energy logic
     private PlayerAttack playerAttack;
+    private PlayerHealth playerHealth;
 
     [Header("Weapon Data Assets")]
     public WeaponItem axeData;
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         animator = GetComponent<Animator>();
         stats = GetComponent<PlayerStats>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         InitializeInputActions();
     }
@@ -85,6 +87,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsRunning", false);
+            return;
+        }
         if (isClimbing || movementLocked || (playerAttack != null && playerAttack.IsAttacking()))
         {
             animator.SetBool("IsWalking", false);
