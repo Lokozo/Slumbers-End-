@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Berry
   description: Fresh and edible.
-  icon: {fileID: -474104238, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: -1890001026, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 1
   isCrafted: 0
   isUsedInCrafting: 1

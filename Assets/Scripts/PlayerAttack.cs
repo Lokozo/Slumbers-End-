@@ -5,6 +5,14 @@ using static WeaponItem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public enum AmmoType
+    {
+        None,
+        Light,
+        Medium,
+        Shotgun
+    }
+
     private Animator animator;
     private InputSystem_Actions inputActions;
     private PlayerAttackRadius attackRadius;
@@ -27,6 +35,10 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Weapon")]
     public WeaponItem currentWeaponData;
+
+    [Header("Ammo")]
+    public AmmoType ammoType;
+    public int ammoPerShot = 1;
 
     private void Awake()
     {
@@ -181,22 +193,30 @@ public class PlayerAttack : MonoBehaviour
 
         Debug.Log($"[ATTACK] Weapon Type: {currentWeaponData.weaponType}");
 
-        List<BaseEnemy> targets;
+        List<BaseEnemy> targets = new List<BaseEnemy>();
         Vector3 origin;
 
         // 🔫 GUN RANGE (uses GunRange object ONLY)
-        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        if (currentWeaponData.weaponType == WeaponType.Ranged)
         {
-            if (gunRange == null)
+            Item ammoItem = FindAmmoItem(currentWeaponData.ammoType);
+
+            if (ammoItem == null)
             {
-                Debug.LogError("[ATTACK] GunRange missing!");
+                Debug.Log("No matching ammo item!");
                 return;
             }
 
-            targets = gunRange.detectedEnemies;
-            origin = gunRange.transform.position;
+            if (!PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot))
+            {
+                Debug.Log("Out of ammo!");
+                return;
+            }
 
-            Debug.Log("[ATTACK] Using GUN RANGE trigger");
+            PlayerInventory.Instance.RemoveItem(
+                ammoItem,
+                currentWeaponData.ammoPerShot
+            );
         }
         // 🪓 MELEE (uses AttackRadius object ONLY)
         else
@@ -280,6 +300,20 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
+    }
+    private Item FindAmmoItem(AmmoType ammoType)
+    {
+        foreach (var kvp in PlayerInventory.Instance.GetInventory())
+        {
+            Item item = kvp.Key;
+
+            if (item.ammoType == ammoType)
+            {
+                return item;
+            }
+        }
+
+        return null;
     }
     public void ResetCombo()
     {
