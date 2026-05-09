@@ -2010,6 +2010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedEnemies: []
+  detectedBreakables: []
 --- !u!135 &2011014831659108132
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3109,6 +3110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedEnemies: []
+  detectedBreakables: []
 --- !u!135 &5107799239629830260
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4128,7 +4130,8 @@ MonoBehaviour:
   detectRange: 2
   breakableLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 4096
+  currentBreakable: {fileID: 0}
 --- !u!1 &6457088044486128642
 GameObject:
   m_ObjectHideFlags: 0
