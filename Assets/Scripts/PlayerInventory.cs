@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     public List<WeaponItem> startingWeapons;
 
     public System.Action OnInventoryChanged;
-
+    
     void Awake()
     {
         if (Instance == null)
