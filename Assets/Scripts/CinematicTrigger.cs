@@ -9,10 +9,8 @@ public class CinematicTrigger : MonoBehaviour
     public CinemachineCamera playerCam;
     public CinemachineCamera objectiveCam;
 
-    [Header("Cinematic")]
-    public float duration = 2.5f;
-
     [Header("Dialogue")]
+    public string speakerName;
     public Sprite speakerPortrait;
 
     [TextArea(2, 5)]
@@ -21,43 +19,38 @@ public class CinematicTrigger : MonoBehaviour
     [Header("Settings")]
     public bool playOnlyOnce = true;
 
-    private bool triggered = false;
+    private bool triggered;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
-            return;
-
-        if (playOnlyOnce && triggered)
-            return;
+        if (!other.CompareTag("Player")) return;
+        if (playOnlyOnce && triggered) return;
 
         triggered = true;
-
         StartCoroutine(PlayCinematic());
     }
 
-    IEnumerator PlayCinematic()
+    private IEnumerator PlayCinematic()
     {
-        // 🎥 switch camera
+        //  switch to cinematic camera
         playerCam.Priority = 5;
         objectiveCam.Priority = 20;
 
-        // 💬 play dialogue
+        //  start dialogue (fully handled by DialogueManager)
         if (DialogueManager.Instance != null)
         {
             DialogueManager.Instance.StartDialogue(
+                speakerName,
                 speakerPortrait,
                 dialogueLines
             );
+
+            // wait until dialogue finishes
+            yield return new WaitUntil(() => DialogueManager.Instance.IsPlaying == false);
         }
 
-        yield return new WaitForSeconds(duration);
-
-        // 🔙 return to player camera
+        //  return control to player camera
         playerCam.Priority = 20;
         objectiveCam.Priority = 5;
-
-        // OPTIONAL
-        // Destroy(gameObject);
     }
 }

@@ -8,68 +8,56 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    [Header("UI")]
+    [Header("UI (single panel)")]
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public Image portraitImage;
+    public TextMeshProUGUI speakerNameText;
 
     [Header("Settings")]
     public float textSpeed = 0.02f;
 
-    private Coroutine dialogueRoutine;
+    public bool IsPlaying { get; private set; }
 
-    private bool waitingForNext;
-    private bool isTyping;
+    private Coroutine routine;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
 
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(
-        Sprite portrait,
-        List<string> lines)
+    public void StartDialogue(string speakerName, Sprite portrait, List<string> lines)
     {
-        if (dialogueRoutine != null)
-            StopCoroutine(dialogueRoutine);
+        if (routine != null)
+            StopCoroutine(routine);
 
-        dialogueRoutine = StartCoroutine(
-            ShowDialogue(portrait, lines));
+        routine = StartCoroutine(RunDialogue(speakerName, portrait, lines));
     }
 
-    private IEnumerator ShowDialogue(
-        Sprite portrait,
-        List<string> lines)
+    private IEnumerator RunDialogue(string speakerName, Sprite portrait, List<string> lines)
     {
+        IsPlaying = true;
         dialoguePanel.SetActive(true);
 
+        speakerNameText.text = speakerName;
         portraitImage.sprite = portrait;
 
         foreach (string line in lines)
         {
-            yield return StartCoroutine(TypeLine(line));
-
-            waitingForNext = true;
+            yield return TypeLine(line);
 
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
-            waitingForNext = false;
-
-            yield return null;
         }
 
         dialoguePanel.SetActive(false);
+        IsPlaying = false;
     }
 
     private IEnumerator TypeLine(string line)
     {
-        isTyping = true;
-
         dialogueText.text = "";
 
         foreach (char c in line)
@@ -77,7 +65,5 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
-
-        isTyping = false;
     }
 }

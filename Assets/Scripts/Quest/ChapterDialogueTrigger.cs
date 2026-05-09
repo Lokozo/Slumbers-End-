@@ -24,9 +24,9 @@ public class ChapterDialogueTrigger : MonoBehaviour
 
         hasPlayed = true;
 
-        DialogueManager.Instance.StartDialogue(
-            speakerPortrait,
-            dialogueLines
-        );
+        //DialogueManager.Instance.StartDialogue(this);
+        //    speakerPortrait,
+        //    dialogueLines
+        //);
     }
 }
