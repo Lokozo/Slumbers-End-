@@ -2512,6 +2512,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6396433316863691187, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7471975278679714405, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -8864,6 +8868,22 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 1565074923}
+    - target: {fileID: 5105704333992622736, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: dialogueText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105704333992622736, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: dialoguePanel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105704333992622736, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: portraitImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105704333992622736, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: speakerNameText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5410355805704006033, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: objectivesPanel
       value: 
@@ -8915,14 +8935,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8063738266605970942, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4468440292367286287}
+      addedObject: {fileID: 4468440292367286289}
   m_SourcePrefab: {fileID: 100100000, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
 --- !u!1 &4468440292367286286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8063738266605970942, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
   m_PrefabInstance: {fileID: 4468440292367286285}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4468440292367286287
+--- !u!114 &4468440292367286289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8931,9 +8951,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4468440292367286286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cc59a2bf7e44f947aa8615a6a3cb12c, type: 3}
+  m_Script: {fileID: 11500000, guid: b85ea942a6638ba459daf4e14b68c228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHealth: 100
+  maxHunger: 100
+  maxEnergy: 100
+  health: 0
+  hunger: 0
+  energy: 0
+  energyRecoverRate: 5
+  hungerDrainAmount: 5
+  hungerDrainInterval: 20
 --- !u!1 &4526540035133741957
 GameObject:
   m_ObjectHideFlags: 0
@@ -9015,7 +9044,7 @@ PrefabInstance:
     - target: {fileID: 4116484645221212738, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: stats
       value: 
-      objectReference: {fileID: 4468440292367286287}
+      objectReference: {fileID: 0}
     - target: {fileID: 4653444513423302262, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: detectedEnemies.Array.size
       value: 2

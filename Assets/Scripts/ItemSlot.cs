@@ -52,7 +52,8 @@ public class ItemSlot : MonoBehaviour
         }
         else
         {
-            quantityText.text = quantity > 1 ? quantity.ToString() : "";
+            //quantityText.text = quantity > 1 ? quantity.ToString() : "";
+            quantityText.text = quantity.ToString();
         }
     }
 

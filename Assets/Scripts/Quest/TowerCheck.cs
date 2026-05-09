@@ -30,15 +30,13 @@ public class TowerCheck : MonoBehaviour
             {
                 checkedTower = true;
 
-                DialogueManager.Instance.StartDialogue(
-                    playerPortrait,
-                    new List<string>
-                    {
-                        "The tower definitely took damage...",
-                        "Still no signal.",
-                        "Maybe the generator still works."
-                    }
-                );
+                //DialogueManager.Instance.StartDialogue(
+                //    playerPortrait,
+                //    new List<string>
+                //    {
+                //        "The tower definitely looks run-down. Still no signal.\nMaybe the generator still works."
+                //    }
+                //);
             }
         }
         else
