@@ -138,6 +138,10 @@ MonoBehaviour:
   lootableNameText: {fileID: 9129823125779551235}
   pushPullIcon: {fileID: 1055166364744695395}
   breakableIcon: {fileID: 1921551271094896881}
+  dialoguePanel: {fileID: 6396433316863691187}
+  speakerNameText: {fileID: 2742929511017963651}
+  portraitImage: {fileID: 7534308913565030952}
+  dialogueText: {fileID: 6016005765742547240}
 --- !u!114 &8153349250708836186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,6 +2507,7 @@ GameObject:
   - component: {fileID: 5440989970790078945}
   - component: {fileID: 4298903174802614678}
   - component: {fileID: 7534308913565030952}
+  - component: {fileID: 8357603100822612607}
   m_Layer: 0
   m_Name: PortraitImage
   m_TagString: Untagged
@@ -2567,6 +2572,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8357603100822612607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831338325247879675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 10
 --- !u!1 &5883792782622435827
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,6 +2871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2467439855484010146}
+  - component: {fileID: 2145411255514228145}
   m_Layer: 0
   m_Name: DialoguePanel
   m_TagString: Untagged
@@ -2879,6 +2898,19 @@ Transform:
   - {fileID: 5440989970790078945}
   m_Father: {fileID: 5435642083694159814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2145411255514228145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396433316863691187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 8
 --- !u!1 &6406034526259456837
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,6 +3072,7 @@ GameObject:
   - component: {fileID: 733727726117249066}
   - component: {fileID: 8581771771924599017}
   - component: {fileID: 2742929511017963651}
+  - component: {fileID: 3642006768145291533}
   m_Layer: 5
   m_Name: SpeakerNameText
   m_TagString: Untagged
@@ -3165,6 +3198,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3642006768145291533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711186262439530910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 9
 --- !u!1 &6721317137370249158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,6 +3569,7 @@ GameObject:
   - component: {fileID: 2804080227092490425}
   - component: {fileID: 444543999968142110}
   - component: {fileID: 6016005765742547240}
+  - component: {fileID: 7581244827688931263}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -3648,6 +3695,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7581244827688931263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631874982142311486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438d710f9ea08654794baf22ce86e7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  type: 11
 --- !u!1 &8060716637606740912
 GameObject:
   m_ObjectHideFlags: 0

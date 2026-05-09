@@ -23,14 +23,42 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        //if (Instance != null && Instance != this)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
+
+        //Instance = this;
+
+
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
 
-        dialoguePanel.SetActive(false);
+    private void Start()
+    {
+
+    }
+
+    private void SetupUI()
+    {
+        dialoguePanel = UIManager.Instance.dialoguePanel;
+        dialogueText = UIManager.Instance.dialogueText;
+        portraitImage = UIManager.Instance.portraitImage;
+        speakerNameText = UIManager.Instance.speakerNameText;
     }
 
     public void StartDialogue(string speakerName, Sprite portrait, List<string> lines)
     {
+        SetupUI();
+
+        if (dialoguePanel == null)
+        {
+            Debug.LogError("Dialogue Panel is NULL.");
+            return;
+        }
+
         if (routine != null)
             StopCoroutine(routine);
 
