@@ -5,13 +5,11 @@ public class BreakableObject : MonoBehaviour
 {
     public static event Action OnAnyBreakableDestroyed;
 
-    public float health = 30f;
+    public int health = 30;
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
-
-        Debug.Log(name + " took damage");
 
         if (health <= 0)
         {
@@ -19,9 +17,8 @@ public class BreakableObject : MonoBehaviour
         }
     }
 
-    void DestroyObject()
+    private void DestroyObject()
     {
-        Debug.Log(name + " destroyed!");
         OnAnyBreakableDestroyed?.Invoke();
 
         Destroy(gameObject);

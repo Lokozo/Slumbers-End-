@@ -13,7 +13,13 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Image portraitImage;
 
+    [Header("Settings")]
+    public float textSpeed = 0.02f;
+
     private Coroutine dialogueRoutine;
+
+    private bool waitingForNext;
+    private bool isTyping;
 
     private void Awake()
     {
@@ -36,7 +42,7 @@ public class DialogueManager : MonoBehaviour
             ShowDialogue(portrait, lines));
     }
 
-    IEnumerator ShowDialogue(
+    private IEnumerator ShowDialogue(
         Sprite portrait,
         List<string> lines)
     {
@@ -46,13 +52,32 @@ public class DialogueManager : MonoBehaviour
 
         foreach (string line in lines)
         {
-            dialogueText.text = line;
+            yield return StartCoroutine(TypeLine(line));
+
+            waitingForNext = true;
 
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
+            waitingForNext = false;
 
             yield return null;
         }
 
         dialoguePanel.SetActive(false);
+    }
+
+    private IEnumerator TypeLine(string line)
+    {
+        isTyping = true;
+
+        dialogueText.text = "";
+
+        foreach (char c in line)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
+
+        isTyping = false;
     }
 }

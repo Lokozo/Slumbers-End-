@@ -257,7 +257,7 @@ public class PlayerAttack : MonoBehaviour
 
                     Debug.Log("[AXE HIT] " + breakable.name);
 
-                    breakable.TakeDamage(currentWeaponData.damage);
+                    breakable.TakeDamage((int)currentWeaponData.damage);
                 }
             }
 
