@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 public class BreakableObject : MonoBehaviour
 {
-    public float health = 30f;
+    public static event Action OnAnyBreakableDestroyed;
 
-    public void TakeDamage(float damage)
+    public int health = 30;
+
+    public void TakeDamage(int damage)
     {
         health -= damage;
-
-        Debug.Log(name + " took damage");
 
         if (health <= 0)
         {
@@ -16,9 +17,9 @@ public class BreakableObject : MonoBehaviour
         }
     }
 
-    void DestroyObject()
+    private void DestroyObject()
     {
-        Debug.Log(name + " destroyed!");
+        OnAnyBreakableDestroyed?.Invoke();
 
         Destroy(gameObject);
     }
