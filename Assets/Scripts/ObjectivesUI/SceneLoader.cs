@@ -23,6 +23,10 @@ public class SceneLoader : MonoBehaviour
 
     private bool hasShownTitle = false;
 
+    [Header("Scene Transition")]
+    public SceneLoader sceneLoader;
+    public bool loadNextSceneAfterDialogue = false;
+
     void Awake()
     {
         if (fadeGroup == null)
@@ -80,6 +84,11 @@ public class SceneLoader : MonoBehaviour
         {
             Debug.Log("No more scenes to load.");
         }
+    }
+
+    public void LoadNextSceneExternally()
+    {
+        LoadNextScene();
     }
 
     IEnumerator LoadSceneWithFade(int sceneIndex)

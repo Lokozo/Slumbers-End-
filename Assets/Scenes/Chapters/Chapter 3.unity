@@ -7936,13 +7936,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CinematicTrigger
   playerCam: {fileID: 1408198715}
   objectiveCam: {fileID: 736211879}
-  duration: 5
+  speakerName: 
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
   - 'Medical supplies...
 
     Looks like people were treated here.'
   playOnlyOnce: 1
+  sceneLoader: {fileID: 0}
+  loadNextSceneAfterDialogue: 0
 --- !u!65 &458528823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9801,7 +9803,7 @@ Transform:
   m_GameObject: {fileID: 543031083}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.6, y: 3.86, z: 9.25}
+  m_LocalPosition: {x: 55.82, y: 4.17, z: 9.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12387,7 +12389,7 @@ Transform:
   m_GameObject: {fileID: 716736800}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 41.25, y: 3.2581215, z: 5.903066}
+  m_LocalPosition: {x: 60.06, y: 3.2581215, z: 5.903066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17261,6 +17263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectedEnemies: []
   detectedBreakables: []
+  radius: 2
 --- !u!135 &962039120
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21574,7 +21577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7452564204567201580, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 159.68
+      value: 134.98
       objectReference: {fileID: 0}
     - target: {fileID: 7452564204567201580, guid: dd8156c2535784b4aa2ee0bdad8e13d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25774,7 +25777,7 @@ Transform:
   m_GameObject: {fileID: 1408198713}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 41.25, y: 3.2581215, z: 5.903066}
+  m_LocalPosition: {x: 60.06, y: 3.2581215, z: 5.903066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25916,13 +25919,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CinematicTrigger
   playerCam: {fileID: 1408198715}
   objectiveCam: {fileID: 1388371176}
-  duration: 5
+  speakerName: 
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
   - 'Medical supplies...
 
     Looks like people were treated here.'
   playOnlyOnce: 1
+  sceneLoader: {fileID: 0}
+  loadNextSceneAfterDialogue: 0
 --- !u!65 &1410038407
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26258,13 +26263,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CinematicTrigger
   playerCam: {fileID: 1408198715}
   objectiveCam: {fileID: 442343226}
-  duration: 5
+  speakerName: 
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
   - 'A quarantine zone...?
 
     What happened here?'
   playOnlyOnce: 1
+  sceneLoader: {fileID: 0}
+  loadNextSceneAfterDialogue: 0
 --- !u!65 &1419511707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32323,7 +32330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.92
+      value: 59.73
       objectReference: {fileID: 0}
     - target: {fileID: 3498384366759819310, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: runMulti
@@ -37926,6 +37933,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 152136826}
   dialogueText: {fileID: 152136825}
   portraitImage: {fileID: 152136820}
+  speakerNameText: {fileID: 0}
   textSpeed: 0.02
 --- !u!1 &2079494466
 GameObject:

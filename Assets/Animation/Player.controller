@@ -1259,7 +1259,7 @@ AnimatorController:
       m_Motion: {fileID: 7400000, guid: bfd931443d5d48c4ab40a89fb73c6ab0, type: 2}
     - serializedVersion: 2
       m_State: {fileID: -4062544476579540494}
-      m_Motion: {fileID: 0}
+      m_Motion: {fileID: 7400000, guid: 4003f59bc4085364bb01f3c00ec690d2, type: 2}
     - serializedVersion: 2
       m_State: {fileID: -4600675055711219595}
       m_Motion: {fileID: 7400000, guid: ea9c17c40330d744a8e0b648b488a2f0, type: 2}

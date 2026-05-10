@@ -21,8 +21,8 @@ TagManager:
   - Post-Process
   - Breakables
   - 
-  - 
-  - 
+  - PlayerAttackRadius
+  - PlayerAttackGun
   - 
   - 
   - 

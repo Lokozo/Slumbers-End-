@@ -265,23 +265,23 @@ public class PlayerAttack : MonoBehaviour
         // =========================
         // BREAKABLES / OBSTACLES
         // =========================
-        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
+        if (currentWeaponData != null)
         {
-            // 🪓 AXE → BIG BREAKABLES
-            if (currentWeaponData.itemName.Contains("Axe"))
+            // 🪓 ANY MELEE WEAPON CAN HIT BREAKABLES
+            if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
             {
                 foreach (BreakableObject breakable in attackRadius.detectedBreakables)
                 {
                     if (breakable == null)
                         continue;
 
-                    Debug.Log("[AXE HIT] " + breakable.name);
+                    Debug.Log("[BREAKABLE HIT] " + breakable.name);
 
                     breakable.TakeDamage((int)currentWeaponData.damage);
                 }
             }
 
-            // 🔪 KNIFE → SMALL OBSTACLES
+            // 🔪 SMALL OBSTACLES
             if (currentWeaponData.itemName.Contains("Knife"))
             {
                 Collider[] hits = Physics.OverlapSphere(
