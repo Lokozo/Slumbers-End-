@@ -9,6 +9,8 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     protected Animator animator;
     protected CharacterController controller;
 
+    [Header("Enemy Data")]
+    public EnemyData enemyData;
 
     [Header("Core Stats")]
     public float speed = 1.5f;
@@ -51,6 +53,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        LoadEnemyData();
 
         // FIX: always grab correct animator from model child
         animator = GetComponentInChildren<Animator>();
@@ -398,6 +401,33 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
             Gizmos.DrawLine(lastPoint, nextPoint);
             lastPoint = nextPoint;
+        }
+    }
+    protected virtual void LoadEnemyData()
+    {
+        if (enemyData == null)
+        {
+            Debug.LogWarning("EnemyData missing!");
+            return;
+        }
+
+        health = enemyData.health;
+        speed = enemyData.speed;
+        chaseSpeed = enemyData.chaseSpeed;
+
+        attackDamage = enemyData.attackDamage;
+        attackInterval = enemyData.attackInterval;
+        attackRadius = enemyData.attackRadius;
+
+        chaseRange = enemyData.chaseRange;
+        stoppingDistance = enemyData.stoppingDistance;
+
+        patrolDistance = enemyData.patrolDistance;
+
+        if (animator != null && enemyData.animatorController != null)
+        {
+            animator.runtimeAnimatorController =
+                enemyData.animatorController;
         }
     }
 }
