@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static WeaponItem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -328,11 +329,11 @@ public class PlayerController : MonoBehaviour
             targetWeapon = akData;
 
         //// 🔥 CHECK INVENTORY FIRST
-        //if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
-        //{
-        //    Debug.Log("You don't have this weapon yet!");
-        //    return;
-        //}
+        if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
+        {
+            Debug.Log("You don't have this weapon yet!");
+            return;
+        }
 
         // If same → UNEQUIP
         if (equippedWeapon == weaponType)
@@ -387,7 +388,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (newWeapon == WeaponType.Pistol)
         {
-            animator.SetBool("Pistol Equip", true);
+            animator.SetBool("Combat Pistol", true);
             EquipWeaponObject(pistol, weaponPistolEquip);
 
             SetLayerWeight("Equip Layer", 1f);
@@ -406,6 +407,17 @@ public class PlayerController : MonoBehaviour
             yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 1f, transitionDuration));
 
             UpdateInventoryEquipState(rifleData);
+        }
+        else if (newWeapon == WeaponType.AK)
+        {
+            animator.SetBool("Rifle Equip", true);
+
+            EquipWeaponObject(ak, weaponAKEquip);
+
+            SetLayerWeight("Equip Layer", 1f);
+            yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, transitionDuration));
+            yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 1f, transitionDuration));
+            UpdateInventoryEquipState(akData);
         }
         else if (newWeapon == WeaponType.Shotgun)
         {
@@ -456,6 +468,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Rifle Equip", false);
             yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, transitionDuration));
             UnequipWeaponObject(rifle, weaponUnequipRifle);
+        }
+        if (weaponType == WeaponType.AK)
+        {
+            animator.SetBool("Rifle Equip", false);
+            yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, transitionDuration));
+            UnequipWeaponObject(ak, weaponUnequipAK);
         }
         else if (weaponType == WeaponType.Shotgun)
         {
@@ -511,6 +529,9 @@ public class PlayerController : MonoBehaviour
         SetLayerWeight("Combat Axe", 0f);
         SetLayerWeight("Combat Knife", 0f);
         SetLayerWeight("Combat Pistol", 0f);
+        SetLayerWeight("Rifle Layer", 0f);
+        SetLayerWeight("Shotgun Layer", 0f);
+        SetLayerWeight("AK Layer", 0f);
     }
 
     public void SetCampZone(CampArea area) => nearCampArea = area;

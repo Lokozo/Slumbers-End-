@@ -19,6 +19,10 @@ public class CinematicTrigger : MonoBehaviour
     [Header("Settings")]
     public bool playOnlyOnce = true;
 
+    [Header("Scene Transition")]
+    public SceneLoader sceneLoader;
+    public bool loadNextSceneAfterDialogue = false;
+
     private bool triggered;
 
     private void OnTriggerEnter(Collider other)
@@ -32,11 +36,11 @@ public class CinematicTrigger : MonoBehaviour
 
     private IEnumerator PlayCinematic()
     {
-        //  switch to cinematic camera
+        // switch to cinematic camera
         playerCam.Priority = 5;
         objectiveCam.Priority = 20;
 
-        //  start dialogue (fully handled by DialogueManager)
+        // start dialogue
         if (DialogueManager.Instance != null)
         {
             DialogueManager.Instance.StartDialogue(
@@ -46,11 +50,27 @@ public class CinematicTrigger : MonoBehaviour
             );
 
             // wait until dialogue finishes
-            yield return new WaitUntil(() => DialogueManager.Instance.IsPlaying == false);
+            yield return new WaitUntil(
+                () => DialogueManager.Instance.IsPlaying == false);
         }
 
-        //  return control to player camera
+        // return control to player camera
         playerCam.Priority = 20;
         objectiveCam.Priority = 5;
+
+        // LOAD NEXT SCENE
+        if (loadNextSceneAfterDialogue && sceneLoader != null)
+        {
+            sceneLoader.LoadNextSceneExternally();
+        }
+    }
+    public void PlayExternally()
+    {
+        if (playOnlyOnce && triggered)
+            return;
+
+        triggered = true;
+
+        StartCoroutine(PlayCinematic());
     }
 }

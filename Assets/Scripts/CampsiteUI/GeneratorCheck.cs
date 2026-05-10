@@ -1,4 +1,6 @@
 using UnityEngine;
+using Unity.Cinemachine;
+using System.Collections;
 
 public class GeneratorCheck : MonoBehaviour
 {
@@ -10,12 +12,14 @@ public class GeneratorCheck : MonoBehaviour
     [Header("Required Item")]
     public Item gasItem;
 
+    [Header("Cinematic")]
+    public CinematicTrigger phoneDialogueTrigger;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
             return;
 
-        // Already activated
         if (generatorStarted)
             return;
 
@@ -27,18 +31,28 @@ public class GeneratorCheck : MonoBehaviour
             // Remove gas
             PlayerInventory.Instance.RemoveResource(gasItem, 1);
 
-            // Play generator sound
+            // Play sound
             if (generatorAudio != null)
                 generatorAudio.Play();
 
             Debug.Log("Generator Started");
 
-            // OPTIONAL:
-            // ObjectivesManager.Instance.StartNextObjective();
+            // PLAY PHONE CINEMATIC
+            if (phoneDialogueTrigger != null)
+            {
+                StartCoroutine(StartPhoneCall());
+            }
         }
         else
         {
             Debug.Log("Need Gas");
         }
+    }
+
+    private IEnumerator StartPhoneCall()
+    {
+        yield return new WaitForSeconds(2f);
+
+        phoneDialogueTrigger.PlayExternally();
     }
 }
