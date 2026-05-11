@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Log
   description: A sturdy piece of wood.
-  icon: {fileID: 1886866596, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: -554660606, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
   maxStack: 10
   maxUses: 1
   width: 1
