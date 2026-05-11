@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Medium Ammo
   description: Ammo
-  icon: {fileID: -1898926202, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: 21300000, guid: 92c4392b2246ebd428c78d7e13249582, type: 2}
   itemType: 1
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
   maxStack: 12
   maxUses: 1
   width: 1

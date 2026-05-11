@@ -17,11 +17,13 @@ MonoBehaviour:
 
 
 '
-  icon: {fileID: 256623474, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: 665393868, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
   maxStack: 3
   maxUses: 1
   width: 1

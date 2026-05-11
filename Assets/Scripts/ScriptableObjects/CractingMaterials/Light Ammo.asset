@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Bullet
   description: A common, solid stone.
-  icon: {fileID: 1815970457, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: 21300000, guid: 217c7175c99a79c46bad3ea23e0d61dc, type: 2}
   itemType: 1
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
   maxStack: 12
   maxUses: 1
   width: 1
