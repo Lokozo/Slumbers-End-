@@ -21,6 +21,9 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttacking = false;
     private bool canAttack = true;
     private bool attackQueued = false;
+    public bool canUseAttack = true;
+
+
     public bool isRanged;
     public WeaponType weaponType;
 
@@ -109,6 +112,17 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+    public void EnableAttackInput(bool enable)
+    {
+        if (enable)
+        {
+            inputActions.Player.Attack.Enable();
+        }
+        else
+        {
+            inputActions.Player.Attack.Disable();
+        }
+    }
 
     public bool IsAttacking()
     {
@@ -124,12 +138,27 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        // BLOCK ATTACK DURING DIALOGUE
+        if (DialogueManager.Instance != null &&
+            DialogueManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
+        if (!canUseAttack)
+        {
+            Debug.Log("Attack blocked by cinematic");
+            return;
+        }
         // ❌ No stamina → cannot attack
         if (PlayerStats.Instance.energy < staminaCostPerAttack)
         {
             Debug.Log("Not enough stamina!");
             return;
         }
+
+        if (!canUseAttack)
+            return;
 
         // =========================
         // ✅ CHECK IF ENEMY IN RANGE
@@ -314,6 +343,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         return null;
+    }
+    public void ForceStopAttack()
+    {
+        attackQueued = false;
+        isAttacking = false;
+        canAttack = true;
+
+        animator.Play("Idle", 0);
     }
     public void ResetCombo()
     {

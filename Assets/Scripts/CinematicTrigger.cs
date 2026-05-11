@@ -23,6 +23,9 @@ public class CinematicTrigger : MonoBehaviour
     public SceneLoader sceneLoader;
     public bool loadNextSceneAfterDialogue = false;
 
+    [Header("Player Scripts")]
+    public PlayerAttack playerAttack; // ADD THIS
+
     private bool triggered;
 
     private void OnTriggerEnter(Collider other)
@@ -36,6 +39,13 @@ public class CinematicTrigger : MonoBehaviour
 
     private IEnumerator PlayCinematic()
     {
+        // DISABLE ATTACK
+        if (playerAttack != null)
+        {
+            playerAttack.canUseAttack = false;
+            playerAttack.ForceStopAttack();
+        }
+
         // switch to cinematic camera
         playerCam.Priority = 5;
         objectiveCam.Priority = 20;
@@ -58,12 +68,19 @@ public class CinematicTrigger : MonoBehaviour
         playerCam.Priority = 20;
         objectiveCam.Priority = 5;
 
+        // ENABLE ATTACK AGAIN
+        if (playerAttack != null)
+        {
+            playerAttack.canUseAttack = true;
+        }
+
         // LOAD NEXT SCENE
         if (loadNextSceneAfterDialogue && sceneLoader != null)
         {
             sceneLoader.LoadNextSceneExternally();
         }
     }
+
     public void PlayExternally()
     {
         if (playOnlyOnce && triggered)

@@ -53,17 +53,24 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        LoadEnemyData();
 
-        // FIX: always grab correct animator from model child
         animator = GetComponentInChildren<Animator>();
 
         if (animator == null)
         {
-            Debug.LogError("Animator not found in children!");
+            animator = GetComponent<Animator>();
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError($"{gameObject.name} has NO Animator!");
+            enabled = false;
+            return;
         }
 
         animator.applyRootMotion = false;
+
+        LoadEnemyData();
 
         startPosition = transform.position;
         currentState = EnemyState.Idle;
