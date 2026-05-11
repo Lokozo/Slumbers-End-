@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Male 2
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: 
-  health: 100
+  health: 150
   speed: 1.5
-  chaseSpeed: 3
+  chaseSpeed: 2.9
   attackDamage: 15
   attackInterval: 2
   attackRadius: 1.5
   chaseRange: 7
   stoppingDistance: 1.2
   patrolDistance: 5
-  animatorController: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
   attackSound: {fileID: 0}
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
