@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f9a6b44ff56cc429a9d3c7651b3990, type: 3}
+  m_Name: Male 2
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: 
+  health: 150
+  speed: 1.5
+  chaseSpeed: 2.9
+  attackDamage: 15
+  attackInterval: 2
+  attackRadius: 1.5
+  chaseRange: 7
+  stoppingDistance: 1.2
+  patrolDistance: 5
+  animatorController: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
+  attackSound: {fileID: 0}
+  hurtSound: {fileID: 0}
+  deathSound: {fileID: 0}

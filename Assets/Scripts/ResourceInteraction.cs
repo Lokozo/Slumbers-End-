@@ -28,11 +28,11 @@ public class ResourceInteraction : MonoBehaviour
 
     private Dictionary<Item, int> currentDropList = new Dictionary<Item, int>();
 
-    
+
     public GameObject checkIcon;
     private bool hasBeenCollected = false;
 
-    
+    private LockableObject lockable;
 
     [Header("Lootable Metadata")]
     public string lootableDisplayName;  // set in Inspector
@@ -50,6 +50,7 @@ public class ResourceInteraction : MonoBehaviour
     {
         var ui = UIManager.Instance;
 
+        lockable = GetComponent<LockableObject>();
         InventoryMenu = ui.inventoryMenu;
         ResourcePanel = ui.resourcePanel;
         ResourceContentPanel = ui.resourceContentPanel;
@@ -84,14 +85,27 @@ public class ResourceInteraction : MonoBehaviour
 
             if (holdTimer >= holdTimeToOpen)
             {
+                // 🔒 CHECK LOCK FIRST
+                if (lockable != null && lockable.isLocked)
+                {
+                    bool unlocked = lockable.TryUnlock();
+
+                    if (!unlocked)
+                    {
+                        holdTimer = 0f;
+                        return; // ❌ STOP opening
+                    }
+                }
+
+                // ✅ OPEN LOOT (your existing logic)
                 if (!hasGeneratedLoot)
                 {
-                    GenerateRandomResources(); // first time
+                    GenerateRandomResources();
                     hasGeneratedLoot = true;
                 }
                 else
                 {
-                    RebuildUI(); // 🔥 show existing loot
+                    RebuildUI();
                 }
 
                 OpenPanels();
@@ -260,7 +274,7 @@ public class ResourceInteraction : MonoBehaviour
         TutorialUIManager.Instance?.Hide();
         TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
         // EXIT (ESC)
-       
+
         // ❌ DO NOT CLOSE PANELS
     }
     public void RemoveItem(Item item, int amountToRemove = 1)
@@ -298,7 +312,7 @@ public class ResourceInteraction : MonoBehaviour
                 magnifyingGlassIcon?.SetActive(true);
                 checkIcon?.SetActive(false);
 
-                TutorialUIManager.Instance?.ShowStep("examineTutorial","Hold E to examine");
+                TutorialUIManager.Instance?.ShowStep("examineTutorial", "Hold E to examine");
 
             }
 
@@ -316,9 +330,9 @@ public class ResourceInteraction : MonoBehaviour
             checkIcon?.SetActive(false);
             holdTimer = 0f;
 
-            
+
             TutorialUIManager.Instance?.Hide();
-            
+
         }
     }
 

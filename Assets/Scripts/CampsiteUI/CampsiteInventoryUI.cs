@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class CampsiteInventoryUI : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class CampsiteInventoryUI : MonoBehaviour
     private ItemSlot[,] gridSlots;
     public int gridWidth = 5;
     public int gridHeight = 4;
+
+    public GameObject descriptionPanel;
+    public TextMeshProUGUI itemNameText;
+    public TextMeshProUGUI itemDescriptionText;
 
     private Item selectedItem;
     private IEnumerator WaitForInventory()
@@ -52,7 +57,7 @@ public class CampsiteInventoryUI : MonoBehaviour
 
         RefreshInventoryDisplay();
 
-        var playerUI = FindObjectOfType<InventoryUI>();
+        var playerUI = FindFirstObjectByType<InventoryUI>();
         if (playerUI != null)
             playerUI.RefreshUI();
     }
@@ -100,6 +105,24 @@ public class CampsiteInventoryUI : MonoBehaviour
         }
     }
 
+    public void ShowItemDescription(Item item)
+    {
+        if (descriptionPanel == null) return;
+
+        descriptionPanel.SetActive(true);
+        itemNameText.text = item.itemName;
+        itemDescriptionText.text = item.description;
+    }
+
+    public void ClearDescription()
+    {
+        if (descriptionPanel == null) return;
+
+        itemNameText.text = "";
+        itemDescriptionText.text = "";
+        descriptionPanel.SetActive(false);
+    }
+
     private void OnEnable()
     {
         StartCoroutine(WaitForInventory());
@@ -117,10 +140,12 @@ public class CampsiteInventoryUI : MonoBehaviour
     public void SetSelectedItem(Item item)
     {
         selectedItem = item;
+        ShowItemDescription(item);
     }
 
     public void ClearSelectedItem()
     {
         selectedItem = null;
+        ClearDescription();
     }
 }

@@ -4,65 +4,72 @@ using System.Collections.Generic;
 public class PlayerAttackRadius : MonoBehaviour
 {
     public List<BaseEnemy> detectedEnemies = new List<BaseEnemy>();
+    public List<BreakableObject> detectedBreakables = new List<BreakableObject>();
 
-    private SphereCollider sphereCollider;
-
-    private void Awake()
-    {
-        sphereCollider = GetComponent<SphereCollider>();
-
-        if (sphereCollider == null)
-        {
-            Debug.LogWarning("[AttackRadius] No SphereCollider found on this object.");
-        }
-        else if (!sphereCollider.isTrigger)
-        {
-            sphereCollider.isTrigger = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
-        if (enemy != null && !detectedEnemies.Contains(enemy))
-        {
-            detectedEnemies.Add(enemy);
-            Debug.Log($"[AttackRadius] Enemy detected: {enemy.name}");
-            Debug.Log("Hit: " + other.name + " | Root: " + other.transform.root.name);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        BaseEnemy enemy = other.GetComponent<BaseEnemy>();
-        if (enemy != null && detectedEnemies.Contains(enemy))
-        {
-            detectedEnemies.Remove(enemy);
-            Debug.Log($"[AttackRadius] Enemy left detection: {enemy.name}");
-        }
-    }
+    [Header("Detection")]
+    public float radius = 2f;
 
     private void Update()
     {
-        // ✅ Remove null/destroyed enemies from the list
-        detectedEnemies.RemoveAll(enemy => enemy == null);
+        detectedEnemies.Clear();
+        detectedBreakables.Clear();
 
-        if (detectedEnemies.Count > 0)
+        Collider[] hits = Physics.OverlapSphere(
+            transform.position,
+            radius
+        );
+
+        foreach (Collider hit in hits)
         {
-            string enemyNames = string.Join(", ", detectedEnemies.ConvertAll(e => e != null ? e.name : "Destroyed"));
-            Debug.Log($"[AttackRadius] Enemies currently detected: {enemyNames}");
+            // IGNORE SELF
+            if (hit.transform.root == transform.root)
+                continue;
+
+            string layerName =
+                LayerMask.LayerToName(hit.gameObject.layer);
+
+            // =========================
+            // ENEMY
+            // =========================
+            if (layerName == "Enemy")
+            {
+                BaseEnemy enemy =
+                    hit.GetComponentInParent<BaseEnemy>();
+
+                if (enemy != null &&
+                    !detectedEnemies.Contains(enemy))
+                {
+                    detectedEnemies.Add(enemy);
+
+                    Debug.Log("[RADIUS] Enemy detected: "
+                              + enemy.name);
+                }
+            }
+
+            // =========================
+            // BREAKABLE
+            // =========================
+            if (layerName == "Breakables")
+            {
+                BreakableObject breakable =
+                    hit.GetComponentInParent<BreakableObject>();
+
+                if (breakable != null &&
+                    !detectedBreakables.Contains(breakable))
+                {
+                    detectedBreakables.Add(breakable);
+
+                    Debug.Log("[RADIUS] Breakable detected: "
+                              + breakable.name);
+                }
+            }
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        if (sphereCollider == null)
-            sphereCollider = GetComponent<SphereCollider>();
+        Gizmos.color = Color.green;
 
-        if (sphereCollider != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, sphereCollider.radius);
-        }
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

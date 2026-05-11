@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour, IDamageable
+public class BreakableObject : MonoBehaviour
 {
-    public float health = 30f;
+    public static event Action OnAnyBreakableDestroyed;
 
-    public void TakeDamage(float damage)
+    public int health = 30;
+
+    public void TakeDamage(int damage)
     {
         health -= damage;
 
@@ -14,12 +17,10 @@ public class BreakableObject : MonoBehaviour, IDamageable
         }
     }
 
-    void DestroyObject()
+    private void DestroyObject()
     {
-        Debug.Log("Fence destroyed!");
+        OnAnyBreakableDestroyed?.Invoke();
 
-        // Optional: particles / sound
         Destroy(gameObject);
     }
-
 }

@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Berry Paste
   description: Can be used as a salve.
-  icon: {fileID: 21300000, guid: 9cdab212ab7f0b4419ece32ad0643737, type: 3}
+  icon: {fileID: -1478852005, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 1
   isCrafted: 1
   isUsedInCrafting: 0
+  isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
+  maxStack: 1
+  maxUses: 1
+  width: 1
+  height: 1
   isConsumable: 1
   healthRestoreAmount: 10
   hungerRestoreAmount: 0

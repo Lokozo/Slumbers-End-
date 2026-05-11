@@ -5,6 +5,14 @@ using static WeaponItem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public enum AmmoType
+    {
+        None,
+        Light,
+        Medium,
+        Shotgun
+    }
+
     private Animator animator;
     private InputSystem_Actions inputActions;
     private PlayerAttackRadius attackRadius;
@@ -13,6 +21,9 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttacking = false;
     private bool canAttack = true;
     private bool attackQueued = false;
+    public bool canUseAttack = true;
+
+
     public bool isRanged;
     public WeaponType weaponType;
 
@@ -27,6 +38,10 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Weapon")]
     public WeaponItem currentWeaponData;
+
+    [Header("Ammo")]
+    public AmmoType ammoType;
+    public int ammoPerShot = 1;
 
     private void Awake()
     {
@@ -61,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-
+        Debug.DrawLine(transform.position, attackRadius.transform.position, Color.red);
         // Unlock attack when animation almost finishes
         if (!canAttack && IsInComboState(state) && state.normalizedTime >= 0.9f)
         {
@@ -97,6 +112,17 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+    public void EnableAttackInput(bool enable)
+    {
+        if (enable)
+        {
+            inputActions.Player.Attack.Enable();
+        }
+        else
+        {
+            inputActions.Player.Attack.Disable();
+        }
+    }
 
     public bool IsAttacking()
     {
@@ -112,6 +138,18 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        // BLOCK ATTACK DURING DIALOGUE
+        if (DialogueManager.Instance != null &&
+            DialogueManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
+        if (!canUseAttack)
+        {
+            Debug.Log("Attack blocked by cinematic");
+            return;
+        }
         // ❌ No stamina → cannot attack
         if (PlayerStats.Instance.energy < staminaCostPerAttack)
         {
@@ -119,6 +157,47 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
+        if (!canUseAttack)
+            return;
+
+        // =========================
+        // ✅ CHECK IF ENEMY IN RANGE
+        // =========================
+        bool hasValidTarget = false;
+
+        List<BaseEnemy> targets = (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+            ? gunRange.detectedEnemies
+            : attackRadius.detectedEnemies;
+
+        float radius = (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+            ? gunRange.GetComponent<SphereCollider>().radius
+            : attackRadius.GetComponent<SphereCollider>().radius;
+
+        Vector3 origin = (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+            ? gunRange.transform.position
+            : attackRadius.transform.position;
+
+        foreach (var enemy in targets)
+        {
+            if (enemy == null) continue;
+
+            float dist = Vector3.Distance(origin, enemy.transform.position);
+
+            if (dist <= radius)
+            {
+                hasValidTarget = true;
+                break;
+            }
+        }
+
+        // ✅ Allow melee attacks even without enemies
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged && !hasValidTarget)
+        {
+            Debug.Log("[ATTACK BLOCKED] Enemy not in actual range");
+            return;
+        }
+
+        // ✅ Attack allowed
         Debug.Log("Attack pressed");
         attackQueued = true;
     }
@@ -126,105 +205,152 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 CLOSEST ENEMY DAMAGE
     public void AnimEvent_DealDamage()
     {
-        if (currentWeaponData == null)
+        bool noEnemies =
+        attackRadius.detectedEnemies == null ||
+        attackRadius.detectedEnemies.Count == 0;
+
+        bool noBreakables =
+            attackRadius.detectedBreakables == null ||
+            attackRadius.detectedBreakables.Count == 0;
+
+        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged
+            && noEnemies
+            && noBreakables)
         {
-            Debug.LogError("No weapon equipped!");
             return;
         }
 
-        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
-        {
-            PlayerStats.Instance.ModifyEnergy(-staminaCostPerAttack);
-        }
+        Debug.Log($"[ATTACK] Weapon Type: {currentWeaponData.weaponType}");
 
-        if (currentWeaponData == null)
-        {
-            Debug.LogError("No weapon equipped!");
-            return;
-        }
-
-        if (currentWeaponData == null)
-        {
-            Debug.LogError("No weapon equipped!");
-            return;
-        }
-
-        List<BaseEnemy> targets = null;
+        List<BaseEnemy> targets = new List<BaseEnemy>();
         Vector3 origin;
 
-        // 🔫 GUN (RANGED)
-        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        // 🔫 GUN RANGE (uses GunRange object ONLY)
+        if (currentWeaponData.weaponType == WeaponType.Ranged)
         {
-            if (gunRange == null)
+            Item ammoItem = FindAmmoItem(currentWeaponData.ammoType);
+
+            if (ammoItem == null)
             {
-                Debug.LogError("Gun range not found!");
+                Debug.Log("No matching ammo item!");
                 return;
             }
 
-            targets = gunRange.detectedEnemies;
-            origin = gunRange.transform.position;
+            if (!PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot))
+            {
+                Debug.Log("Out of ammo!");
+                return;
+            }
+
+            PlayerInventory.Instance.RemoveItem(
+                ammoItem,
+                currentWeaponData.ammoPerShot
+            );
         }
-        // 🪓 AXE (MELEE)
+        // 🪓 MELEE (uses AttackRadius object ONLY)
         else
         {
             if (attackRadius == null)
             {
-                Debug.LogError("Attack radius not found!");
+                Debug.LogError("[ATTACK] AttackRadius missing!");
                 return;
             }
 
             targets = attackRadius.detectedEnemies;
             origin = attackRadius.transform.position;
+
+            Debug.Log("[ATTACK] Using MELEE RADIUS trigger");
+
+            PlayerStats.Instance.ModifyEnergy(-staminaCostPerAttack);
         }
 
+        // ✅ DAMAGE ENEMIES ONLY IF ANY EXIST
         if (targets != null && targets.Count > 0)
         {
-            BaseEnemy closestEnemy = null;
-            float closestDistance = Mathf.Infinity;
-
             foreach (BaseEnemy enemy in targets)
             {
-                if (enemy == null) continue;
+                if (enemy == null)
+                    continue;
 
-                Vector3 dir = (enemy.transform.position - transform.position).normalized;
-                float dot = Vector3.Dot(transform.forward, dir);
-                if (dot < 0.3f) continue;
+                Debug.Log($"[DAMAGE] {currentWeaponData.weaponType} hit {enemy.name}");
 
-                float distance = Vector3.Distance(origin, enemy.transform.position);
+                enemy.TakeDamage(currentWeaponData.damage);
 
-                if (distance < closestDistance)
+                break;
+            }
+        }
+
+        // ✅ DAMAGE FIRST VALID ENEMY
+        foreach (BaseEnemy enemy in targets)
+        {
+            if (enemy == null) continue;
+
+            Debug.Log($"[DAMAGE] {currentWeaponData.weaponType} hit {enemy.name}");
+            enemy.TakeDamage(currentWeaponData.damage);
+
+            break; // hit only one (remove if you want multi-hit)
+        }
+
+        // =========================
+        // BREAKABLES / OBSTACLES
+        // =========================
+        if (currentWeaponData != null)
+        {
+            // 🪓 ANY MELEE WEAPON CAN HIT BREAKABLES
+            if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
+            {
+                foreach (BreakableObject breakable in attackRadius.detectedBreakables)
                 {
-                    closestDistance = distance;
-                    closestEnemy = enemy;
+                    if (breakable == null)
+                        continue;
+
+                    Debug.Log("[BREAKABLE HIT] " + breakable.name);
+
+                    breakable.TakeDamage((int)currentWeaponData.damage);
                 }
             }
 
-            if (closestEnemy != null)
+            // 🔪 SMALL OBSTACLES
+            if (currentWeaponData.itemName.Contains("Knife"))
             {
-                closestEnemy.TakeDamage(currentWeaponData.damage);
-                Debug.Log("Hit closest enemy: " + closestEnemy.name);
+                Collider[] hits = Physics.OverlapSphere(
+                    attackRadius.transform.position,
+                    attackRadius.GetComponent<SphereCollider>().radius
+                );
+
+                foreach (Collider hit in hits)
+                {
+                    SmallObstacle obstacle = hit.GetComponent<SmallObstacle>();
+
+                    if (obstacle != null)
+                    {
+                        obstacle.HitObstacle();
+                    }
+                }
             }
         }
-
-        // =========================
-        // 🧨 ADD THIS PART HERE
-        // =========================
-        Collider[] hits = Physics.OverlapSphere(origin, 5f);
-
-        foreach (Collider hit in hits)
+    }
+    private Item FindAmmoItem(AmmoType ammoType)
+    {
+        foreach (var kvp in PlayerInventory.Instance.GetInventory())
         {
-            BreakableObject breakable = hit.GetComponent<BreakableObject>();
+            Item item = kvp.Key;
 
-            if (breakable != null)
+            if (item.ammoType == ammoType)
             {
-                Vector3 dir = (hit.transform.position - transform.position).normalized;
-                float dot = Vector3.Dot(transform.forward, dir);
-                if (dot < 0.3f) continue;
-
-                Debug.Log("Hit breakable: " + hit.name);
-                breakable.TakeDamage(currentWeaponData.damage);
+                return item;
             }
         }
+
+        return null;
+    }
+    public void ForceStopAttack()
+    {
+        attackQueued = false;
+        isAttacking = false;
+        canAttack = true;
+
+        animator.Play("Idle", 0);
     }
     public void ResetCombo()
     {

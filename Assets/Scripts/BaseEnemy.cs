@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class BaseEnemy : MonoBehaviour, IDamageable
 {
@@ -7,6 +8,9 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected Animator animator;
     protected CharacterController controller;
+
+    [Header("Enemy Data")]
+    public EnemyData enemyData;
 
     [Header("Core Stats")]
     public float speed = 1.5f;
@@ -20,6 +24,8 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     [Header("Attack State")]
     protected bool isAttacking = false;
     protected bool hasDealtDamage = false;
+    private bool isDead = false;
+
 
     [Header("Patrol")]
     public float patrolDistance = 5f;
@@ -48,15 +54,23 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     {
         controller = GetComponent<CharacterController>();
 
-        // FIX: always grab correct animator from model child
         animator = GetComponentInChildren<Animator>();
 
         if (animator == null)
         {
-            Debug.LogError("Animator not found in children!");
+            animator = GetComponent<Animator>();
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError($"{gameObject.name} has NO Animator!");
+            enabled = false;
+            return;
         }
 
         animator.applyRootMotion = false;
+
+        LoadEnemyData();
 
         startPosition = transform.position;
         currentState = EnemyState.Idle;
@@ -89,6 +103,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         }
 
         controller.Move(velocity * Time.deltaTime);
+
     }
 
     // =========================
@@ -97,7 +112,6 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected virtual void HandleChase()
     {
-        Debug.Log("Targeting: " + player.name);
         if (player == null)
         {
             currentState = EnemyState.Idle;
@@ -180,6 +194,11 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected void HitPlayer()
     {
+        Debug.Log("Attempting to hit player...");
+        if (hasDealtDamage) return; // 🔥 FIRST LINE
+
+        hasDealtDamage = true; // 🔥 MOVE THIS UP
+
         if (player == null) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
@@ -266,7 +285,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(float damage)
     {
-        if (health <= 0) return;
+        if (isDead) return; // ✅ important
 
         health -= damage;
 
@@ -286,6 +305,19 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     protected virtual void Die()
     {
+        if (isDead) return; // ✅ prevent multiple calls
+
+        isDead = true;
+
+        animator.SetBool("IsDead", true);
+        controller.enabled = false; // stop movement
+
+        StartCoroutine(DieRoutine());
+    }
+
+    private IEnumerator DieRoutine()
+    {
+        yield return new WaitForSeconds(2f); // wait 2 seconds
         Destroy(gameObject);
     }
 
@@ -376,6 +408,33 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
             Gizmos.DrawLine(lastPoint, nextPoint);
             lastPoint = nextPoint;
+        }
+    }
+    protected virtual void LoadEnemyData()
+    {
+        if (enemyData == null)
+        {
+            Debug.LogWarning("EnemyData missing!");
+            return;
+        }
+
+        health = enemyData.health;
+        speed = enemyData.speed;
+        chaseSpeed = enemyData.chaseSpeed;
+
+        attackDamage = enemyData.attackDamage;
+        attackInterval = enemyData.attackInterval;
+        attackRadius = enemyData.attackRadius;
+
+        chaseRange = enemyData.chaseRange;
+        stoppingDistance = enemyData.stoppingDistance;
+
+        patrolDistance = enemyData.patrolDistance;
+
+        if (animator != null && enemyData.animatorController != null)
+        {
+            animator.runtimeAnimatorController =
+                enemyData.animatorController;
         }
     }
 }

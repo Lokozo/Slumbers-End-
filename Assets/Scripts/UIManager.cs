@@ -11,6 +11,13 @@ public class UIManager : MonoBehaviour
     public GameObject checkIcon;
     public TMPro.TextMeshProUGUI lootableNameText;
     public GameObject pushPullIcon;
+    public GameObject breakableIcon;
+    public GameObject dialoguePanel;
+    public TMPro.TextMeshProUGUI speakerNameText;
+    public UnityEngine.UI.Image portraitImage;
+    public TMPro.TextMeshProUGUI dialogueText;
+    //public GameObject blackOverlay;
+
 
     private void Awake()
     {
