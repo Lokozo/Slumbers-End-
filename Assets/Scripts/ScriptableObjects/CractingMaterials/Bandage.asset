@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
-  m_Name: Light Ammo
-  m_EditorClassIdentifier: 
-  itemName: Light Ammo
-  description: Bullets for Pistol.
-  icon: {fileID: 21300000, guid: 217c7175c99a79c46bad3ea23e0d61dc, type: 2}
+  m_Name: Bandage
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemName: Bandage
+  description: For patching up wounds.
+  icon: {fileID: 21300000, guid: b37ea9ed2886a1d41b19afd1f6f1255e, type: 2}
   itemType: 1
-  isCrafted: 0
-  isUsedInCrafting: 1
+  isCrafted: 1
+  isUsedInCrafting: 0
   isEquipped: 0
-  ammoType: 1
+  ammoType: 0
   ammoPerShot: 1
-  maxStack: 12
+  maxStack: 1
   maxUses: 1
   width: 1
   height: 1
-  isConsumable: 0
-  healthRestoreAmount: 0
+  isConsumable: 1
+  healthRestoreAmount: 45
   hungerRestoreAmount: 0
   energyRestoreAmount: 0

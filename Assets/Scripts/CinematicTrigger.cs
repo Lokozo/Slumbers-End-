@@ -26,7 +26,17 @@ public class CinematicTrigger : MonoBehaviour
     [Header("Player Scripts")]
     public PlayerAttack playerAttack; // ADD THIS
 
+    [Header("Tutorial")]
+    public bool showTutorialAfterDialogue;
+
+    public string tutorialStepID;
+
+    [TextArea(2, 5)]
+    public string tutorialText;
+
     private bool triggered;
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,6 +45,11 @@ public class CinematicTrigger : MonoBehaviour
 
         triggered = true;
         StartCoroutine(PlayCinematic());
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        TutorialUIManager.Instance.Hide();
     }
 
     private IEnumerator PlayCinematic()
@@ -72,6 +87,16 @@ public class CinematicTrigger : MonoBehaviour
         if (playerAttack != null)
         {
             playerAttack.canUseAttack = true;
+        }
+
+        if (showTutorialAfterDialogue &&
+    TutorialUIManager.Instance != null)
+        {
+            TutorialUIManager.Instance.ShowStep(
+                tutorialStepID,
+                tutorialText
+            );
+            //showTutorialAfterDialogue = false; // prevent showing again if triggered multiple times
         }
 
         // LOAD NEXT SCENE

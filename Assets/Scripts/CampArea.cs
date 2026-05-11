@@ -135,7 +135,7 @@ public class CampArea : MonoBehaviour
         }
 
         PlayerStats stats = PlayerStats.Instance;
-
+        
         Vector3 pos = player.transform.position;
 
         PlayerPrefs.SetFloat("Health", stats.health);

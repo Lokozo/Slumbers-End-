@@ -6036,6 +6036,7 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
 --- !u!65 &193503802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10207,7 +10208,7 @@ Transform:
   m_GameObject: {fileID: 351409744}
   serializedVersion: 2
   m_LocalRotation: {x: -0.39640597, y: 0.58554447, z: 0.58554447, w: 0.39640602}
-  m_LocalPosition: {x: 0, y: 0, z: 7.46}
+  m_LocalPosition: {x: -6.48, y: 0, z: 7.46}
   m_LocalScale: {x: 100, y: 99.999985, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15145,6 +15146,7 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
 --- !u!65 &505173959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20955,6 +20957,14 @@ PrefabInstance:
     - target: {fileID: 4352900506341877517, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_Size.x
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7122887706139848229, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607217546726880415, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -56646,6 +56656,7 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
 --- !u!65 &1977919570
 BoxCollider:
   m_ObjectHideFlags: 0
