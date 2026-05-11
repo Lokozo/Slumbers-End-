@@ -69,8 +69,10 @@ public class PlayerClimbing : MonoBehaviour
     }
 
     private void StartClimbing()
-{
+    {
+        
     animator.SetBool("IsClimbing", true);
+    animator.SetFloat("Blend", 0f);
 
     int ladderLayer = animator.GetLayerIndex("Ladder layer");
     if (ladderLayer != -1)
@@ -109,12 +111,6 @@ public class PlayerClimbing : MonoBehaviour
         pos.y = currentLadder.topExit.position.y;
 
         transform.position = pos;
-
-        Debug.Log("STARTING CLIMB FROM TOP");
-
-        // START ANIMATION FROM TOP FRAME
-        animator.Play("Climb Ladder", 0, 1f);
-        animator.speed = 0f;
     }
     else
     {
@@ -122,23 +118,13 @@ public class PlayerClimbing : MonoBehaviour
         pos.y = currentLadder.bottomExit.position.y - 0.5f;
 
         transform.position = pos;
-
-        Debug.Log("STARTING CLIMB FROM BOTTOM");
-
-        // START ANIMATION FROM BOTTOM FRAME
-        animator.Play("Climb Ladder", 0, 0f);
-        animator.speed = 0f;
     }
-
-    Debug.Log("PLAYER POSITION: " + transform.position);
-
     FaceLadder();
 }
 
     private void StopClimbing()
     {
         animator.SetBool("IsClimbing", false);
-        Debug.Log(currentLadder.bottomExit.position);
         int ladderLayer = animator.GetLayerIndex("Ladder layer");
         if (ladderLayer != -1)
         {
@@ -153,7 +139,6 @@ public class PlayerClimbing : MonoBehaviour
             LayerMask.NameToLayer("Ladder"),
             false
         );
-        animator.speed = 1f;
         characterController.enabled = true;
     }
 
@@ -172,26 +157,9 @@ public class PlayerClimbing : MonoBehaviour
     {
         float yInput = Input.GetAxisRaw("Vertical");
 
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        animator.SetFloat("Blend", yInput);
 
-        if (yInput < 0)
-        {
-            // ONLY restart if not already playing backwards
-            if (animator.speed >= 0f)
-            {
-                animator.Play(stateInfo.fullPathHash, 0, 1f);
-            }
 
-            animator.speed = -1f;
-        }
-        else if (yInput > 0)
-        {
-            animator.speed = 1f;
-        }
-        else
-        {
-            animator.speed = 0f;
-        }
         float topY = currentLadder.topExit.position.y - 1.2f;
         float bottomY = currentLadder.bottomExit.position.y - 0.5f;
 
@@ -224,10 +192,11 @@ public class PlayerClimbing : MonoBehaviour
     {
         StopClimbing();
 
+        characterController.enabled = true;
+
         isExitingLadder = true;
         ladderExitTarget = target;
 
-        // Face the exit direction
         Vector3 dir = ladderExitTarget - transform.position;
         dir.y = 0f;
 
