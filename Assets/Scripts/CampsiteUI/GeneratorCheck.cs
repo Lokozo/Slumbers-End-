@@ -15,6 +15,15 @@ public class GeneratorCheck : MonoBehaviour
     [Header("Cinematic")]
     public CinematicTrigger phoneDialogueTrigger;
 
+    private void Start()
+    {
+        // PRELOAD AUDIO
+        if (generatorAudio != null && generatorAudio.clip != null)
+        {
+            generatorAudio.clip.LoadAudioData();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
