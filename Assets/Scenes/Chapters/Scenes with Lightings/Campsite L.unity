@@ -94,7 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: e54253d4755fc2d4c9c578f628c2d2b6, type: 2}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 60cb2153fb0382b4f9eeae01a3d8d30a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -681,6 +681,9 @@ MonoBehaviour:
   ItemSlotPrefab: {fileID: 1395350832741920789, guid: c29d3f5031d884f4784b6baa002eca0e, type: 3}
   gridWidth: 5
   gridHeight: 4
+  descriptionPanel: {fileID: 0}
+  itemNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
 --- !u!114 &272827683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4789,6 +4792,9 @@ MonoBehaviour:
   ItemSlotPrefab: {fileID: 1395350832741920789, guid: c29d3f5031d884f4784b6baa002eca0e, type: 3}
   gridWidth: 5
   gridHeight: 4
+  descriptionPanel: {fileID: 0}
+  itemNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
 --- !u!1 &2008638970
 GameObject:
   m_ObjectHideFlags: 0
