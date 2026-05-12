@@ -3973,10 +3973,13 @@ MonoBehaviour:
   recipeButtonPrefab: {fileID: 3026757276370397286, guid: c68e0d68ead02a6448502e372d9a9691, type: 3}
   toolRecipes: []
   utilityRecipes:
-  - {fileID: 11400000, guid: 82cba418c57491f4fb1c0a0ea5c39979, type: 2}
+  - {fileID: 11400000, guid: b2329be94e027c7458d794fb2ef940b5, type: 2}
   - {fileID: 11400000, guid: 031c722ddc8255d47951396068f2bc24, type: 2}
   - {fileID: 11400000, guid: 40274ad344e06ec40b0e33a11dc42f6a, type: 2}
-  cookingRecipes: []
+  - {fileID: 11400000, guid: 82cba418c57491f4fb1c0a0ea5c39979, type: 2}
+  cookingRecipes:
+  - {fileID: 11400000, guid: a1c0380cb90e4fb4089f451093c23f4f, type: 2}
+  - {fileID: 11400000, guid: b57bf22dbe9c27b4e81107789f0796aa, type: 2}
   DetailPanel: {fileID: 272827680}
   ingredientListContainer: {fileID: 110078987}
   ingredientEntryPrefab: {fileID: 2960004694390133274, guid: 252bff37f1852e54f968bee3accfc234, type: 3}

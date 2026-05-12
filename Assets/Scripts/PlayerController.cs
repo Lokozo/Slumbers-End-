@@ -82,9 +82,9 @@ public class PlayerController : MonoBehaviour
     private WeaponType equippedWeapon = WeaponType.None;
     private float transitionDuration = 0.5f;
 
-    [Header("Interaction & Camp")]
-    private bool campActive = false;
-    private CampArea nearCampArea;
+    //[Header("Interaction & Camp")]
+    //private bool campActive = false;
+    //private CampArea nearCampArea;
 
     private void Awake()
     {
@@ -301,12 +301,12 @@ public class PlayerController : MonoBehaviour
             if (pushPull.IsPushing) return;
         }
 
-        // 3️⃣ CAMP
-        if (nearCampArea != null && !campActive)
-        {
-            nearCampArea.ActivateCamp();
-            campActive = true;
-        }
+        //3️⃣ CAMP
+        //if (nearCampArea != null && !campActive)
+        //{
+        //    nearCampArea.ActivateCamp();
+        //    campActive = true;
+        //}
     }
     private void UpdateInventoryEquipState(WeaponItem newWeapon)
     {
@@ -544,7 +544,7 @@ public class PlayerController : MonoBehaviour
         SetLayerWeight("AK Layer", 0f);
     }
 
-    public void SetCampZone(CampArea area) => nearCampArea = area;
-    public void ClearCampZone() { nearCampArea = null; campActive = false; }
+    //public void SetCampZone(CampArea area) => nearCampArea = area;
+    //public void ClearCampZone() { nearCampArea = null; campActive = false; }
     public void ResetVelocity() => velocity = Vector3.zero;
 }
