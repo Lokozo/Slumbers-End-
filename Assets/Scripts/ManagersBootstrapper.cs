@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ManagerBootstrapper : MonoBehaviour
 {
@@ -8,11 +8,28 @@ public class ManagerBootstrapper : MonoBehaviour
     {
         if (initialized)
         {
-            Destroy(gameObject); // destroy duplicate if one already exists
+            Destroy(gameObject);
             return;
         }
 
         initialized = true;
-        DontDestroyOnLoad(gameObject); // persist this prefab across scenes
+        DontDestroyOnLoad(gameObject);
+
+        Debug.Log("✅ ManagerBootstrapper initialized - All managers persistent!");
+
+        // 🔥 Initialize ALL child managers in correct order
+        InitializeChildren();
+    }
+
+    private void InitializeChildren()
+    {
+        // Initialize PlayerStats FIRST (needs to be singleton)
+        PlayerStats[] stats = GetComponentsInChildren<PlayerStats>();
+        foreach (var stat in stats)
+        {
+            stat.Initialize();
+        }
+
+        Debug.Log($"✅ Initialized {stats.Length} PlayerStats child(ren)");
     }
 }

@@ -18,7 +18,7 @@ public class EnergyBarLevel : MonoBehaviour
     void Start()
     {
         if (stats == null)
-            stats = PlayerStats.Instance;
+            stats = PlayerStats.Get();
         slider.maxValue = stats.maxEnergy;
         slider.value = stats.energy;
         fill.color = gradient.Evaluate(1f);
@@ -26,9 +26,9 @@ public class EnergyBarLevel : MonoBehaviour
 
     void Update()
     {
-        if (PlayerStats.Instance != null)
+        if (PlayerStats.Get() != null)
         {
-            float target = PlayerStats.Instance.energy;
+            float target = PlayerStats.Get().energy;
             slider.value = Mathf.Lerp(slider.value, target, Time.deltaTime * smoothSpeed);
             fill.color = gradient.Evaluate(slider.normalizedValue);
         }

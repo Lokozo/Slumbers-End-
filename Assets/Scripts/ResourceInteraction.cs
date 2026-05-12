@@ -269,8 +269,6 @@ public class ResourceInteraction : MonoBehaviour
 
         hasBeenCollected = true;
 
-        Debug.Log("Inventory contains: " + PlayerInventory.Instance.GetInventory().Count + " items.");
-
         TutorialUIManager.Instance?.Hide();
         TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
         // EXIT (ESC)

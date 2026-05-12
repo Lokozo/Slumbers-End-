@@ -19,7 +19,7 @@ public class HungerBar : MonoBehaviour
     void Start()
     {
         if (stats == null)
-            stats = PlayerStats.Instance;
+            stats = PlayerStats.Get();
         slider.maxValue = stats.maxHunger;
         slider.value = stats.hunger;
         fill.color = gradient.Evaluate(1f);

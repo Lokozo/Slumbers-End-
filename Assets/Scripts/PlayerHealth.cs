@@ -21,7 +21,8 @@ public class PlayerHealth : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         cc = GetComponent<CharacterController>();
 
-        
+        // 🔥 ADD THIS
+        stats = PlayerStats.Get();
 
         if (stats == null)
         {
@@ -33,7 +34,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if (stats == null)
         {
-            stats = PlayerStats.Instance;
+            stats = PlayerStats.Get();
+            if (stats == null)
+                Debug.LogError("PlayerStats NOT FOUND - Check ManagerBootstrapper!");
         }
     }
 
