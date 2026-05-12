@@ -339,11 +339,11 @@ public class PlayerController : MonoBehaviour
             targetWeapon = akData;
 
         //// 🔥 CHECK INVENTORY FIRST
-        if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
-        {
-            Debug.Log("You don't have this weapon yet!");
-            return;
-        }
+        //if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
+        //{
+        //    Debug.Log("You don't have this weapon yet!");
+        //    return;
+        //}
 
         // If same → UNEQUIP
         if (equippedWeapon == weaponType)
