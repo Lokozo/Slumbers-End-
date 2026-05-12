@@ -21,7 +21,7 @@ MonoBehaviour:
   isEquipped: 0
   ammoType: 0
   ammoPerShot: 1
-  maxStack: 1
+  maxStack: 4
   maxUses: 1
   width: 1
   height: 1

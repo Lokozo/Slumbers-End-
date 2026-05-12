@@ -47,10 +47,12 @@ public class CampArea : MonoBehaviour
             float y = PlayerPrefs.GetFloat("PosY");
             float z = PlayerPrefs.GetFloat("PosZ");
 
+
             CharacterController cc = player.GetComponent<CharacterController>();
 
             if (cc != null)
                 cc.enabled = false;
+
 
             player.transform.position = new Vector3(x, y, z);
 
@@ -58,6 +60,7 @@ public class CampArea : MonoBehaviour
                 cc.enabled = true;
 
             Debug.Log("Game Loaded!");
+
         }
     }
 
@@ -74,6 +77,8 @@ public class CampArea : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && playerWithinRange)
         {
+            TutorialUIManager.Instance?.Hide();
+
             SaveGame(); // ✅ SAVE FIRST
 
             if (!isCampSceneLoaded)
@@ -113,6 +118,10 @@ public class CampArea : MonoBehaviour
 
             //other.GetComponent<PlayerController>().SetCampZone(this);
             hasCampPrompt = true;
+            TutorialUIManager.Instance?.ShowStep(
+            "campIntro",
+            "Your tent has been set up here.\nThis will serve as your resting point and crafting area.\nPress E to enter the campsite."
+        );
         }
     }
 

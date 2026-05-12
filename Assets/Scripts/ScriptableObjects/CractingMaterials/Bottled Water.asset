@@ -21,11 +21,11 @@ MonoBehaviour:
   isEquipped: 0
   ammoType: 0
   ammoPerShot: 1
-  maxStack: 1
+  maxStack: 3
   maxUses: 1
   width: 1
   height: 1
-  isConsumable: 0
+  isConsumable: 1
   healthRestoreAmount: 0
-  hungerRestoreAmount: 0
+  hungerRestoreAmount: 15
   energyRestoreAmount: 0

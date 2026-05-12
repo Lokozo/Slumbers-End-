@@ -20582,9 +20582,8 @@ MonoBehaviour:
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 1
   tutorialStepID: TentAcquired
-  tutorialText: Bear now has access to a Tent Camp.\nStarting in the next area, a
-    camp will appear at the beginning of new areas.\nTent Camps serve as checkpoints
-    and save points.
+  tutorialText: You now have access to a Tent Camp.\nStarting in the next area, a
+    camp will appear at the beginning of new areas.
 --- !u!65 &1113377385
 BoxCollider:
   m_ObjectHideFlags: 0
