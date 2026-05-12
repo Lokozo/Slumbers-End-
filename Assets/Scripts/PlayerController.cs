@@ -265,8 +265,18 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (!controller.enabled) return;
+        if (!controller.enabled)
+            return;
+
+        // 🚫 NO GRAVITY WHILE CLIMBING
+        if (isClimbing)
+        {
+            velocity.y = 0f;
+            return;
+        }
+
         velocity.y += gravity * Time.deltaTime;
+
         controller.Move(velocity * Time.deltaTime);
     }
 
@@ -329,11 +339,11 @@ public class PlayerController : MonoBehaviour
             targetWeapon = akData;
 
         //// 🔥 CHECK INVENTORY FIRST
-        if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
-        {
-            Debug.Log("You don't have this weapon yet!");
-            return;
-        }
+        //if (targetWeapon != null && !PlayerInventory.Instance.HasWeapon(targetWeapon))
+        //{
+        //    Debug.Log("You don't have this weapon yet!");
+        //    return;
+        //}
 
         // If same → UNEQUIP
         if (equippedWeapon == weaponType)

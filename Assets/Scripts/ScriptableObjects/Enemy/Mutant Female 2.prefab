@@ -569,8 +569,8 @@ MonoBehaviour:
   attackInterval: 3
   attackDamage: 15
   attackRadius: 1.5
-  attackPoint: {fileID: 0}
-  attackRadiusTrigger: {fileID: 0}
+  attackPoint: {fileID: 835275691516752099}
+  attackRadiusTrigger: {fileID: 4288214079565671415}
   attackAngle: 60
 --- !u!1 &1944316002664602987
 GameObject:

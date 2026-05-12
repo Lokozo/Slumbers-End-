@@ -5,6 +5,7 @@ public class PlayerClimbing : MonoBehaviour
     private PlayerController playerController;
     private CharacterController characterController;
     private Ladder currentLadder;
+    private Animator animator;
 
     [Header("Settings")]
     public float climbSpeed = 4f;
@@ -20,8 +21,12 @@ public class PlayerClimbing : MonoBehaviour
 
     public bool isClimbing { get; private set; }
 
+    private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
+    private static readonly int ClimbSpeed = Animator.StringToHash("ClimbSpeed");
+
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
     }
@@ -57,6 +62,7 @@ public class PlayerClimbing : MonoBehaviour
         foreach (Collider hit in hits)
         {
             Ladder ladder = hit.GetComponentInParent<Ladder>();
+
             if (ladder != null)
             {
                 currentLadder = ladder;
@@ -68,123 +74,123 @@ public class PlayerClimbing : MonoBehaviour
 
     private void StartClimbing()
     {
+        if (isClimbing || currentLadder == null)
+            return;
+
         isClimbing = true;
+
         playerController.isClimbing = true;
         playerController.movementLocked = true;
         playerController.ResetVelocity();
 
+        animator.SetBool(IsClimbing, true);
+        animator.SetFloat(ClimbSpeed, 0.5f); // idle start
+
         characterController.enabled = false;
 
         Vector3 pos = transform.position;
+
         pos.x = currentLadder.climbPoint.position.x;
         pos.z = currentLadder.climbPoint.position.z;
-        transform.position = pos;
 
-        characterController.enabled = true;
+        float top = currentLadder.topExit.position.y;
+        float bottom = currentLadder.bottomExit.position.y;
+
+        pos.y = (Mathf.Abs(transform.position.y - top) <
+                 Mathf.Abs(transform.position.y - bottom))
+                 ? top
+                 : bottom - 0.5f;
+
+        transform.position = pos;
 
         FaceLadder();
     }
 
     private void StopClimbing()
     {
+        animator.SetBool(IsClimbing, false);
+        animator.SetFloat(ClimbSpeed, 0.5f);
+
         isClimbing = false;
+
         playerController.isClimbing = false;
         playerController.movementLocked = false;
-    }
 
-
-    private void FaceLadder()
-    {
-        if (currentLadder == null) return;
-
-        Vector3 forward = currentLadder.FaceDirection;
-        forward.y = 0f; // keep player upright
-
-        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        characterController.enabled = true;
     }
 
     private void HandleClimbing()
     {
-        float yInput = Input.GetAxisRaw("Vertical");
+        if (currentLadder == null) return;
 
-        float topY = currentLadder.topExit.position.y;
-        float bottomY = currentLadder.bottomExit.position.y;
+        float input = Input.GetAxisRaw("Vertical");
 
-        float verticalMove = yInput * climbSpeed * Time.deltaTime;
-        characterController.Move(Vector3.up * verticalMove);
+        // IMPORTANT: remap -1..1 → 0..1
+        float blendValue = Mathf.Clamp01((input + 1f) * 0.5f);
+
+        animator.SetFloat(ClimbSpeed, blendValue, 0.1f, Time.deltaTime);
+
+        float top = currentLadder.topExit.position.y;
+        float bottom = currentLadder.bottomExit.position.y;
 
         Vector3 pos = transform.position;
+
+        pos.y += input * climbSpeed * Time.deltaTime;
+
         pos.x = currentLadder.climbPoint.position.x;
         pos.z = currentLadder.climbPoint.position.z;
-        pos.y = Mathf.Clamp(pos.y, bottomY, topY);
+
+        pos.y = Mathf.Clamp(pos.y, bottom, top);
+
         transform.position = pos;
 
-        if (Mathf.Abs(pos.y - topY) < 0.02f && yInput > 0.1f)
-        {
+        if (Mathf.Abs(pos.y - top) < 0.02f && input > 0.1f)
             StartLadderExit(currentLadder.topExit.position);
-        }
 
-        if (yInput < -0.1f && pos.y <= bottomY + 0.02f)
-        {
+        if (input < -0.1f && pos.y <= bottom + 0.02f)
             StartLadderExit(currentLadder.bottomExit.position);
-        }
     }
+
     private void StartLadderExit(Vector3 target)
     {
         StopClimbing();
 
+        characterController.enabled = true;
+
         isExitingLadder = true;
         ladderExitTarget = target;
 
-        // Face the exit direction
         Vector3 dir = ladderExitTarget - transform.position;
         dir.y = 0f;
 
         if (dir.sqrMagnitude > 0.01f)
-            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = Quaternion.LookRotation(dir);
     }
+
     private void MoveOutOfLadder()
     {
         Vector3 toTarget = ladderExitTarget - transform.position;
         toTarget.y = 0f;
 
-        float distance = toTarget.magnitude;
-
-        if (distance <= ladderExitStopDistance)
+        if (toTarget.magnitude <= ladderExitStopDistance)
         {
             isExitingLadder = false;
             currentLadder = null;
             return;
         }
 
-        // Ease out (animation friendly)
-        float speed = Mathf.Lerp(0.5f, ladderExitSpeed, distance);
-        Vector3 move = toTarget.normalized * speed;
+        float speed = Mathf.Lerp(0.5f, ladderExitSpeed, toTarget.magnitude);
 
-        characterController.Move(move * Time.deltaTime);
-    }
-    //private void TeleportToPosition(Vector3 pos)
-    //{
-    //    characterController.enabled = false;
-    //    transform.position = pos;
-    //    characterController.enabled = true;
-    //}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (isClimbing || isExitingLadder) return;
-
-        Ladder ladder = other.GetComponentInParent<Ladder>();
-        if (ladder != null)
-            currentLadder = ladder;
+        characterController.Move(toTarget.normalized * speed * Time.deltaTime);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void FaceLadder()
     {
-        if (isExitingLadder) return;
+        if (currentLadder == null) return;
 
-        Ladder ladder = other.GetComponentInParent<Ladder>();
-        if (ladder != null && ladder == currentLadder && !isClimbing)
-            currentLadder = null;
+        Vector3 dir = currentLadder.FaceDirection;
+        dir.y = 0f;
+
+        transform.rotation = Quaternion.LookRotation(dir);
     }
 }
