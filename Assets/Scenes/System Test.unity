@@ -1378,7 +1378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1248475494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5503,6 +5503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoToStairs
   moveSpeed: 3
   rotateSpeed: 3
+  cameraTransform: {fileID: 0}
   gravity: -25
   groundedStick: -2
 --- !u!23 &5309049006032742485
