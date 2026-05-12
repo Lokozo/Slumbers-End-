@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1672a140437b8b040b400a2831a3d533
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 5412
+  packageName: Scene Merge
+  packageVersion: 1.7
+  assetPath: Assets/SceneMerge/Prefabs/Cubes.prefab
+  uploadId: 2418

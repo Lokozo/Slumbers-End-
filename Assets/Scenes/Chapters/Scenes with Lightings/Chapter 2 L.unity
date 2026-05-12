@@ -1054,7 +1054,7 @@ Transform:
   m_GameObject: {fileID: 207735164}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 37.690918, y: 3.5581553, z: 6.3601}
+  m_LocalPosition: {x: 84.43, y: 3.4981215, z: 5.5730658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3731,6 +3731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedEnemies: []
+  detectedBreakables: []
+  radius: 2
 --- !u!135 &962039120
 SphereCollider:
   m_ObjectHideFlags: 0

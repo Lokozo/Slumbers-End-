@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.4509804, g: 0.47843137, b: 0.6862745, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.17144115, g: 0.19461787, b: 0.42869055, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b573e14113fa5564e807631cf9580331, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -94,7 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 60cb2153fb0382b4f9eeae01a3d8d30a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1532,12 +1532,17 @@ MonoBehaviour:
   speakerName: Bear
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
-  - The tower definitely looks run-down.
-  - Gotta find a way to get a signal somehow.
-  - ' Maybe the generator still works.'
+  - That tower's seen some better days. It's gotten all rusty.
+  - 'Makes sense, this hasn''t been maintained for a long while. '
+  - ...still, gotta find a signal from this damn thing somehow.
+  - That generator better work.
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &297758981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1818,15 +1823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85ea942a6638ba459daf4e14b68c228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 100
-  maxHunger: 100
-  maxEnergy: 100
-  health: 0
-  hunger: 0
-  energy: 0
-  energyRecoverRate: 5
-  hungerDrainAmount: 5
-  hungerDrainInterval: 20
 --- !u!1 &332044400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,133 +3054,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675548415}
   m_Mesh: {fileID: 9009893830714642796, guid: 76563d454c536534880f68bc83f2bcb1, type: 3}
---- !u!1 &757844134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 757844136}
-  - component: {fileID: 757844135}
-  - component: {fileID: 757844137}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &757844135
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757844134}
-  m_Enabled: 1
-  serializedVersion: 11
-  m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ForceVisible: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_LightUnit: 1
-  m_LuxAtDistance: 1
-  m_EnableSpotReflector: 1
---- !u!4 &757844136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757844134}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &757844137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757844134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_CustomShadowLayers: 0
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
-  m_RenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_ShadowRenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_Version: 4
-  m_LightLayerMask: 1
-  m_ShadowLayerMask: 1
-  m_RenderingLayers: 1
-  m_ShadowRenderingLayers: 1
 --- !u!1 &767402736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3378,7 +3247,7 @@ Transform:
   m_GameObject: {fileID: 798220724}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17375724, y: 0.09120993, z: -0.016164858, w: 0.98042226}
-  m_LocalPosition: {x: -42.11824, y: 2.3461938, z: -1.7274218}
+  m_LocalPosition: {x: -42.098625, y: 2.3461938, z: -1.731103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3899,18 +3768,24 @@ MonoBehaviour:
   speakerName: Bear
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
-  - It worked! There's a signal, I'll call 'em now.
+  - <<Bear wastes no time filling up the generator's tank. He starts it up, and he
+    can hear the engine do it's work>>
+  - Works like a charm. There should be a signal, I'll call 'em now.
   - '*Ring ring*
 
     *Ring ring*'
   - '"The number you dialed is unavailable."'
-  - "Strange\u2026 no answer."
+  - .....you're kidding
   - "Maybe the signal\u2019s better somewhere else."
-  - "I\u2019ll try again when I get to the nearest town."
+  - "...suppose I\u2019ll try again when I get to the nearest town."
   - Silver Pine Town should be just up ahead.
   playOnlyOnce: 1
   sceneLoader: {fileID: 1618806392}
   loadNextSceneAfterDialogue: 1
+  playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &858653012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4389,6 +4264,55 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 118
   m_CollisionDetection: 0
+--- !u!1 &1069063573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1069063575}
+  - component: {fileID: 1069063574}
+  m_Layer: 11
+  m_Name: PostProcess Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1069063574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069063573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f24b1750c8cf598458e4b988ed08e263, type: 2}
+--- !u!4 &1069063575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069063573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 31.71579, y: 2.21218, z: 29.01769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074324443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4750,11 +4674,16 @@ MonoBehaviour:
   speakerName: Bear
   speakerPortrait: {fileID: 21300000, guid: a884dcc436b1e9a45918b680aefcc697, type: 3}
   dialogueLines:
-  - The generator's empty.
-  - "Maybe there\u2019s some gas nearby..."
+  - <<Bear inspects the Generator. Taking a look inside the fuel tank and finds...!>>
+  - Nothin'. Generator's outta fuel. Any thing left is all but dried up.
+  - Ah welp-- maybe there's some gas nearby...
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &1234474751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6133,7 +6062,7 @@ Transform:
   m_GameObject: {fileID: 1640697922}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17375724, y: 0.09120993, z: -0.016164858, w: 0.98042226}
-  m_LocalPosition: {x: 0.42376804, y: 1.9898214, z: 0.5677967}
+  m_LocalPosition: {x: 0.46267796, y: 1.9898214, z: 0.5604944}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6534,6 +6463,10 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
+  playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &1675697163
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6672,6 +6605,133 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1710391882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710391884}
+  - component: {fileID: 1710391883}
+  - component: {fileID: 1710391885}
+  m_Layer: 0
+  m_Name: Light_Directional
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1710391883
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710391882}
+  m_Enabled: 1
+  serializedVersion: 11
+  m_Type: 1
+  m_Color: {r: 1, g: 0.8911643, b: 0.5943396, a: 1}
+  m_Intensity: 1.5
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!4 &1710391884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710391882}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1710391885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710391882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1718988114
 GameObject:
   m_ObjectHideFlags: 0
@@ -7109,10 +7169,10 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2049
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -8431,7 +8491,7 @@ Transform:
   m_GameObject: {fileID: 2096184086}
   serializedVersion: 2
   m_LocalRotation: {x: -0.22047044, y: -0.034975342, z: -0.007910904, w: 0.9747343}
-  m_LocalPosition: {x: -2.1110678, y: 0.5355579, z: 0.4025936}
+  m_LocalPosition: {x: -2.0715857, y: 0.5355579, z: 0.4054308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13365,7 +13425,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1861489765}
   - {fileID: 147149059}
-  - {fileID: 757844136}
   - {fileID: 810429393}
   - {fileID: 1858244262}
   - {fileID: 988647235}
@@ -13386,3 +13445,5 @@ SceneRoots:
   - {fileID: 7738594}
   - {fileID: 317337451}
   - {fileID: 658277225}
+  - {fileID: 1710391884}
+  - {fileID: 1069063575}
