@@ -11430,6 +11430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoToStairs
   moveSpeed: 3
   rotateSpeed: 8
+  cameraTransform: {fileID: 0}
   gravity: -25
   groundedStick: -2
 --- !u!114 &7561746359183529937
@@ -11501,7 +11502,7 @@ MonoBehaviour:
   detectRange: 2
   breakableLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 8
   currentBreakable: {fileID: 0}
 --- !u!1 &6286741773429977686
 GameObject:

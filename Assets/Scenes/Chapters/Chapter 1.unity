@@ -353,17 +353,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7555913666106426288, guid: 31a69212dd13fff43a68c286376c6528, type: 3}
   m_PrefabInstance: {fileID: 16781943}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &26498712 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6140041175653877743, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-  m_PrefabInstance: {fileID: 4468440292367286285}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735526059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85ea942a6638ba459daf4e14b68c228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
 --- !u!1 &76856314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 515160392}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Breakable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9605,7 +9594,7 @@ PrefabInstance:
     - target: {fileID: 4116484645221212738, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: stats
       value: 
-      objectReference: {fileID: 26498712}
+      objectReference: {fileID: 0}
     - target: {fileID: 4248424886913721793, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_Layer
       value: 13
@@ -9813,10 +9802,6 @@ PrefabInstance:
     - target: {fileID: 5508121879233211204, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_Layer
       value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5553833999227874832, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
-      propertyPath: breakableLayer.m_Bits
-      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 5571297488815228230, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_Layer
