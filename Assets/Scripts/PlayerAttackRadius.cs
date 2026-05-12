@@ -58,9 +58,6 @@ public class PlayerAttackRadius : MonoBehaviour
                     !detectedBreakables.Contains(breakable))
                 {
                     detectedBreakables.Add(breakable);
-
-                    Debug.Log("[RADIUS] Breakable detected: "
-                              + breakable.name);
                 }
             }
         }

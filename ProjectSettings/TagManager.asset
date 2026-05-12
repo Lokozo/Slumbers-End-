@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Breakables
   - Water
   - UI
   - Climbable
@@ -19,8 +19,8 @@ TagManager:
   - Stairs
   - Enemy
   - Post-Process
-  - Breakables
   - 
+  - Player
   - PlayerAttackRadius
   - PlayerAttackGun
   - Wall
