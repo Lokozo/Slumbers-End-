@@ -17,7 +17,15 @@ public class InventoryUI : MonoBehaviour
 
     private ItemSlot[,] gridSlots;
 
-   
+    // ADD THIS
+    private PlayerAttack playerAttack;
+
+    void Start()
+    {
+        // FIND PLAYER ATTACK
+        playerAttack = FindFirstObjectByType<PlayerAttack>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -27,16 +35,17 @@ public class InventoryUI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            gameObject.SetActive(false);
+            InventoryManager.Instance.ToggleInventory();
             ClearSelectedItem();
         }
     }
+
     void TransferAllSelectedItem()
     {
         Item selected = GetSelectedItem();
         if (selected == null) return;
 
-        var inventory = PlayerInventory.Instance.GetInventory(); // ✅ FIXED
+        var inventory = PlayerInventory.Instance.GetInventory();
 
         if (!inventory.ContainsKey(selected)) return;
 
@@ -73,16 +82,13 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshUI()
     {
-
         if (PlayerInventory.Instance == null) return;
+
         var inventory = PlayerInventory.Instance.GetInventory();
 
         if (gridSlots == null)
             GenerateGrid();
 
-        
-
-        // Clear slots safely
         foreach (var slot in gridSlots)
         {
             if (slot != null)
@@ -145,10 +151,18 @@ public class InventoryUI : MonoBehaviour
         selectedItem = null;
         ClearDescription();
     }
+
     private void OnEnable()
     {
         PlayerInventory.Instance.OnInventoryChanged += RefreshUI;
-        RefreshUI();
+
+        // DISABLE ATTACK INPUT
+        if (playerAttack == null)
+            playerAttack = FindFirstObjectByType<PlayerAttack>();
+
+        if (playerAttack != null)
+            playerAttack.EnableAttackInput(false);
+
         if (gridSlots == null)
             GenerateGrid();
 
@@ -158,5 +172,9 @@ public class InventoryUI : MonoBehaviour
     private void OnDisable()
     {
         PlayerInventory.Instance.OnInventoryChanged -= RefreshUI;
+
+        // ENABLE ATTACK INPUT AGAIN
+        if (playerAttack != null)
+            playerAttack.EnableAttackInput(true);
     }
 }

@@ -37,7 +37,7 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    private void ToggleInventory()
+    public void ToggleInventory()
     {
         if (InventoryMenu == null)
         {
