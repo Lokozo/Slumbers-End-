@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6131428888474446686}
-  - component: {fileID: 6140041175653877743}
+  - component: {fileID: 2155682120258581758}
   m_Layer: 0
   m_Name: PlayerStats
   m_TagString: Untagged
@@ -369,7 +369,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3428534135447628918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6140041175653877743
+--- !u!114 &2155682120258581758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8063738266605970942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85ea942a6638ba459daf4e14b68c228, type: 3}
+  m_Script: {fileID: 11500000, guid: bb9dfd55acfd86b4c8236ff464a14422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   maxHealth: 100

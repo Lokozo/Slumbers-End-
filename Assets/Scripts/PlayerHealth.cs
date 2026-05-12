@@ -21,11 +21,19 @@ public class PlayerHealth : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         cc = GetComponent<CharacterController>();
 
-        stats = PlayerStats.Instance;
+        
 
         if (stats == null)
         {
             Debug.LogError("PlayerStats instance not found!");
+        }
+    }
+
+    void Start()
+    {
+        if (stats == null)
+        {
+            stats = PlayerStats.Instance;
         }
     }
 
