@@ -347,6 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6131428888474446686}
   - component: {fileID: 2155682120258581758}
+  - component: {fileID: 2727126062082358228}
   m_Layer: 0
   m_Name: PlayerStats
   m_TagString: Untagged
@@ -370,6 +371,27 @@ Transform:
   m_Father: {fileID: 3428534135447628918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2155682120258581758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063738266605970942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9dfd55acfd86b4c8236ff464a14422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHealth: 100
+  maxHunger: 100
+  maxEnergy: 100
+  health: 0
+  hunger: 0
+  energy: 0
+  energyRecoverRate: 5
+  hungerDrainAmount: 5
+  hungerDrainInterval: 20
+--- !u!114 &2727126062082358228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

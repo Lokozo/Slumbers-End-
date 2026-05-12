@@ -6903,32 +6903,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7555913666106426288, guid: 31a69212dd13fff43a68c286376c6528, type: 3}
   m_PrefabInstance: {fileID: 1704259105}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1735526059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8063738266605970942, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-  m_PrefabInstance: {fileID: 4468440292367286285}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1735526061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735526059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9dfd55acfd86b4c8236ff464a14422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 100
-  maxHunger: 100
-  maxEnergy: 100
-  health: 0
-  hunger: 0
-  energy: 0
-  energyRecoverRate: 5
-  hungerDrainAmount: 5
-  hungerDrainInterval: 20
 --- !u!4 &1747859579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fc71d47d7a4d9574bb7aaccbb2585322, type: 3}
@@ -9040,10 +9014,6 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 711113497}
-    - target: {fileID: 3218924305343639938, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-      propertyPath: startingWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 17cb026ad2c062c4390e5b62f308ba3a, type: 2}
     - target: {fileID: 3428534135447628918, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 81.65395
@@ -9084,14 +9054,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3596509617946015655, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-      propertyPath: health
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596509617946015655, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4112712202765521240, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: instructionText
       value: 
@@ -9112,14 +9074,10 @@ PrefabInstance:
       propertyPath: fadeImage
       value: 
       objectReference: {fileID: 94339105}
-    m_RemovedComponents:
-    - {fileID: 3596509617946015655, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8063738266605970942, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1735526061}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
 --- !u!1 &4526540035133741957
 GameObject:
