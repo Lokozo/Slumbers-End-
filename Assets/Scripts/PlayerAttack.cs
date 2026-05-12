@@ -151,7 +151,7 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         // ❌ No stamina → cannot attack
-        if (PlayerStats.Instance.energy < staminaCostPerAttack)
+        if (PlayerStats.Get().energy < staminaCostPerAttack)
         {
             Debug.Log("Not enough stamina!");
             return;
@@ -261,7 +261,7 @@ public class PlayerAttack : MonoBehaviour
 
             Debug.Log("[ATTACK] Using MELEE RADIUS trigger");
 
-            PlayerStats.Instance.ModifyEnergy(-staminaCostPerAttack);
+            PlayerStats.Get().ModifyEnergy(-staminaCostPerAttack);
         }
 
         // ✅ DAMAGE ENEMIES ONLY IF ANY EXIST

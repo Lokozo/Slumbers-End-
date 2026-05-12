@@ -43,16 +43,12 @@ public class ItemSlot : MonoBehaviour
         iconImage.sprite = item.icon;
         iconImage.enabled = true;
 
-        if (item is WeaponItem)
+        if (item is WeaponItem weapon)
         {
-            if (item.isEquipped)
-                quantityText.text = "Equipped";
-            else
-                quantityText.text = "Equipped"; // 🔥 ADD THIS
+            quantityText.text = weapon.isEquipped ? "Equipped" : "";
         }
         else
         {
-            //quantityText.text = quantity > 1 ? quantity.ToString() : "";
             quantityText.text = quantity.ToString();
         }
     }
@@ -61,23 +57,38 @@ public class ItemSlot : MonoBehaviour
     {
         if (currentItem == null) return;
 
+        Debug.Log("Clicked Item: " + currentItem.itemName);
+
         float timeSinceLastClick = Time.unscaledTime - lastClickTime;
 
         if (timeSinceLastClick <= doubleClickTime)
         {
-            // DOUBLE CLICK → transfer
             TransferOne();
         }
         else
         {
-            // SINGLE CLICK → select
-            if (parentUI is InventoryUI invUI)
+            // ONLY SELECT ITEM
+
+            if (parentUI is InventoryUI inventoryUI)
             {
-                invUI.SetSelectedItem(currentItem);
+                inventoryUI.SetSelectedItem(currentItem);
             }
-            else if (parentUI is CampsiteInventoryUI campUI)
+            else if (parentUI is CampsiteInventoryUI campsiteUI)
             {
-                campUI.SetSelectedItem(currentItem);
+                campsiteUI.SetSelectedItem(currentItem);
+            }
+
+            // SAVE LAST CLICKED WEAPON
+            if (currentItem is WeaponItem weaponItem)
+            {
+                PlayerController player = FindFirstObjectByType<PlayerController>();
+
+                if (player != null)
+                {
+                    player.SetLastClickedWeapon(weaponItem);
+
+                    Debug.Log("Selected weapon: " + weaponItem.itemName);
+                }
             }
         }
 
