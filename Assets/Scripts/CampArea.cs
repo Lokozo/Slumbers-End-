@@ -5,9 +5,9 @@ public class CampArea : MonoBehaviour
 {
     private bool playerWithinRange = false;
     private bool isCampSceneLoaded = false;
-    private bool campIsSet = false;
+    //private bool campIsSet = false;
 
-    [SerializeField] private GameObject campSiteModel;
+    //[SerializeField] private GameObject campSiteModel;
 
     private bool hasCampPrompt = false;
 
@@ -72,7 +72,7 @@ public class CampArea : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerWithinRange && campIsSet)
+        if (Input.GetKeyDown(KeyCode.E) && playerWithinRange)
         {
             SaveGame(); // ✅ SAVE FIRST
 
@@ -84,19 +84,19 @@ public class CampArea : MonoBehaviour
         }
     }
 
-    public void ActivateCamp()
-    {
-        if (campSiteModel != null)
-        {
-            campSiteModel.SetActive(true);
-            campIsSet = true;
-            //TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
-            //if (tutorialUI != null)
-            //{
-            //    tutorialUI.HideInstruction();
-            //}
-        }
-    }
+    //public void ActivateCamp()
+    //{
+    //    if (campSiteModel != null)
+    //    {
+    //        campSiteModel.SetActive(true);
+    //        campIsSet = true;
+    //        //TutorialUIManager tutorialUI = FindAnyObjectByType<TutorialUIManager>();
+    //        //if (tutorialUI != null)
+    //        //{
+    //        //    tutorialUI.HideInstruction();
+    //        //}
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -104,14 +104,14 @@ public class CampArea : MonoBehaviour
         {
             playerWithinRange = true;
 
-           PlayerHealth health = other.GetComponent<PlayerHealth>();
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
 
-        if (health != null && !health.IsDead)
-        {
-            SaveGame();
-        }
+            if (health != null && !health.IsDead)
+            {
+                SaveGame();
+            }
 
-            other.GetComponent<PlayerController>().SetCampZone(this);
+            //other.GetComponent<PlayerController>().SetCampZone(this);
             hasCampPrompt = true;
         }
     }
@@ -121,7 +121,7 @@ public class CampArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerWithinRange = false;
-            other.GetComponent<PlayerController>().ClearCampZone();
+            //other.GetComponent<PlayerController>().ClearCampZone();
         }
     }
     void SaveGame()
@@ -135,7 +135,7 @@ public class CampArea : MonoBehaviour
         }
 
         PlayerStats stats = PlayerStats.Instance;
-        
+
         Vector3 pos = player.transform.position;
 
         PlayerPrefs.SetFloat("Health", stats.health);

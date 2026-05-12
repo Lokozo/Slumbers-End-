@@ -6037,6 +6037,9 @@ MonoBehaviour:
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &193503802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15147,6 +15150,9 @@ MonoBehaviour:
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &505173959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56657,6 +56663,9 @@ MonoBehaviour:
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
+  showTutorialAfterDialogue: 0
+  tutorialStepID: 
+  tutorialText: 
 --- !u!65 &1977919570
 BoxCollider:
   m_ObjectHideFlags: 0
