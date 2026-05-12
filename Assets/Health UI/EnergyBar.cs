@@ -12,12 +12,13 @@ public class EnergyBar : MonoBehaviour
 
     void Awake()
     {
-        if (stats == null)
-            stats = FindFirstObjectByType<PlayerStats>();
+        
     }
 
     void Start()
     {
+        if (stats == null)
+            stats = PlayerStats.Instance;
         slider.maxValue = stats.maxEnergy;
         slider.value = stats.energy;
         fill.color = gradient.Evaluate(1f);

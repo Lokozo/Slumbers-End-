@@ -12,13 +12,14 @@ public class HealthBar : MonoBehaviour
 
     void Awake()
     {
-        if (stats == null)
-            stats = FindFirstObjectByType<PlayerStats>();
+        
     }
 
 
     void Start()
     {
+        if (stats == null)
+            stats = PlayerStats.Instance;
         slider.maxValue = stats.maxHealth;
         slider.value = stats.health;
         fill.color = gradient.Evaluate(1f);

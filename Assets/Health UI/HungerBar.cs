@@ -12,13 +12,14 @@ public class HungerBar : MonoBehaviour
 
     void Awake()
     {
-        if (stats == null)
-            stats = FindFirstObjectByType<PlayerStats>();
+        
     }
 
 
     void Start()
     {
+        if (stats == null)
+            stats = PlayerStats.Instance;
         slider.maxValue = stats.maxHunger;
         slider.value = stats.hunger;
         fill.color = gradient.Evaluate(1f);
