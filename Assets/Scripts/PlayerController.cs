@@ -265,8 +265,18 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (!controller.enabled) return;
+        if (!controller.enabled)
+            return;
+
+        // 🚫 NO GRAVITY WHILE CLIMBING
+        if (isClimbing)
+        {
+            velocity.y = 0f;
+            return;
+        }
+
         velocity.y += gravity * Time.deltaTime;
+
         controller.Move(velocity * Time.deltaTime);
     }
 

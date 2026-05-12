@@ -5,6 +5,7 @@ public class PlayerClimbing : MonoBehaviour
     private PlayerController playerController;
     private CharacterController characterController;
     private Ladder currentLadder;
+    private Animator animator;
 
     [Header("Settings")]
     public float climbSpeed = 4f;
@@ -22,6 +23,7 @@ public class PlayerClimbing : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
     }
@@ -68,28 +70,76 @@ public class PlayerClimbing : MonoBehaviour
 
     private void StartClimbing()
     {
-        isClimbing = true;
-        playerController.isClimbing = true;
-        playerController.movementLocked = true;
-        playerController.ResetVelocity();
+        
+    animator.SetBool("IsClimbing", true);
+    animator.SetFloat("Blend", 0f);
 
-        characterController.enabled = false;
-
-        Vector3 pos = transform.position;
-        pos.x = currentLadder.climbPoint.position.x;
-        pos.z = currentLadder.climbPoint.position.z;
-        transform.position = pos;
-
-        characterController.enabled = true;
-
-        FaceLadder();
+    int ladderLayer = animator.GetLayerIndex("Ladder layer");
+    if (ladderLayer != -1)
+    {
+        animator.SetLayerWeight(ladderLayer, 1f);
     }
+
+    isClimbing = true;
+    playerController.isClimbing = true;
+    playerController.movementLocked = true;
+    playerController.ResetVelocity();
+
+    Physics.IgnoreLayerCollision(
+        gameObject.layer,
+        LayerMask.NameToLayer("Ladder"),
+        true
+    );
+
+    characterController.enabled = false;
+
+    Vector3 pos = transform.position;
+
+    // LOCK PLAYER TO LADDER CENTER
+    pos.x = currentLadder.climbPoint.position.x;
+    pos.z = currentLadder.climbPoint.position.z;
+
+    float distanceToTop =
+        Mathf.Abs(transform.position.y - currentLadder.topExit.position.y);
+
+    float distanceToBottom =
+        Mathf.Abs(transform.position.y - currentLadder.bottomExit.position.y);
+
+    // PLAYER IS CLOSER TO TOP
+    if (distanceToTop < distanceToBottom)
+    {
+        pos.y = currentLadder.topExit.position.y;
+
+        transform.position = pos;
+    }
+    else
+    {
+        // PLAYER IS CLOSER TO BOTTOM
+        pos.y = currentLadder.bottomExit.position.y - 0.5f;
+
+        transform.position = pos;
+    }
+    FaceLadder();
+}
 
     private void StopClimbing()
     {
+        animator.SetBool("IsClimbing", false);
+        int ladderLayer = animator.GetLayerIndex("Ladder layer");
+        if (ladderLayer != -1)
+        {
+            animator.SetLayerWeight(ladderLayer, 0f);
+        }
         isClimbing = false;
         playerController.isClimbing = false;
         playerController.movementLocked = false;
+
+        Physics.IgnoreLayerCollision(
+            gameObject.layer,
+            LayerMask.NameToLayer("Ladder"),
+            false
+        );
+        characterController.enabled = true;
     }
 
 
@@ -107,23 +157,32 @@ public class PlayerClimbing : MonoBehaviour
     {
         float yInput = Input.GetAxisRaw("Vertical");
 
-        float topY = currentLadder.topExit.position.y;
-        float bottomY = currentLadder.bottomExit.position.y;
+        animator.SetFloat("Blend", yInput);
+
+
+        float topY = currentLadder.topExit.position.y - 1.2f;
+        float bottomY = currentLadder.bottomExit.position.y - 0.5f;
 
         float verticalMove = yInput * climbSpeed * Time.deltaTime;
-        characterController.Move(Vector3.up * verticalMove);
 
+        // MOVE WITHOUT COLLISION
+        transform.position += Vector3.up * verticalMove;
+
+        // LOCK PLAYER TO LADDER
         Vector3 pos = transform.position;
         pos.x = currentLadder.climbPoint.position.x;
         pos.z = currentLadder.climbPoint.position.z;
         pos.y = Mathf.Clamp(pos.y, bottomY, topY);
+
         transform.position = pos;
 
+        // TOP EXIT
         if (Mathf.Abs(pos.y - topY) < 0.02f && yInput > 0.1f)
         {
             StartLadderExit(currentLadder.topExit.position);
         }
 
+        // BOTTOM EXIT
         if (yInput < -0.1f && pos.y <= bottomY + 0.02f)
         {
             StartLadderExit(currentLadder.bottomExit.position);
@@ -133,10 +192,11 @@ public class PlayerClimbing : MonoBehaviour
     {
         StopClimbing();
 
+        characterController.enabled = true;
+
         isExitingLadder = true;
         ladderExitTarget = target;
 
-        // Face the exit direction
         Vector3 dir = ladderExitTarget - transform.position;
         dir.y = 0f;
 
