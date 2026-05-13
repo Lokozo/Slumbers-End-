@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI speakerNameText;
     public UnityEngine.UI.Image portraitImage;
     public TMPro.TextMeshProUGUI dialogueText;
+    public GameObject lockIcon;
     //public GameObject blackOverlay;
 
 

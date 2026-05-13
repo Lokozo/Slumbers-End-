@@ -16,7 +16,8 @@ public class UIRegister : MonoBehaviour
         DialoguePanel,
          SpeakerNameText,
          PortraitImage,
-         DialogueText
+         DialogueText,
+         LockIcon
         //BlackOverlay
     }
 
@@ -70,9 +71,13 @@ public class UIRegister : MonoBehaviour
              case UIType.DialogueText:
                  ui.dialogueText = GetComponent<TextMeshProUGUI>();
                  break;
-            //case UIType.BlackOverlay:
-            //    ui.blackOverlay = gameObject;
-            //    break;
+                case UIType.LockIcon:
+                ui.lockIcon = gameObject;
+                break;
+
+                //case UIType.BlackOverlay:
+                //    ui.blackOverlay = gameObject;
+                //    break;
         }
     }
 }
