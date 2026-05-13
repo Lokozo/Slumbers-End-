@@ -31,14 +31,5 @@ public class ManagerBootstrapper : MonoBehaviour
         }
 
         Debug.Log($"✅ Initialized {stats.Length} PlayerStats child(ren)");
-
-        // 🎵 Initialize AudioManager
-        AudioManager audio = GetComponentInChildren<AudioManager>();
-        if (audio != null)
-        {
-            audio.Initialize();
-        }
-
-        Debug.Log("🎵 AudioManager initialized via Bootstrapper");
     }
 }

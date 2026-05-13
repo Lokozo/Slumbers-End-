@@ -96,17 +96,10 @@ public class PlayerClimbing : MonoBehaviour
         float top = currentLadder.topExit.position.y;
         float bottom = currentLadder.bottomExit.position.y;
 
-        bool enteringFromTop =
-            transform.position.y > (top + bottom) * 0.5f;
-
-        if (enteringFromTop)
-        {
-            pos.y = top - 0.05f;
-        }
-        else
-        {
-            pos.y = bottom + 0.05f;
-        }
+        pos.y = (Mathf.Abs(transform.position.y - top) <
+                 Mathf.Abs(transform.position.y - bottom))
+                 ? top
+                 : bottom - 0.5f;
 
         transform.position = pos;
 
