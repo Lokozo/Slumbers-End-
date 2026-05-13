@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -39,6 +39,12 @@ public class InventoryManager : MonoBehaviour
 
     public void ToggleInventory()
     {
+        CampArea camp = FindFirstObjectByType<CampArea>();
+
+        if (camp != null && camp.IsInCamp())
+        {
+            return;
+        }
         if (InventoryMenu == null)
         {
             Debug.LogWarning("InventoryMenu is NULL! Trying to recover...");
@@ -49,6 +55,12 @@ public class InventoryManager : MonoBehaviour
                 Debug.LogError("InventoryMenu is STILL null. Cannot toggle inventory.");
                 return; // Prevent the crash
             }
+        }
+        // 🔥 BLOCK IN CAMP
+        if (SceneManager.GetSceneByName("Campsite").isLoaded)
+        {
+            Debug.Log("⚠️ Cannot open inventory in camp!");
+            return;
         }
         isInventoryOpen = !isInventoryOpen;
         InventoryMenu.SetActive(isInventoryOpen);
