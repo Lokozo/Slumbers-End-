@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Pistol
-  description: A rusted pistol.
-  icon: {fileID: -918838802, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  description: A Rusted Pistol
+  icon: {fileID: 21300000, guid: a76b76db075a7af478472e10ba80ee89, type: 2}
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
   isEquipped: 0
-  ammoType: 0
+  ammoType: 1
   ammoPerShot: 1
   maxStack: 1
   maxUses: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
-  weaponType: 0
+  weaponType: 1
   damage: 13
   maxAmmo: 7
   reloadTime: 1

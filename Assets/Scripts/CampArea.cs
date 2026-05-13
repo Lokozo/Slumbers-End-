@@ -1,113 +1,232 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class CampArea : MonoBehaviour
 {
-    [SerializeField] private Vector3 respawnOffset = new Vector3(0, 1f, 2f); // Offset from camp center
+    [Header("Respawn Point")]
+    [SerializeField] private Transform playerRespawnPoint;
+
     private bool playerWithinRange = false;
-    private bool isCampSceneLoaded = false;
-    private Vector3 campRespawnPoint; // ✅ RESPAWN POINT
-    private bool hasCampPrompt = false;
+    private bool isCampSceneLoaded = false; // 🔥 Reset this properly
+    private bool isInitialized = false;
+    private bool wasInCamp = false;
+
+    [SerializeField] private GameObject blackOverlay;
+    [SerializeField] private float fadeDelay = 1f;
+
+    [Header("Camp Settings")]
+    [SerializeField] private bool blockPlayerInventory = true; // Toggle in inspector
 
     void Start()
     {
-        // ✅ SETUP RESPAWN POINT from saved camp position
-        campRespawnPoint = new Vector3(
-            PlayerPrefs.GetFloat("CampPosX", transform.position.x),
-            PlayerPrefs.GetFloat("CampPosY", transform.position.y),
-            PlayerPrefs.GetFloat("CampPosZ", transform.position.z)
-        ) + respawnOffset;
+        Debug.Log("Camp Layer activated for Campsite scene player.");
 
-        if (PlayerPrefs.HasKey("Health"))
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null) return;
-
-            PlayerStats stats = PlayerStats.Get();
-            stats.health = PlayerPrefs.GetFloat("Health");
-            stats.hunger = PlayerPrefs.GetFloat("Hunger");
-            stats.energy = PlayerPrefs.GetFloat("Energy");
-
-            // ✅ ONLY teleport if NOT near CAMP RESPAWN POINT
-            float distanceToCamp = Vector3.Distance(player.transform.position, campRespawnPoint);
-            if (distanceToCamp > 10f) // Was far from camp
-            {
-                Vector3 savedPos = new Vector3(
-                    PlayerPrefs.GetFloat("PosX"),
-                    PlayerPrefs.GetFloat("PosY"),
-                    PlayerPrefs.GetFloat("PosZ")
-                );
-                TeleportPlayer(player, savedPos);
-                Debug.Log($"Loaded from world position (dist to camp: {distanceToCamp:F1}m)");
-            }
-            else // Was at camp
-            {
-                TeleportPlayer(player, campRespawnPoint);
-                Debug.Log("Loaded from camp - spawned at respawn point!");
-            }
-        }
-        else
-        {
-            // First time - spawn at camp
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player) TeleportPlayer(player, campRespawnPoint);
-        }
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    void TeleportPlayer(GameObject player, Vector3 position)
+    void OnDestroy()
     {
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
-        player.transform.position = position;
-        if (cc != null) cc.enabled = true;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    // 🔥 RESET FLAG WHEN CAMPSITE UNLOADS
+    void OnSceneUnloaded(Scene scene)
+    {
+        if (scene.name == "Campsite")
+        {
+            isCampSceneLoaded = false;
+            Debug.Log("🏕️ Campsite unloaded - Can re-enter!");
+        }
     }
 
     void Update()
     {
+        // 🔥 BLOCK INVENTORY IN CAMP
+        if (isCampSceneLoaded && blockPlayerInventory)
+        {
+            BlockPlayerInventory(true);
+            wasInCamp = true;
+        }
+        else if (wasInCamp)
+        {
+            BlockPlayerInventory(false); // Restore when exit
+            wasInCamp = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && playerWithinRange && !isCampSceneLoaded)
         {
-            TutorialUIManager.Instance?.Hide();
-
-            // ✅ LOCK PLAYER AT RESPAWN POINT
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                campRespawnPoint = transform.position + respawnOffset;
-                TeleportPlayer(player, campRespawnPoint);
-                SaveGame(); // Saves respawn point too
-            }
-
+            CreateCheckpoint();
             StartCoroutine(LoadCampSceneSmooth());
         }
+    }
+    public bool IsInCamp()
+    {
+        return isCampSceneLoaded;
+    }
+    void BlockPlayerInventory(bool block)
+    {
+
+        // 🔥 ALSO BLOCK INPUT
+        if (Input.GetKeyDown(KeyCode.I) && block) // I = inventory key
+        {
+            Debug.Log("⚠️ Inventory blocked in camp!");
+        }
+    }
+    void CreateCheckpoint()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
+        TeleportPlayerSafely(player, playerRespawnPoint.position);
+        SaveCheckpoint();
+        Debug.Log($"✅ CHECKPOINT SAVED at {playerRespawnPoint.name}");
+    }
+
+    void SaveCheckpoint()
+    {
+        PlayerStats stats = PlayerStats.Get();
+
+        PlayerPrefs.SetFloat("CheckpointHealth", stats.health);
+        PlayerPrefs.SetFloat("CheckpointHunger", stats.hunger);
+        PlayerPrefs.SetFloat("CheckpointEnergy", stats.energy);
+
+        PlayerPrefs.SetFloat("CheckpointPosX", playerRespawnPoint.position.x);
+        PlayerPrefs.SetFloat("CheckpointPosY", playerRespawnPoint.position.y);
+        PlayerPrefs.SetFloat("CheckpointPosZ", playerRespawnPoint.position.z);
+
+        PlayerPrefs.SetString("LastCheckpoint", "Camp");
+        PlayerPrefs.Save();
+    }
+
+
+    // 🔥 STATIC RESPAWN (ONLY CALLED ON DEATH)
+    public static void RespawnAtCheckpoint()
+    {
+        if (!PlayerPrefs.HasKey("CheckpointHealth"))
+        {
+            Debug.LogWarning("No camp checkpoint!");
+            return;
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
+        PlayerStats stats = PlayerStats.Get();
+        PlayerInventory inventory = PlayerInventory.Instance;
+
+        // 20% HEALTH REMAINING
+        stats.hunger = PlayerPrefs.GetFloat("CheckpointHunger");
+        stats.energy = PlayerPrefs.GetFloat("CheckpointEnergy");
+        stats.health = stats.maxHealth * 0.20f;
+
+        Debug.Log($"💀 Health set to 20%: {stats.health:F1}/{stats.maxHealth}");
+
+        // 30% INVENTORY LOSS
+        ApplyStaticInventoryPenalty(inventory, 0.30f);
+
+        // RESPAWN POSITION
+        Vector3 respawnPos = new Vector3(
+            PlayerPrefs.GetFloat("CheckpointPosX"),
+            PlayerPrefs.GetFloat("CheckpointPosY"),
+            PlayerPrefs.GetFloat("CheckpointPosZ")
+        );
+
+        TeleportPlayerStatic(player, respawnPos);
+        Debug.Log("🔄 CAMP RESPAWN COMPLETE!");
+    }
+
+    private static void ApplyStaticInventoryPenalty(PlayerInventory inventory, float percent)
+    {
+        if (inventory == null) return;
+
+        var inventoryCopy = inventory.GetInventory().ToList();
+        foreach (var kvp in inventoryCopy)
+        {
+            Item item = kvp.Key;
+            if (item is WeaponItem) continue;
+
+            int loss = Mathf.RoundToInt(kvp.Value * percent);
+            if (loss > 0)
+            {
+                inventory.RemoveItem(item, loss);
+                Debug.Log($"🎒 {item.itemName}: -{loss}");
+            }
+        }
+    }
+
+    private static void TeleportPlayerStatic(GameObject player, Vector3 position)
+    {
+        CharacterController cc = player.GetComponent<CharacterController>();
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+
+        if (cc != null) cc.enabled = false;
+        if (rb != null) rb.isKinematic = true;
+
+        player.transform.position = position;
+        player.transform.rotation = Quaternion.identity;
+
+        if (cc != null) cc.enabled = true;
+        if (rb != null) rb.isKinematic = false;
+    }
+
+    void TeleportPlayerSafely(GameObject player, Vector3 position)
+    {
+        CharacterController cc = player.GetComponent<CharacterController>();
+        if (cc != null) cc.enabled = false;
+
+        player.transform.position = position;
+        player.transform.rotation = Quaternion.identity;
+
+        if (cc != null) cc.enabled = true;
     }
 
     private IEnumerator LoadCampSceneSmooth()
     {
-        yield return null; // 1 frame delay
-        SceneManager.LoadScene("Campsite", LoadSceneMode.Additive);
-        isCampSceneLoaded = true;
-    }
+        // FADE IN
+        if (blackOverlay != null)
+            blackOverlay.SetActive(true);
 
+        yield return new WaitForSeconds(fadeDelay);
+
+        SceneManager.LoadScene("Campsite", LoadSceneMode.Additive);
+
+        isCampSceneLoaded = true;
+
+        Debug.Log("🏕️ Entering Campsite...");
+
+        yield return new WaitForSeconds(0.2f);
+
+        // FADE OUT
+        if (blackOverlay != null)
+            blackOverlay.SetActive(false);
+    }
+    public IEnumerator ExitCampRoutine()
+    {
+        // FADE IN
+        if (blackOverlay != null)
+            blackOverlay.SetActive(true);
+
+        yield return new WaitForSeconds(fadeDelay);
+
+        yield return SceneManager.UnloadSceneAsync("Campsite");
+
+        yield return new WaitForSeconds(0.2f);
+
+        // FADE OUT
+        if (blackOverlay != null)
+            blackOverlay.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerWithinRange = true;
-
-            // ✅ UPDATE RESPAWN POINT every time player enters
-            campRespawnPoint = transform.position + respawnOffset;
-            PlayerPrefs.SetFloat("CampPosX", campRespawnPoint.x);
-            PlayerPrefs.SetFloat("CampPosY", campRespawnPoint.y);
-            PlayerPrefs.SetFloat("CampPosZ", campRespawnPoint.z);
-
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
-            if (health != null && !health.IsDead) SaveGame();
-
-            hasCampPrompt = true;
             TutorialUIManager.Instance?.ShowStep(
                 "campIntro",
-                "Your tent has been set up here.\nThis will serve as your resting point and crafting area.\nPress E to enter the campsite."
+                $"🏕️ Press E to SAVE & ENTER TENT\n📍 {playerRespawnPoint?.name ?? "None"}"
             );
         }
     }
@@ -117,39 +236,7 @@ public class CampArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerWithinRange = false;
+            TutorialUIManager.Instance?.Hide();
         }
-    }
-
-    private void OnSceneUnloaded(Scene scene)
-    {
-        if (scene.name == "Campsite")
-        {
-            isCampSceneLoaded = false;
-            Debug.Log("Campsite scene unloaded. Flag reset.");
-        }
-    }
-
-    void SaveGame()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) return;
-
-        PlayerStats stats = PlayerStats.Get();
-        Vector3 pos = player.transform.position;
-
-        PlayerPrefs.SetFloat("Health", stats.health);
-        PlayerPrefs.SetFloat("Hunger", stats.hunger);
-        PlayerPrefs.SetFloat("Energy", stats.energy);
-        PlayerPrefs.SetFloat("PosX", pos.x);
-        PlayerPrefs.SetFloat("PosY", pos.y);
-        PlayerPrefs.SetFloat("PosZ", pos.z);
-
-        // ✅ ALSO SAVE CAMP RESPAWN POINT
-        PlayerPrefs.SetFloat("CampPosX", campRespawnPoint.x);
-        PlayerPrefs.SetFloat("CampPosY", campRespawnPoint.y);
-        PlayerPrefs.SetFloat("CampPosZ", campRespawnPoint.z);
-
-        PlayerPrefs.Save();
-        Debug.Log($"Game Saved! Respawn: {campRespawnPoint}");
     }
 }

@@ -112,26 +112,24 @@ public class PlayerHealth : MonoBehaviour
 
     void Respawn()
     {
-        Debug.Log("Respawning...");
 
-        // Load respawn position
-        float x = PlayerPrefs.GetFloat("PosX");
-        float y = PlayerPrefs.GetFloat("PosY");
-        float z = PlayerPrefs.GetFloat("PosZ");
+        if (PlayerPrefs.HasKey("LastCheckpoint") && PlayerPrefs.GetString("LastCheckpoint") == "Camp")
+        {
+            CampArea.RespawnAtCheckpoint(); // ✅ Perfect!
+            EnablePlayer();
+            return;
+        }
 
-        // Move player
-        transform.position = new Vector3(x, y, z);
+        // World fallback
+        transform.position = new Vector3(
+            PlayerPrefs.GetFloat("PosX"),
+            PlayerPrefs.GetFloat("PosY"),
+            PlayerPrefs.GetFloat("PosZ")
+        );
 
-        // Restore health
         stats.health = stats.maxHealth * 0.5f;
+        PlayerInventory.Instance?.ApplyDeathPenalty();
 
-        // Inventory penalty
-        PlayerInventory.Instance.ApplyDeathPenalty();
-
-        // Exit death animation
-        animator.SetBool("IsDead", false);
-
-        // Re-enable player
         EnablePlayer();
     }
 

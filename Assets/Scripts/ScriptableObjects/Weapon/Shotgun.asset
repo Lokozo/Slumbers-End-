@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Shotgun
-  description: A shotgun.
+  description: A Rusted Pistol
   icon: {fileID: 1267372873, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
-  isEquipped: 1
-  ammoType: 0
+  isEquipped: 0
+  ammoType: 3
   ammoPerShot: 1
   maxStack: 1
   maxUses: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
-  weaponType: 0
+  weaponType: 1
   damage: 20
   maxAmmo: 12
   reloadTime: 1
