@@ -72,7 +72,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -132,8 +132,115 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: Empty
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BODY
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYE LEFT
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: hair
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Base Mutant F 1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Light
+      parentName: Base Mutant F 1(Clone)
+      position: {x: -1.615798, y: 4.549404, z: 4.4969144}
+      rotation: {x: 0.9353995, y: -0.050051834, z: 0.18334888, w: 0.29817095}
+      scale: {x: 100.00001, y: 100, z: 99.99999}
+    - name: Camera
+      parentName: Base Mutant F 1(Clone)
+      position: {x: 0.010587215, y: 0.894734, z: 2.2357643}
+      rotation: {x: 0, y: -0.996892, z: 0.07878051, w: 0.000000059604645}
+      scale: {x: 100.00001, y: 100.00001, z: 100}
+    - name: Area
+      parentName: Base Mutant F 1(Clone)
+      position: {x: 3.0299056, y: 2.5299616, z: -0.033412576}
+      rotation: {x: 0.50158614, y: -0.49840885, z: -0.4984089, w: 0.50158614}
+      scale: {x: 383.45248, y: 383.45248, z: 383.45245}
+    - name: Area.001
+      parentName: Base Mutant F 1(Clone)
+      position: {x: -2.521075, y: 2.548907, z: -0.033412576}
+      rotation: {x: 0.5000835, y: 0.49991652, z: 0.49991658, w: 0.5000835}
+      scale: {x: 383.45248, y: 383.45248, z: 383.45245}
+    - name: Empty
+      parentName: Base Mutant F 1(Clone)
+      position: {x: 0.022603258, y: -0.113227606, z: -0.21847142}
+      rotation: {x: -0.7071068, y: -0.00029260598, z: -0.00029260604, w: 0.7071067}
+      scale: {x: 99.99999, y: 99.99999, z: 100}
+    - name: plant
+      parentName: Empty
+      position: {x: -0.00016026625, y: -0.0020588937, z: 0.02156373}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.019892478, y: 0.020087048, z: 0.01903032}
+    - name: BODY
+      parentName: Empty
+      position: {x: -0.0002260326, y: -0.0021847147, z: 0.0011322761}
+      rotation: {x: 0.7071068, y: -1.7683938e-26, z: -3.807208e-18, w: 0.7071067}
+      scale: {x: 0.020136718, y: 0.020136718, z: 0.020136718}
+    - name: EYE LEFT
+      parentName: Empty
+      position: {x: 0.00041714503, y: -0.00379413, z: 0.035026334}
+      rotation: {x: 0.72578007, y: -9.382128e-21, z: -1.0258628e-12, w: 0.6879268}
+      scale: {x: 0.020136718, y: 0.020136718, z: 0.020136718}
+    - name: EYE RIGHT
+      parentName: Empty
+      position: {x: -0.00086716865, y: -0.0037967127, z: 0.035027035}
+      rotation: {x: 0.77693295, y: -2.237039e-19, z: -4.483718e-12, w: 0.62958336}
+      scale: {x: 0.020136718, y: 0.020136718, z: 0.020136718}
+    - name: MOUTH
+      parentName: Empty
+      position: {x: -0.00022568129, y: -0.0040938254, z: 0.033609968}
+      rotation: {x: 0.7071068, y: -1.7683938e-26, z: -3.807208e-18, w: 0.7071067}
+      scale: {x: 0.020136718, y: 0.020136718, z: 0.020136718}
+    - name: shirt
+      parentName: Empty
+      position: {x: -0.0002290684, y: -0.0020412141, z: 0.028503742}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.019093798, y: 0.01934552, z: 0.018366562}
+    - name: shoe leaf
+      parentName: Empty
+      position: {x: -0.0002260326, y: -0.0021847147, z: 0.0011322761}
+      rotation: {x: 0.7071068, y: -1.7457427e-26, z: -3.8044274e-18, w: 0.7071067}
+      scale: {x: 0.020151436, y: 0.020151436, z: 0.020151436}
+    - name: shoe right
+      parentName: Empty
+      position: {x: -0.0002260326, y: -0.0021847147, z: 0.0011322761}
+      rotation: {x: 0.7071068, y: -1.7457427e-26, z: -3.8044274e-18, w: 0.7071067}
+      scale: {x: 0.020151436, y: 0.020151436, z: 0.020151436}
+    - name: hair
+      parentName: Empty
+      position: {x: -0.00022940386, y: -0.0020605263, z: 0.035643704}
+      rotation: {x: 0.7071068, y: 6.5809655e-26, z: -3.918095e-18, w: 0.7071067}
+      scale: {x: 0.019566825, y: 0.019566825, z: 0.019566825}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -144,13 +251,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
