@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Axe
-  description: My Beloved MaryBeth
+  description: My beloved MaryBeth.
   icon: {fileID: 21300000, guid: a39a7615a6a3b0d46a6c19c86ce6b2e5, type: 2}
   itemType: 3
   isCrafted: 1

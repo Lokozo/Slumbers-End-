@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: M14
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Rifle
-  description: 'Standard Police RIfle '
+  description: Standard police rifle.
   icon: {fileID: -728605338, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 3
   isCrafted: 0
   isUsedInCrafting: 0
-  isEquipped: 1
+  isEquipped: 0
   ammoType: 0
   ammoPerShot: 1
   maxStack: 1
