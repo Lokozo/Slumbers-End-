@@ -902,7 +902,7 @@ GameObject:
   - component: {fileID: 7694128915247424397}
   - component: {fileID: 838557530924152434}
   - component: {fileID: 1053150913709877258}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mutant Male 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

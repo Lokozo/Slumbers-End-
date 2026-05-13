@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 823258288401617045}
   - component: {fileID: 5981153457797343328}
   - component: {fileID: 1947901381342408282}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mutant Female 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
