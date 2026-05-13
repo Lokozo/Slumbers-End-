@@ -518,7 +518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7681827874961316416}
-  - component: {fileID: 959448805773598818}
   m_Layer: 0
   m_Name: Base HumanPelvis
   m_TagString: Untagged
@@ -558,28 +557,6 @@ Transform:
   - {fileID: 8894177206978954415}
   m_Father: {fileID: 1501084177928628451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &959448805773598818
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671162735470894812}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1795111570879123388
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,9 +826,11 @@ GameObject:
   - component: {fileID: 1501084177928628451}
   - component: {fileID: 97005048116670272}
   - component: {fileID: 3310066468718489087}
+  - component: {fileID: 4445873358512198766}
+  - component: {fileID: 2517808129974226717}
   m_Layer: 0
   m_Name: Mutant Male 2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,7 +877,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: -0.01, y: 0.89, z: 0}
+  m_Center: {x: -0.01, y: 1, z: 0}
 --- !u!114 &3310066468718489087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -927,6 +906,40 @@ MonoBehaviour:
   attackPoint: {fileID: 8397993262906207230}
   attackRadiusTrigger: {fileID: 6144583804283241564}
   attackAngle: 60
+--- !u!95 &4445873358512198766
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210226178138005019}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2517808129974226717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210226178138005019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
 --- !u!1 &3363638675641208229
 GameObject:
   m_ObjectHideFlags: 0

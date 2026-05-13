@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   itemName: Knife
   description: Aria my knife
-  icon: {fileID: 1342643738, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  icon: {fileID: 21300000, guid: 93e3c886ddc4cf44aa8249a55118bc32, type: 2}
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
   isEquipped: 0
+  ammoType: 0
+  ammoPerShot: 1
+  maxStack: 1
+  maxUses: 1
   width: 1
   height: 1
   isConsumable: 0

@@ -74,8 +74,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 632843200717116987}
-  - component: {fileID: 7542775247185528936}
-  - component: {fileID: 5377366404836752133}
+  - component: {fileID: 5598325459608213438}
+  - component: {fileID: 9059846389497120764}
   m_Layer: 0
   m_Name: Zombiegirl W Kurniawan
   m_TagString: Untagged
@@ -102,7 +102,29 @@ Transform:
   - {fileID: 8604393039853693140}
   m_Father: {fileID: 2128189373195811553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7542775247185528936
+--- !u!95 &5598325459608213438
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253220986868173953}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: bd1aaa79663ea634da077b2741a6ed5c, type: 3}
+  m_Controller: {fileID: 9100000, guid: a241d0fd130317f44a922960f9a60532, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9059846389497120764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,28 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
---- !u!95 &5377366404836752133
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253220986868173953}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bd1aaa79663ea634da077b2741a6ed5c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &792012685661510128
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,9 +494,11 @@ GameObject:
   - component: {fileID: 2128189373195811553}
   - component: {fileID: 2523417470840588236}
   - component: {fileID: 3846349996685539906}
-  m_Layer: 10
+  - component: {fileID: 4247294735685803421}
+  - component: {fileID: 2281451291022133160}
+  m_Layer: 0
   m_Name: Mutant Female 2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,7 +545,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: -0.05}
+  m_Center: {x: 0, y: 1.15, z: -0.05}
 --- !u!114 &3846349996685539906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +574,40 @@ MonoBehaviour:
   attackPoint: {fileID: 835275691516752099}
   attackRadiusTrigger: {fileID: 4288214079565671415}
   attackAngle: 60
+--- !u!95 &4247294735685803421
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867553479499935104}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: bd1aaa79663ea634da077b2741a6ed5c, type: 3}
+  m_Controller: {fileID: 9100000, guid: a241d0fd130317f44a922960f9a60532, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2281451291022133160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867553479499935104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
 --- !u!1 &1944316002664602987
 GameObject:
   m_ObjectHideFlags: 0

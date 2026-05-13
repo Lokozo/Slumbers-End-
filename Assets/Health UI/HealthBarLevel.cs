@@ -19,7 +19,7 @@ public class HealthBarLevel : MonoBehaviour
     void Start()
     {
         if (stats == null)
-            stats = PlayerStats.Instance;
+            stats = PlayerStats.Get();
         slider.maxValue = stats.maxHealth;
         slider.value = stats.health;
         fill.color = gradient.Evaluate(1f);

@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2f;
     public float rotationFactorPerFrame = 150f;
     float energyCostPerSecond = 10f;
+    private int maxEquippedWeapons = 3;
 
     [Header("State Flags")]
     public bool movementLocked = false;
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private bool isMovementPressed;
     private bool isRunPressed = false;
     private bool isGrounded;
+
+    private WeaponItem lastClickedWeapon;
 
     public Vector2 currentMovementInput;
     private Vector3 velocity;
@@ -109,6 +112,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable() => playerInputs.Player.Enable();
     private void OnDisable() => playerInputs.Player.Disable();
 
+
     private void Update()
     {
         if (playerHealth != null && playerHealth.IsDead)
@@ -124,10 +128,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Handle Push/Pull Logic
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ToggleWeaponModels();
+        }
+
         var pushPull = GetComponent<PlayerPushPull>();
         bool isPushing = pushPull != null && pushPull.IsPushing;
-
         HandlePushLayerWeight(isPushing);
 
         if (isPushing)
@@ -135,7 +142,6 @@ public class PlayerController : MonoBehaviour
             pushPull.UpdatePushMovement(currentMovementInput);
         }
 
-        // Tutorial Check
         if (enableTutorial && !hasCompletedMovementTutorial)
         {
             CheckRunTutorial();
@@ -145,7 +151,132 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         HandleGroundedCheck();
     }
-    
+
+    private int GetEquippedWeaponCount()
+    {
+        int count = 0;
+
+        if (axe.activeSelf) count++;
+        if (knife.activeSelf) count++;
+        if (pistol.activeSelf) count++;
+        if (rifle.activeSelf) count++;
+        if (shotgun.activeSelf) count++;
+        if (ak.activeSelf) count++;
+
+        return count;
+    }
+
+    private void ToggleWeaponModels()
+    {
+       
+        if (lastClickedWeapon != null)
+        {          
+            ToggleSpecificWeaponByItem(lastClickedWeapon);
+            return;
+        }
+
+       
+        if (equippedWeapon != WeaponType.None)
+        {          
+            ToggleSpecificWeapon(equippedWeapon);
+            return;
+        }
+
+    }
+
+    public void SetLastClickedWeapon(WeaponItem weapon)
+    {
+        lastClickedWeapon = weapon;
+    }
+
+    public void ToggleSpecificWeaponByItem(WeaponItem weaponItem)
+    {
+
+
+        GameObject weaponObj = null;
+
+        string weaponName = weaponItem.itemName;
+
+        if (weaponName == axeData.itemName) weaponObj = axe;
+        else if (weaponName == knifeData.itemName) weaponObj = knife;
+        else if (weaponName == pistolData.itemName) weaponObj = pistol;
+        else if (weaponName == rifleData.itemName) weaponObj = rifle;
+        else if (weaponName == shotgunData.itemName) weaponObj = shotgun;
+        else if (weaponName == akData.itemName) weaponObj = ak;
+
+        if (weaponObj != null)
+        {
+            bool wasActive = weaponObj.activeSelf;
+
+            if (!wasActive && GetEquippedWeaponCount() >= maxEquippedWeapons)
+            {
+                Debug.Log("You can only equip 3 weapons!");
+                return;
+            }
+
+            bool newState = !wasActive;
+            weaponObj.SetActive(newState);
+            weaponItem.isEquipped = newState;
+
+            equippedWeapon = newState ? GetWeaponTypeFromData(weaponItem) : WeaponType.None;
+            PlayerInventory.Instance.OnInventoryChanged?.Invoke();
+        }
+    }
+
+    private void ToggleSpecificWeapon(WeaponType weaponType)
+    {
+        GameObject weaponObj = null;
+        WeaponItem weaponData = null;
+
+        switch (weaponType)
+        {
+            case WeaponType.Axe: weaponObj = axe; weaponData = axeData; break;
+            case WeaponType.Knife: weaponObj = knife; weaponData = knifeData; break;
+            case WeaponType.Pistol: weaponObj = pistol; weaponData = pistolData; break;
+            case WeaponType.Rifle: weaponObj = rifle; weaponData = rifleData; break;
+            case WeaponType.Shotgun: weaponObj = shotgun; weaponData = shotgunData; break;
+            case WeaponType.AK: weaponObj = ak; weaponData = akData; break;
+        }
+
+        if (weaponObj != null)
+        {
+            bool newState = !weaponObj.activeSelf;
+            weaponObj.SetActive(newState);
+            weaponData.isEquipped = newState;
+            equippedWeapon = newState ? weaponType : WeaponType.None;
+
+            Debug.Log($"Toggled {weaponData.itemName} to: {newState}");
+            PlayerInventory.Instance.OnInventoryChanged?.Invoke();
+        }
+    }
+
+    private WeaponType GetWeaponTypeFromData(WeaponItem weaponItem)
+    {
+        if (weaponItem == axeData) return WeaponType.Axe;
+        if (weaponItem == knifeData) return WeaponType.Knife;
+        if (weaponItem == pistolData) return WeaponType.Pistol;
+        if (weaponItem == rifleData) return WeaponType.Rifle;
+        if (weaponItem == shotgunData) return WeaponType.Shotgun;
+        if (weaponItem == akData) return WeaponType.AK;
+        return WeaponType.None;
+    }
+
+    // 🔥 OLD HideWeaponByItem - KEPT for backward compatibility (but not used for clicks)
+    public void HideWeaponByItem(WeaponItem weaponItem)
+    {
+        Debug.Log("HideWeaponByItem called: " + weaponItem.itemName);
+
+        if (weaponItem.itemName == axeData.itemName) axe.SetActive(false);
+        else if (weaponItem.itemName == knifeData.itemName) knife.SetActive(false);
+        else if (weaponItem.itemName == pistolData.itemName) pistol.SetActive(false);
+        else if (weaponItem.itemName == rifleData.itemName) rifle.SetActive(false);
+        else if (weaponItem.itemName == shotgunData.itemName) shotgun.SetActive(false);
+        else if (weaponItem.itemName == akData.itemName) ak.SetActive(false);
+
+        weaponItem.isEquipped = false;
+        equippedWeapon = WeaponType.None;
+        PlayerInventory.Instance.OnInventoryChanged?.Invoke();
+    }
     private void InitializeInputActions()
     {
         playerInputs.Player.Move.performed += HandleMovementInput;
@@ -199,8 +330,8 @@ public class PlayerController : MonoBehaviour
         if (isRunPressed && isMovementPressed && !pushing)
         {
             speed = origSpeed * runMulti;
-            if (PlayerStats.Instance != null)
-                PlayerStats.Instance.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
+            if (PlayerStats.Get() != null)
+                PlayerStats.Get().ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
             animator.SetBool("IsRunning", true);
         }

@@ -1,9 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerStats Instance;
-
     [Header("Max Values")]
     public float maxHealth = 100f;
     public float maxHunger = 100f;
@@ -15,54 +13,40 @@ public class PlayerStats : MonoBehaviour
     public float energy;
 
     [Header("Energy Recovery Settings")]
-    public float energyRecoverRate = 5f; // How much energy to recover per second
+    public float energyRecoverRate = 5f;
 
     [Header("Passive Drain Settings")]
     public float hungerDrainAmount = 5f;
     public float hungerDrainInterval = 20f;
     private float hungerTimer;
 
+    // 🔥 REMOVED: static Instance - Bootstrapper handles singleton behavior
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-            InitializeIfNeeded();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // Don't destroy - parent ManagerBootstrapper handles this
+        InitializeIfNeeded();
+    }
 
+    public void Initialize()
+    {
+        InitializeIfNeeded();
+        Debug.Log("✅ PlayerStats initialized");
     }
 
     public void InitializeIfNeeded()
     {
-        if (health <= 0f) health = maxHealth;
-        if (hunger <= 0f) hunger = maxHunger;
-        if (energy <= 0f) energy = maxEnergy;
+        health = Mathf.Max(health, maxHealth);
+        hunger = Mathf.Max(hunger, maxHunger);
+        energy = Mathf.Max(energy, maxEnergy);
     }
-
-    //void Awake()
-    //{
-    //    if (Instance == null) Instance = this;
-    //    health = maxHealth;
-    //    hunger = maxHunger;
-    //    energy = maxEnergy;
-    //}
 
     void Update()
     {
-        // 1. Passive Hunger Drain
         HandleHungerDrain();
 
-        // 2. Energy Recovery
-        // This will only run if energy is less than max.
-        // It will recover energy "non-permanently" because it clamps at maxEnergy.
         if (energy < maxEnergy)
         {
-            // We multiply by Time.deltaTime to recover per second, not per frame
             ModifyEnergy(energyRecoverRate * Time.deltaTime);
         }
     }
@@ -73,7 +57,7 @@ public class PlayerStats : MonoBehaviour
         if (hungerTimer >= hungerDrainInterval)
         {
             ModifyHunger(-hungerDrainAmount);
-            Debug.Log($"<color=orange>Passive Hunger Drain:</color> Current Hunger: {hunger}");
+            Debug.Log($"<color=orange>Passive Hunger Drain:</color> Current Hunger: {hunger:F1}");
             hungerTimer = 0f;
         }
     }
@@ -81,6 +65,7 @@ public class PlayerStats : MonoBehaviour
     public void ModifyHealth(float amount)
     {
         health = Mathf.Clamp(health + amount, 0f, maxHealth);
+        Debug.Log($"Health: {health:F1}/{maxHealth}");
     }
 
     public void ModifyHunger(float amount)
@@ -91,5 +76,18 @@ public class PlayerStats : MonoBehaviour
     public void ModifyEnergy(float amount)
     {
         energy = Mathf.Clamp(energy + amount, 0f, maxEnergy);
+    }
+
+    // 🔥 STATIC ACCESSOR - Use this everywhere instead of Instance
+    public static PlayerStats Get()
+    {
+        var bootstrapper = Object.FindObjectOfType<ManagerBootstrapper>();
+        if (bootstrapper != null)
+        {
+            var stats = bootstrapper.GetComponentInChildren<PlayerStats>();
+            if (stats != null) return stats;
+        }
+        Debug.LogError("PlayerStats not found! Make sure ManagerBootstrapper exists.");
+        return null;
     }
 }
