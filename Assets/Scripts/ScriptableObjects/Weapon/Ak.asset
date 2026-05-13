@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3279f591ff6f6a84290088ebe879f32c, type: 3}
   m_Name: Ak
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
-  itemName: Ak
-  description: A Rusted Pistol
+  itemName: AK
+  description: An assault rifle.
   icon: {fileID: 21300000, guid: dac01694551b38b44952959a76afa5f0, type: 2}
   itemType: 3
   isCrafted: 1
