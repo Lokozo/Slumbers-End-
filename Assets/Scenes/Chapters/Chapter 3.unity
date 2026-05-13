@@ -7959,7 +7959,7 @@ Transform:
   m_GameObject: {fileID: 442343223}
   serializedVersion: 2
   m_LocalRotation: {x: 0.05689052, y: 0.38171595, z: -0.023547377, w: 0.92222667}
-  m_LocalPosition: {x: 0.6840668, y: 1.860329, z: -3.7689676}
+  m_LocalPosition: {x: 2.178032, y: 1.860329, z: -5.2613735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13044,7 +13044,7 @@ Transform:
   m_GameObject: {fileID: 736211876}
   serializedVersion: 2
   m_LocalRotation: {x: 0.36185825, y: 0.119513035, z: -0.046836644, w: 0.92335343}
-  m_LocalPosition: {x: 0.16012573, y: 4.085173, z: -5.418191}
+  m_LocalPosition: {x: 0.318573, y: 4.085173, z: -5.4599056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20663,7 +20663,7 @@ MonoBehaviour:
   showTutorialAfterDialogue: 1
   tutorialStepID: TentAcquired
   tutorialText: You now have access to a Tent Camp.\nStarting in the next area, a
-    camp will appear at the beginning of new areas.
+    camp is set up in each area.
 --- !u!65 &1113377385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25365,7 +25365,7 @@ Transform:
   m_GameObject: {fileID: 1388371173}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061274175, y: 0.09791784, z: -0.0060403775, w: 0.99328804}
-  m_LocalPosition: {x: 3.5334892, y: 1.3290774, z: 6.199588}
+  m_LocalPosition: {x: 3.6941795, y: 1.3290774, z: 6.167596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38244,7 +38244,7 @@ Transform:
   m_GameObject: {fileID: 2057750048}
   serializedVersion: 2
   m_LocalRotation: {x: 0.36185825, y: 0.119513035, z: -0.046836644, w: 0.92335343}
-  m_LocalPosition: {x: -5.949888, y: 4.085172, z: -7.04819}
+  m_LocalPosition: {x: -5.791441, y: 4.085172, z: -7.0899053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

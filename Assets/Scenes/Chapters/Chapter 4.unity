@@ -10446,6 +10446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceInteraction
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
@@ -17771,6 +17772,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616336426}
   m_Mesh: {fileID: -1039670040585922492, guid: f007ae20140b28845b078753f535f084, type: 3}
+--- !u!1 &618193221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618193222}
+  m_Layer: 0
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &618193222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618193221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1285892585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &618576143
 GameObject:
   m_ObjectHideFlags: 0
@@ -19076,6 +19108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceInteraction
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
@@ -21504,6 +21537,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Campsite
       objectReference: {fileID: 0}
+    - target: {fileID: 2765678492631066312, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      propertyPath: blackOverlay
+      value: 
+      objectReference: {fileID: 72803741}
+    - target: {fileID: 2765678492631066312, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      propertyPath: playerRespawnPoint
+      value: 
+      objectReference: {fileID: 618193222}
     - target: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.5
@@ -21558,7 +21599,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 618193222}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
 --- !u!1 &754221278
@@ -36019,6 +36063,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284486399}
   m_Mesh: {fileID: 1228931217693930783, guid: f007ae20140b28845b078753f535f084, type: 3}
+--- !u!4 &1285892585 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
+  m_PrefabInstance: {fileID: 744230339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1287419124
 GameObject:
   m_ObjectHideFlags: 0
@@ -41189,6 +41238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceInteraction
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
@@ -60072,22 +60122,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceInteraction
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
-  - item: {fileID: 11400000, guid: deba8741a01f8464b8451312d5ba1aad, type: 2}
-    dropChance: 1
-    minAmount: 3
-    maxAmount: 6
   - item: {fileID: 11400000, guid: c1033ce62599c1b4b982dc305d4b65d8, type: 2}
     dropChance: 1
     minAmount: 1
     maxAmount: 1
   checkIcon: {fileID: 0}
-  lootableDisplayName: Car
+  lootableDisplayName: Wrecked Sedan
   lootableNameText: {fileID: 0}
 --- !u!65 &2064213587
 BoxCollider:
@@ -238686,8 +238733,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.19999999, y: 0.2359281, z: 0.0131473765}
-  m_Center: {x: 0, y: 0.007946456, z: -0.0034263094}
+  m_Size: {x: 0.19999997, y: 0.2359281, z: 0.010217396}
+  m_Center: {x: 0, y: 0.007946453, z: -0.004891308}
 --- !u!23 &7535771350140544095
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -250261,8 +250308,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.19999999, y: 0.2359281, z: 0.0131473765}
-  m_Center: {x: 0.19999999, y: 0.007946456, z: -0.0034263094}
+  m_Size: {x: 0.19999996, y: 0.2359281, z: 0.0100261215}
+  m_Center: {x: 0.19999997, y: 0.007946453, z: -0.0049869376}
 --- !u!1 &7980004223514199243
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,10 +10,12 @@ public class ResourceInteraction : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject magnifyingGlassIcon;
+    public GameObject lockIcon;
     public GameObject InventoryMenu;
     public GameObject ResourcePanel;
     public Transform ResourceContentPanel; // Parent panel for dynamic resource UI
     public GameObject ResourceItemUIPrefab; // UI prefab to display item + amount
+
 
     [Header("Interaction Settings")]
     public float holdTimeToOpen = 1.0f;
@@ -57,6 +59,7 @@ public class ResourceInteraction : MonoBehaviour
         magnifyingGlassIcon = ui.magnifyingGlassIcon;
         checkIcon = ui.checkIcon;
         lootableNameText = ui.lootableNameText;
+        lockIcon = ui.lockIcon;
     }
 
     private void Update()
@@ -221,7 +224,7 @@ public class ResourceInteraction : MonoBehaviour
     {
         InventoryMenu?.SetActive(true);
         ResourcePanel?.SetActive(true);
-
+        lockIcon?.SetActive(false);
         TutorialUIManager.Instance?.Hide();
 
         if (lootableNameText != null)
@@ -300,6 +303,23 @@ public class ResourceInteraction : MonoBehaviour
             Debug.Log("Player entered interaction range.");
             playerInRange = true;
 
+            bool isCurrentlyLocked =
+                lockable != null &&
+                lockable.isLocked;
+            // ✅ LOCKED OBJECT
+            if (isCurrentlyLocked)
+            {
+                lockIcon?.SetActive(true);
+                magnifyingGlassIcon?.SetActive(false);
+                checkIcon?.SetActive(false);
+
+                TutorialUIManager.Instance?.ShowStep(
+                    "lockedLootTutorial",
+                    "It's locked. A lockpick might open it.\nMaybe there's a way to craft one at the tent."
+                );
+
+                return;
+            }
             if (hasBeenCollected)
             {
                 checkIcon?.SetActive(true);
@@ -326,6 +346,7 @@ public class ResourceInteraction : MonoBehaviour
             playerInRange = false;
             magnifyingGlassIcon?.SetActive(false);
             checkIcon?.SetActive(false);
+            lockIcon?.SetActive(false);
             holdTimer = 0f;
 
 
