@@ -203,6 +203,7 @@ public class CampArea : MonoBehaviour
         if (blackOverlay != null)
             blackOverlay.SetActive(false);
     }
+
     public IEnumerator ExitCampRoutine()
     {
         // FADE IN
@@ -223,6 +224,11 @@ public class CampArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            InventoryUI inventoryUI = FindFirstObjectByType<InventoryUI>();
+
+            if (inventoryUI != null)
+                inventoryUI.SetInsideCamp(true);
+
             playerWithinRange = true;
             TutorialUIManager.Instance?.ShowStep(
                 "campIntro",
@@ -235,6 +241,10 @@ public class CampArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            InventoryUI inventoryUI = FindFirstObjectByType<InventoryUI>();
+
+            if (inventoryUI != null)
+                inventoryUI.SetInsideCamp(false);
             playerWithinRange = false;
             TutorialUIManager.Instance?.Hide();
         }
