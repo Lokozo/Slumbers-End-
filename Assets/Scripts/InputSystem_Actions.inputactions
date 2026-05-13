@@ -82,7 +82,7 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -97,7 +97,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "EquipPistol",
+                    "name": "EquipWeapon",
                     "type": "Button",
                     "id": "19815ead-a3e2-4ec4-be80-ad8ad50d10df",
                     "expectedControlType": "",
@@ -117,34 +117,7 @@
                 {
                     "name": "EquipKnife",
                     "type": "Button",
-                    "id": "64ce2f63-8d03-40f8-ac67-67f37f5779f3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EquipRifle",
-                    "type": "Button",
-                    "id": "05b31645-d2cd-445e-8cd9-60705858e4b6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EquipShotgun",
-                    "type": "Button",
-                    "id": "ce622bbf-3c81-4437-9d9a-67554ecf0ca5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EquipAK",
-                    "type": "Button",
-                    "id": "681e38e4-0d39-4c52-b3eb-7b0df39997c3",
+                    "id": "360f3c45-fd98-47c5-ad4b-880f28a96257",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -511,7 +484,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EquipPistol",
+                    "action": "EquipWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -561,45 +534,12 @@
                 },
                 {
                     "name": "",
-                    "id": "08d35d20-9828-4145-bdb7-78fd7310c117",
+                    "id": "85f6f0d3-77d7-41e0-9f38-f67bde26b07d",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "EquipKnife",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b68d2e46-d400-4725-a928-aec08f88117a",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EquipRifle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ac2231b4-3d6d-4c51-a4ee-00d5531c7f3f",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EquipShotgun",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8a58d60d-1c6c-44b0-8ce1-2f811d695772",
-                    "path": "<Keyboard>/6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EquipAK",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

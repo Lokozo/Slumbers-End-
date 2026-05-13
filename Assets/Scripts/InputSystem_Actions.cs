@@ -168,7 +168,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""641cd816-40e6-41b4-8c3d-04687c349290"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -183,7 +183,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""EquipPistol"",
+                    ""name"": ""EquipWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""19815ead-a3e2-4ec4-be80-ad8ad50d10df"",
                     ""expectedControlType"": """",
@@ -203,34 +203,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""EquipKnife"",
                     ""type"": ""Button"",
-                    ""id"": ""64ce2f63-8d03-40f8-ac67-67f37f5779f3"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EquipRifle"",
-                    ""type"": ""Button"",
-                    ""id"": ""05b31645-d2cd-445e-8cd9-60705858e4b6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EquipShotgun"",
-                    ""type"": ""Button"",
-                    ""id"": ""ce622bbf-3c81-4437-9d9a-67554ecf0ca5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EquipAK"",
-                    ""type"": ""Button"",
-                    ""id"": ""681e38e4-0d39-4c52-b3eb-7b0df39997c3"",
+                    ""id"": ""360f3c45-fd98-47c5-ad4b-880f28a96257"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -597,7 +570,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""EquipPistol"",
+                    ""action"": ""EquipWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -647,45 +620,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""08d35d20-9828-4145-bdb7-78fd7310c117"",
+                    ""id"": ""85f6f0d3-77d7-41e0-9f38-f67bde26b07d"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""EquipKnife"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b68d2e46-d400-4725-a928-aec08f88117a"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""EquipRifle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ac2231b4-3d6d-4c51-a4ee-00d5531c7f3f"",
-                    ""path"": ""<Keyboard>/5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""EquipShotgun"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8a58d60d-1c6c-44b0-8ce1-2f811d695772"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""EquipAK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1283,12 +1223,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_EquipAxe = m_Player.FindAction("EquipAxe", throwIfNotFound: true);
-        m_Player_EquipPistol = m_Player.FindAction("EquipPistol", throwIfNotFound: true);
+        m_Player_EquipWeapon = m_Player.FindAction("EquipWeapon", throwIfNotFound: true);
         m_Player_UpDownTrigger = m_Player.FindAction("UpDownTrigger", throwIfNotFound: true);
         m_Player_EquipKnife = m_Player.FindAction("EquipKnife", throwIfNotFound: true);
-        m_Player_EquipRifle = m_Player.FindAction("EquipRifle", throwIfNotFound: true);
-        m_Player_EquipShotgun = m_Player.FindAction("EquipShotgun", throwIfNotFound: true);
-        m_Player_EquipAK = m_Player.FindAction("EquipAK", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1392,12 +1329,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_EquipAxe;
-    private readonly InputAction m_Player_EquipPistol;
+    private readonly InputAction m_Player_EquipWeapon;
     private readonly InputAction m_Player_UpDownTrigger;
     private readonly InputAction m_Player_EquipKnife;
-    private readonly InputAction m_Player_EquipRifle;
-    private readonly InputAction m_Player_EquipShotgun;
-    private readonly InputAction m_Player_EquipAK;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1450,9 +1384,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @EquipAxe => m_Wrapper.m_Player_EquipAxe;
         /// <summary>
-        /// Provides access to the underlying input action "Player/EquipPistol".
+        /// Provides access to the underlying input action "Player/EquipWeapon".
         /// </summary>
-        public InputAction @EquipPistol => m_Wrapper.m_Player_EquipPistol;
+        public InputAction @EquipWeapon => m_Wrapper.m_Player_EquipWeapon;
         /// <summary>
         /// Provides access to the underlying input action "Player/UpDownTrigger".
         /// </summary>
@@ -1461,18 +1395,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/EquipKnife".
         /// </summary>
         public InputAction @EquipKnife => m_Wrapper.m_Player_EquipKnife;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/EquipRifle".
-        /// </summary>
-        public InputAction @EquipRifle => m_Wrapper.m_Player_EquipRifle;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/EquipShotgun".
-        /// </summary>
-        public InputAction @EquipShotgun => m_Wrapper.m_Player_EquipShotgun;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/EquipAK".
-        /// </summary>
-        public InputAction @EquipAK => m_Wrapper.m_Player_EquipAK;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1529,24 +1451,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @EquipAxe.started += instance.OnEquipAxe;
             @EquipAxe.performed += instance.OnEquipAxe;
             @EquipAxe.canceled += instance.OnEquipAxe;
-            @EquipPistol.started += instance.OnEquipPistol;
-            @EquipPistol.performed += instance.OnEquipPistol;
-            @EquipPistol.canceled += instance.OnEquipPistol;
+            @EquipWeapon.started += instance.OnEquipWeapon;
+            @EquipWeapon.performed += instance.OnEquipWeapon;
+            @EquipWeapon.canceled += instance.OnEquipWeapon;
             @UpDownTrigger.started += instance.OnUpDownTrigger;
             @UpDownTrigger.performed += instance.OnUpDownTrigger;
             @UpDownTrigger.canceled += instance.OnUpDownTrigger;
             @EquipKnife.started += instance.OnEquipKnife;
             @EquipKnife.performed += instance.OnEquipKnife;
             @EquipKnife.canceled += instance.OnEquipKnife;
-            @EquipRifle.started += instance.OnEquipRifle;
-            @EquipRifle.performed += instance.OnEquipRifle;
-            @EquipRifle.canceled += instance.OnEquipRifle;
-            @EquipShotgun.started += instance.OnEquipShotgun;
-            @EquipShotgun.performed += instance.OnEquipShotgun;
-            @EquipShotgun.canceled += instance.OnEquipShotgun;
-            @EquipAK.started += instance.OnEquipAK;
-            @EquipAK.performed += instance.OnEquipAK;
-            @EquipAK.canceled += instance.OnEquipAK;
         }
 
         /// <summary>
@@ -1588,24 +1501,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @EquipAxe.started -= instance.OnEquipAxe;
             @EquipAxe.performed -= instance.OnEquipAxe;
             @EquipAxe.canceled -= instance.OnEquipAxe;
-            @EquipPistol.started -= instance.OnEquipPistol;
-            @EquipPistol.performed -= instance.OnEquipPistol;
-            @EquipPistol.canceled -= instance.OnEquipPistol;
+            @EquipWeapon.started -= instance.OnEquipWeapon;
+            @EquipWeapon.performed -= instance.OnEquipWeapon;
+            @EquipWeapon.canceled -= instance.OnEquipWeapon;
             @UpDownTrigger.started -= instance.OnUpDownTrigger;
             @UpDownTrigger.performed -= instance.OnUpDownTrigger;
             @UpDownTrigger.canceled -= instance.OnUpDownTrigger;
             @EquipKnife.started -= instance.OnEquipKnife;
             @EquipKnife.performed -= instance.OnEquipKnife;
             @EquipKnife.canceled -= instance.OnEquipKnife;
-            @EquipRifle.started -= instance.OnEquipRifle;
-            @EquipRifle.performed -= instance.OnEquipRifle;
-            @EquipRifle.canceled -= instance.OnEquipRifle;
-            @EquipShotgun.started -= instance.OnEquipShotgun;
-            @EquipShotgun.performed -= instance.OnEquipShotgun;
-            @EquipShotgun.canceled -= instance.OnEquipShotgun;
-            @EquipAK.started -= instance.OnEquipAK;
-            @EquipAK.performed -= instance.OnEquipAK;
-            @EquipAK.canceled -= instance.OnEquipAK;
         }
 
         /// <summary>
@@ -1977,12 +1881,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquipAxe(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "EquipPistol" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "EquipWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEquipPistol(InputAction.CallbackContext context);
+        void OnEquipWeapon(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "UpDownTrigger" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1997,27 +1901,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquipKnife(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "EquipRifle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEquipRifle(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "EquipShotgun" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEquipShotgun(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "EquipAK" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEquipAK(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

@@ -19,6 +19,7 @@ public class InventoryUI : MonoBehaviour
 
     // ADD THIS
     private PlayerAttack playerAttack;
+    private bool isInsideCamp = false;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class InventoryUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && isInsideCamp)
         {
             TransferAllSelectedItem();
         }
@@ -62,7 +63,12 @@ public class InventoryUI : MonoBehaviour
         if (campsiteUI != null)
             campsiteUI.RefreshInventoryDisplay();
     }
+    public void SetInsideCamp(bool value)
+    {
+        isInsideCamp = value;
 
+        Debug.Log("Inside Camp: " + isInsideCamp);
+    }
     void GenerateGrid()
     {
         gridSlots = new ItemSlot[gridWidth, gridHeight];

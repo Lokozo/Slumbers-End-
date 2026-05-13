@@ -10,8 +10,6 @@ public class PlayerInventory : MonoBehaviour
 
     public InventoryUI inventoryUI;
 
-    public List<WeaponItem> startingWeapons;
-
     public System.Action OnInventoryChanged;
     
     void Awake()
@@ -64,28 +62,29 @@ public class PlayerInventory : MonoBehaviour
     }
     void Start()
     {
-        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
-
-        bool firstWeaponEquipped = false;
-
-        foreach (WeaponItem weapon in startingWeapons)
+        // 🔥 FIXED: Use PlayerController's EXISTING weapon references
+        var playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
         {
-            if (weapon == null) continue;
-
-            WeaponItem instance = Instantiate(weapon);
-
-            // ✅ ONLY first weapon is equipped
-            instance.isEquipped = false;
-
-            resourceInventory.Add(instance, 1);
-            Debug.Log("Added starting weapon: " + instance.itemName);
-
-            if (!firstWeaponEquipped && attack != null)
+            // Add EXISTING weapons from PlayerController (KEEP their isEquipped state!)
+            if (playerController.axeData != null)
             {
-                instance.isEquipped = true;
-                attack.SetWeapon(instance);
-                firstWeaponEquipped = true;
+                AddItem(playerController.axeData, 1);
+                Debug.Log("✅ Added EXISTING axeData to inventory");
             }
+
+            if (playerController.knifeData != null)
+            {
+                AddItem(playerController.knifeData, 1);
+                Debug.Log("✅ Added EXISTING knifeData to inventory");
+            }
+        }
+
+        // Set attack weapon to knife (existing reference)
+        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
+        if (attack != null && playerController?.knifeData != null)
+        {
+            attack.SetWeapon(playerController.knifeData);
         }
 
         OnInventoryChanged?.Invoke();
@@ -93,18 +92,13 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(Item item, int quantity = 1)
     {
-        if (item == null)
-        {
-            Debug.LogError("❌ Tried to add NULL item to inventory!");
-            return;
-        }
+        if (item == null) return;
 
-        // Weapons (no stacking)
+        // 🔥 NO Instantiate for weapons - use existing reference
         if (item is WeaponItem)
         {
-            resourceInventory[item] = 1;
-
-            Debug.Log($"Added weapon: {item.itemName}");
+            resourceInventory[item] = 1;  // Same reference!
+            Debug.Log($"✅ Added weapon REFERENCE: {item.itemName}, equipped={((WeaponItem)item).isEquipped}");
             OnInventoryChanged?.Invoke();
             return;
         }

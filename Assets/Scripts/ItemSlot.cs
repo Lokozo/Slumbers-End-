@@ -45,7 +45,9 @@ public class ItemSlot : MonoBehaviour
 
         if (item is WeaponItem weapon)
         {
+            // 🔥 FIX: Use the weapon's isEquipped flag directly
             quantityText.text = weapon.isEquipped ? "Equipped" : "";
+            Debug.Log($"Setting slot for {weapon.itemName}: isEquipped={weapon.isEquipped}");
         }
         else
         {
