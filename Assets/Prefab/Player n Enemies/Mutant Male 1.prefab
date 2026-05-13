@@ -902,9 +902,11 @@ GameObject:
   - component: {fileID: 7694128915247424397}
   - component: {fileID: 838557530924152434}
   - component: {fileID: 1053150913709877258}
+  - component: {fileID: 3297232982701977377}
+  - component: {fileID: 514017079556152414}
   m_Layer: 0
   m_Name: Mutant Male 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -979,7 +981,41 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3297232982701977377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711198713820878928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
+--- !u!95 &514017079556152414
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711198713820878928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 960f29bd18a2bdf43a8e66e0f3786bea, type: 3}
+  m_Controller: {fileID: 9100000, guid: a241d0fd130317f44a922960f9a60532, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1895567035296132197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,8 +2870,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9117641165997787335}
-  - component: {fileID: 8421143448155431929}
-  - component: {fileID: 4538193381794394417}
   m_Layer: 0
   m_Name: Mutant Male
   m_TagString: Untagged
@@ -2860,40 +2894,6 @@ Transform:
   - {fileID: 7080515707705734704}
   m_Father: {fileID: 7694128915247424397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8421143448155431929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8812398997801042575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a993ca0a41eb66d4c817dc300ecd2e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationRelay
---- !u!95 &4538193381794394417
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8812398997801042575}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 960f29bd18a2bdf43a8e66e0f3786bea, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8839209215167256409
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffb10ebce1b21a49afbaf3446a0d6be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpecialMutantFemale
+  enemyData: {fileID: 11400000, guid: cc3d6236e668adc4d93fb78df946685f, type: 2}
   speed: 1.5
   chaseSpeed: 2.5
   gravity: -9.81
@@ -68,7 +69,7 @@ MonoBehaviour:
   spitPoint: {fileID: 8532796500583490078}
   spitForce: 12
   spitRange: 5
-  zombiePrefab: {fileID: 7153572883765907017, guid: f646fa19491cb9a43a2423332c948577, type: 3}
+  zombiePrefab: {fileID: 3210226178138005019, guid: 11c98411bc9216a4ebceb61d9da37da9, type: 3}
   summonPoint: {fileID: 977426664877407477}
   summonEffectPrefab: {fileID: 2369674476736621770, guid: 78ca61f77fa26814482a651175da07cd, type: 3}
   summonRange: 7
