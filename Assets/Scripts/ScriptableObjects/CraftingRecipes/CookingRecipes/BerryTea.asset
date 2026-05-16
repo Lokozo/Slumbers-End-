@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699c362b845bba249a82952d46c9896a, type: 3}
   m_Name: BerryTea
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  recipeIcon: {fileID: 21300000, guid: 11c44482d3c412b40ad503586150d539, type: 3}
   recipeName: Berry Tea
   resultItem: {fileID: 11400000, guid: 9123f7025c784f446a71b5c046c4110d, type: 2}
   resultAmount: 2

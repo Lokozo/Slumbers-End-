@@ -82,6 +82,9 @@ public class CraftingMenuController : MonoBehaviour
 
         foreach (var recipe in recipes)
         {
+            if (!RecipeManager.Instance.IsRecipeUnlocked(recipe))
+                continue;
+
             GameObject btn = Instantiate(recipeButtonPrefab, recipeListContent);
             btn.GetComponent<RecipeButton>().Initialize(recipe);
         }

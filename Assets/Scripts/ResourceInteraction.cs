@@ -27,8 +27,13 @@ public class ResourceInteraction : MonoBehaviour
     [Header("Item Drops")]
     public List<ItemDropData> possibleDrops;
 
+    [Header("Recipe Drops")]
+    public List<RecipeDropData> possibleRecipeDrops;
+
+
 
     private Dictionary<Item, int> currentDropList = new Dictionary<Item, int>();
+    private List<CraftingRecipe> currentRecipeDrops = new List<CraftingRecipe>();
 
 
     public GameObject checkIcon;
@@ -160,6 +165,7 @@ public class ResourceInteraction : MonoBehaviour
     private void GenerateRandomResources()
     {
         currentDropList.Clear();
+        currentRecipeDrops.Clear();
 
         foreach (var drop in possibleDrops)
         {
@@ -181,6 +187,9 @@ public class ResourceInteraction : MonoBehaviour
                 else
                     currentDropList.Add(drop.item, amount);
             }
+            
+        
+
         }
 
         // Clear previous UI
@@ -218,6 +227,38 @@ public class ResourceInteraction : MonoBehaviour
 
             itemUI.Setup(pair.Key, pair.Value, this);
         }
+
+foreach (var recipeDrop in possibleRecipeDrops)
+{
+    if (recipeDrop.recipe == null)
+        continue;
+
+    if (Random.value <= recipeDrop.dropChance)
+    {
+        currentRecipeDrops.Add(recipeDrop.recipe);
+
+        Debug.Log("Generated recipe: " + recipeDrop.recipe.recipeName);
+    }
+}
+
+foreach (var recipe in currentRecipeDrops)
+{
+    GameObject uiElement = Instantiate(ResourceItemUIPrefab, ResourceContentPanel);
+
+    uiElement.transform.Find("ItemName")
+        .GetComponent<TextMeshProUGUI>().text =
+        recipe.recipeName;
+
+    uiElement.transform.Find("ItemAmount")
+        .GetComponent<TextMeshProUGUI>().text = "";
+
+    uiElement.transform.Find("ItemIcon")
+        .GetComponent<Image>().sprite =
+        recipe.recipeIcon;
+
+    var recipeUI = uiElement.AddComponent<RecipeLootUI>();
+    recipeUI.Setup(recipe, this);
+}
     }
 
     private void OpenPanels()
@@ -291,6 +332,19 @@ public class ResourceInteraction : MonoBehaviour
         }
 
         if (currentDropList.Count == 0)
+        {
+            hasBeenCollected = true;
+            ClosePanels();
+        }
+    }
+
+    public void RemoveRecipe(CraftingRecipe recipe)
+    {
+        if (currentRecipeDrops.Contains(recipe))
+        {
+            currentRecipeDrops.Remove(recipe);
+        }
+        if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
             ClosePanels();

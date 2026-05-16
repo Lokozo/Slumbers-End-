@@ -3974,9 +3974,9 @@ MonoBehaviour:
   toolRecipes: []
   utilityRecipes:
   - {fileID: 11400000, guid: b2329be94e027c7458d794fb2ef940b5, type: 2}
-  - {fileID: 11400000, guid: 031c722ddc8255d47951396068f2bc24, type: 2}
-  - {fileID: 11400000, guid: 40274ad344e06ec40b0e33a11dc42f6a, type: 2}
   - {fileID: 11400000, guid: 82cba418c57491f4fb1c0a0ea5c39979, type: 2}
+  - {fileID: 11400000, guid: 40274ad344e06ec40b0e33a11dc42f6a, type: 2}
+  - {fileID: 11400000, guid: 031c722ddc8255d47951396068f2bc24, type: 2}
   cookingRecipes:
   - {fileID: 11400000, guid: a1c0380cb90e4fb4089f451093c23f4f, type: 2}
   - {fileID: 11400000, guid: b57bf22dbe9c27b4e81107789f0796aa, type: 2}
@@ -3997,6 +3997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1453560897}
   - component: {fileID: 1453560896}
+  - component: {fileID: 1453560898}
   m_Layer: 0
   m_Name: Light_Directional
   m_TagString: Untagged
@@ -4084,6 +4085,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453560898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453560895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1497484440
 GameObject:
   m_ObjectHideFlags: 0

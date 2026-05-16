@@ -1,8 +1,13 @@
 using UnityEngine;
 
+
 [CreateAssetMenu(menuName = "Crafting/Recipe")]
 public class CraftingRecipe : ScriptableObject
 {
+
+    [Header("Recipe Visuals")]
+    public Sprite recipeIcon;
+
     public string recipeName;
     public Item resultItem;
     public int resultAmount = 1;
