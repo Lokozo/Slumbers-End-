@@ -17,9 +17,9 @@ public class Item : ScriptableObject
     public bool isUsedInCrafting;
     public bool isEquipped;
 
-    [Header("Ammo")]
-    public AmmoType ammoType;
-    public int ammoPerShot = 1;
+    [Header("Ammo - Set this for AMMO ITEMS")]
+    public WeaponItem.AmmoType ammoType;
+
 
     [Header("Stack & Durability")]
     public int maxStack = 1;

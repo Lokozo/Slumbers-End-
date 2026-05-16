@@ -39,6 +39,12 @@ public class PlayerController : MonoBehaviour
     private bool isRunPressed = false;
     private bool isGrounded;
 
+    [Header("Weapon State")]
+    private bool isWeaponInHand = false;
+    private Coroutine currentEquipRoutine;
+    private Coroutine currentUnequipRoutine;
+
+
     private WeaponItem lastClickedWeapon;
 
     public Vector2 currentMovementInput;
@@ -490,63 +496,50 @@ public class PlayerController : MonoBehaviour
         //    campActive = true;
         //}
     }
-  
+
     private void TriggerEquippedWeaponAnimation()
     {
         if (equippedWeapon == WeaponType.None)
         {
-            Debug.Log("No weapon equipped!");
+            Debug.Log("❌ No weapon equipped!");
             return;
         }
 
-        // 🔥 Toggle Animation for CURRENTLY EQUIPPED weapon
-        if (equippedWeapon == WeaponType.Pistol && pistol.activeSelf)
+        Debug.Log($"🎯 Toggle {equippedWeapon} (InHand: {isWeaponInHand})");
+
+        // 🔥 STOP ALL PREVIOUS COROUTINES FIRST
+        if (currentEquipRoutine != null)
         {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Combat Pistol")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.Pistol));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.Pistol));
+            StopCoroutine(currentEquipRoutine);
+            currentEquipRoutine = null;
         }
-        else if (equippedWeapon == WeaponType.Shotgun && shotgun.activeSelf)
+        if (currentUnequipRoutine != null)
         {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Shotgun Layer")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.Shotgun));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.Shotgun));
+            StopCoroutine(currentUnequipRoutine);
+            currentUnequipRoutine = null;
         }
-        else if(equippedWeapon == WeaponType.Axe && axe.activeSelf)
+
+        // 🔥 TOGGLE BASED ON STATE
+        if (isWeaponInHand)
         {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Combat Axe")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.Axe));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.Axe));
+            currentUnequipRoutine = StartCoroutine(UnequipWeaponRoutine(equippedWeapon));
         }
-        else if (equippedWeapon == WeaponType.Knife && knife.activeSelf)
+        else
         {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Combat Knife")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.Knife));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.Knife));
-         }
-        else if (equippedWeapon == WeaponType.Rifle && rifle.activeSelf)
-        {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Rifle Layer")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.Rifle));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.Rifle));
-        }
-        else if (equippedWeapon == WeaponType.AK && ak.activeSelf)
-        {
-            if (animator.GetLayerWeight(animator.GetLayerIndex("Rifle Layer")) > 0.5f)
-                StartCoroutine(UnequipWeaponRoutine(WeaponType.AK));
-            else
-                StartCoroutine(EquipWeaponRoutine(WeaponType.AK));
+            currentEquipRoutine = StartCoroutine(EquipWeaponRoutine(equippedWeapon));
         }
     }
 
     private IEnumerator EquipWeaponRoutine(WeaponType weaponType)
     {
+        Debug.Log($"🔄 Equip Routine: {weaponType}");
+
+        // Reset layers first
         ResetAllCombatLayers();
+
+        // Block input during animation
+        bool wasSwitching = isWeaponInHand;
+        isWeaponInHand = true;
 
         switch (weaponType)
         {
@@ -554,6 +547,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Equip Pistol", true);
                 EquipWeaponObject(pistol, weaponPistolEquip);
                 yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f); // Small pause
                 yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
                 yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 1f, 0.3f));
                 break;
@@ -562,13 +556,53 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Rifle Equip", true);
                 EquipWeaponObject(shotgun, weaponShotgunEquip);
                 yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f);
                 yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
                 yield return StartCoroutine(SmoothLayerWeightTransition("Shotgun Layer", 1f, 0.3f));
                 break;
 
-                // Add other weapons...
+            case WeaponType.Axe:
+                animator.SetBool("Equip Axe", true);
+                EquipWeaponObject(axe, weaponAxeEquip);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
+                yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 1f, 0.3f));
+                break;
+
+            case WeaponType.Knife:
+                animator.SetBool("Equip Knife", true);
+                EquipWeaponObject(knife, weaponKnifeEquip);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
+                yield return StartCoroutine(SmoothLayerWeightTransition("Combat Knife", 1f, 0.3f));
+                break;
+
+            case WeaponType.Rifle:
+                animator.SetBool("Rifle Equip", true);
+                EquipWeaponObject(rifle, weaponRifleEquip);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
+                yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 1f, 0.3f));
+                break;
+
+            case WeaponType.AK:
+                animator.SetBool("Rifle Equip", true);
+                EquipWeaponObject(ak, weaponAKEquip);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, 0.3f));
+                yield return new WaitForSeconds(0.1f);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.2f));
+                yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 1f, 0.3f));
+                break;
         }
+
+        // 🔥 FINALIZE STATE
+        currentEquipRoutine = null;
+        Debug.Log($"✅ Equip COMPLETE: {weaponType}");
     }
+
     private void ToggleWeapon(WeaponType weaponType)
     {
         WeaponItem targetWeapon = null;
@@ -724,43 +758,55 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator UnequipWeaponRoutine(WeaponType weaponType)
     {
-        if (weaponType == WeaponType.Axe)
+        Debug.Log($"🔄 Unequip Routine: {weaponType}");
+
+        isWeaponInHand = false;
+
+        switch (weaponType)
         {
-            animator.SetBool("Equip Axe", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 0f, transitionDuration));
-            UnequipWeaponObject(axe, weaponUnequipBackpack);
+            case WeaponType.Axe:
+                animator.SetBool("Equip Axe", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Combat Axe", 0f, 0.3f));
+                UnequipWeaponObject(axe, weaponUnequipBackpack);
+                break;
+
+            case WeaponType.Knife:
+                animator.SetBool("Equip Knife", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Combat Knife", 0f, 0.3f));
+                UnequipWeaponObject(knife, weaponUnequipLeft);
+                break;
+
+            case WeaponType.Pistol:
+                animator.SetBool("Equip Pistol", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 0f, 0.3f));
+                UnequipWeaponObject(pistol, weaponUnequipHip);
+                break;
+
+            case WeaponType.Rifle:
+                animator.SetBool("Rifle Equip", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, 0.3f));
+                UnequipWeaponObject(rifle, weaponUnequipRifle);
+                break;
+
+            case WeaponType.AK:
+                animator.SetBool("Rifle Equip", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, 0.3f));
+                UnequipWeaponObject(ak, weaponUnequipAK);
+                break;
+
+            case WeaponType.Shotgun:
+                animator.SetBool("Rifle Equip", false);
+                yield return StartCoroutine(SmoothLayerWeightTransition("Shotgun Layer", 0f, 0.3f));
+                UnequipWeaponObject(shotgun, weaponUnequipShotgun);
+                break;
         }
-        else if (weaponType == WeaponType.Pistol)
-        {
-            animator.SetBool("Equip Pistol", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Combat Pistol", 0f, transitionDuration));
-            UnequipWeaponObject(pistol, weaponUnequipHip);
-        }
-        else if (weaponType == WeaponType.Rifle)
-        {
-            animator.SetBool("Rifle Equip", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, transitionDuration));
-            UnequipWeaponObject(rifle, weaponUnequipRifle);
-        }
-        if (weaponType == WeaponType.AK)
-        {
-            animator.SetBool("Rifle Equip", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Rifle Layer", 0f, transitionDuration));
-            UnequipWeaponObject(ak, weaponUnequipAK);
-        }
-        else if (weaponType == WeaponType.Shotgun)
-        {
-            animator.SetBool("Rifle Equip", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Shotgun Layer", 0f, transitionDuration));
-            UnequipWeaponObject(shotgun, weaponUnequipShotgun);
-        }
-        else if (weaponType == WeaponType.Knife)
-        {
-            animator.SetBool("Equip Knife", false);
-            yield return StartCoroutine(SmoothLayerWeightTransition("Combat Knife", 0f, transitionDuration));
-            UnequipWeaponObject(knife, weaponUnequipLeft);
-        }
-        yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 1f, transitionDuration));
+
+        // Small delay then reset equip layer
+        yield return new WaitForSeconds(0.2f);
+        yield return StartCoroutine(SmoothLayerWeightTransition("Equip Layer", 0f, 0.3f));
+
+        currentUnequipRoutine = null;
+        Debug.Log($"✅ Unequip COMPLETE: {weaponType}");
     }
 
     private void EquipWeaponObject(GameObject weapon, Transform equipSlot)
