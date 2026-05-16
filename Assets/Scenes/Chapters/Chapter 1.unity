@@ -9339,24 +9339,28 @@ PrefabInstance:
       objectReference: {fileID: 620160971}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
-      propertyPath: possibleDrops.Array.data[1].item
+      propertyPath: possibleDrops.Array.data[0].item
       value: 
       objectReference: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
-      propertyPath: possibleDrops.Array.data[2].item
+      propertyPath: possibleDrops.Array.data[1].item
       value: 
-      objectReference: {fileID: 11400000, guid: 7fb0af20f7ad2b544b432f75732a452b, type: 2}
+      objectReference: {fileID: 11400000, guid: fd465c51d09d8b14fafd6f2a910c31ef, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
-      propertyPath: possibleDrops.Array.data[3].item
+      propertyPath: possibleDrops.Array.data[2].item
       value: 
       objectReference: {fileID: 11400000, guid: dbdd81d535a1d7549b09c8af8c97ace0, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
-      propertyPath: possibleDrops.Array.data[4].item
+      propertyPath: possibleDrops.Array.data[3].item
       value: 
       objectReference: {fileID: 11400000, guid: c1033ce62599c1b4b982dc305d4b65d8, type: 2}
+    - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
+      propertyPath: possibleDrops.Array.data[4].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e7522b5b9ef5c442870a31fbdb9ac43, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.data[5].item
       value: 
@@ -9367,7 +9371,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.data[1].maxAmount
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.data[1].minAmount
