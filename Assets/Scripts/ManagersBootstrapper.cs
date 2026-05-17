@@ -15,8 +15,6 @@ public class ManagerBootstrapper : MonoBehaviour
         initialized = true;
         DontDestroyOnLoad(gameObject);
 
-        Debug.Log("✅ ManagerBootstrapper initialized - All managers persistent!");
-
         // 🔥 Initialize ALL child managers in correct order
         InitializeChildren();
     }
@@ -30,15 +28,11 @@ public class ManagerBootstrapper : MonoBehaviour
             stat.Initialize();
         }
 
-        Debug.Log($"✅ Initialized {stats.Length} PlayerStats child(ren)");
-
         // 🎵 Initialize AudioManager
         AudioManager audio = GetComponentInChildren<AudioManager>();
         if (audio != null)
         {
             audio.Initialize();
         }
-
-        Debug.Log("🎵 AudioManager initialized via Bootstrapper");
     }
 }

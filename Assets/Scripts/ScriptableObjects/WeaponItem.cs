@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Inventory/Weapon")]
 public class WeaponItem : Item
@@ -15,7 +15,16 @@ public class WeaponItem : Item
     [Header("Combat Stats")]
     public float damage;
 
-    [Header("Ranged Only")]
-    public int maxAmmo;
-    public float reloadTime;
+    [Header("Ranged Only - AMMO SYSTEM")]
+    public AmmoType requiredAmmoType;     // ✅ What ammo this weapon uses
+    public int ammoPerShot = 1;           // ✅ How much ammo per shot (ONLY HERE)
+    public float reloadTime = 2f;
+
+    public enum AmmoType  // ✅ Keep enum here
+    {
+        None,      // Melee weapons
+        Light,     // Pistol ammo
+        Medium,    // Rifle/AK ammo  
+        Shotgun    // Shotgun shells
+    }
 }

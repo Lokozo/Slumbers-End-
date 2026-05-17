@@ -24,6 +24,11 @@ public class CampsiteInventory : MonoBehaviour
 
     public void AddItem(Item item, int amount)
     {
+        if (item == null)
+        {
+            Debug.LogError("Tried to add NULL item to campsite!");
+            return;
+        }
         if (inventory.ContainsKey(item))
             inventory[item] += amount;
         else
