@@ -280,6 +280,12 @@ public class PlayerController : MonoBehaviour
             weaponObj.SetActive(newState);
             weaponItem.isEquipped = newState;
 
+            if (newState)
+            {
+                playerAttack.SetWeapon(weaponItem);
+
+                Debug.Log("🔥 Combat weapon changed to: " + weaponItem.itemName);
+            }
             // 🔥 FIX: ONLY set equippedWeapon when EQUIPPING (newState == true)
             equippedWeapon = newState ? GetWeaponTypeFromData(weaponItem) : WeaponType.None;
 

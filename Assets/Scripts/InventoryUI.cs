@@ -67,7 +67,6 @@ public class InventoryUI : MonoBehaviour
 
         if (!inventory.ContainsKey(selected))
         {
-            Debug.Log("Item not found in inventory.");
             return;
         }
 
@@ -85,8 +84,6 @@ public class InventoryUI : MonoBehaviour
 
         if (campsiteUI != null)
             campsiteUI.RefreshInventoryDisplay();
-
-        Debug.Log($"Transferred {selected.itemName} x{amount} to campsite.");
     }
     public void SetInsideCamp(bool value)
     {

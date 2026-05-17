@@ -130,6 +130,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        Debug.Log("Current Weapon: " + currentWeaponData.itemName);
+
         if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
         {
             if (!HasAmmo())
@@ -138,6 +140,7 @@ public class PlayerAttack : MonoBehaviour
                 return;
             }
         }
+
         // BLOCK ATTACK DURING DIALOGUE
         if (DialogueManager.Instance != null &&
             DialogueManager.Instance.IsPlaying)
