@@ -300,12 +300,29 @@ foreach (var recipe in currentRecipeDrops)
             return;
         }
 
+        // =========================
+        // COLLECT NORMAL ITEMS
+        // =========================
+
         foreach (var pair in currentDropList)
         {
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
+        // =========================
+        // COLLECT RECIPES
+        // =========================
+
+        foreach (var recipe in currentRecipeDrops)
+        {
+            RecipeManager.Instance.UnlockRecipe(recipe);
+
+            Debug.Log("Learned recipe: " + recipe.recipeName);
+        }
+
+        // Clear loot data
         currentDropList.Clear();
+        currentRecipeDrops.Clear();
 
         // Clear UI
         foreach (Transform child in ResourceContentPanel)
@@ -316,10 +333,10 @@ foreach (var recipe in currentRecipeDrops)
         hasBeenCollected = true;
 
         TutorialUIManager.Instance?.Hide();
-        TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
-        // EXIT (ESC)
-
-        // ❌ DO NOT CLOSE PANELS
+        TutorialUIManager.Instance.ShowStep(
+            "inventoryTutorial",
+            "Press I to open your inventory"
+        );
     }
     public void RemoveItem(Item item, int amountToRemove = 1)
     {

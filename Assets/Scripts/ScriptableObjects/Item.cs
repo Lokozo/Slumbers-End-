@@ -39,6 +39,7 @@ public class Item : ScriptableObject
         Material,
         Consumable,
         QuestItem,
-        Equipment
+        Equipment,
+        Recipe
     }
 }
