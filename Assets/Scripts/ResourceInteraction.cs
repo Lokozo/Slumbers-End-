@@ -161,6 +161,30 @@ public class ResourceInteraction : MonoBehaviour
             var itemUI = uiElement.GetComponent<ResourceItemUI>();
             itemUI.Setup(pair.Key, pair.Value, this);
         }
+
+        foreach (var recipe in currentRecipeDrops)
+        {
+            GameObject uiElement =
+                Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
+
+            uiElement.transform.Find("ItemName")
+                .GetComponent<TextMeshProUGUI>().text =
+                recipe.recipeName + " Notes";
+
+            //uiElement.transform.Find("ItemAmount")
+            //    .GetComponent<TextMeshProUGUI>().text = "";
+
+            uiElement.transform.Find("ItemIcon")
+                .GetComponent<Image>().sprite =
+                recipe.recipeIcon;
+
+            var recipeUI = uiElement.GetComponent<RecipeLootUI>();
+
+            if (recipeUI != null)
+            {
+                recipeUI.Setup(recipe, this);
+            }
+        }
     }
 
     private void GenerateRandomResources()
@@ -300,29 +324,14 @@ foreach (var recipe in currentRecipeDrops)
             return;
         }
 
-        // =========================
-        // COLLECT NORMAL ITEMS
-        // =========================
-
+        // Collect normal items
         foreach (var pair in currentDropList)
         {
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
-        // =========================
-        // COLLECT RECIPES
-        // =========================
-
-        foreach (var recipe in currentRecipeDrops)
-        {
-            RecipeManager.Instance.UnlockRecipe(recipe);
-
-            Debug.Log("Learned recipe: " + recipe.recipeName);
-        }
-
-        // Clear loot data
+        // Clear ONLY normal loot
         currentDropList.Clear();
-        currentRecipeDrops.Clear();
 
         // Clear UI
         foreach (Transform child in ResourceContentPanel)
@@ -330,7 +339,15 @@ foreach (var recipe in currentRecipeDrops)
             Destroy(child.gameObject);
         }
 
-        hasBeenCollected = true;
+        // Rebuild UI so recipes remain visible
+        RebuildUI();
+
+        // Only fully collected if BOTH are empty
+        if (currentDropList.Count == 0 &&
+            currentRecipeDrops.Count == 0)
+        {
+            hasBeenCollected = true;
+        }
 
         TutorialUIManager.Instance?.Hide();
         TutorialUIManager.Instance.ShowStep(
