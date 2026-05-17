@@ -15919,8 +15919,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.43116, y: 1.3282354, z: 1}
-  m_Center: {x: -0.2912331, y: 0.6341003, z: 0}
+  m_Size: {x: 1.43116, y: 1.3282354, z: 1.7475901}
+  m_Center: {x: -0.2912331, y: 0.6341003, z: 0.082150936}
 --- !u!114 &526218518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60129,10 +60129,18 @@ MonoBehaviour:
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
-  - item: {fileID: 11400000, guid: c1033ce62599c1b4b982dc305d4b65d8, type: 2}
+  - item: {fileID: 11400000, guid: 38eaabef15354d94a85ce3918ccd01e5, type: 2}
     dropChance: 1
     minAmount: 1
-    maxAmount: 1
+    maxAmount: 3
+  - item: {fileID: 11400000, guid: 39dcc6cbe150f8e499163906a9478c7e, type: 2}
+    dropChance: 1
+    minAmount: 1
+    maxAmount: 3
+  - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
+    dropChance: 1
+    minAmount: 3
+    maxAmount: 8
   checkIcon: {fileID: 0}
   lootableDisplayName: Wrecked Sedan
   lootableNameText: {fileID: 0}

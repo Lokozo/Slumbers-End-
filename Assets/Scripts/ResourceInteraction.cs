@@ -15,6 +15,7 @@ public class ResourceInteraction : MonoBehaviour
     public GameObject ResourcePanel;
     public Transform ResourceContentPanel; // Parent panel for dynamic resource UI
     public GameObject ResourceItemUIPrefab; // UI prefab to display item + amount
+    public GameObject RecipeItemUIPrefab;
 
 
     [Header("Interaction Settings")]
@@ -27,8 +28,13 @@ public class ResourceInteraction : MonoBehaviour
     [Header("Item Drops")]
     public List<ItemDropData> possibleDrops;
 
+    [Header("Recipe Drops")]
+    public List<RecipeDropData> possibleRecipeDrops;
+
+
 
     private Dictionary<Item, int> currentDropList = new Dictionary<Item, int>();
+    private List<CraftingRecipe> currentRecipeDrops = new List<CraftingRecipe>();
 
 
     public GameObject checkIcon;
@@ -155,11 +161,36 @@ public class ResourceInteraction : MonoBehaviour
             var itemUI = uiElement.GetComponent<ResourceItemUI>();
             itemUI.Setup(pair.Key, pair.Value, this);
         }
+
+        foreach (var recipe in currentRecipeDrops)
+        {
+            GameObject uiElement =
+                Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
+
+            uiElement.transform.Find("ItemName")
+                .GetComponent<TextMeshProUGUI>().text =
+                recipe.recipeName + " Notes";
+
+            //uiElement.transform.Find("ItemAmount")
+            //    .GetComponent<TextMeshProUGUI>().text = "";
+
+            uiElement.transform.Find("ItemIcon")
+                .GetComponent<Image>().sprite =
+                recipe.recipeIcon;
+
+            var recipeUI = uiElement.GetComponent<RecipeLootUI>();
+
+            if (recipeUI != null)
+            {
+                recipeUI.Setup(recipe, this);
+            }
+        }
     }
 
     private void GenerateRandomResources()
     {
         currentDropList.Clear();
+        currentRecipeDrops.Clear();
 
         foreach (var drop in possibleDrops)
         {
@@ -181,6 +212,9 @@ public class ResourceInteraction : MonoBehaviour
                 else
                     currentDropList.Add(drop.item, amount);
             }
+            
+        
+
         }
 
         // Clear previous UI
@@ -218,6 +252,39 @@ public class ResourceInteraction : MonoBehaviour
 
             itemUI.Setup(pair.Key, pair.Value, this);
         }
+
+foreach (var recipeDrop in possibleRecipeDrops)
+{
+    if (recipeDrop.recipe == null)
+        continue;
+
+    if (Random.value <= recipeDrop.dropChance)
+    {
+        currentRecipeDrops.Add(recipeDrop.recipe);
+
+        Debug.Log("Generated recipe: " + recipeDrop.recipe.recipeName);
+    }
+}
+
+foreach (var recipe in currentRecipeDrops)
+{
+            GameObject uiElement =
+            Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
+
+            uiElement.transform.Find("ItemName")
+        .GetComponent<TextMeshProUGUI>().text = 
+        recipe.recipeName + " Notes";
+
+    //uiElement.transform.Find("ItemAmount")
+    //    .GetComponent<TextMeshProUGUI>().text = "";
+
+    uiElement.transform.Find("ItemIcon")
+        .GetComponent<Image>().sprite =
+        recipe.recipeIcon;
+
+    var recipeUI = uiElement.AddComponent<RecipeLootUI>();
+    recipeUI.Setup(recipe, this);
+}
     }
 
     private void OpenPanels()
@@ -257,11 +324,13 @@ public class ResourceInteraction : MonoBehaviour
             return;
         }
 
+        // Collect normal items
         foreach (var pair in currentDropList)
         {
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
+        // Clear ONLY normal loot
         currentDropList.Clear();
 
         // Clear UI
@@ -270,13 +339,21 @@ public class ResourceInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        hasBeenCollected = true;
+        // Rebuild UI so recipes remain visible
+        RebuildUI();
+
+        // Only fully collected if BOTH are empty
+        if (currentDropList.Count == 0 &&
+            currentRecipeDrops.Count == 0)
+        {
+            hasBeenCollected = true;
+        }
 
         TutorialUIManager.Instance?.Hide();
-        TutorialUIManager.Instance.ShowStep("inventoryTutorial", "Press I to open your inventory");
-        // EXIT (ESC)
-
-        // ❌ DO NOT CLOSE PANELS
+        TutorialUIManager.Instance.ShowStep(
+            "inventoryTutorial",
+            "Press I to open your inventory"
+        );
     }
     public void RemoveItem(Item item, int amountToRemove = 1)
     {
@@ -291,6 +368,19 @@ public class ResourceInteraction : MonoBehaviour
         }
 
         if (currentDropList.Count == 0)
+        {
+            hasBeenCollected = true;
+            ClosePanels();
+        }
+    }
+
+    public void RemoveRecipe(CraftingRecipe recipe)
+    {
+        if (currentRecipeDrops.Contains(recipe))
+        {
+            currentRecipeDrops.Remove(recipe);
+        }
+        if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
             ClosePanels();
