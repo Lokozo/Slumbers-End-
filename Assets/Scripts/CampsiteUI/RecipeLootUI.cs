@@ -20,7 +20,7 @@ public class RecipeLootUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void CollectRecipe()
+    public void CollectRecipe()
     {
         if (recipe == null) return;
 
