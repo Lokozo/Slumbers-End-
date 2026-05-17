@@ -481,7 +481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5326719778502342345, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: checkIcon
@@ -499,6 +499,10 @@ PrefabInstance:
       propertyPath: lootableNameText
       value: 
       objectReference: {fileID: 620160972}
+    - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
+      propertyPath: RecipeItemUIPrefab
+      value: 
+      objectReference: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: magnifyingGlassIcon
       value: 
@@ -9480,6 +9484,10 @@ PrefabInstance:
       propertyPath: lootableNameText
       value: 
       objectReference: {fileID: 620160972}
+    - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
+      propertyPath: RecipeItemUIPrefab
+      value: 
+      objectReference: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: magnifyingGlassIcon
       value: 

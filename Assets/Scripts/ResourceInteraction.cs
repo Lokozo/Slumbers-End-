@@ -15,6 +15,7 @@ public class ResourceInteraction : MonoBehaviour
     public GameObject ResourcePanel;
     public Transform ResourceContentPanel; // Parent panel for dynamic resource UI
     public GameObject ResourceItemUIPrefab; // UI prefab to display item + amount
+    public GameObject RecipeItemUIPrefab;
 
 
     [Header("Interaction Settings")]
@@ -243,14 +244,15 @@ foreach (var recipeDrop in possibleRecipeDrops)
 
 foreach (var recipe in currentRecipeDrops)
 {
-    GameObject uiElement = Instantiate(ResourceItemUIPrefab, ResourceContentPanel);
+            GameObject uiElement =
+            Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
 
-    uiElement.transform.Find("ItemName")
-        .GetComponent<TextMeshProUGUI>().text =
-        recipe.recipeName;
+            uiElement.transform.Find("ItemName")
+        .GetComponent<TextMeshProUGUI>().text = 
+        recipe.recipeName + " Notes";
 
-    uiElement.transform.Find("ItemAmount")
-        .GetComponent<TextMeshProUGUI>().text = "";
+    //uiElement.transform.Find("ItemAmount")
+    //    .GetComponent<TextMeshProUGUI>().text = "";
 
     uiElement.transform.Find("ItemIcon")
         .GetComponent<Image>().sprite =
