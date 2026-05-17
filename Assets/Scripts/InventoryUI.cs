@@ -44,24 +44,49 @@ public class InventoryUI : MonoBehaviour
     void TransferAllSelectedItem()
     {
         Item selected = GetSelectedItem();
-        if (selected == null) return;
+
+        if (selected == null)
+        {
+            Debug.Log("No selected item.");
+            return;
+        }
+
+        // CHECK IF WEAPON IS EQUIPPED
+        if (selected is WeaponItem weaponItem)
+        {
+            PlayerController player = FindFirstObjectByType<PlayerController>();
+
+            if (player != null && player.IsWeaponEquipped(weaponItem))
+            {
+                Debug.Log("Cannot transfer equipped weapon!");
+                return;
+            }
+        }
 
         var inventory = PlayerInventory.Instance.GetInventory();
 
-        if (!inventory.ContainsKey(selected)) return;
+        if (!inventory.ContainsKey(selected))
+        {
+            Debug.Log("Item not found in inventory.");
+            return;
+        }
 
         int amount = inventory[selected];
 
-        PlayerInventory.Instance.RemoveItem(selected, amount);
-        FindFirstObjectByType<InventoryUI>()?.RefreshUI();
+        // ADD TO CAMPSITE FIRST
         CampsiteInventory.Instance.AddItem(selected, amount);
-        FindFirstObjectByType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+
+        // REMOVE FROM PLAYER
+        PlayerInventory.Instance.RemoveItem(selected, amount);
 
         RefreshUI();
 
-        var campsiteUI = FindObjectOfType<CampsiteInventoryUI>();
+        var campsiteUI = FindFirstObjectByType<CampsiteInventoryUI>();
+
         if (campsiteUI != null)
             campsiteUI.RefreshInventoryDisplay();
+
+        Debug.Log($"Transferred {selected.itemName} x{amount} to campsite.");
     }
     public void SetInsideCamp(bool value)
     {

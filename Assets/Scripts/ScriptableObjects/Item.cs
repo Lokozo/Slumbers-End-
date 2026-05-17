@@ -20,7 +20,6 @@ public class Item : ScriptableObject
     [Header("Ammo - Set this for AMMO ITEMS")]
     public WeaponItem.AmmoType ammoType;
 
-
     [Header("Stack & Durability")]
     public int maxStack = 1;
     public int maxUses = 1;

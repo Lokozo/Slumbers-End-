@@ -110,8 +110,9 @@ public class ItemSlot : MonoBehaviour
     {
         if (currentItem == null) return;
 
-        // 🔥 BLOCK IF EQUIPPED
-        if (currentItem is WeaponItem w && w.isEquipped)
+        Item transferItem = currentItem;
+
+        if (transferItem is WeaponItem w && w.isEquipped)
         {
             Debug.Log("Cannot transfer equipped weapon!");
             return;
@@ -119,13 +120,13 @@ public class ItemSlot : MonoBehaviour
 
         if (contextType == SlotContextType.Inventory)
         {
-            PlayerInventory.Instance.RemoveItem(currentItem, 1);
-            CampsiteInventory.Instance.AddItem(currentItem, 1);
+            CampsiteInventory.Instance.AddItem(transferItem, 1);
+            PlayerInventory.Instance.RemoveItem(transferItem, 1);
         }
         else if (contextType == SlotContextType.Campsite)
         {
-            CampsiteInventory.Instance.RemoveItem(currentItem, 1);
-            PlayerInventory.Instance.AddItem(currentItem, 1);
+            PlayerInventory.Instance.AddItem(transferItem, 1);
+            CampsiteInventory.Instance.RemoveItem(transferItem, 1);
         }
 
         RefreshUI();

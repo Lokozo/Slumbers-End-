@@ -130,6 +130,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        {
+            if (!HasAmmo())
+            {
+                Debug.Log("🔫 Out of ammo! (Attack blocked)");
+                return;
+            }
+        }
         // BLOCK ATTACK DURING DIALOGUE
         if (DialogueManager.Instance != null &&
             DialogueManager.Instance.IsPlaying)

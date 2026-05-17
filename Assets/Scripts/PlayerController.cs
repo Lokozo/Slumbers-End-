@@ -828,6 +828,12 @@ public class PlayerController : MonoBehaviour
         int layerIndex = animator.GetLayerIndex(layerName);
         if (layerIndex >= 0) animator.SetLayerWeight(layerIndex, weight);
     }
+    public bool IsWeaponEquipped(WeaponItem weapon)
+    {
+        if (weapon == null) return false;
+
+        return weapon.isEquipped;
+    }
 
     private IEnumerator SmoothLayerWeightTransition(string layerName, float targetWeight, float duration)
     {
