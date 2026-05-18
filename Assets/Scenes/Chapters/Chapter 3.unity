@@ -43175,16 +43175,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceInteraction
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: b6037d2c663b64243890b72eee0ae568, type: 2}
     dropChance: 1
     minAmount: 1
     maxAmount: 2
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Medicine Crate
   lootableNameText: {fileID: 0}

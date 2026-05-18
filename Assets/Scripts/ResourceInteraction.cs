@@ -58,6 +58,7 @@ public class ResourceInteraction : MonoBehaviour
     {
         var ui = UIManager.Instance;
 
+
         lockable = GetComponent<LockableObject>();
         InventoryMenu = ui.inventoryMenu;
         ResourcePanel = ui.resourcePanel;
@@ -83,6 +84,7 @@ public class ResourceInteraction : MonoBehaviour
         if (panelOpened && Keyboard.current.qKey.wasPressedThisFrame)
         {
             CollectResource();
+            RecipeItemUIPrefab.GetComponent<RecipeLootUI>()?.CollectRecipe();
             ClosePanels();
             return;
         }
@@ -324,14 +326,29 @@ foreach (var recipe in currentRecipeDrops)
             return;
         }
 
-        // Collect normal items
+        // =========================
+        // COLLECT NORMAL ITEMS
+        // =========================
+
         foreach (var pair in currentDropList)
         {
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
-        // Clear ONLY normal loot
+        // =========================
+        // COLLECT RECIPES
+        // =========================
+
+        foreach (var recipe in currentRecipeDrops.ToList())
+        {
+            RecipeManager.Instance.UnlockRecipe(recipe);
+
+            Debug.Log("Learned recipe: " + recipe.recipeName);
+        }
+
+        // Clear collected things
         currentDropList.Clear();
+        currentRecipeDrops.Clear();
 
         // Clear UI
         foreach (Transform child in ResourceContentPanel)
@@ -339,10 +356,9 @@ foreach (var recipe in currentRecipeDrops)
             Destroy(child.gameObject);
         }
 
-        // Rebuild UI so recipes remain visible
+        // Rebuild remaining UI
         RebuildUI();
 
-        // Only fully collected if BOTH are empty
         if (currentDropList.Count == 0 &&
             currentRecipeDrops.Count == 0)
         {
@@ -350,6 +366,7 @@ foreach (var recipe in currentRecipeDrops)
         }
 
         TutorialUIManager.Instance?.Hide();
+
         TutorialUIManager.Instance.ShowStep(
             "inventoryTutorial",
             "Press I to open your inventory"
