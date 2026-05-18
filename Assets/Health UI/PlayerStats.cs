@@ -31,7 +31,6 @@ public class PlayerStats : MonoBehaviour
     public void Initialize()
     {
         InitializeIfNeeded();
-        Debug.Log("✅ PlayerStats initialized");
     }
 
     public void InitializeIfNeeded()
@@ -57,7 +56,6 @@ public class PlayerStats : MonoBehaviour
         if (hungerTimer >= hungerDrainInterval)
         {
             ModifyHunger(-hungerDrainAmount);
-            Debug.Log($"<color=orange>Passive Hunger Drain:</color> Current Hunger: {hunger:F1}");
             hungerTimer = 0f;
         }
     }
@@ -65,7 +63,6 @@ public class PlayerStats : MonoBehaviour
     public void ModifyHealth(float amount)
     {
         health = Mathf.Clamp(health + amount, 0f, maxHealth);
-        Debug.Log($"Health: {health:F1}/{maxHealth}");
     }
 
     public void ModifyHunger(float amount)
@@ -87,7 +84,6 @@ public class PlayerStats : MonoBehaviour
             var stats = bootstrapper.GetComponentInChildren<PlayerStats>();
             if (stats != null) return stats;
         }
-        Debug.LogError("PlayerStats not found! Make sure ManagerBootstrapper exists.");
         return null;
     }
 }

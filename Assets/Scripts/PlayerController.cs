@@ -267,9 +267,8 @@ public class PlayerController : MonoBehaviour
 
         if (weaponObj != null)
         {
-            bool wasActive = weaponObj.activeSelf;
-            bool newState = !wasActive;
-
+            bool newState = !weaponItem.isEquipped;
+            equippedWeapon = GetWeaponTypeFromData(weaponItem);
             // 🔥 FIX: BLOCK if trying to equip more than max
             if (newState && GetEquippedWeaponCount() >= maxEquippedWeapons)
             {
@@ -277,15 +276,17 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            weaponObj.SetActive(newState);
             weaponItem.isEquipped = newState;
 
             if (newState)
             {
                 playerAttack.SetWeapon(weaponItem);
 
+                equippedWeapon = GetWeaponTypeFromData(weaponItem);
+
                 Debug.Log("🔥 Combat weapon changed to: " + weaponItem.itemName);
             }
+
             // 🔥 FIX: ONLY set equippedWeapon when EQUIPPING (newState == true)
             equippedWeapon = newState ? GetWeaponTypeFromData(weaponItem) : WeaponType.None;
 
