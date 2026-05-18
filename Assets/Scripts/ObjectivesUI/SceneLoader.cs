@@ -175,4 +175,14 @@ public class SceneLoader : MonoBehaviour
     {
         waitingForCutscene = value;
     }
+
+    public IEnumerator FadeToBlack()
+    {
+        yield return StartCoroutine(Fade(1));
+    }
+
+    public IEnumerator FadeFromBlack()
+    {
+        yield return StartCoroutine(Fade(0));
+    }
 }

@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public UnityEngine.UI.Image portraitImage;
     public TMPro.TextMeshProUGUI dialogueText;
     public GameObject lockIcon;
+    public GameObject ladderHoldEIcon;
     //public GameObject blackOverlay;
 
 

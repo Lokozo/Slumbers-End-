@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
   m_Name: Bottled Water
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: 
-  description: 
+  itemName: Bottled Water
+  description: Water. Free from contanimations.
   icon: {fileID: 21300000, guid: 0363df3e8419ae742a25374dd888f19c, type: 2}
   itemType: 1
   isCrafted: 0
-  isUsedInCrafting: 0
+  isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  ammoPerShot: 1
   maxStack: 3
   maxUses: 1
   width: 1

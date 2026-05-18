@@ -184,42 +184,50 @@ public class CampArea : MonoBehaviour
     }
 
     private IEnumerator LoadCampSceneSmooth()
-    {
-        // FADE IN
-        if (blackOverlay != null)
-            blackOverlay.SetActive(true);
+{
+    SceneLoader loader = FindFirstObjectByType<SceneLoader>();
 
-        yield return new WaitForSeconds(fadeDelay);
+    // Fade TO black
+    if (loader != null)
+        yield return loader.StartCoroutine(loader.FadeToBlack());
 
-        SceneManager.LoadScene("Campsite", LoadSceneMode.Additive);
+    // Small pause
+    yield return new WaitForSeconds(0.1f);
 
-        isCampSceneLoaded = true;
+    // Load campsite
+    yield return SceneManager.LoadSceneAsync("Campsite", LoadSceneMode.Additive);
 
-        Debug.Log("🏕️ Entering Campsite...");
+    isCampSceneLoaded = true;
 
-        yield return new WaitForSeconds(0.2f);
+    Debug.Log("🏕️ Entering Campsite...");
 
-        // FADE OUT
-        if (blackOverlay != null)
-            blackOverlay.SetActive(false);
-    }
+    // Wait one frame so scene fully initializes
+    yield return null;
+
+    // Fade FROM black
+    if (loader != null)
+        yield return loader.StartCoroutine(loader.FadeFromBlack());
+}
 
     public IEnumerator ExitCampRoutine()
-    {
-        // FADE IN
-        if (blackOverlay != null)
-            blackOverlay.SetActive(true);
+{
+    SceneLoader loader = FindFirstObjectByType<SceneLoader>();
 
-        yield return new WaitForSeconds(fadeDelay);
+    // Fade TO black
+    if (loader != null)
+        yield return loader.StartCoroutine(loader.FadeToBlack());
 
-        yield return SceneManager.UnloadSceneAsync("Campsite");
+    yield return new WaitForSeconds(0.1f);
 
-        yield return new WaitForSeconds(0.2f);
+    // Unload campsite
+    yield return SceneManager.UnloadSceneAsync("Campsite");
 
-        // FADE OUT
-        if (blackOverlay != null)
-            blackOverlay.SetActive(false);
-    }
+    yield return null;
+
+    // Fade FROM black
+    if (loader != null)
+        yield return loader.StartCoroutine(loader.FadeFromBlack());
+}
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
