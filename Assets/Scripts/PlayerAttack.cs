@@ -5,14 +5,6 @@ using static WeaponItem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public enum AmmoType
-    {
-        None,
-        Light,
-        Medium,
-        Shotgun
-    }
-
     private Animator animator;
     private InputSystem_Actions inputActions;
     private PlayerAttackRadius attackRadius;
@@ -138,6 +130,17 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
+        Debug.Log("Current Weapon: " + currentWeaponData.itemName);
+
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        {
+            if (!HasAmmo())
+            {
+                Debug.Log("🔫 Out of ammo! (Attack blocked)");
+                return;
+            }
+        }
+
         // BLOCK ATTACK DURING DIALOGUE
         if (DialogueManager.Instance != null &&
             DialogueManager.Instance.IsPlaying)
@@ -156,7 +159,14 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("Not enough stamina!");
             return;
         }
-
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
+        {
+            if (!HasAmmo())
+            {
+                Debug.Log("🔫 Out of ammo! (Attack blocked)");
+                return;
+            }
+        }
         if (!canUseAttack)
             return;
 
@@ -205,144 +215,128 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 CLOSEST ENEMY DAMAGE
     public void AnimEvent_DealDamage()
     {
-        bool noEnemies =
-        attackRadius.detectedEnemies == null ||
-        attackRadius.detectedEnemies.Count == 0;
+        Debug.Log($"💥 [ATTACK] {currentWeaponData?.itemName} - Damage: {currentWeaponData?.damage}");
 
-        bool noBreakables =
-            attackRadius.detectedBreakables == null ||
-            attackRadius.detectedBreakables.Count == 0;
-
-        if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged
-            && noEnemies
-            && noBreakables)
+        // 🪓 MELEE WEAPONS (No ammo needed)
+        if (currentWeaponData.weaponType == WeaponItem.WeaponType.Melee)
         {
+            PlayerStats.Get().ModifyEnergy(-staminaCostPerAttack);
+            DealMeleeDamage();
             return;
         }
 
-        Debug.Log($"[ATTACK] Weapon Type: {currentWeaponData.weaponType}");
-
-        List<BaseEnemy> targets = new List<BaseEnemy>();
-        Vector3 origin;
-
-        // 🔫 GUN RANGE (uses GunRange object ONLY)
-        if (currentWeaponData.weaponType == WeaponType.Ranged)
+        // 🔫 RANGED WEAPONS (Ammo required!)
+        if (!ConsumeAmmo())
         {
-            Item ammoItem = FindAmmoItem(currentWeaponData.ammoType);
-
-            if (ammoItem == null)
-            {
-                Debug.Log("No matching ammo item!");
-                return;
-            }
-
-            if (!PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot))
-            {
-                Debug.Log("Out of ammo!");
-                return;
-            }
-
-            PlayerInventory.Instance.RemoveItem(
-                ammoItem,
-                currentWeaponData.ammoPerShot
-            );
-        }
-        // 🪓 MELEE (uses AttackRadius object ONLY)
-        else
-        {
-            if (attackRadius == null)
-            {
-                Debug.LogError("[ATTACK] AttackRadius missing!");
-                return;
-            }
-
-            targets = attackRadius.detectedEnemies;
-            origin = attackRadius.transform.position;
-
-            Debug.Log("[ATTACK] Using MELEE RADIUS trigger");
-
-            PlayerStats.Get().ModifyEnergy(-staminaCostPerAttack);
+            Debug.Log("❌ OUT OF AMMO!");
+            return;
         }
 
-        // ✅ DAMAGE ENEMIES ONLY IF ANY EXIST
+        DealRangedDamage();
+    }
+
+    // 🔥 NEW: Separate ammo consumption
+    private bool ConsumeAmmo()
+    {
+        if (currentWeaponData.requiredAmmoType == WeaponItem.AmmoType.None)
+            return true; // Melee - no ammo needed
+
+        Item ammoItem = FindAmmoItem(currentWeaponData.requiredAmmoType);
+        if (ammoItem == null)
+        {
+            Debug.Log($"❌ No {currentWeaponData.requiredAmmoType} ammo in inventory!");
+            return false;
+        }
+
+        if (!PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot))
+        {
+            Debug.Log($"❌ Not enough {ammoItem.itemName}! Need: {currentWeaponData.ammoPerShot}");
+            return false;
+        }
+
+        // ✅ CONSUME AMMO
+        bool consumed = PlayerInventory.Instance.RemoveItem(ammoItem, currentWeaponData.ammoPerShot);
+        Debug.Log($"✅ Consumed {currentWeaponData.ammoPerShot}x {ammoItem.itemName}");
+
+        return consumed;
+    }
+
+    // 🔥 NEW: Melee damage only
+    private void DealMeleeDamage()
+    {
+        List<BaseEnemy> targets = attackRadius.detectedEnemies;
+
+        // Hit enemies
         if (targets != null && targets.Count > 0)
         {
             foreach (BaseEnemy enemy in targets)
             {
-                if (enemy == null)
-                    continue;
-
-                Debug.Log($"[DAMAGE] {currentWeaponData.weaponType} hit {enemy.name}");
-
+                if (enemy == null) continue;
                 enemy.TakeDamage(currentWeaponData.damage);
-
-                break;
+                Debug.Log($"🗡️ MELEE HIT: {enemy.name}");
+                break; // Only first enemy
             }
         }
 
-        // ✅ DAMAGE FIRST VALID ENEMY
-        foreach (BaseEnemy enemy in targets)
+        // Hit breakables
+        foreach (BreakableObject breakable in attackRadius.detectedBreakables)
         {
-            if (enemy == null) continue;
-
-            Debug.Log($"[DAMAGE] {currentWeaponData.weaponType} hit {enemy.name}");
-            enemy.TakeDamage(currentWeaponData.damage);
-
-            break; // hit only one (remove if you want multi-hit)
+            if (breakable == null) continue;
+            breakable.TakeDamage((int)currentWeaponData.damage);
         }
 
-        // =========================
-        // BREAKABLES / OBSTACLES
-        // =========================
-        if (currentWeaponData != null)
+        // Knife small obstacles
+        if (currentWeaponData.itemName.Contains("Knife"))
         {
-            // 🪓 ANY MELEE WEAPON CAN HIT BREAKABLES
-            if (currentWeaponData.weaponType != WeaponItem.WeaponType.Ranged)
+            Collider[] hits = Physics.OverlapSphere(
+                attackRadius.transform.position,
+                attackRadius.GetComponent<SphereCollider>().radius
+            );
+
+            foreach (Collider hit in hits)
             {
-                foreach (BreakableObject breakable in attackRadius.detectedBreakables)
-                {
-                    if (breakable == null)
-                        continue;
-
-                    Debug.Log("[BREAKABLE HIT] " + breakable.name);
-
-                    breakable.TakeDamage((int)currentWeaponData.damage);
-                }
-            }
-
-            // 🔪 SMALL OBSTACLES
-            if (currentWeaponData.itemName.Contains("Knife"))
-            {
-                Collider[] hits = Physics.OverlapSphere(
-                    attackRadius.transform.position,
-                    attackRadius.GetComponent<SphereCollider>().radius
-                );
-
-                foreach (Collider hit in hits)
-                {
-                    SmallObstacle obstacle = hit.GetComponent<SmallObstacle>();
-
-                    if (obstacle != null)
-                    {
-                        obstacle.HitObstacle();
-                    }
-                }
+                SmallObstacle obstacle = hit.GetComponent<SmallObstacle>();
+                if (obstacle != null)
+                    obstacle.HitObstacle();
             }
         }
     }
-    private Item FindAmmoItem(AmmoType ammoType)
+
+    // 🔥 NEW: Ranged damage only  
+    private void DealRangedDamage()
+    {
+        List<BaseEnemy> targets = gunRange.detectedEnemies;
+
+        if (targets != null && targets.Count > 0)
+        {
+            foreach (BaseEnemy enemy in targets)
+            {
+                if (enemy == null) continue;
+                enemy.TakeDamage(currentWeaponData.damage);
+                Debug.Log($"🔫 RANGED HIT: {enemy.name}");
+                break; // Only first enemy
+            }
+        }
+    }
+
+    // 🔥 IMPROVED: Find exact ammo type
+    private Item FindAmmoItem(WeaponItem.AmmoType ammoType)
     {
         foreach (var kvp in PlayerInventory.Instance.GetInventory())
         {
             Item item = kvp.Key;
-
-            if (item.ammoType == ammoType)
+            if (item.ammoType == ammoType)  // ✅ Match WeaponItem.AmmoType
             {
                 return item;
             }
         }
-
         return null;
+    }
+    private bool HasAmmo()
+    {
+        Item ammoItem = FindAmmoItem(currentWeaponData.requiredAmmoType);
+        return ammoItem != null &&
+               PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot);
     }
     public void ForceStopAttack()
     {

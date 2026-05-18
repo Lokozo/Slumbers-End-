@@ -47,19 +47,16 @@ public class InventoryManager : MonoBehaviour
         }
         if (InventoryMenu == null)
         {
-            Debug.LogWarning("InventoryMenu is NULL! Trying to recover...");
             InventoryMenu = GameObject.Find("InventoryMenu");
 
             if (InventoryMenu == null)
             {
-                Debug.LogError("InventoryMenu is STILL null. Cannot toggle inventory.");
                 return; // Prevent the crash
             }
         }
         // 🔥 BLOCK IN CAMP
         if (SceneManager.GetSceneByName("Campsite").isLoaded)
         {
-            Debug.Log("⚠️ Cannot open inventory in camp!");
             return;
         }
         isInventoryOpen = !isInventoryOpen;
