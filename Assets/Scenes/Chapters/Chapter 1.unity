@@ -5683,6 +5683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shrub
       objectReference: {fileID: 0}
+    - target: {fileID: 7195222328568221039, guid: f068dc9e8f046bc4396befa48aaf8100, type: 3}
+      propertyPath: RecipeItemUIPrefab
+      value: 
+      objectReference: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9157,6 +9161,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 620160972}
     - target: {fileID: 7195222328568221039, guid: f068dc9e8f046bc4396befa48aaf8100, type: 3}
+      propertyPath: RecipeItemUIPrefab
+      value: 
+      objectReference: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
+    - target: {fileID: 7195222328568221039, guid: f068dc9e8f046bc4396befa48aaf8100, type: 3}
       propertyPath: magnifyingGlassIcon
       value: 
       objectReference: {fileID: 620160976}
@@ -9355,6 +9363,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 620160972}
     - target: {fileID: 3171232635962997895, guid: a43d4c0844775a34a828a5cb1e9fb3f4, type: 3}
+      propertyPath: RecipeItemUIPrefab
+      value: 
+      objectReference: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
+    - target: {fileID: 3171232635962997895, guid: a43d4c0844775a34a828a5cb1e9fb3f4, type: 3}
       propertyPath: magnifyingGlassIcon
       value: 
       objectReference: {fileID: 620160976}
@@ -9362,6 +9374,10 @@ PrefabInstance:
       propertyPath: ResourceContentPanel
       value: 
       objectReference: {fileID: 620160971}
+    - target: {fileID: 3171232635962997895, guid: a43d4c0844775a34a828a5cb1e9fb3f4, type: 3}
+      propertyPath: possibleRecipeDrops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7579111306433963303, guid: a43d4c0844775a34a828a5cb1e9fb3f4, type: 3}
       propertyPath: m_Name
       value: RockSlab
