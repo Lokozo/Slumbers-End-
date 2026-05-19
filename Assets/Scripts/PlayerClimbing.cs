@@ -74,6 +74,8 @@ public class PlayerClimbing : MonoBehaviour
 
     private void StartClimbing()
     {
+        UIManager.Instance.ladderHoldEIcon.SetActive(false);
+
         if (isClimbing || currentLadder == null)
             return;
 
@@ -199,5 +201,11 @@ public class PlayerClimbing : MonoBehaviour
         dir.y = 0f;
 
         transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    private void OnDisable()
+    {
+        if (UIManager.Instance != null)
+            UIManager.Instance.ladderHoldEIcon.SetActive(false);
     }
 }

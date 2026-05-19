@@ -996,6 +996,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 970425969551943659, guid: 0a70a29ffa1afea478df04fb37ba5813, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3351615755421301053, guid: 0a70a29ffa1afea478df04fb37ba5813, type: 3}
       propertyPath: m_Name
       value: SP_Female Mutant
@@ -1907,6 +1911,10 @@ PrefabInstance:
     - target: {fileID: 1867553479499935104, guid: 0ca90a7089f433d4bbef52e63b16ed6e, type: 3}
       propertyPath: m_Name
       value: Mutant Female 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867553479499935104, guid: 0ca90a7089f433d4bbef52e63b16ed6e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2128189373195811553, guid: 0ca90a7089f433d4bbef52e63b16ed6e, type: 3}
       propertyPath: m_LocalPosition.x

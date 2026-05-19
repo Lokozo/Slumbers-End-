@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
     {
         if (enableTutorial && TutorialUIManager.Instance != null)
         {
-            TutorialUIManager.Instance.ShowStep("moveTutorial", "Press WASD to move");
+            TutorialUIManager.Instance.ShowStep("moveTutorial", "Press A or D to move");
         }
 
         InitializeStartingWeapons();

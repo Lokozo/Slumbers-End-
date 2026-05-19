@@ -1972,7 +1972,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
 --- !u!1 &72803737 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4654259610636562611, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1025525127502114356, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 72803736}
   m_PrefabAsset: {fileID: 0}
 --- !u!225 &72803738 stripped
@@ -3646,6 +3646,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115229614}
   m_Mesh: {fileID: 222760379171264856, guid: f007ae20140b28845b078753f535f084, type: 3}
+--- !u!224 &118408165 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+  m_PrefabInstance: {fileID: 1427482648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &119826693
 GameObject:
   m_ObjectHideFlags: 0
@@ -6257,6 +6262,7 @@ MonoBehaviour:
   showTutorialAfterDialogue: 0
   tutorialStepID: 
   tutorialText: 
+  cinematicIcon: {fileID: 0}
 --- !u!65 &193503802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8480,7 +8486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &275698963
 Transform:
   m_ObjectHideFlags: 0
@@ -8514,6 +8520,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
@@ -8548,6 +8555,7 @@ MonoBehaviour:
     dropChance: 1
     minAmount: 10
     maxAmount: 10
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Metal Drum
   lootableNameText: {fileID: 0}
@@ -10619,12 +10627,14 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
     dropChance: 1
     minAmount: 2
     maxAmount: 6
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Metal Drum
   lootableNameText: {fileID: 0}
@@ -15603,6 +15613,7 @@ MonoBehaviour:
   showTutorialAfterDialogue: 0
   tutorialStepID: 
   tutorialText: 
+  cinematicIcon: {fileID: 1377538202}
 --- !u!65 &505173959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19281,12 +19292,14 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 39dcc6cbe150f8e499163906a9478c7e, type: 2}
     dropChance: 1
     minAmount: 1
     maxAmount: 3
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Water Barrel
   lootableNameText: {fileID: 0}
@@ -25029,6 +25042,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 118408165}
   - {fileID: 505173957}
   - {fileID: 2095291801}
   - {fileID: 1732728819}
@@ -38020,6 +38034,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374625444}
   m_Mesh: {fileID: 3442923855343079542, guid: f007ae20140b28845b078753f535f084, type: 3}
+--- !u!1 &1377538202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2104014510485709814, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+  m_PrefabInstance: {fileID: 1427482648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1384207911
 GameObject:
   m_ObjectHideFlags: 0
@@ -39880,6 +39899,119 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427217570}
   m_Mesh: {fileID: -1224675758185151352, guid: 446831f5374c973458e1fd0434ff6bc7, type: 3}
+--- !u!1001 &1427482648
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 879762080}
+    m_Modifications:
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.789471
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.8189993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.65509
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901587708563201241, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536536684071647094, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_Name
+      value: WorldSpaceCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536536684071647094, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937601593491337589, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -98.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937601593491337589, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -65.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937601593491337589, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a2761c9a2e78d844bc1df13113712e0, type: 3}
 --- !u!1 &1438095047
 GameObject:
   m_ObjectHideFlags: 0
@@ -41411,12 +41543,14 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 3f5f004811582a348bc241e20b846797, type: 2}
     dropChance: 1
     minAmount: 2
     maxAmount: 4
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Trash Bin
   lootableNameText: {fileID: 0}
@@ -58153,6 +58287,7 @@ MonoBehaviour:
   showTutorialAfterDialogue: 0
   tutorialStepID: 
   tutorialText: 
+  cinematicIcon: {fileID: 0}
 --- !u!65 &1977919570
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60295,6 +60430,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 38eaabef15354d94a85ce3918ccd01e5, type: 2}
@@ -60309,6 +60445,7 @@ MonoBehaviour:
     dropChance: 1
     minAmount: 3
     maxAmount: 8
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Wrecked Sedan
   lootableNameText: {fileID: 0}
@@ -61089,7 +61226,7 @@ Transform:
   m_GameObject: {fileID: 2095291800}
   serializedVersion: 2
   m_LocalRotation: {x: 0.36185825, y: 0.119513035, z: -0.046836644, w: 0.92335343}
-  m_LocalPosition: {x: 22.047981, y: 14.685174, z: -7.1597557}
+  m_LocalPosition: {x: 22.048553, y: 14.685174, z: -7.1599064}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -34,6 +34,9 @@ public class CinematicTrigger : MonoBehaviour
     [TextArea(2, 5)]
     public string tutorialText;
 
+    [Header("World Icon")]
+    public GameObject cinematicIcon;
+
     private bool triggered;
 
 
@@ -54,6 +57,13 @@ public class CinematicTrigger : MonoBehaviour
 
     private IEnumerator PlayCinematic()
     {
+
+        // HIDE ICON
+        if (cinematicIcon != null)
+        {
+            cinematicIcon.SetActive(false);
+        }
+
         // DISABLE ATTACK
         if (playerAttack != null)
         {
