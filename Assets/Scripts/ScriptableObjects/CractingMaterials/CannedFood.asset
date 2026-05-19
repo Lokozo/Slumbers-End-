@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Canned Food
   description: Preserved Goods.
-  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  icon: {fileID: 21300000, guid: 48df06f0fe94d7f458fabfe679762081, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  ammoPerShot: 1
   maxStack: 1
   maxUses: 1
   width: 1

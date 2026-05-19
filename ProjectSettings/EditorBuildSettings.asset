@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Chapters/Chapter 12.unity
     guid: e652ecb3a8f81e04b8321f58740f493f
   - enabled: 1
+    path: Assets/Scenes/Chapters/EndingScene.unity
+    guid: 614a917dc1361f6469e7f664dd990d2c
+  - enabled: 1
     path: Assets/Scenes/Chapters/Campsite.unity
     guid: a6169bd5109087e40a105cf413b0e502
   m_configObjects:
