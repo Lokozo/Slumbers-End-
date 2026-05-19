@@ -128,7 +128,7 @@ public class CraftingMenuController : MonoBehaviour
             qtyText.text = $"{have}/{need}";
             qtyText.color = (have >= need) ? Color.green : Color.red;
         }
-        // SHOW REQUIRED STATION
+        //SHOW REQUIRED STATION
         if (recipe.requiredStation == CraftingStationType.None)
         {
             stationRequirementText.text = "No Station Required";
@@ -146,7 +146,7 @@ public class CraftingMenuController : MonoBehaviour
             stationRequirementText.color =
                 hasStation ? Color.green : Color.red;
         }
-            // Set result icon and name
+        //Set result icon and name
 
             resultIcon.sprite = recipe.resultItem.icon;
         resultNameText.text = recipe.resultItem.itemName;
@@ -212,6 +212,12 @@ public class CraftingMenuController : MonoBehaviour
             CraftingStationManager.Instance.UnlockStation(
                 CraftingStationType.Furnace);
         }
+
+        //if (selectedRecipe.resultItem.itemName == "Cooking Pot")
+        //{
+        //    CraftingStationManager.Instance.UnlockStation(
+        //        CraftingStationType.CookingPot);
+        //}
 
         ShowRecipeDetails(selectedRecipe);
     }

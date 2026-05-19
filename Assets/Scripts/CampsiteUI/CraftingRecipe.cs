@@ -29,4 +29,5 @@ public enum CraftingStationType
     None,
     Workbench,
     Furnace
+    //CookingPot
 }

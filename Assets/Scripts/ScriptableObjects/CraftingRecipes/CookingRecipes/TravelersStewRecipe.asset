@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699c362b845bba249a82952d46c9896a, type: 3}
+  m_Name: TravelersStewRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  recipeIcon: {fileID: 21300000, guid: 11c44482d3c412b40ad503586150d539, type: 3}
+  recipeName: Traveler's Stew
+  resultItem: {fileID: 11400000, guid: 0c4f9f181e794c84487d6e4aa4e4ab13, type: 2}
+  resultAmount: 2
+  requiredStation: 0
+  ingredients:
+  - item: {fileID: 11400000, guid: 38eaabef15354d94a85ce3918ccd01e5, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 1e6a7fd7b0752ee45b66a8760886cfc1, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 53b99b512f7c2a9448611512e2948430, type: 2}
+    amount: 1

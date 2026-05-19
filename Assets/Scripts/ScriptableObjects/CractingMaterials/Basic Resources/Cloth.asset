@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Cloth
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Cloth
-  description: A piece of worn, rough fabric salvaged from old clothing and supplies.
+  description: An old piece of fabric.
   icon: {fileID: 21300000, guid: acf3e3c3773e2cb44b0863cac4adf4d9, type: 2}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  ammoPerShot: 1
   maxStack: 10
   maxUses: 1
   width: 1

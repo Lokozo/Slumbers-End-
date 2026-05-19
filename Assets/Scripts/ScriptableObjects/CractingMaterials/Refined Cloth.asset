@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
   m_Name: Refined Cloth
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: Traveler's Stew
-  description: 'More durable cloth
+  itemName: Refined Cloth
+  description: 'More durable cloth.
 
 '
   icon: {fileID: 21300000, guid: acf3e3c3773e2cb44b0863cac4adf4d9, type: 2}
-  itemType: 1
+  itemType: 0
   isCrafted: 1
-  isUsedInCrafting: 0
+  isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  maxStack: 1
+  maxStack: 10
   maxUses: 1
   width: 1
   height: 1
   isConsumable: 1
   healthRestoreAmount: 0
-  hungerRestoreAmount: 50
+  hungerRestoreAmount: 0
   energyRestoreAmount: 0

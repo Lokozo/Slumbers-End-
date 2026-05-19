@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
+  m_Name: Sweet Trail Mix
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemName: Sweet Trail Mix
+  description: A lightweight snack packed with natural sugar and dry energy.
+  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  itemType: 1
+  isCrafted: 1
+  isUsedInCrafting: 0
+  isEquipped: 0
+  ammoType: 0
+  maxStack: 1
+  maxUses: 1
+  width: 1
+  height: 1
+  isConsumable: 0
+  healthRestoreAmount: 0
+  hungerRestoreAmount: 18
+  energyRestoreAmount: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699c362b845bba249a82952d46c9896a, type: 3}
+  m_Name: Rough Cloth Recipe
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  recipeIcon: {fileID: 21300000, guid: f24ac4641fbf5e64aa7952788b215689, type: 3}
+  recipeName: Rough Cloth
+  resultItem: {fileID: 11400000, guid: 43f6b3ab5d5b239429efd67760006661, type: 2}
+  resultAmount: 10
+  requiredStation: 1
+  ingredients:
+  - item: {fileID: 11400000, guid: 3f5f004811582a348bc241e20b846797, type: 2}
+    amount: 1
