@@ -40,10 +40,12 @@ public class SpecialMutantMale : BaseEnemy
         {
             animator.SetTrigger("GroundSlam");
             //Invoke(nameof(SlamDamage), 0.6f);
+            PlaySound(enemyData.slamSound);
         }
         else if (distance <= throwRange)
         {
             animator.SetTrigger("Throw");
+            PlaySound(enemyData.throwSound);
         }
         else
         {

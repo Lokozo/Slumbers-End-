@@ -44,6 +44,13 @@ public class PlayerController : MonoBehaviour
     private Coroutine currentEquipRoutine;
     private Coroutine currentUnequipRoutine;
 
+    [Header("Audio")]
+
+    public AudioSource audioSource;
+
+    public AudioClip[] footstepClips;
+    public AudioClip[] runFootstepClips;
+    public AudioClip[] attackGrunts;
 
     private WeaponItem lastClickedWeapon;
 
@@ -142,7 +149,35 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("✅ Force initialization COMPLETE!");
     }
+    public void PlayFootstep()
+    {
+        Debug.Log("FOOTSTEP");
+        if (footstepClips.Length == 0) return;
 
+        AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
+
+        audioSource.PlayOneShot(clip);
+    }
+
+    public void PlayRunFootstep()
+    {
+        Debug.Log("running");
+
+        if (runFootstepClips.Length == 0) return;
+
+        AudioClip clip = runFootstepClips[Random.Range(0, runFootstepClips.Length)];
+
+        audioSource.PlayOneShot(clip);
+    }
+
+    public void PlayAttackGrunt()
+    {
+        if (attackGrunts.Length == 0) return;
+
+        AudioClip clip = attackGrunts[Random.Range(0, attackGrunts.Length)];
+
+        audioSource.PlayOneShot(clip);
+    }
     private void Start()
     {
         if (enableTutorial && TutorialUIManager.Instance != null)
