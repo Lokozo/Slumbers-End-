@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
-  m_Name: Bandage
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: Bandage
-  description: For patching up wounds.
-  icon: {fileID: 21300000, guid: b37ea9ed2886a1d41b19afd1f6f1255e, type: 2}
-  itemType: 1
+  m_Name: Workbench
+  m_EditorClassIdentifier: 
+  itemName: Furnace
+  description: 'Used to craft things
+
+'
+  icon: {fileID: -1090164206, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  itemType: 0
   isCrafted: 1
-  isUsedInCrafting: 0
+  isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  ammoPerShot: 1
-  maxStack: 3
+  maxStack: 1
   maxUses: 1
   width: 1
   height: 1
-  isConsumable: 1
-  healthRestoreAmount: 45
+  isConsumable: 0
+  healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0

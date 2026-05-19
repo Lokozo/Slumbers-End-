@@ -93,6 +93,12 @@ public class ItemSlot : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(1) && currentItem.isConsumable)
+        {
+            PlayerInventory.Instance.UseItem(currentItem);
+            return;
+        }
+
         lastClickTime = Time.unscaledTime;
     }
     private void RefreshUI()
