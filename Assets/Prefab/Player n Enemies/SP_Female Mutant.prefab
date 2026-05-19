@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffb10ebce1b21a49afbaf3446a0d6be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpecialMutantFemale
-  enemyData: {fileID: 11400000, guid: cc3d6236e668adc4d93fb78df946685f, type: 2}
+  enemyData: {fileID: 11400000, guid: f72edf6aaa30e7c449a29ee5a9cf4808, type: 2}
   speed: 1.5
   chaseSpeed: 2.5
   gravity: -9.81
@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d5a76c8dfa250bd48a996b6be12c02af, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

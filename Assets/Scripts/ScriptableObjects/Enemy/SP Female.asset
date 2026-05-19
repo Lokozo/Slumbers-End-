@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f9a6b44ff56cc429a9d3c7651b3990, type: 3}
+  m_Name: SP Female
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: 
+  health: 100
+  speed: 1.5
+  chaseSpeed: 3
+  attackDamage: 20
+  attackInterval: 5
+  attackRadius: 1.5
+  chaseRange: 7
+  stoppingDistance: 1.2
+  patrolDistance: 7
+  animatorController: {fileID: 9100000, guid: d5a76c8dfa250bd48a996b6be12c02af, type: 2}
+  attackSound: {fileID: 8300000, guid: b0f9cc842e5e6c14bb64cc93aee4667e, type: 3}
+  hurtSound: {fileID: 8300000, guid: 92f494a1c24e9c04b96f2a9c6d578789, type: 3}
+  deathSound: {fileID: 8300000, guid: 3e51519f82e21f946bd7bc145d2b5295, type: 3}
