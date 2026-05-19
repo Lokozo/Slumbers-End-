@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b14777f9dc714da12a27a41f6227a, type: 3}
-  m_Name: Log
+  m_Name: Furnace
   m_EditorClassIdentifier: 
-  itemName: Log
-  description: A sturdy piece of wood.
-  icon: {fileID: -554660606, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
+  itemName: Furnace
+  description: Used smelt raw scraps
+  icon: {fileID: -1090164206, guid: fff1a9e776a88bb49afe9cddd796b9bc, type: 3}
   itemType: 0
-  isCrafted: 0
+  isCrafted: 1
   isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
-  ammoPerShot: 1
-  maxStack: 10
+  maxStack: 1
   maxUses: 1
   width: 1
   height: 1

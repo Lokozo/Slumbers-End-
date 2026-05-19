@@ -62,12 +62,14 @@ public class PlayerStats : MonoBehaviour
 
     public void ModifyHealth(float amount)
     {
-        health = Mathf.Clamp(health + amount, 0f, maxHealth);
+        health += amount;
+        health = Mathf.Clamp(health, 0f, maxHealth);
     }
 
     public void ModifyHunger(float amount)
     {
-        hunger = Mathf.Clamp(hunger + amount, 0f, maxHunger);
+        hunger += amount;
+        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
     }
 
     public void ModifyEnergy(float amount)

@@ -34,6 +34,36 @@ public class PlayerInventory : MonoBehaviour
         //Instance = this;
         //DontDestroyOnLoad(gameObject); // <-- THIS KEEPS IT ALIVE
     }
+    public void UseItem(Item item)
+    {
+        if (item == null)
+            return;
+
+        if (!item.isConsumable)
+        {
+            Debug.Log(item.itemName + " is not consumable.");
+            return;
+        }
+
+        PlayerStats stats = PlayerStats.Get();
+
+        if (stats == null)
+            return;
+
+        // RESTORE STATS
+        stats.ModifyHealth(item.healthRestoreAmount);
+
+        stats.ModifyHunger(item.hungerRestoreAmount);
+
+        stats.ModifyEnergy(item.energyRestoreAmount);
+
+        Debug.Log("Used: " + item.itemName);
+
+        // REMOVE ONE ITEM
+        RemoveItem(item, 1);
+
+        OnInventoryChanged?.Invoke();
+    }
     public bool HasResource(Item item)
     {
         return resourceInventory.ContainsKey(item)
