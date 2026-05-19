@@ -199,10 +199,16 @@ public class CampArea : MonoBehaviour
 
     isCampSceneLoaded = true;
 
-    Debug.Log("🏕️ Entering Campsite...");
+        // FORCE STOP ATTACKS
+        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
 
-    // Wait one frame so scene fully initializes
-    yield return null;
+        if (attack != null)
+        {
+            attack.ForceStopAttack();
+        }
+
+        // Wait one frame so scene fully initializes
+        yield return null;
 
     // Fade FROM black
     if (loader != null)

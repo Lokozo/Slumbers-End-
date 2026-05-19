@@ -1,12 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class CutsceneStarter : MonoBehaviour
 {
     public GameObject cutsceneParent;
     public GameObject blackOverlay;
-
-
 
     private IEnumerator Start()
     {
@@ -18,9 +16,20 @@ public class CutsceneStarter : MonoBehaviour
         yield return null;
 
         SceneLoader loader = FindFirstObjectByType<SceneLoader>();
+
         if (loader != null)
             loader.SetWaitingForCutscene(true);
 
+        // BLOCK ATTACK
+        PlayerAttack attack = FindFirstObjectByType<PlayerAttack>();
+
+        if (attack != null)
+        {
+            attack.canUseAttack = false;
+            attack.ForceStopAttack();
+        }
+
+        // START CUTSCENE
         if (cutsceneParent != null)
         {
             CutsceneManager.Instance.PlayCutscene(cutsceneParent);
@@ -28,6 +37,16 @@ public class CutsceneStarter : MonoBehaviour
         else
         {
             Debug.LogWarning("Missing cutsceneParent");
+        }
+
+        // WAIT A LITTLE THEN RE-ENABLE
+        yield return new WaitForSeconds(5f);
+
+        if (attack != null)
+        {
+            attack.canUseAttack = true;
+
+            Debug.Log("✅ Attack Re-enabled");
         }
     }
 

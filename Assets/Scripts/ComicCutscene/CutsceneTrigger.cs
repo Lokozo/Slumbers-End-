@@ -13,6 +13,16 @@ public class CutsceneTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             hasPlayed = true;
+
+            // BLOCK ATTACK
+            PlayerAttack attack = other.GetComponent<PlayerAttack>();
+
+            if (attack != null)
+            {
+                attack.canUseAttack = false;
+                attack.ForceStopAttack();
+            }
+
             CutsceneManager.Instance.PlayCutscene(cutsceneParent);
         }
     }
