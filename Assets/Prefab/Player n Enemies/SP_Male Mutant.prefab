@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9568c9c3c82ecf444b9ebda7e36636a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpecialMutantMale
+  enemyData: {fileID: 11400000, guid: fe29f84ddeac1a4489ac241431781e7b, type: 2}
   speed: 1.2
   chaseSpeed: 2
   gravity: -9.81

@@ -57,12 +57,12 @@ public class SpecialMutantFemale : BaseEnemy
         if (distance <= spitRange)
         {
             animator.SetTrigger("Spit");
-            Invoke(nameof(Spit), 0.4f);
+            //Invoke(nameof(Spit), 0.4f);
         }
         else if (distance <= summonRange)
         {
             animator.SetTrigger("Summon");
-            Invoke(nameof(Summon), 0.6f);
+            //Invoke(nameof(Summon), 0.6f);
         }
         else
         {
@@ -70,7 +70,7 @@ public class SpecialMutantFemale : BaseEnemy
             return;
         }
 
-        Invoke(nameof(EndAttack), 1.5f);
+        //Invoke(nameof(EndAttack), 1.5f);
     }
 
     private void OnValidate()
