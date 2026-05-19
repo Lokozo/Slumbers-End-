@@ -27,7 +27,23 @@ public class EnemyData : ScriptableObject
     public RuntimeAnimatorController animatorController;
 
     [Header("Audio")]
-    public AudioClip attackSound;
-    public AudioClip hurtSound;
+
+    // AMBIENT / IDLE
+    public AudioClip[] ambientSounds;
+    public float ambientSoundInterval = 8f;
+
+    // ATTACK
+    public AudioClip[] attackSounds;
+
+    // HURT
+    public AudioClip[] hurtSounds;
+
+    // DEATH
     public AudioClip deathSound;
+
+    // SPECIALS
+    public AudioClip summonScream;
+    public AudioClip slamSound;
+    public AudioClip throwSound;
+    public AudioClip spitSound;
 }

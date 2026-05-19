@@ -58,11 +58,13 @@ public class SpecialMutantFemale : BaseEnemy
         {
             animator.SetTrigger("Spit");
             //Invoke(nameof(Spit), 0.4f);
+            PlaySound(enemyData.spitSound);
         }
         else if (distance <= summonRange)
         {
             animator.SetTrigger("Summon");
             //Invoke(nameof(Summon), 0.6f);
+            PlaySound(enemyData.summonScream);
         }
         else
         {

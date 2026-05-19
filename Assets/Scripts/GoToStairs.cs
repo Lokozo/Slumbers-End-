@@ -75,6 +75,9 @@ public class GoToStairs : MonoBehaviour
 
     private void FollowPath()
     {
+        if (controller == null || !controller.enabled || !gameObject.activeInHierarchy)
+            return;
+
         Vector3 current = transform.position;
 
         Vector3 toTarget = pathTarget - current;
@@ -82,9 +85,6 @@ public class GoToStairs : MonoBehaviour
 
         float distance = toTarget.magnitude;
 
-        // =========================
-        // ARRIVAL = HARD STOP
-        // =========================
         if (distance < 0.03f)
         {
             isMovingPath = false;
@@ -98,13 +98,9 @@ public class GoToStairs : MonoBehaviour
             return;
         }
 
-        // =========================
-        // MOVE ALONG PATH
-        // =========================
         Vector3 move = toTarget.normalized * moveSpeed * Time.deltaTime;
         controller.Move(move);
 
-        // rotate toward target
         if (toTarget.sqrMagnitude > 0.001f)
         {
             Quaternion rot = Quaternion.LookRotation(toTarget);
@@ -119,9 +115,12 @@ public class GoToStairs : MonoBehaviour
     // =========================
     // GRAVITY
     // =========================
-
     private void ApplyGravity()
     {
+        // FIX
+        if (controller == null || !controller.enabled || !gameObject.activeInHierarchy)
+            return;
+
         if (IsMovingByStairs)
             return;
 

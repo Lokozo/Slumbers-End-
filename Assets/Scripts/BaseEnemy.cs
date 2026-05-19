@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Audio;
 
 public class BaseEnemy : MonoBehaviour, IDamageable
 {
@@ -11,6 +12,9 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     [Header("Enemy Data")]
     public EnemyData enemyData;
+
+    [Header("Audio")]
+    [SerializeField] protected AudioSource audioSource;
 
     [Header("Core Stats")]
     public float speed = 1.5f;
@@ -25,7 +29,6 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     protected bool isAttacking = false;
     protected bool hasDealtDamage = false;
     private bool isDead = false;
-
 
     [Header("Patrol")]
     public float patrolDistance = 5f;
@@ -55,6 +58,9 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         controller = GetComponent<CharacterController>();
 
         animator = GetComponentInChildren<Animator>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         if (animator == null)
         {
@@ -104,6 +110,48 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
         controller.Move(velocity * Time.deltaTime);
 
+    }
+    // =========================
+    // AUDIO
+    // =========================
+
+    protected void PlayRandomAttackSound()
+    {
+        if (enemyData == null) return;
+
+        if (enemyData.attackSounds == null ||
+            enemyData.attackSounds.Length == 0)
+            return;
+
+        AudioClip clip =
+            enemyData.attackSounds[
+                Random.Range(0, enemyData.attackSounds.Length)
+            ];
+
+        audioSource.PlayOneShot(clip);
+    }
+
+    protected void PlayRandomHurtSound()
+    {
+        if (enemyData == null) return;
+
+        if (enemyData.hurtSounds == null ||
+            enemyData.hurtSounds.Length == 0)
+            return;
+
+        AudioClip clip =
+            enemyData.hurtSounds[
+                Random.Range(0, enemyData.hurtSounds.Length)
+            ];
+
+        audioSource.PlayOneShot(clip);
+    }
+
+    protected void PlaySound(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        audioSource.PlayOneShot(clip);
     }
 
     // =========================
@@ -160,6 +208,8 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         velocity.x = 0;
         animator.SetBool("IsWalking", false);
         animator.SetTrigger("Attack");
+
+        PlayRandomAttackSound();
 
         // YOU ASKED TO KEEP THESE EXACTLY
         //Invoke(nameof(HitPlayer), 0.5f);
@@ -289,6 +339,8 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
         health -= damage;
 
+        PlayRandomHurtSound();
+
         animator.SetBool("IsHit", true);
         Invoke(nameof(EndHit), 0.5f);
 
@@ -307,6 +359,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     {
         if (isDead) return; // ✅ prevent multiple calls
 
+        PlaySound(enemyData.deathSound);
         isDead = true;
 
         animator.SetBool("IsDead", true);

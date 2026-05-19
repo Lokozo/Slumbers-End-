@@ -23,6 +23,15 @@ MonoBehaviour:
   stoppingDistance: 1.2
   patrolDistance: 3
   animatorController: {fileID: 9100000, guid: 2fdfadce94ec49b4082c9f9fa8887ed0, type: 2}
-  attackSound: {fileID: 0}
-  hurtSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  ambientSounds:
+  - {fileID: 8300000, guid: 5c4752b91ef575a41b3b94aef973517e, type: 3}
+  ambientSoundInterval: 8
+  attackSounds:
+  - {fileID: 8300000, guid: f29f6ac4ded9f354db130036039856f8, type: 3}
+  hurtSounds:
+  - {fileID: 8300000, guid: c8cdea183f62b04488d9c3e955c5bb68, type: 3}
+  deathSound: {fileID: 8300000, guid: 2071745e9a5726742b92dd7267a13195, type: 3}
+  summonScream: {fileID: 0}
+  slamSound: {fileID: 0}
+  throwSound: {fileID: 0}
+  spitSound: {fileID: 0}
