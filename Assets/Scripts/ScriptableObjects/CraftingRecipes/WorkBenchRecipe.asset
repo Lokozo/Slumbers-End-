@@ -16,6 +16,7 @@ MonoBehaviour:
   recipeName: Workbench Recipe
   resultItem: {fileID: 11400000, guid: 0b629a63d6d67274e98f4774b75210b1, type: 2}
   resultAmount: 1
+  requiredStation: 1
   ingredients:
   - item: {fileID: 11400000, guid: fd465c51d09d8b14fafd6f2a910c31ef, type: 2}
     amount: 5

@@ -16,6 +16,7 @@ MonoBehaviour:
   recipeName: Furnace Recipe
   resultItem: {fileID: 11400000, guid: 0b629a63d6d67274e98f4774b75210b1, type: 2}
   resultAmount: 1
+  requiredStation: 2
   ingredients:
   - item: {fileID: 11400000, guid: 89336d4632a5d2b44a91bd6499f34d15, type: 2}
     amount: 5
