@@ -132,6 +132,15 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("Current Weapon: " + currentWeaponData.itemName);
 
+        // BLOCK ATTACK INSIDE CAMP
+        CampArea camp = FindFirstObjectByType<CampArea>();
+
+        if (camp != null && camp.IsInCamp())
+        {
+            Debug.Log("⚠️ Cannot attack inside camp!");
+            return;
+        }
+
         if (currentWeaponData.weaponType == WeaponItem.WeaponType.Ranged)
         {
             if (!HasAmmo())
@@ -344,7 +353,13 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
         canAttack = true;
 
-        animator.Play("Idle", 0);
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            animator.Play("Idle", 0);
+        }
     }
     public void ResetCombo()
     {

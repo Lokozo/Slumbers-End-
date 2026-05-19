@@ -24,10 +24,12 @@ public class CraftingMenuController : MonoBehaviour
     public GameObject recipeButtonPrefab;
 
     [Header("Recipe Lists")]
-    
     public List<CraftingRecipe> toolRecipes;
     public List<CraftingRecipe> utilityRecipes;
     public List<CraftingRecipe> cookingRecipes;
+
+    [Header("Station Requirement UI")]
+    public TMP_Text stationRequirementText;
 
     private Button currentTab;
 
@@ -126,10 +128,27 @@ public class CraftingMenuController : MonoBehaviour
             qtyText.text = $"{have}/{need}";
             qtyText.color = (have >= need) ? Color.green : Color.red;
         }
+        // SHOW REQUIRED STATION
+        if (recipe.requiredStation == CraftingStationType.None)
+        {
+            stationRequirementText.text = "No Station Required";
+            stationRequirementText.color = Color.white;
+        }
+        else
+        {
+            bool hasStation =
+                CraftingStationManager.Instance.HasStation(
+                    recipe.requiredStation);
 
-        // Set result icon and name
-        
-        resultIcon.sprite = recipe.resultItem.icon;
+            stationRequirementText.text =
+                "Requires: " + recipe.requiredStation;
+
+            stationRequirementText.color =
+                hasStation ? Color.green : Color.red;
+        }
+            // Set result icon and name
+
+            resultIcon.sprite = recipe.resultItem.icon;
         resultNameText.text = recipe.resultItem.itemName;
 
 
@@ -143,28 +162,57 @@ public class CraftingMenuController : MonoBehaviour
         if (selectedRecipe == null)
             return;
 
-        // Check if the player has all required ingredients
+        // CHECK REQUIRED STATION
+        if (!CraftingStationManager.Instance.HasStation(
+            selectedRecipe.requiredStation))
+        {
+            Debug.Log(
+                $"Need {selectedRecipe.requiredStation} first!"
+            );
+            return;
+        }
+
+        // CHECK INGREDIENTS
         foreach (var ingredient in selectedRecipe.ingredients)
         {
-            if (!PlayerInventory.Instance.HasItem(ingredient.item, ingredient.amount))
+            if (!PlayerInventory.Instance.HasItem(
+                ingredient.item,
+                ingredient.amount))
             {
-                Debug.Log("Not enough resources to craft.");
+                Debug.Log("Not enough resources.");
                 return;
             }
         }
 
-        // Remove ingredients
+        // REMOVE INGREDIENTS
         foreach (var ingredient in selectedRecipe.ingredients)
         {
-            PlayerInventory.Instance.RemoveItem(ingredient.item, ingredient.amount);
+            PlayerInventory.Instance.RemoveItem(
+                ingredient.item,
+                ingredient.amount);
         }
 
-        // Add result item
-        PlayerInventory.Instance.AddItem(selectedRecipe.resultItem, selectedRecipe.resultAmount);
+        // ADD RESULT
+        PlayerInventory.Instance.AddItem(
+            selectedRecipe.resultItem,
+            selectedRecipe.resultAmount);
 
-        Debug.Log($"Crafted {selectedRecipe.resultAmount}x {selectedRecipe.resultItem.itemName}");
+        Debug.Log(
+            $"Crafted {selectedRecipe.resultAmount}x {selectedRecipe.resultItem.itemName}");
 
-        // Refresh UI
+        // UNLOCK STATION IF THIS ITEM IS A STATION
+        if (selectedRecipe.resultItem.itemName == "Workbench")
+        {
+            CraftingStationManager.Instance.UnlockStation(
+                CraftingStationType.Workbench);
+        }
+
+        if (selectedRecipe.resultItem.itemName == "Furnace")
+        {
+            CraftingStationManager.Instance.UnlockStation(
+                CraftingStationType.Furnace);
+        }
+
         ShowRecipeDetails(selectedRecipe);
     }
 
