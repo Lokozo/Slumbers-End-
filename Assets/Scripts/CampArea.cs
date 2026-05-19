@@ -240,8 +240,11 @@ public class CampArea : MonoBehaviour
             playerWithinRange = true;
             TutorialUIManager.Instance?.ShowStep(
                 "campIntro",
-                $"🏕️ Press E to SAVE & ENTER TENT\n📍 {playerRespawnPoint?.name ?? "None"}"
-            );
+                //$"🏕️ Press E to SAVE & ENTER TENT\n📍 {playerRespawnPoint?.name ?? "None"}"
+                "Craft, cook, and upgrade here.\n" +
+                "Serves as a save and respawn point.\n" +
+                "Press E to enter."
+            ) ;
         }
     }
 

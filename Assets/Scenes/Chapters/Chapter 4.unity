@@ -8486,7 +8486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &275698963
 Transform:
   m_ObjectHideFlags: 0
@@ -8520,7 +8520,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
-  RecipeItemUIPrefab: {fileID: 0}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
@@ -10627,7 +10627,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
-  RecipeItemUIPrefab: {fileID: 0}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
@@ -19292,7 +19292,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
-  RecipeItemUIPrefab: {fileID: 0}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 39dcc6cbe150f8e499163906a9478c7e, type: 2}
@@ -41543,7 +41543,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
-  RecipeItemUIPrefab: {fileID: 0}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 3f5f004811582a348bc241e20b846797, type: 2}
@@ -60430,7 +60430,7 @@ MonoBehaviour:
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
-  RecipeItemUIPrefab: {fileID: 0}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: 38eaabef15354d94a85ce3918ccd01e5, type: 2}
