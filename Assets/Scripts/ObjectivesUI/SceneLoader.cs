@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
@@ -27,16 +27,12 @@ public class SceneLoader : MonoBehaviour
     public SceneLoader sceneLoader;
     public bool loadNextSceneAfterDialogue = false;
 
-    void Awake()
-    {
-        if (fadeGroup == null)
-        {
-            fadeGroup = FindFirstObjectByType<CanvasGroup>();
-        }
-    }
-
     void Start()
     {
+        fadeGroup.gameObject.SetActive(true);
+        fadeGroup.alpha = 1f;
+        fadeGroup.blocksRaycasts = true;
+
         chapterTitleText.text = string.IsNullOrEmpty(chapterTitle)
         ? "CHAPTER"
         : chapterTitle;
@@ -128,14 +124,25 @@ public class SceneLoader : MonoBehaviour
         float time = 0f;
         float start = fadeGroup.alpha;
 
+        fadeGroup.blocksRaycasts = true;
+
         while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            fadeGroup.alpha = Mathf.Lerp(start, target, time / fadeDuration);
+
+            fadeGroup.alpha =
+                Mathf.Lerp(start, target, time / fadeDuration);
+
             yield return null;
         }
 
         fadeGroup.alpha = target;
+
+        // 🔥 ONLY disable raycasts
+        if (target == 0)
+        {
+            fadeGroup.blocksRaycasts = false;
+        }
     }
 
     public IEnumerator ShowChapterTitle()
