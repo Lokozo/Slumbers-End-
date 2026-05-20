@@ -85,6 +85,9 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if (controller == null || !controller.enabled)
+            return;
+
         HandleGroundedCheck();
         ApplyGravity();
 

@@ -116,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5326719778502342345}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -61.67, y: 1.92, z: 1.7069473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -185,16 +185,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnifyingGlassIcon: {fileID: 0}
+  lockIcon: {fileID: 0}
   InventoryMenu: {fileID: 0}
   ResourcePanel: {fileID: 0}
   ResourceContentPanel: {fileID: 0}
   ResourceItemUIPrefab: {fileID: 9169744470827695640, guid: 07a37a9853ea7fb49afdaab5fb141b90, type: 3}
+  RecipeItemUIPrefab: {fileID: 9169744470827695640, guid: e0c34a84bb94a7d479570002cfa633d6, type: 3}
   holdTimeToOpen: 1
   possibleDrops:
   - item: {fileID: 11400000, guid: fd465c51d09d8b14fafd6f2a910c31ef, type: 2}
     dropChance: 1
     minAmount: 3
     maxAmount: 8
+  - item: {fileID: 11400000, guid: 465bb5b27683c1047bdc5ffda4a4bdd5, type: 2}
+    dropChance: 1
+    minAmount: 3
+    maxAmount: 8
+  - item: {fileID: 11400000, guid: dbdd81d535a1d7549b09c8af8c97ace0, type: 2}
+    dropChance: 1
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 11400000, guid: 7fb0af20f7ad2b544b432f75732a452b, type: 2}
+    dropChance: 1
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 11400000, guid: 5e7522b5b9ef5c442870a31fbdb9ac43, type: 2}
+    dropChance: 1
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 11400000, guid: c1033ce62599c1b4b982dc305d4b65d8, type: 2}
+    dropChance: 1
+    minAmount: 1
+    maxAmount: 1
+  possibleRecipeDrops: []
   checkIcon: {fileID: 0}
   lootableDisplayName: Wood Pile
   lootableNameText: {fileID: 0}
@@ -217,5 +240,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.79, y: 2, z: 3.1169953}
-  m_Center: {x: 1.59, y: 0, z: -1.0584977}
+  m_Size: {x: 5.381351, y: 2, z: 3.1169953}
+  m_Center: {x: 2.8856757, y: 0, z: -1.0584977}
