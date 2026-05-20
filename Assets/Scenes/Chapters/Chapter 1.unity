@@ -9280,6 +9280,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 404876434}
+    - target: {fileID: 8486304938411811375, guid: 589a21550802d194ba999ade6cbf9fab, type: 3}
+      propertyPath: inventoryPanel
+      value: 
+      objectReference: {fileID: 620160974}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

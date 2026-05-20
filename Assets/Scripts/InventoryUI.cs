@@ -36,7 +36,6 @@ public class InventoryUI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
-            // DON'T close inventory while loot panel is open
             if (ResourceInteractionPanelOpen())
                 return;
 

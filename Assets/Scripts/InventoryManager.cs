@@ -9,11 +9,8 @@ public class InventoryManager : MonoBehaviour
     public InventoryUI inventoryUI;
 
     private static bool hasOpenedInventoryOnce = false;
-    private bool isInventoryOpen = false;
 
     public static InventoryManager Instance;
-
-    
 
     private void Awake()
     {
@@ -42,33 +39,37 @@ public class InventoryManager : MonoBehaviour
         CampArea camp = FindFirstObjectByType<CampArea>();
 
         if (camp != null && camp.IsInCamp())
-        {
             return;
-        }
+
         if (InventoryMenu == null)
         {
             InventoryMenu = GameObject.Find("InventoryMenu");
 
             if (InventoryMenu == null)
-            {
-                return; // Prevent the crash
-            }
+                return;
         }
-        // 🔥 BLOCK IN CAMP
+
+        // BLOCK IN CAMPSITE
         if (SceneManager.GetSceneByName("Campsite").isLoaded)
-        {
             return;
-        }
-        isInventoryOpen = !isInventoryOpen;
-        InventoryMenu.SetActive(isInventoryOpen);
 
-        // Pause or resume the game
-        Time.timeScale = isInventoryOpen ? 0f : 1f;
+        // USE REAL UI STATE INSTEAD OF BOOL
+        bool newState = !InventoryMenu.activeSelf;
 
-        // Cursor state
-        //Cursor.lockState = isInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        //Cursor.visible = isInventoryOpen;
-        if (isInventoryOpen && !hasOpenedInventoryOnce)
+        InventoryMenu.SetActive(newState);
+
+        Time.timeScale = newState ? 0f : 1f;
+
+        // CURSOR
+        Cursor.lockState = newState
+            ? CursorLockMode.None
+            : CursorLockMode.Locked;
+
+        Cursor.visible = newState;
+
+        Debug.Log("Inventory toggled: " + newState);
+
+        if (newState && !hasOpenedInventoryOnce)
         {
             hasOpenedInventoryOnce = true;
             TutorialUIManager.Instance?.Hide();
