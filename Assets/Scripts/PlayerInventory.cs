@@ -57,7 +57,13 @@ public class PlayerInventory : MonoBehaviour
 
         stats.ModifyEnergy(item.energyRestoreAmount);
 
-        Debug.Log("Used: " + item.itemName);
+        if (item.energyRecoveryBonus > 0)
+        {
+            stats.AddEnergyRecoveryBuff(
+                item.energyRecoveryBonus,
+                item.energyRecoveryDuration
+            );
+        }
 
         // REMOVE ONE ITEM
         RemoveItem(item, 1);
@@ -120,17 +126,22 @@ public class PlayerInventory : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
-    public void AddItem(Item item, int quantity = 1)
+    public bool AddItem(Item item, int quantity = 1)
     {
-        if (item == null) return;
+        if (item == null)
+            return false;
 
+        if (IsInventoryFull(item))
+        {
+            Debug.Log("Inventory Full!");
+            return false;
+        }
         // 🔥 NO Instantiate for weapons - use existing reference
         if (item is WeaponItem)
         {
-            resourceInventory[item] = 1;  // Same reference!
-            Debug.Log($"✅ Added weapon REFERENCE: {item.itemName}, equipped={((WeaponItem)item).isEquipped}");
+            resourceInventory[item] = 1;
             OnInventoryChanged?.Invoke();
-            return;
+            return true;
         }
 
         int currentAmount = 0;
@@ -146,6 +157,8 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log($"{item.itemName} now: {newAmount}/{item.maxStack}");
 
         OnInventoryChanged?.Invoke();
+        return true;
+    
     }
 
     public bool HasItem(Item item, int amount)
@@ -184,7 +197,24 @@ public class PlayerInventory : MonoBehaviour
         }
         return 0;
     }
+    public bool IsInventoryFull(Item itemToAdd)
+    {
+        // Weapons already exist = don't add duplicates
+        if (itemToAdd is WeaponItem)
+        {
+            return resourceInventory.ContainsKey(itemToAdd);
+        }
 
+        // Existing stack has room
+        if (resourceInventory.ContainsKey(itemToAdd))
+        {
+            return resourceInventory[itemToAdd] >= itemToAdd.maxStack
+                && resourceInventory.Count >= 10;
+        }
+
+        // New item needs empty slot
+        return resourceInventory.Count >= 10;
+    }
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

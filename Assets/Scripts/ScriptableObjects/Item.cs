@@ -33,6 +33,10 @@ public class Item : ScriptableObject
     public float hungerRestoreAmount;
     public float energyRestoreAmount;
 
+    [Header("Recovery Buff")]
+    public float energyRecoveryBonus;
+    public float energyRecoveryDuration;
+
     public enum ItemType
     {
         Material,
