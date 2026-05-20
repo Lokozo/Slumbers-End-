@@ -1914,7 +1914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867553479499935104, guid: 0ca90a7089f433d4bbef52e63b16ed6e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2128189373195811553, guid: 0ca90a7089f433d4bbef52e63b16ed6e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2611,7 +2611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9069403496699547110, guid: b54b5ec0fd7e19845b8710f856c3f73c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4963,10 +4963,6 @@ MonoBehaviour:
   rotationFactorPerFrame: 150
   movementLocked: 0
   isClimbing: 0
-  audioSource: {fileID: 0}
-  footstepClips: []
-  runFootstepClips: []
-  attackGrunts: []
   currentMovementInput: {x: 0, y: 0}
   enableTutorial: 1
   axe: {fileID: 6337737563397468566}
