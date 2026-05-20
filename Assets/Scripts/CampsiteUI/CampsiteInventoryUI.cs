@@ -33,13 +33,13 @@ public class CampsiteInventoryUI : MonoBehaviour
             TransferAllSelectedItem();
         }
 
-<<<<<<< Updated upstream
+
         // 🔥 ESC = close UI
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             CloseCampsite();
-=======
-        // 🔥 ~ key = close UI
+        }
+
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             CampArea camp = FindFirstObjectByType<CampArea>();
@@ -50,7 +50,6 @@ public class CampsiteInventoryUI : MonoBehaviour
             }
 
             ClearSelectedItem();
->>>>>>> Stashed changes
         }
     }
 
