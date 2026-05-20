@@ -64,7 +64,8 @@ public class ResourceInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (!playerInRange || hasBeenCollected) return;
+        if ((!playerInRange && !panelOpened) || hasBeenCollected)
+            return;
 
         if (panelOpened && Keyboard.current.backquoteKey.wasPressedThisFrame)
         {
@@ -269,38 +270,48 @@ public class ResourceInteraction : MonoBehaviour
     private void OpenPanels()
     {
         ResourcePanel?.SetActive(true);
+
         lockIcon?.SetActive(false);
+
         TutorialUIManager.Instance?.Hide();
 
         if (lootableNameText != null)
             lootableNameText.text = lootableDisplayName;
 
-        // NEW: Also open inventory when loot opens
-        if (InventoryManager.Instance != null)
-        {
-            InventoryMenu?.SetActive(true);
-        }
-        else
-        {
-            // Fallback: try to enable inventory menu directly
-            InventoryMenu?.SetActive(true);
-        }
+        InventoryMenu?.SetActive(true);
+
+        panelOpened = true;
 
         Time.timeScale = 0f;
+
+        // FORCE CURSOR ON
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Debug.Log("Loot opened");
     }
 
     private void CloseAllPanels()
     {
-        // Close loot panel
+        // CLOSE LOOT PANEL
         ResourcePanel?.SetActive(false);
+
         magnifyingGlassIcon?.SetActive(false);
         checkIcon?.SetActive(false);
+
         panelOpened = false;
 
-        // Close inventory panel
+        // CLOSE INVENTORY PANEL
         InventoryMenu?.SetActive(false);
 
+        // RESUME GAME
         Time.timeScale = 1f;
+
+        // FORCE CURSOR OFF
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        Debug.Log("Loot closed - cursor hidden");
     }
 
     private void CollectResource()

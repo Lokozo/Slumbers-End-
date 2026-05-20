@@ -180,6 +180,9 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (enableTutorial && TutorialUIManager.Instance != null)
         {
             TutorialUIManager.Instance.ShowStep("moveTutorial", "Press A or D to move");
