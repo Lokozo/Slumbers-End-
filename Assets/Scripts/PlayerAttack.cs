@@ -247,27 +247,36 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 NEW: Separate ammo consumption
     private bool ConsumeAmmo()
     {
-        if (currentWeaponData.requiredAmmoType == WeaponItem.AmmoType.None)
-            return true; // Melee - no ammo needed
+        if (currentWeaponData == null)
+            return false;
+
+        if (currentWeaponData.requiredAmmoType == AmmoType.None)
+            return true;
 
         Item ammoItem = FindAmmoItem(currentWeaponData.requiredAmmoType);
+
         if (ammoItem == null)
         {
-            Debug.Log($"❌ No {currentWeaponData.requiredAmmoType} ammo in inventory!");
+            Debug.Log("NO AMMO ITEM FOUND");
             return false;
         }
+
+        Debug.Log("FOUND AMMO: " + ammoItem.itemName);
 
         if (!PlayerInventory.Instance.HasItem(ammoItem, currentWeaponData.ammoPerShot))
         {
-            Debug.Log($"❌ Not enough {ammoItem.itemName}! Need: {currentWeaponData.ammoPerShot}");
+            Debug.Log("NOT ENOUGH AMMO");
             return false;
         }
 
-        // ✅ CONSUME AMMO
-        bool consumed = PlayerInventory.Instance.RemoveItem(ammoItem, currentWeaponData.ammoPerShot);
-        Debug.Log($"✅ Consumed {currentWeaponData.ammoPerShot}x {ammoItem.itemName}");
+        bool removed = PlayerInventory.Instance.RemoveItem(
+            ammoItem,
+            currentWeaponData.ammoPerShot
+        );
 
-        return consumed;
+        Debug.Log("AMMO REMOVED: " + removed);
+
+        return removed;
     }
 
     // 🔥 NEW: Melee damage only
