@@ -34,13 +34,27 @@ public class InventoryUI : MonoBehaviour
             TransferAllSelectedItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.BackQuote))
         {
+            // DON'T close inventory while loot panel is open
+            if (ResourceInteractionPanelOpen())
+                return;
+
             InventoryManager.Instance.ToggleInventory();
             ClearSelectedItem();
         }
     }
+    private bool ResourceInteractionPanelOpen()
+    {
+        ResourceInteraction interaction =
+            FindFirstObjectByType<ResourceInteraction>();
 
+        if (interaction == null)
+            return false;
+
+        return interaction.ResourcePanel != null &&
+               interaction.ResourcePanel.activeSelf;
+    }
     void TransferAllSelectedItem()
     {
         Item selected = GetSelectedItem();
@@ -76,7 +90,17 @@ public class InventoryUI : MonoBehaviour
         CampsiteInventory.Instance.AddItem(selected, amount);
 
         // REMOVE FROM PLAYER
+        // REMOVE FROM PLAYER
         PlayerInventory.Instance.RemoveItem(selected, amount);
+
+        // CLEAR LAST CLICKED WEAPON
+        PlayerController playerController =
+            FindFirstObjectByType<PlayerController>();
+
+        if (playerController != null)
+        {
+            playerController.SetLastClickedWeapon(null);
+        }
 
         RefreshUI();
 

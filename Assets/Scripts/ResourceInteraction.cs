@@ -74,7 +74,7 @@ public class ResourceInteraction : MonoBehaviour
         if (!playerInRange || hasBeenCollected) return;
 
         // EXIT (ESC) ✅ FIX
-        if (panelOpened && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (panelOpened && Keyboard.current.backquoteKey.wasPressedThisFrame)
         {
             ClosePanels();
             return;
@@ -130,11 +130,10 @@ public class ResourceInteraction : MonoBehaviour
     }
     private void RebuildUI()
     {
-        // Clear UI first
-        foreach (Transform child in ResourceContentPanel)
-        {
-            Destroy(child.gameObject);
-        }
+        if (ResourceContentPanel == null)
+            return;
+
+        ClearUI();
 
         if (currentDropList.Count == 0)
         {
@@ -219,11 +218,7 @@ public class ResourceInteraction : MonoBehaviour
 
         }
 
-        // Clear previous UI
-        foreach (Transform child in ResourceContentPanel)
-        {
-            Destroy(child.gameObject);
-        }
+        ClearUI();
 
         foreach (var pair in currentDropList)
         {
@@ -284,9 +279,13 @@ foreach (var recipe in currentRecipeDrops)
         .GetComponent<Image>().sprite =
         recipe.recipeIcon;
 
-    var recipeUI = uiElement.AddComponent<RecipeLootUI>();
-    recipeUI.Setup(recipe, this);
-}
+            var recipeUI = uiElement.GetComponent<RecipeLootUI>();
+
+            if (recipeUI != null)
+            {
+                recipeUI.Setup(recipe, this);
+            }
+        }
     }
 
     private void OpenPanels()
@@ -350,19 +349,12 @@ foreach (var recipe in currentRecipeDrops)
         currentDropList.Clear();
         currentRecipeDrops.Clear();
 
-        // Clear UI
-        foreach (Transform child in ResourceContentPanel)
-        {
-            Destroy(child.gameObject);
-        }
+        ClearUI();
 
-        // Rebuild remaining UI
-        RebuildUI();
-
-        if (currentDropList.Count == 0 &&
-            currentRecipeDrops.Count == 0)
+        if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
+            ClosePanels();
         }
 
         TutorialUIManager.Instance?.Hide();
@@ -386,6 +378,8 @@ foreach (var recipe in currentRecipeDrops)
 
         if (currentDropList.Count == 0)
         {
+            ClearUI();
+
             hasBeenCollected = true;
             ClosePanels();
         }
@@ -442,6 +436,13 @@ foreach (var recipe in currentRecipeDrops)
             }
 
 
+        }
+    }
+    private void ClearUI()
+    {
+        for (int i = ResourceContentPanel.childCount - 1; i >= 0; i--)
+        {
+            Destroy(ResourceContentPanel.GetChild(i).gameObject);
         }
     }
 
