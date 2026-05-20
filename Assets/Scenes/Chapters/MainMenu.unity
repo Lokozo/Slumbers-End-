@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   fadeGroup: {fileID: 799378855}
   firstSceneName: Chapter 1
+  pauseMenu: {fileID: 0}
 --- !u!4 &429089161
 Transform:
   m_ObjectHideFlags: 0
@@ -1182,7 +1183,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 429089160}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
