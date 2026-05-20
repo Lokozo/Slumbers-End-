@@ -372,6 +372,7 @@ Transform:
   - {fileID: 3405309034126331927}
   - {fileID: 8280468823680011608}
   - {fileID: 6570039281240842493}
+  - {fileID: 3678153238479362852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1583004970944635308
@@ -590,6 +591,52 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d804cc415ba896f429b05331b3acf1a1, type: 3}
     loop: 1
     volume: 100
+--- !u!1 &8033778965499308951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3678153238479362852}
+  - component: {fileID: 8919253635040643792}
+  m_Layer: 0
+  m_Name: MainMenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3678153238479362852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033778965499308951}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.30155945, y: -5.15134, z: 2.8126297}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3428534135447628918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8919253635040643792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033778965499308951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469a66287fa52d944a82a52fbc2f97f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  fadeGroup: {fileID: 0}
+  firstSceneName: Chapter 1
 --- !u!1 &8063738266605970942
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +690,7 @@ MonoBehaviour:
   energyRecoverRate: 5
   hungerDrainAmount: 5
   hungerDrainInterval: 20
+  bonusRecoveryRate: 0
 --- !u!1 &8441303827340172118
 GameObject:
   m_ObjectHideFlags: 0
