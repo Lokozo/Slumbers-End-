@@ -316,9 +316,21 @@ PrefabInstance:
       value: -104
       objectReference: {fileID: 0}
     - target: {fileID: 8615949984955604679, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8615949984955604679, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8615949984955604679, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 723615737}
+    - target: {fileID: 8615949984955604679, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8615949984955604679, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackToMainMenu
@@ -340,7 +352,7 @@ PrefabInstance:
     - {fileID: 1516029108151366953, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5435642083694159814, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
-      insertIndex: 12
+      insertIndex: 11
       addedObject: {fileID: 637786612}
     - targetCorrespondingSourceObject: {fileID: 1339306767588081739, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
       insertIndex: -1
@@ -355,6 +367,16 @@ RectTransform:
 --- !u!4 &83816613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1339306767588081739, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 83816611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &83816614 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1890165206704548668, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 83816611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &83816615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6284628248132849576, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 83816611}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &146311678
@@ -695,9 +717,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469a66287fa52d944a82a52fbc2f97f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
-  fadeGroup: {fileID: 0}
+  fadeGroup: {fileID: 83816614}
   firstSceneName: Chapter 1
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 83816615}
 --- !u!4 &723615738
 Transform:
   m_ObjectHideFlags: 0

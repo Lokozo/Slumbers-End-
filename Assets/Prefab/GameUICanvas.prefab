@@ -171,7 +171,6 @@ RectTransform:
   m_Children:
   - {fileID: 2693530933756576371}
   - {fileID: 6984604222249246299}
-  - {fileID: 3485189260389653699}
   - {fileID: 8158312707655977364}
   - {fileID: 3236232253868408719}
   - {fileID: 8056187622899545514}
@@ -181,10 +180,11 @@ RectTransform:
   - {fileID: 3381774838866423380}
   - {fileID: 8999490902364875609}
   - {fileID: 6172628023236898549}
+  - {fileID: 1150772083381374226}
   - {fileID: 5570317155149582095}
   - {fileID: 3588497027661022191}
-  - {fileID: 1150772083381374226}
   - {fileID: 556139128570329726}
+  - {fileID: 3485189260389653699}
   - {fileID: 4600779946686368504}
   - {fileID: 2467439855484010146}
   m_Father: {fileID: 0}
@@ -779,12 +779,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1290,12 +1290,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1650,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270.45, y: -33.855}
+  m_AnchoredPosition: {x: 332.5, y: -33.855}
   m_SizeDelta: {x: 520.9, y: 37.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7453349500482477388
@@ -2535,19 +2535,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2818410048929712019}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &5103930800274573985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,7 +3180,7 @@ GameObject:
   - component: {fileID: 3700126397862187478}
   - component: {fileID: 2144459322384917075}
   m_Layer: 5
-  m_Name: Return/Exit/Pause Menu
+  m_Name: Pause Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4754,35 +4742,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 911428728404638505, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 911428728404638505, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3915977059803885952, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_Name
       value: PlayerStatsUI
       objectReference: {fileID: 0}
-    - target: {fileID: 3915977059803885952, guid: bf1cebff669581b418db58030db8ea47, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 5000936769817508417, guid: bf1cebff669581b418db58030db8ea47, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5000936769817508417, guid: bf1cebff669581b418db58030db8ea47, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5000936769817508417, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7100049010982243104, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7100049010982243104, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8239709417507438767, guid: bf1cebff669581b418db58030db8ea47, type: 3}
       propertyPath: m_Pivot.x

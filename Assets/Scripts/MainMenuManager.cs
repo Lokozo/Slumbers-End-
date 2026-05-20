@@ -2,21 +2,42 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Main Menu")]
-    public CanvasGroup fadeGroup;
+    [SerializeField] private CanvasGroup fadeGroup;
     public string firstSceneName = "Chapter 1";
 
     [Header("Pause Menu")]
-    public GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
 
     private bool isPaused = false;
+    private bool isTransitioning = false;
+
+    private void Start()
+    {
+        // AUTO ASSIGN FADE PANEL
+        if (fadeGroup == null)
+        {
+            GameObject fadeObj = GameObject.Find("FadePanel");
+
+            if (fadeObj != null)
+                fadeGroup = fadeObj.GetComponent<CanvasGroup>();
+        }
+
+        // AUTO ASSIGN PAUSE PANEL (WORKS EVEN IF INACTIVE)
+        if (pauseMenu == null)
+        {
+            pauseMenu = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(obj => obj.name == "Pause Panel");
+        }
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isTransitioning)
         {
             TogglePauseMenu();
         }
@@ -24,11 +45,14 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(StartGameRoutine());
+        if (!isTransitioning)
+            StartCoroutine(StartGameRoutine());
     }
 
     IEnumerator StartGameRoutine()
     {
+        isTransitioning = true;
+
         yield return StartCoroutine(Fade(1));
 
         SceneManager.LoadScene(firstSceneName);
@@ -36,13 +60,16 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator Fade(float target)
     {
+        if (fadeGroup == null)
+            yield break;
+
         float duration = 0.5f;
         float time = 0;
         float start = fadeGroup.alpha;
 
         while (time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             fadeGroup.alpha = Mathf.Lerp(start, target, time / duration);
             yield return null;
         }
@@ -81,13 +108,35 @@ public class MainMenuManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        if (!isTransitioning)
+            StartCoroutine(BackToMainMenuRoutine());
+    }
+
+    IEnumerator BackToMainMenuRoutine()
+    {
+        isTransitioning = true;
+
         Time.timeScale = 1f;
+
+        yield return StartCoroutine(Fade(1));
 
         SceneManager.LoadScene("MainMenu");
     }
 
     public void ExitGame()
     {
+        if (!isTransitioning)
+            StartCoroutine(ExitGameRoutine());
+    }
+
+    IEnumerator ExitGameRoutine()
+    {
+        isTransitioning = true;
+
+        Time.timeScale = 1f;
+
+        yield return StartCoroutine(Fade(1));
+
         Debug.Log("EXIT GAME");
 
         Application.Quit();
