@@ -28,35 +28,74 @@ public class ItemSlot : MonoBehaviour
         currentItem = null;
         currentQuantity = 0;
 
-        iconImage.sprite = null;
-        iconImage.enabled = false;
+        // FIX: Add null checks before accessing components
+        if (iconImage != null)
+        {
+            iconImage.sprite = null;
+            iconImage.enabled = false;
+        }
 
-        quantityText.text = "";
+        if (quantityText != null)
+        {
+            quantityText.text = "";
+        }
     }
 
     public void SetSlot(Item item, int quantity, SlotContextType context)
     {
+        // FIX: Add null check for item
+        if (item == null)
+        {
+            Debug.LogWarning("ItemSlot.SetSlot received null item!");
+            ClearSlot();
+            return;
+        }
+
         currentItem = item;
         currentQuantity = quantity;
         contextType = context;
 
-        iconImage.sprite = item.icon;
-        iconImage.enabled = true;
-
-        if (item is WeaponItem weapon)
+        // FIX: Add null checks for UI components
+        if (iconImage != null)
         {
-            // 🔥 FIX: Use the weapon's isEquipped flag directly
-            quantityText.text = weapon.isEquipped ? "Equipped" : "";
+            iconImage.sprite = item.icon;
+            iconImage.enabled = true;
         }
-        else
+
+        if (quantityText != null)
         {
-            quantityText.text = quantity.ToString();
+            if (item is WeaponItem weapon)
+            {
+                quantityText.text = weapon.isEquipped ? "Equipped" : "";
+            }
+            else
+            {
+                quantityText.text = quantity.ToString();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // FIX: Handle right-click in Update instead of OnClick
+        // This ensures proper input detection
+        if (Input.GetMouseButtonDown(1) && currentItem != null && currentItem.isConsumable)
+        {
+            if (PlayerInventory.Instance != null)
+            {
+                PlayerInventory.Instance.UseItem(currentItem);
+            }
         }
     }
 
     private void OnClick()
     {
-        if (currentItem == null) return;
+        // FIX: Add null check for currentItem
+        if (currentItem == null)
+        {
+            Debug.LogWarning("OnClick called but currentItem is null!");
+            return;
+        }
 
         Debug.Log("Clicked Item: " + currentItem.itemName);
 
@@ -87,51 +126,68 @@ public class ItemSlot : MonoBehaviour
                 if (player != null)
                 {
                     player.SetLastClickedWeapon(weaponItem);
-
                     Debug.Log("Selected weapon: " + weaponItem.itemName);
                 }
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && currentItem.isConsumable)
-        {
-            PlayerInventory.Instance.UseItem(currentItem);
-            return;
-        }
-
         lastClickTime = Time.unscaledTime;
     }
+
     private void RefreshUI()
     {
+        // FIX: Add null checks
         if (parentUI is InventoryUI invUI)
+        {
             invUI.RefreshUI();
+        }
         else if (parentUI is CampsiteInventoryUI campUI)
+        {
             campUI.RefreshInventoryDisplay();
+        }
 
-        FindFirstObjectByType<InventoryUI>()?.RefreshUI();
-        FindFirstObjectByType<CampsiteInventoryUI>()?.RefreshInventoryDisplay();
+        InventoryUI inventoryUIInstance = FindFirstObjectByType<InventoryUI>();
+        if (inventoryUIInstance != null)
+        {
+            inventoryUIInstance.RefreshUI();
+        }
+
+        CampsiteInventoryUI campsiteUIInstance = FindFirstObjectByType<CampsiteInventoryUI>();
+        if (campsiteUIInstance != null)
+        {
+            campsiteUIInstance.RefreshInventoryDisplay();
+        }
     }
+
     private void TransferOne()
     {
         if (currentItem == null) return;
 
         Item transferItem = currentItem;
 
+        // FIX: Check if item is equipped before transferring
         if (transferItem is WeaponItem w && w.isEquipped)
         {
             Debug.Log("Cannot transfer equipped weapon!");
             return;
         }
 
+        // FIX: Add null checks for instances
         if (contextType == SlotContextType.Inventory)
         {
-            CampsiteInventory.Instance.AddItem(transferItem, 1);
-            PlayerInventory.Instance.RemoveItem(transferItem, 1);
+            if (CampsiteInventory.Instance != null)
+                CampsiteInventory.Instance.AddItem(transferItem, 1);
+
+            if (PlayerInventory.Instance != null)
+                PlayerInventory.Instance.RemoveItem(transferItem, 1);
         }
         else if (contextType == SlotContextType.Campsite)
         {
-            PlayerInventory.Instance.AddItem(transferItem, 1);
-            CampsiteInventory.Instance.RemoveItem(transferItem, 1);
+            if (PlayerInventory.Instance != null)
+                PlayerInventory.Instance.AddItem(transferItem, 1);
+
+            if (CampsiteInventory.Instance != null)
+                CampsiteInventory.Instance.RemoveItem(transferItem, 1);
         }
 
         RefreshUI();

@@ -6,6 +6,9 @@ using System.Linq;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [Header("UI References")]
+    public GameObject inventoryPanel;
+
     [Header("Main Menu")]
     [SerializeField] private CanvasGroup fadeGroup;
     public string firstSceneName = "Chapter 1";
@@ -27,11 +30,18 @@ public class MainMenuManager : MonoBehaviour
                 fadeGroup = fadeObj.GetComponent<CanvasGroup>();
         }
 
-        // AUTO ASSIGN PAUSE PANEL (WORKS EVEN IF INACTIVE)
+        // AUTO ASSIGN PAUSE PANEL
         if (pauseMenu == null)
         {
             pauseMenu = Resources.FindObjectsOfTypeAll<GameObject>()
                 .FirstOrDefault(obj => obj.name == "Pause Panel");
+        }
+
+        // AUTO ASSIGN INVENTORY PANEL
+        if (inventoryPanel == null)
+        {
+            inventoryPanel = Resources.FindObjectsOfTypeAll<GameObject>()
+                .FirstOrDefault(obj => obj.name == "InventoryMenu");
         }
     }
 
@@ -39,7 +49,28 @@ public class MainMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isTransitioning)
         {
-            TogglePauseMenu();
+            // CHECK LOOT UI
+            ResourceInteraction interaction =
+                FindFirstObjectByType<ResourceInteraction>();
+
+            if (interaction != null && interaction.IsPanelOpen())
+            {
+                Debug.Log("Loot UI open - ignore pause");
+                return;
+            }
+
+            // CHECK INVENTORY UI
+            if (inventoryPanel != null &&
+                inventoryPanel.activeSelf)
+            {
+                Debug.Log("Inventory UI open - ignore pause");
+                return;
+            }
+
+            if (Time.timeScale == 1f)
+            {
+                TogglePauseMenu();
+            }
         }
     }
 
@@ -70,7 +101,10 @@ public class MainMenuManager : MonoBehaviour
         while (time < duration)
         {
             time += Time.unscaledDeltaTime;
-            fadeGroup.alpha = Mathf.Lerp(start, target, time / duration);
+
+            fadeGroup.alpha =
+                Mathf.Lerp(start, target, time / duration);
+
             yield return null;
         }
 
@@ -86,11 +120,20 @@ public class MainMenuManager : MonoBehaviour
 
         Time.timeScale = isPaused ? 0f : 1f;
 
-        Cursor.lockState = isPaused
-            ? CursorLockMode.None
-            : CursorLockMode.Locked;
+        if (isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
-        Cursor.visible = isPaused;
+            Debug.Log("Pause OPEN - Cursor visible");
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            Debug.Log("Pause CLOSED - Cursor hidden");
+        }
     }
 
     public void ResumeGame()
@@ -104,6 +147,8 @@ public class MainMenuManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Debug.Log("ResumeGame - Cursor hidden");
     }
 
     public void BackToMainMenu()

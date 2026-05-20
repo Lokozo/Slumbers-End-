@@ -36,7 +36,6 @@ public class InventoryUI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
-            // DON'T close inventory while loot panel is open
             if (ResourceInteractionPanelOpen())
                 return;
 
@@ -206,6 +205,7 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerInventory.Instance.OnInventoryChanged -= RefreshUI;
         PlayerInventory.Instance.OnInventoryChanged += RefreshUI;
 
         // DISABLE ATTACK INPUT
