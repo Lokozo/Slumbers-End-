@@ -34,10 +34,9 @@ public class CampsiteInventoryUI : MonoBehaviour
         }
 
         // 🔥 ESC = close UI
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.BackQuote))
         {
-            gameObject.SetActive(false);
-            ClearSelectedItem();
+            CloseCampsite();
         }
     }
 
@@ -61,7 +60,34 @@ public class CampsiteInventoryUI : MonoBehaviour
         if (playerUI != null)
             playerUI.RefreshUI();
     }
+    void CloseCampsite()
+    {
+        StartCoroutine(ExitCamp());
+    }
 
+    IEnumerator ExitCamp()
+    {
+        ClearSelectedItem();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        Time.timeScale = 1f;
+
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+
+        if (player != null)
+            player.enabled = true;
+
+        CampArea campArea = FindFirstObjectByType<CampArea>();
+
+        if (campArea != null)
+        {
+            yield return StartCoroutine(campArea.ExitCampRoutine());
+        }
+
+        gameObject.SetActive(false);
+    }
     public void RefreshInventoryDisplay()
     {
         if (gridSlots == null)
