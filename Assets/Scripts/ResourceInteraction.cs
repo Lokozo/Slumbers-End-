@@ -13,10 +13,9 @@ public class ResourceInteraction : MonoBehaviour
     public GameObject lockIcon;
     public GameObject InventoryMenu;
     public GameObject ResourcePanel;
-    public Transform ResourceContentPanel; // Parent panel for dynamic resource UI
-    public GameObject ResourceItemUIPrefab; // UI prefab to display item + amount
+    public Transform ResourceContentPanel;
+    public GameObject ResourceItemUIPrefab;
     public GameObject RecipeItemUIPrefab;
-
 
     [Header("Interaction Settings")]
     public float holdTimeToOpen = 1.0f;
@@ -31,11 +30,8 @@ public class ResourceInteraction : MonoBehaviour
     [Header("Recipe Drops")]
     public List<RecipeDropData> possibleRecipeDrops;
 
-
-
     private Dictionary<Item, int> currentDropList = new Dictionary<Item, int>();
     private List<CraftingRecipe> currentRecipeDrops = new List<CraftingRecipe>();
-
 
     public GameObject checkIcon;
     private bool hasBeenCollected = false;
@@ -43,10 +39,8 @@ public class ResourceInteraction : MonoBehaviour
     private LockableObject lockable;
 
     [Header("Lootable Metadata")]
-    public string lootableDisplayName;  // set in Inspector
+    public string lootableDisplayName;
     public TextMeshProUGUI lootableNameText;
-
-
 
     private void Awake()
     {
@@ -57,7 +51,6 @@ public class ResourceInteraction : MonoBehaviour
     private void Start()
     {
         var ui = UIManager.Instance;
-
 
         lockable = GetComponent<LockableObject>();
         InventoryMenu = ui.inventoryMenu;
@@ -73,30 +66,26 @@ public class ResourceInteraction : MonoBehaviour
     {
         if (!playerInRange || hasBeenCollected) return;
 
-        // EXIT (ESC) ✅ FIX
         if (panelOpened && Keyboard.current.backquoteKey.wasPressedThisFrame)
         {
-            ClosePanels();
+            CloseAllPanels();
             return;
         }
 
-        // TAKE ALL (Q)
         if (panelOpened && Keyboard.current.qKey.wasPressedThisFrame)
         {
             CollectResource();
             RecipeItemUIPrefab.GetComponent<RecipeLootUI>()?.CollectRecipe();
-            ClosePanels();
+            CloseAllPanels();
             return;
         }
 
-        // OPEN (Hold E)
         if (!panelOpened && Keyboard.current.eKey.isPressed)
         {
             holdTimer += Time.unscaledDeltaTime;
 
             if (holdTimer >= holdTimeToOpen)
             {
-                // 🔒 CHECK LOCK FIRST
                 if (lockable != null && lockable.isLocked)
                 {
                     bool unlocked = lockable.TryUnlock();
@@ -104,11 +93,10 @@ public class ResourceInteraction : MonoBehaviour
                     if (!unlocked)
                     {
                         holdTimer = 0f;
-                        return; // ❌ STOP opening
+                        return;
                     }
                 }
 
-                // ✅ OPEN LOOT (your existing logic)
                 if (!hasGeneratedLoot)
                 {
                     GenerateRandomResources();
@@ -128,6 +116,13 @@ public class ResourceInteraction : MonoBehaviour
             holdTimer = 0f;
         }
     }
+
+    // NEW: Public method to check if panel is open
+    public bool IsPanelOpen()
+    {
+        return panelOpened;
+    }
+
     private void RebuildUI()
     {
         if (ResourceContentPanel == null)
@@ -144,7 +139,7 @@ public class ResourceInteraction : MonoBehaviour
         {
             if (pair.Key == null)
             {
-                Debug.LogError("❌ NULL item in RebuildUI");
+                Debug.LogError("NULL item in RebuildUI");
                 continue;
             }
 
@@ -165,19 +160,13 @@ public class ResourceInteraction : MonoBehaviour
 
         foreach (var recipe in currentRecipeDrops)
         {
-            GameObject uiElement =
-                Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
+            GameObject uiElement = Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
 
             uiElement.transform.Find("ItemName")
-                .GetComponent<TextMeshProUGUI>().text =
-                recipe.recipeName + " Notes";
-
-            //uiElement.transform.Find("ItemAmount")
-            //    .GetComponent<TextMeshProUGUI>().text = "";
+                .GetComponent<TextMeshProUGUI>().text = recipe.recipeName + " Notes";
 
             uiElement.transform.Find("ItemIcon")
-                .GetComponent<Image>().sprite =
-                recipe.recipeIcon;
+                .GetComponent<Image>().sprite = recipe.recipeIcon;
 
             var recipeUI = uiElement.GetComponent<RecipeLootUI>();
 
@@ -195,12 +184,11 @@ public class ResourceInteraction : MonoBehaviour
 
         foreach (var drop in possibleDrops)
         {
-            // ✅ NOW it's valid
             Debug.Log("Drop item: " + drop.item);
 
             if (drop == null || drop.item == null)
             {
-                Debug.LogError("❌ NULL item in possibleDrops!");
+                Debug.LogError("NULL item in possibleDrops!");
                 continue;
             }
 
@@ -213,9 +201,6 @@ public class ResourceInteraction : MonoBehaviour
                 else
                     currentDropList.Add(drop.item, amount);
             }
-            
-        
-
         }
 
         ClearUI();
@@ -224,7 +209,7 @@ public class ResourceInteraction : MonoBehaviour
         {
             if (pair.Key == null)
             {
-                Debug.LogError("❌ NULL item reached UI!");
+                Debug.LogError("NULL item reached UI!");
                 continue;
             }
 
@@ -243,41 +228,34 @@ public class ResourceInteraction : MonoBehaviour
 
             if (itemUI == null)
             {
-                Debug.LogError("❌ ResourceItemUI missing on prefab!");
+                Debug.LogError("ResourceItemUI missing on prefab!");
                 return;
             }
 
             itemUI.Setup(pair.Key, pair.Value, this);
         }
 
-foreach (var recipeDrop in possibleRecipeDrops)
-{
-    if (recipeDrop.recipe == null)
-        continue;
+        foreach (var recipeDrop in possibleRecipeDrops)
+        {
+            if (recipeDrop.recipe == null)
+                continue;
 
-    if (Random.value <= recipeDrop.dropChance)
-    {
-        currentRecipeDrops.Add(recipeDrop.recipe);
+            if (Random.value <= recipeDrop.dropChance)
+            {
+                currentRecipeDrops.Add(recipeDrop.recipe);
+                Debug.Log("Generated recipe: " + recipeDrop.recipe.recipeName);
+            }
+        }
 
-        Debug.Log("Generated recipe: " + recipeDrop.recipe.recipeName);
-    }
-}
-
-foreach (var recipe in currentRecipeDrops)
-{
-            GameObject uiElement =
-            Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
+        foreach (var recipe in currentRecipeDrops)
+        {
+            GameObject uiElement = Instantiate(RecipeItemUIPrefab, ResourceContentPanel);
 
             uiElement.transform.Find("ItemName")
-        .GetComponent<TextMeshProUGUI>().text = 
-        recipe.recipeName + " Notes";
+                .GetComponent<TextMeshProUGUI>().text = recipe.recipeName + " Notes";
 
-    //uiElement.transform.Find("ItemAmount")
-    //    .GetComponent<TextMeshProUGUI>().text = "";
-
-    uiElement.transform.Find("ItemIcon")
-        .GetComponent<Image>().sprite =
-        recipe.recipeIcon;
+            uiElement.transform.Find("ItemIcon")
+                .GetComponent<Image>().sprite = recipe.recipeIcon;
 
             var recipeUI = uiElement.GetComponent<RecipeLootUI>();
 
@@ -290,7 +268,6 @@ foreach (var recipe in currentRecipeDrops)
 
     private void OpenPanels()
     {
-        InventoryMenu?.SetActive(true);
         ResourcePanel?.SetActive(true);
         lockIcon?.SetActive(false);
         TutorialUIManager.Instance?.Hide();
@@ -298,54 +275,55 @@ foreach (var recipe in currentRecipeDrops)
         if (lootableNameText != null)
             lootableNameText.text = lootableDisplayName;
 
+        // NEW: Also open inventory when loot opens
+        if (InventoryManager.Instance != null)
+        {
+            InventoryMenu?.SetActive(true);
+        }
+        else
+        {
+            // Fallback: try to enable inventory menu directly
+            InventoryMenu?.SetActive(true);
+        }
+
         Time.timeScale = 0f;
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = true;
     }
 
-    private void ClosePanels()
+    private void CloseAllPanels()
     {
-        InventoryMenu?.SetActive(false);
+        // Close loot panel
         ResourcePanel?.SetActive(false);
         magnifyingGlassIcon?.SetActive(false);
         checkIcon?.SetActive(false);
-
         panelOpened = false;
 
+        // Close inventory panel
+        InventoryMenu?.SetActive(false);
+
         Time.timeScale = 1f;
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
     }
 
     private void CollectResource()
     {
         if (PlayerInventory.Instance == null)
         {
-            Debug.LogError("ResourcesManager instance is missing in the scene!");
+            Debug.LogError("PlayerInventory instance is missing in the scene!");
             return;
         }
-
-        // =========================
-        // COLLECT NORMAL ITEMS
-        // =========================
 
         foreach (var pair in currentDropList)
         {
             PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
         }
 
-        // =========================
-        // COLLECT RECIPES
-        // =========================
-
         foreach (var recipe in currentRecipeDrops.ToList())
         {
-            RecipeManager.Instance.UnlockRecipe(recipe);
+            if (RecipeManager.Instance != null)
+                RecipeManager.Instance.UnlockRecipe(recipe);
 
             Debug.Log("Learned recipe: " + recipe.recipeName);
         }
 
-        // Clear collected things
         currentDropList.Clear();
         currentRecipeDrops.Clear();
 
@@ -354,7 +332,7 @@ foreach (var recipe in currentRecipeDrops)
         if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
-            ClosePanels();
+            CloseAllPanels();
         }
 
         TutorialUIManager.Instance?.Hide();
@@ -364,6 +342,7 @@ foreach (var recipe in currentRecipeDrops)
             "Press I to open your inventory"
         );
     }
+
     public void RemoveItem(Item item, int amountToRemove = 1)
     {
         if (currentDropList.ContainsKey(item))
@@ -374,14 +353,16 @@ foreach (var recipe in currentRecipeDrops)
             {
                 currentDropList.Remove(item);
             }
+            else
+            {
+                RebuildUI();
+            }
         }
 
-        if (currentDropList.Count == 0)
+        if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
-            ClearUI();
-
             hasBeenCollected = true;
-            ClosePanels();
+            CloseAllPanels();
         }
     }
 
@@ -394,9 +375,10 @@ foreach (var recipe in currentRecipeDrops)
         if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
-            ClosePanels();
+            CloseAllPanels();
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -404,10 +386,8 @@ foreach (var recipe in currentRecipeDrops)
             Debug.Log("Player entered interaction range.");
             playerInRange = true;
 
-            bool isCurrentlyLocked =
-                lockable != null &&
-                lockable.isLocked;
-            // ✅ LOCKED OBJECT
+            bool isCurrentlyLocked = lockable != null && lockable.isLocked;
+
             if (isCurrentlyLocked)
             {
                 lockIcon?.SetActive(true);
@@ -421,6 +401,7 @@ foreach (var recipe in currentRecipeDrops)
 
                 return;
             }
+
             if (hasBeenCollected)
             {
                 checkIcon?.SetActive(true);
@@ -432,12 +413,10 @@ foreach (var recipe in currentRecipeDrops)
                 checkIcon?.SetActive(false);
 
                 TutorialUIManager.Instance?.ShowStep("examineTutorial", "Hold E to examine");
-
             }
-
-
         }
     }
+
     private void ClearUI()
     {
         for (int i = ResourceContentPanel.childCount - 1; i >= 0; i--)
@@ -457,10 +436,7 @@ foreach (var recipe in currentRecipeDrops)
             lockIcon?.SetActive(false);
             holdTimer = 0f;
 
-
             TutorialUIManager.Instance?.Hide();
-
         }
     }
-
 }

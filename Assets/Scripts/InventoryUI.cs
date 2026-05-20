@@ -206,6 +206,7 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerInventory.Instance.OnInventoryChanged -= RefreshUI;
         PlayerInventory.Instance.OnInventoryChanged += RefreshUI;
 
         // DISABLE ATTACK INPUT
