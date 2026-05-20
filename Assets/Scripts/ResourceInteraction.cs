@@ -296,8 +296,8 @@ public class ResourceInteraction : MonoBehaviour
         // CLOSE LOOT PANEL
         ResourcePanel?.SetActive(false);
 
-        magnifyingGlassIcon?.SetActive(false);
-        checkIcon?.SetActive(false);
+        //magnifyingGlassIcon?.SetActive(false);
+        //checkIcon?.SetActive(false);
 
         panelOpened = false;
 
@@ -322,9 +322,26 @@ public class ResourceInteraction : MonoBehaviour
             return;
         }
 
+        List<Item> failedItems = new List<Item>();
+
+        // TRY ADD ITEMS FIRST (DON'T CLEAR YET)
         foreach (var pair in currentDropList)
         {
-            PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
+            bool success = PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
+
+            if (!success)
+            {
+                failedItems.Add(pair.Key);
+            }
+        }
+
+        // REMOVE ONLY SUCCESSFUL ITEMS
+        foreach (var pair in currentDropList.ToList())
+        {
+            if (!failedItems.Contains(pair.Key))
+            {
+                currentDropList.Remove(pair.Key);
+            }
         }
 
         foreach (var recipe in currentRecipeDrops.ToList())
@@ -335,11 +352,10 @@ public class ResourceInteraction : MonoBehaviour
             Debug.Log("Learned recipe: " + recipe.recipeName);
         }
 
-        currentDropList.Clear();
-        currentRecipeDrops.Clear();
+        // REFRESH UI FIRST (NOT CLEAR EVERYTHING YET)
+        RebuildUI();
 
-        ClearUI();
-
+        // ONLY CLOSE IF EVERYTHING IS GONE
         if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;
