@@ -180,8 +180,19 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        CampArea camp = FindFirstObjectByType<CampArea>();
+
+        // ONLY hide cursor if NOT inside campsite
+        if (camp == null || !camp.IsInCamp())
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
         if (enableTutorial && TutorialUIManager.Instance != null)
         {
