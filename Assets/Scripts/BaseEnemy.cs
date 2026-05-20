@@ -335,38 +335,60 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     // =========================
     // DAMAGE
     // =========================
-
-    public virtual void TakeDamage(float damage)
-    {
-        if (isDead) return; // ✅ important
-
-        health -= damage;
-
-        PlayRandomHurtSound();
-
-        animator.SetBool("IsHit", true);
-        Invoke(nameof(EndHit), 0.5f);
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
     protected void EndHit()
     {
         animator.SetBool("IsHit", false);
     }
 
+    public virtual void TakeDamage(float damage)
+    {
+        if (isDead)
+            return;
+
+        health -= damage;
+
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+            return; // IMPORTANT
+        }
+
+        PlayRandomHurtSound();
+
+        animator.SetBool("IsHit", true);
+
+        CancelInvoke(nameof(EndHit));
+        Invoke(nameof(EndHit), 0.5f);
+    }
+
     protected virtual void Die()
     {
-        if (isDead) return; // ✅ prevent multiple calls
+        if (isDead)
+            return;
 
-        PlaySound(enemyData.deathSound);
         isDead = true;
 
-        animator.SetBool("IsDead", true);
-        controller.enabled = false; // stop movement
+        CancelInvoke();
+        StopAllCoroutines();
+
+        isAttacking = false;
+        velocity = Vector3.zero;
+
+        if (controller != null)
+            controller.enabled = false;
+
+        // STOP ALL ANIMATOR RE-ENTRY FLOODING
+        animator.ResetTrigger("Attack");
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsHit", false);
+
+        // CRITICAL: switch to trigger instead of bool
+        animator.SetTrigger("Die");
+
+        PlaySound(enemyData.deathSound);
+
+        enabled = false; // stops Update completely
 
         StartCoroutine(DieRoutine());
     }
@@ -418,7 +440,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     {
         currentState = EnemyState.Chase;
     }
-
+    //
     public virtual void AnimEvent_ThrowRock() { }
     public virtual void AnimEvent_Spit() { }
     public virtual void AnimEvent_Summon() { }
@@ -494,288 +516,3 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         }
     }
 }
-
-//using UnityEngine;
-
-//public class BaseEnemy : MonoBehaviour
-//{
-//    private enum EnemyState { Idle, Patrol, Chase }
-//    private EnemyState currentState;
-
-//    private Animator animator;
-//    private CharacterController controller;
-
-//    [Header("Stats")]
-//    public float speed = 1.5f;
-//    public float chaseSpeed = 3f;
-//    public float gravity = -9.81f;
-//    public float health = 100f;
-
-//    private Vector3 velocity;
-//    private bool isGrounded;
-
-//    [Header("Patrol")]
-//    public float patrolDistance = 5f;
-//    public float rotationSpeed = 5f;
-//    private Vector3 startPosition;
-//    private bool movingRight = true;
-
-//    [Header("Idle")]
-//    public float idleDuration = 2f;
-//    private float idleTimer = 0f;
-
-//    [Header("Chase")]
-//    public float chaseRange = 7f;
-//    public float stoppingDistance = 1.5f;
-//    private Transform player;
-
-//    [Header("Attack")]
-//    public float attackInterval = 2f;
-//    public float attackDamage = 15f;
-//    public float attackRadius = 2f;
-//    private float attackTimer = 0f;
-//    private bool isAttacking = false;
-//    private bool hasDealtDamage = false;
-
-//    void Start()
-//    {
-//        controller = GetComponent<CharacterController>();
-//        animator = GetComponentInChildren<Animator>(); // safer
-
-//        animator.applyRootMotion = false;
-
-//        startPosition = transform.position;
-//        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-//        currentState = EnemyState.Idle;
-//        idleTimer = idleDuration;
-//    }
-
-//    void Update()
-//    {
-//        HandleGroundedCheck();
-//        ApplyGravity();
-
-//        attackTimer += Time.deltaTime;
-
-//        if (!isAttacking &&
-//            attackTimer >= attackInterval &&
-//            currentState == EnemyState.Chase)
-//        {
-//            Attack();
-//            attackTimer = 0f;
-//        }
-
-//        if (!isAttacking)
-//        {
-//            switch (currentState)
-//            {
-//                case EnemyState.Idle: HandleIdle(); break;
-//                case EnemyState.Patrol: HandlePatrol(); break;
-//                case EnemyState.Chase: HandleChase(); break;
-//            }
-//        }
-
-//        controller.Move(velocity * Time.deltaTime);
-//    }
-
-//    // =========================
-//    // CHASE (FULL 3D)
-//    // =========================
-//    private void HandleChase()
-//    {
-//        if (player == null)
-//        {
-//            currentState = EnemyState.Idle;
-//            return;
-//        }
-
-//        float distance = Vector3.Distance(transform.position, player.position);
-
-//        if (distance > stoppingDistance)
-//        {
-//            animator.SetBool("IsWalking", true);
-
-//            Vector3 dir = (player.position - transform.position).normalized;
-
-//            // ✅ FULL 3D movement
-//            velocity.x = dir.x * chaseSpeed;
-//            velocity.z = dir.z * chaseSpeed;
-
-//            // ✅ Proper 3D rotation
-//            Quaternion targetRot = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
-//            transform.rotation = Quaternion.Slerp(
-//                transform.rotation,
-//                targetRot,
-//                rotationSpeed * Time.deltaTime
-//            );
-//        }
-//        else
-//        {
-//            animator.SetBool("IsWalking", false);
-//            velocity.x = 0;
-//            velocity.z = 0;
-//        }
-
-//        if (distance > chaseRange * 1.5f)
-//        {
-//            currentState = EnemyState.Idle;
-//        }
-//    }
-
-//    // =========================
-//    // ATTACK
-//    // =========================
-//    private void Attack()
-//    {
-//        isAttacking = true;
-//        hasDealtDamage = false;
-
-//        // ✅ STOP movement BUT KEEP GRAVITY
-//        velocity.x = 0;
-//        velocity.z = 0;
-
-//        animator.SetBool("IsWalking", false);
-//        animator.SetTrigger("IsAttacking");
-
-//        Invoke(nameof(HitPlayer), 0.5f);
-//        Invoke(nameof(EndAttack), 1.0f);
-//    }
-
-//    private void HitPlayer()
-//    {
-//        if (hasDealtDamage || player == null) return;
-
-//        float distance = Vector3.Distance(transform.position, player.position);
-
-//        if (distance <= attackRadius)
-//        {
-//            PlayerHealth hp = player.GetComponent<PlayerHealth>();
-//            if (hp != null)
-//            {
-//                hp.TakeDamage((int)attackDamage);
-//                hasDealtDamage = true;
-//            }
-//        }
-//    }
-
-//    private void EndAttack()
-//    {
-//        isAttacking = false;
-//    }
-
-//    // =========================
-//    // IDLE
-//    // =========================
-//    private void HandleIdle()
-//    {
-//        animator.SetBool("IsWalking", false);
-//        velocity.x = 0;
-//        velocity.z = 0;
-
-//        if (IsPlayerInRange())
-//        {
-//            currentState = EnemyState.Chase;
-//            return;
-//        }
-
-//        idleTimer -= Time.deltaTime;
-
-//        if (idleTimer <= 0f)
-//        {
-//            idleTimer = idleDuration;
-//            currentState = EnemyState.Patrol;
-//        }
-//    }
-
-//    // =========================
-//    // PATROL (simple 3D)
-//    // =========================
-//    private void HandlePatrol()
-//    {
-//        animator.SetBool("IsWalking", true);
-
-//        float dir = movingRight ? 1f : -1f;
-
-//        velocity.x = dir * speed;
-//        velocity.z = 0;
-
-//        float yRotation = dir > 0 ? 90f : -90f;
-
-//        transform.rotation = Quaternion.Slerp(
-//            transform.rotation,
-//            Quaternion.Euler(0, yRotation, 0),
-//            rotationSpeed * Time.deltaTime
-//        );
-
-//        float dist = transform.position.x - startPosition.x;
-
-//        if (movingRight && dist >= patrolDistance)
-//        {
-//            movingRight = false;
-//            currentState = EnemyState.Idle;
-//        }
-//        else if (!movingRight && dist <= -patrolDistance)
-//        {
-//            movingRight = true;
-//            currentState = EnemyState.Idle;
-//        }
-
-//        if (IsPlayerInRange())
-//        {
-//            currentState = EnemyState.Chase;
-//        }
-//    }
-
-//    private bool IsPlayerInRange()
-//    {
-//        return player != null &&
-//               Vector3.Distance(transform.position, player.position) <= chaseRange;
-//    }
-
-//    // =========================
-//    // DAMAGE
-//    // =========================
-//    public void TakeDamage(float amount)
-//    {
-//        if (health <= 0) return;
-
-//        health -= amount;
-
-//        animator.SetBool("IsHit", true);
-//        Invoke(nameof(EndHit), 0.5f);
-
-//        if (health <= 0)
-//        {
-//            Die();
-//        }
-//    }
-
-//    private void EndHit()
-//    {
-//        animator.SetBool("IsHit", false);
-//    }
-
-//    private void Die()
-//    {
-//        Destroy(gameObject);
-//    }
-
-//    // =========================
-//    // PHYSICS
-//    // =========================
-//    private void HandleGroundedCheck()
-//    {
-//        isGrounded = controller.isGrounded;
-
-//        if (isGrounded && velocity.y < 0)
-//        {
-//            velocity.y = -2f;
-//        }
-//    }
-
-//    private void ApplyGravity()
-//    {
-//        velocity.y += gravity * Time.deltaTime;
-//    }
-//}
