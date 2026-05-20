@@ -64,8 +64,8 @@ public class ResourceInteraction : MonoBehaviour
 
     private void Update()
     {
-        if ((!playerInRange && !panelOpened) || hasBeenCollected)
-            return;
+       if ((!playerInRange && !panelOpened) || hasBeenCollected)
+    return;
 
         if (panelOpened && Keyboard.current.backquoteKey.wasPressedThisFrame)
         {

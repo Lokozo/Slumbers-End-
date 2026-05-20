@@ -11,7 +11,6 @@ public class CampArea : MonoBehaviour
 
     private bool playerWithinRange = false;
     private bool isCampSceneLoaded = false; // 🔥 Reset this properly
-    private bool isInitialized = false;
     private bool wasInCamp = false;
 
     [SerializeField] private GameObject blackOverlay;
