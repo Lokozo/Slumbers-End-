@@ -20,6 +20,10 @@ public class PlayerStats : MonoBehaviour
     public float hungerDrainInterval = 20f;
     private float hungerTimer;
 
+    [Header("Temporary Energy Buff")]
+    public float bonusRecoveryRate = 0f;
+
+    private float recoveryBuffTimer = 0f;
     // 🔥 REMOVED: static Instance - Bootstrapper handles singleton behavior
 
     private void Awake()
@@ -42,12 +46,28 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        HandleHungerDrain();
+        if (recoveryBuffTimer > 0)
+        {
+            recoveryBuffTimer -= Time.deltaTime;
+        }
+        else
+        {
+            bonusRecoveryRate = 0f;
+        }
+
+        float totalRecovery = energyRecoverRate + bonusRecoveryRate;
 
         if (energy < maxEnergy)
         {
-            ModifyEnergy(energyRecoverRate * Time.deltaTime);
+            ModifyEnergy(totalRecovery * Time.deltaTime);
         }
+    }
+    public void AddEnergyRecoveryBuff(float bonusAmount, float duration)
+    {
+        bonusRecoveryRate = bonusAmount;
+        recoveryBuffTimer = duration;
+
+        Debug.Log("Energy Recovery Buff Applied!");
     }
 
     private void HandleHungerDrain()
