@@ -3804,6 +3804,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6284628248132849576, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
   m_PrefabInstance: {fileID: 152136819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &152136824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1613085926073482514, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 152136819}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &168998478
 GameObject:
   m_ObjectHideFlags: 0
@@ -28710,6 +28715,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 152136823}
+    - target: {fileID: 8486304938411811375, guid: 589a21550802d194ba999ade6cbf9fab, type: 3}
+      propertyPath: inventoryPanel
+      value: 
+      objectReference: {fileID: 152136824}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -47293,7 +47302,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c4357946baa86d458fd10dd1c33c1d7, type: 2}
+  - {fileID: 2100000, guid: c786bb8319f20fa41aa447e0c927e24e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

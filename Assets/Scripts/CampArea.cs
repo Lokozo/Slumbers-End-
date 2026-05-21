@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -215,24 +216,43 @@ public class CampArea : MonoBehaviour
 }
 
     public IEnumerator ExitCampRoutine()
-{
-    SceneLoader loader = FindFirstObjectByType<SceneLoader>();
+    {
+        SceneLoader loader = FindFirstObjectByType<SceneLoader>();
 
-    // Fade TO black
-    if (loader != null)
-        yield return loader.StartCoroutine(loader.FadeToBlack());
+        yield return SceneManager.UnloadSceneAsync("Campsite");
 
-    yield return new WaitForSeconds(0.1f);
+        yield return null;
 
-    // Unload campsite
-    yield return SceneManager.UnloadSceneAsync("Campsite");
+        CinemachineVirtualCamera cam =
+            FindFirstObjectByType<CinemachineVirtualCamera>();
 
-    yield return null;
+        if (cam != null)
+        {
+            cam.Priority = 100;
+        }
+        // Fade TO black
+        if (loader != null)
+            yield return loader.StartCoroutine(loader.FadeToBlack());
 
-    // Fade FROM black
-    if (loader != null)
-        yield return loader.StartCoroutine(loader.FadeFromBlack());
-}
+        yield return new WaitForSeconds(0.1f);
+
+        // Unload campsite
+        yield return SceneManager.UnloadSceneAsync("Campsite");
+
+        yield return null;
+
+        // 🔥 RESTORE MAIN CAMERA
+        if (Camera.main != null)
+            Camera.main.gameObject.SetActive(true);
+
+        // 🔥 FORCE HIDE BLACK OVERLAY
+        if (blackOverlay != null)
+            blackOverlay.SetActive(false);
+
+        // Fade FROM black
+        if (loader != null)
+            yield return loader.StartCoroutine(loader.FadeFromBlack());
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
