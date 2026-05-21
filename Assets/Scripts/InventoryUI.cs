@@ -9,6 +9,7 @@ public class InventoryUI : MonoBehaviour
     public GameObject descriptionPanel;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
+    public TextMeshProUGUI consumableStatsText;
 
     [HideInInspector] public MonoBehaviour parentUI;
 
@@ -171,8 +172,32 @@ public class InventoryUI : MonoBehaviour
         if (descriptionPanel == null) return;
 
         descriptionPanel.SetActive(true);
+
         itemNameText.text = item.itemName;
         itemDescriptionText.text = item.description;
+
+        consumableStatsText.text = "";
+
+        if (item.isConsumable)
+        {
+            string stats = "";
+            if (item.healthRestoreAmount > 0)
+            {
+                stats += $"<color=yellow>+{item.healthRestoreAmount} Health</color>\n";
+            }
+
+            if (item.hungerRestoreAmount > 0)
+            {
+                stats += $"<color=#FF00FF>+{item.hungerRestoreAmount} Satiety</color>\n";
+            }
+
+            if (item.energyRestoreAmount > 0)
+            {
+                stats += $"+{item.energyRestoreAmount} Energy\n";
+            }
+
+            consumableStatsText.text = stats;
+        }
     }
 
     public void ClearDescription()
@@ -181,6 +206,8 @@ public class InventoryUI : MonoBehaviour
 
         itemNameText.text = "";
         itemDescriptionText.text = "";
+        consumableStatsText.text = "";
+
         descriptionPanel.SetActive(false);
     }
 
