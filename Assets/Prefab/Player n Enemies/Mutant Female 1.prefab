@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6684cdbbe865592468c9a76178c64982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  eyeHeight: 1.5
 --- !u!135 &8031955352052731807
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -816,7 +820,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2845160120159304015}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 78340f32fcc1502408fe27978f6e2fe4, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 76b176dac48d3dd46b9ac9a8d0188d62, type: 3}
   m_Controller: {fileID: 9100000, guid: a241d0fd130317f44a922960f9a60532, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
