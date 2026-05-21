@@ -66,7 +66,6 @@ public class ItemSlot : MonoBehaviour
         {
             if (item is WeaponItem weapon)
             {
-                quantityText.text = weapon.isEquipped ? "Equipped" : "";
             }
             else
             {
@@ -77,37 +76,56 @@ public class ItemSlot : MonoBehaviour
 
     private void Update()
     {
-        // FIX: Handle right-click in Update instead of OnClick
-        // This ensures proper input detection
-        if (Input.GetMouseButtonDown(1) && currentItem != null && currentItem.isConsumable)
+        // PRESS E TO USE SELECTED CONSUMABLE
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (PlayerInventory.Instance != null)
+            if (currentItem != null &&
+                currentItem.isConsumable &&
+                contextType == SlotContextType.Inventory)
             {
                 PlayerInventory.Instance.UseItem(currentItem);
+
+                Debug.Log("Consumed: " + currentItem.itemName);
             }
         }
     }
 
     private void OnClick()
     {
-        // FIX: Add null check for currentItem
         if (currentItem == null)
         {
-            Debug.LogWarning("OnClick called but currentItem is null!");
             return;
         }
 
-        Debug.Log("Clicked Item: " + currentItem.itemName);
-
         float timeSinceLastClick = Time.unscaledTime - lastClickTime;
 
+        // DOUBLE CLICK
         if (timeSinceLastClick <= doubleClickTime)
         {
-            TransferOne();
+            // 🔥 USE CONSUMABLES
+            if (currentItem.isConsumable)
+            {
+                // ONLY USE FROM PLAYER INVENTORY
+                if (contextType == SlotContextType.Inventory)
+                {
+                    Item usedItem = currentItem;
+
+                    PlayerInventory.Instance.UseItem(usedItem);
+
+                    Debug.Log("Consumed: " + usedItem.itemName);
+
+                    return;
+                }
+            }
+            else
+            {
+                // TRANSFER NON-CONSUMABLES
+                TransferOne();
+            }
         }
         else
         {
-            // ONLY SELECT ITEM
+            // SINGLE CLICK = SELECT ITEM
 
             if (parentUI is InventoryUI inventoryUI)
             {
@@ -165,29 +183,43 @@ public class ItemSlot : MonoBehaviour
 
         Item transferItem = currentItem;
 
-        // FIX: Check if item is equipped before transferring
+        // CHECK EQUIPPED WEAPON
         if (transferItem is WeaponItem w && w.isEquipped)
         {
             Debug.Log("Cannot transfer equipped weapon!");
             return;
         }
 
-        // FIX: Add null checks for instances
+        // 🔥 CHECK CAMP FIRST
+        CampArea camp = FindFirstObjectByType<CampArea>();
+
+        if (camp == null || !camp.IsInCamp())
+        {
+            Debug.Log("⚠️ Cannot transfer items outside campsite!");
+            return;
+        }
+
         if (contextType == SlotContextType.Inventory)
         {
-            if (CampsiteInventory.Instance != null)
-                CampsiteInventory.Instance.AddItem(transferItem, 1);
-
-            if (PlayerInventory.Instance != null)
+            // REMOVE FIRST
+            bool removed =
                 PlayerInventory.Instance.RemoveItem(transferItem, 1);
+
+            // ONLY ADD IF REMOVE SUCCEEDED
+            if (removed)
+            {
+                CampsiteInventory.Instance.AddItem(transferItem, 1);
+            }
         }
         else if (contextType == SlotContextType.Campsite)
         {
-            if (PlayerInventory.Instance != null)
-                PlayerInventory.Instance.AddItem(transferItem, 1);
-
-            if (CampsiteInventory.Instance != null)
+            bool removed =
                 CampsiteInventory.Instance.RemoveItem(transferItem, 1);
+
+            if (removed)
+            {
+                PlayerInventory.Instance.AddItem(transferItem, 1);
+            }
         }
 
         RefreshUI();
