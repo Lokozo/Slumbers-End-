@@ -1158,7 +1158,7 @@ Transform:
   m_GameObject: {fileID: 147149056}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 84.43, y: 3.4981215, z: 5.5730658}
+  m_LocalPosition: {x: 83.43, y: 3.4981215, z: 5.5730658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1782,6 +1782,7 @@ MonoBehaviour:
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 0}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 909063588}
@@ -3735,7 +3736,7 @@ Transform:
   m_GameObject: {fileID: 798220724}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17375724, y: 0.09120993, z: -0.016164858, w: 0.98042226}
-  m_LocalPosition: {x: -42.11824, y: 2.3461938, z: -1.7274218}
+  m_LocalPosition: {x: -43.118248, y: 2.3461938, z: -1.7274208}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4319,6 +4320,7 @@ MonoBehaviour:
   loadNextSceneAfterDialogue: 1
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 0}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 0}
@@ -4605,9 +4607,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: pushPromptUI
+      value: 
+      objectReference: {fileID: 2138488158}
+    - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: pushMoveSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 65536
+      objectReference: {fileID: 0}
     - target: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 84.1
+      value: 83.1
       objectReference: {fileID: 0}
     - target: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4648,6 +4666,14 @@ PrefabInstance:
     - target: {fileID: 6238039082113987673, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989472148089949161, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989472148089949161, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3800001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4856,8 +4882,7 @@ GameObject:
   - component: {fileID: 1030114229}
   - component: {fileID: 1030114228}
   - component: {fileID: 1030114232}
-  - component: {fileID: 1030114231}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Big Obstacle
   m_TagString: PushnPull
   m_Icon: {fileID: 0}
@@ -4956,18 +4981,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030114225}
   m_Mesh: {fileID: 9009893830714642796, guid: 76563d454c536534880f68bc83f2bcb1, type: 3}
---- !u!114 &1030114231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030114225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8703ba94aa014a24f915d252d867d512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PushableObject
 --- !u!54 &1030114232
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5552,6 +5565,7 @@ MonoBehaviour:
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 0}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 1587341604}
@@ -6311,7 +6325,6 @@ GameObject:
   - component: {fileID: 1411421859}
   - component: {fileID: 1411421858}
   - component: {fileID: 1411421857}
-  - component: {fileID: 1411421856}
   m_Layer: 6
   m_Name: Big Obstacle (1)
   m_TagString: PushnPull
@@ -6334,18 +6347,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1682364092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1411421856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411421854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8703ba94aa014a24f915d252d867d512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PushableObject
 --- !u!54 &1411421857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6867,6 +6868,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
   m_PrefabInstance: {fileID: 988647235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1551460125 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2391725870607900915, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 988647235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbc5bb8eed208a44b30fea26f0045ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1551460128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 433545099692938110, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 988647235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42bb95e7616e7946b6cf3f2a814fae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1579672140
 GameObject:
   m_ObjectHideFlags: 0
@@ -7570,7 +7593,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2135918452}
   m_Father: {fileID: 1718988118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1651689288
@@ -7772,10 +7796,11 @@ MonoBehaviour:
   - There it is. The Radio Tower.
   - Just gotta get past all this junk in the way.
   playOnlyOnce: 1
-  sceneLoader: {fileID: 0}
+  sceneLoader: {fileID: 1618806392}
   loadNextSceneAfterDialogue: 0
-  playerAttack: {fileID: 0}
+  playerAttack: {fileID: 1551460125}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 1551460128}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 457847667}
@@ -8335,7 +8360,7 @@ Transform:
   m_GameObject: {fileID: 1861489762}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 84.43, y: 3.4981215, z: 5.5730658}
+  m_LocalPosition: {x: 83.43, y: 3.4981215, z: 5.5730658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8531,9 +8556,8 @@ GameObject:
   - component: {fileID: 1866969515}
   - component: {fileID: 1866969514}
   - component: {fileID: 1866969518}
-  - component: {fileID: 1866969516}
   - component: {fileID: 1866969519}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Small/Vines Obstacle
   m_TagString: PushnPull
   m_Icon: {fileID: 0}
@@ -8611,18 +8635,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866969512}
   m_Mesh: {fileID: -514420134313037959, guid: 76563d454c536534880f68bc83f2bcb1, type: 3}
---- !u!114 &1866969516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866969512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8703ba94aa014a24f915d252d867d512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PushableObject
 --- !u!54 &1866969518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9991,6 +10003,42 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!1 &2135918451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2135918452}
+  m_Layer: 16
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2135918452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135918451}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1651689287}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2138488158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1055166364744695395, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 1332584761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &38758641809348402
 Transform:
   m_ObjectHideFlags: 0
@@ -10771,12 +10819,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: e6b9b44320f4448d9d5e0ee634259966, type: 2}
     - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_Mass
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_Constraints
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_LinearDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_AngularDamping
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412683304969241128, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_Constraints
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalScale.x
@@ -10792,11 +10864,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.9435577
+      value: 3.9435577
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.32715
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10842,7 +10914,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7295774912654424666, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 3320904611266286759, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

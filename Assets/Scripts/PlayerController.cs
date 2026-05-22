@@ -250,11 +250,7 @@ public class PlayerController : MonoBehaviour
         bool isPushing = pushPull != null && pushPull.IsPushing;
         HandlePushLayerWeight(isPushing);
 
-        if (isPushing)
-        {
-            pushPull.UpdatePushMovement(currentMovementInput);
-        }
-
+      
         if (enableTutorial && !hasCompletedMovementTutorial)
         {
             CheckRunTutorial();
