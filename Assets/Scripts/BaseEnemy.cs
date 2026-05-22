@@ -378,30 +378,23 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         if (controller != null)
             controller.enabled = false;
 
-        // STOP ALL ANIMATOR RE-ENTRY FLOODING
-        animator.ResetTrigger("Attack");
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsHit", false);
 
-        // CRITICAL: switch to trigger instead of bool
-        animator.SetTrigger("Die");
+        // PLAY DEATH ANIMATION DIRECTLY
+        animator.Play("BaseEnemyDeath");
 
         PlaySound(enemyData.deathSound);
-
-        enabled = false; // stops Update completely
 
         StartCoroutine(DieRoutine());
     }
 
     private IEnumerator DieRoutine()
     {
-        yield return new WaitForSeconds(2f); // wait 2 seconds
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 
-    // =========================
-    // PHYSICS
-    // =========================
 
     protected void HandleGroundedCheck()
     {
