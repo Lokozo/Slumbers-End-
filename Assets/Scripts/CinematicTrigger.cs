@@ -29,6 +29,9 @@ public class CinematicTrigger : MonoBehaviour
     [Header("Tutorial")]
     public bool showTutorialAfterDialogue;
 
+    [Header("Player")]
+    public PlayerController playerController;
+
     public string tutorialStepID;
 
     [TextArea(2, 5)]
@@ -57,6 +60,11 @@ public class CinematicTrigger : MonoBehaviour
 
     private IEnumerator PlayCinematic()
     {
+        // LOCK MOVEMENT
+        if (playerController != null)
+        {
+            playerController.movementLocked = true;
+        }
 
         // HIDE ICON
         if (cinematicIcon != null)
@@ -84,7 +92,6 @@ public class CinematicTrigger : MonoBehaviour
                 dialogueLines
             );
 
-            // wait until dialogue finishes
             yield return new WaitUntil(
                 () => DialogueManager.Instance.IsPlaying == false);
         }
@@ -93,6 +100,12 @@ public class CinematicTrigger : MonoBehaviour
         playerCam.Priority = 20;
         objectiveCam.Priority = 5;
 
+        // UNLOCK MOVEMENT
+        if (playerController != null)
+        {
+            playerController.movementLocked = false;
+        }
+
         // ENABLE ATTACK AGAIN
         if (playerAttack != null)
         {
@@ -100,13 +113,12 @@ public class CinematicTrigger : MonoBehaviour
         }
 
         if (showTutorialAfterDialogue &&
-    TutorialUIManager.Instance != null)
+            TutorialUIManager.Instance != null)
         {
             TutorialUIManager.Instance.ShowStep(
                 tutorialStepID,
                 tutorialText
             );
-            //showTutorialAfterDialogue = false; // prevent showing again if triggered multiple times
         }
 
         // LOAD NEXT SCENE

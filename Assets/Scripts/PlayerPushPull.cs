@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class PlayerPushPull : MonoBehaviour
 {
-    public float pushRange = 1.5f;
+    [Header("Detection")]
+    public float pushRange = 1f;
     public LayerMask pushableLayer;
 
-    [Header("Setup")]
-    public Transform pushPoint; // The "Push" empty object from your screenshot
+    [Header("Movement")]
+    public float moveSpeed = 2f;
 
     [Header("UI")]
     public GameObject pushPromptUI;
@@ -14,44 +15,81 @@ public class PlayerPushPull : MonoBehaviour
     private PushableObject currentObject;
     private Animator animator;
 
+    private bool hasDetectedPushable;
+
     public bool IsPushing => currentObject != null;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-    private bool hasDetectedPushable;
 
     private void Start()
     {
-        pushPromptUI = UIManager.Instance.pushPullIcon;
+        if (UIManager.Instance != null)
+        {
+            pushPromptUI = UIManager.Instance.pushPullIcon;
+        }
     }
 
     private void Update()
     {
+        DetectPushable();
+
+        if (IsPushing)
+        {
+            HandlePushPull();
+        }
+    }
+
+    void DetectPushable()
+    {
+        // HIDE UI WHILE PUSHING
         if (IsPushing)
         {
             if (pushPromptUI != null)
                 pushPromptUI.SetActive(false);
+
             return;
         }
 
-        Vector3 rayOrigin = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.2f);
+        // CHECK PLAYER FACING
+        Vector3 dir =
+            transform.localScale.x > 0
+            ? Vector3.right
+            : Vector3.left;
 
-        if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit hit, pushRange, pushableLayer))
+        Vector3 origin =
+            transform.position + Vector3.up * 0.5f;
+
+        // DETECT PUSHABLE
+        if (Physics.Raycast(
+            origin,
+            dir,
+            out RaycastHit hit,
+            pushRange,
+            pushableLayer))
         {
-            if (hit.collider.GetComponent<PushableObject>() != null)
+            PushableObject pushable =
+                hit.collider.GetComponent<PushableObject>();
+
+            if (pushable != null)
             {
                 // SHOW ICON
                 if (pushPromptUI != null)
                     pushPromptUI.SetActive(true);
 
-                //  SHOW TUTORIAL (only once)
-                TutorialUIManager.Instance?.ShowStep(
-                    "pushPullTutorial",
-                    "Press E to grab moveable objects." +
-                    "\nMove to push or pull it."    
-                );
+                // SHOW TUTORIAL ONLY ONCE
+                if (!hasDetectedPushable)
+                {
+                    hasDetectedPushable = true;
+
+                    TutorialUIManager.Instance?.ShowStep(
+                        "pushPullTutorial",
+                        "Press E to grab moveable objects." +
+                        "\nMove to push or pull it."
+                    );
+                }
 
                 return;
             }
@@ -66,44 +104,104 @@ public class PlayerPushPull : MonoBehaviour
     {
         if (IsPushing)
         {
-            // RELEASE
-            currentObject.SetPhysics(true); // Re-enable physics
-            currentObject.transform.SetParent(null);
-            currentObject = null;
-            animator.SetBool("IsPushing", false);
+            ReleaseObject();
         }
         else
         {
-            // ATTACH
-            Vector3 rayOrigin = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.2f);
-            
-            if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit hit, pushRange, pushableLayer))
-            {
-                currentObject = hit.collider.GetComponent<PushableObject>();
-                
-                if (currentObject != null)
-                {
-                    currentObject.SetPhysics(false); // Disable physics so it follows player perfectly
-
-                    currentObject.transform.SetParent(pushPoint);
-                    currentObject.transform.localPosition = Vector3.zero;
-                    currentObject.transform.localRotation = Quaternion.identity;
-
-                    animator.SetBool("IsPushing", true);
-                
-                }
-            }
+            GrabObject();
         }
     }
 
-    public void UpdatePushMovement(Vector2 moveInput)
+    void GrabObject()
     {
-        if (!IsPushing) return;
+        Vector3 dir =
+            transform.localScale.x > 0
+            ? Vector3.right
+            : Vector3.left;
 
-        // Dot product checks if you are moving in the direction you face
-        float moveValue = Vector3.Dot(new Vector3(moveInput.x, 0, moveInput.y), transform.forward);
+        Vector3 origin =
+            transform.position + Vector3.up * 0.5f;
 
-        // Use "Blend" to match your Animator screenshot
-        animator.SetFloat("Blend", moveValue);
+        if (Physics.Raycast(
+            origin,
+            dir,
+            out RaycastHit hit,
+            pushRange,
+            pushableLayer))
+        {
+            currentObject =
+                hit.collider.GetComponent<PushableObject>();
+
+            if (currentObject == null)
+                return;
+
+            animator.SetBool("IsPushing", true);
+
+            if (pushPromptUI != null)
+                pushPromptUI.SetActive(false);
+        }
+    }
+
+    void ReleaseObject()
+    {
+        animator.SetBool("IsPushing", false);
+        animator.SetFloat("Blend", 0f);
+
+        currentObject = null;
+    }
+
+    void HandlePushPull()
+    {
+        if (currentObject == null)
+            return;
+
+        float move =
+            Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Blend", move);
+
+        if (Mathf.Abs(move) < 0.1f)
+            return;
+
+        Vector3 moveDir =
+            Vector3.right * move;
+
+        float moveAmount =
+            moveSpeed * Time.deltaTime;
+
+        Collider col =
+            currentObject.GetComponent<Collider>();
+
+        if (col == null)
+            return;
+
+        Bounds bounds = col.bounds;
+
+        Vector3 boxCenter =
+            bounds.center;
+
+        Vector3 halfExtents =
+            bounds.extents * 0.95f;
+
+        // CHECK WALL COLLISION
+        bool blocked = Physics.BoxCast(
+            boxCenter,
+            halfExtents,
+            moveDir,
+            out RaycastHit hit,
+            Quaternion.identity,
+            moveAmount
+        );
+
+        // STOP IF HITTING SOMETHING
+        if (blocked)
+        {
+            if (hit.collider.gameObject != currentObject.gameObject)
+                return;
+        }
+
+        // MOVE OBJECT
+        currentObject.transform.position +=
+            moveDir * moveAmount;
     }
 }

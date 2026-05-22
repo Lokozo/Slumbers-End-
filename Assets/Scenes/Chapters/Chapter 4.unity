@@ -6306,6 +6306,7 @@ MonoBehaviour:
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 0}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 0}
@@ -15837,8 +15838,9 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
-  playerAttack: {fileID: 0}
+  playerAttack: {fileID: 1756844161}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 1756844160}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 1377538202}
@@ -16007,8 +16009,9 @@ MonoBehaviour:
   playOnlyOnce: 1
   sceneLoader: {fileID: 0}
   loadNextSceneAfterDialogue: 0
-  playerAttack: {fileID: 0}
+  playerAttack: {fileID: 1756844161}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 1756844160}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 1198478729}
@@ -51091,6 +51094,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
   m_PrefabInstance: {fileID: 1756844158}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1756844160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 433545099692938110, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 1756844158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42bb95e7616e7946b6cf3f2a814fae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1756844161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2391725870607900915, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+  m_PrefabInstance: {fileID: 1756844158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbc5bb8eed208a44b30fea26f0045ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1757696088
 GameObject:
   m_ObjectHideFlags: 0
@@ -59402,6 +59427,7 @@ MonoBehaviour:
   loadNextSceneAfterDialogue: 0
   playerAttack: {fileID: 0}
   showTutorialAfterDialogue: 0
+  playerController: {fileID: 0}
   tutorialStepID: 
   tutorialText: 
   cinematicIcon: {fileID: 0}
