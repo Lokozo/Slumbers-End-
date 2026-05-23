@@ -27,19 +27,11 @@ public class CampsiteInventoryUI : MonoBehaviour
     }
     void Update()
     {
-        // 🔥 Q = move ALL from campsite → player
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            TransferAllSelectedItem();
-        }
+        // ONLY RUN IF CAMPSITE UI IS OPEN
+        if (!gameObject.activeInHierarchy)
+            return;
 
-
-        // 🔥 ESC = close UI
-        if (Input.GetKeyDown(KeyCode.BackQuote))
-        {
-            CloseCampsite();
-        }
-
+        // CLOSE CAMP
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             CampArea camp = FindFirstObjectByType<CampArea>();
@@ -53,27 +45,6 @@ public class CampsiteInventoryUI : MonoBehaviour
         }
     }
 
-    void TransferAllSelectedItem()
-    {
-        if (selectedItem == null) return;
-
-        var playerInventory = PlayerInventory.Instance.GetInventory();
-
-        if (!playerInventory.ContainsKey(selectedItem)) return;
-
-        int amount = playerInventory[selectedItem];
-
-        // 🔥 PLAYER → CAMPSITE
-        PlayerInventory.Instance.RemoveItem(selectedItem, amount);
-        CampsiteInventory.Instance.AddItem(selectedItem, amount);
-
-        RefreshInventoryDisplay();
-
-        var playerUI = FindFirstObjectByType<InventoryUI>();
-
-        if (playerUI != null)
-            playerUI.RefreshUI();
-    }
     void CloseCampsite()
     {
         StartCoroutine(ExitCamp());

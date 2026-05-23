@@ -55,51 +55,46 @@ public class InventoryUI : MonoBehaviour
         return interaction.ResourcePanel != null &&
                interaction.ResourcePanel.activeSelf;
     }
-    void TransferAllSelectedItem()
+    public void TransferAllSelectedItem()
     {
-        Item selected = GetSelectedItem();
-
-        if (selected == null)
-        {
-            Debug.Log("No selected item.");
-            return;
-        }
-
-        // CHECK IF WEAPON IS EQUIPPED
-        if (selected is WeaponItem weaponItem)
-        {
-            PlayerController player = FindFirstObjectByType<PlayerController>();
-
-            if (player != null && player.IsWeaponEquipped(weaponItem))
-            {
-                Debug.Log("Cannot transfer equipped weapon!");
-                return;
-            }
-        }
-
         var inventory = PlayerInventory.Instance.GetInventory();
 
-        if (!inventory.ContainsKey(selected))
+        // COPY ALL ITEMS
+        var items = new System.Collections.Generic.List<Item>(inventory.Keys);
+
+        foreach (Item selected in items)
         {
-            return;
-        }
+            // CHECK IF WEAPON IS EQUIPPED
+            if (selected is WeaponItem weaponItem)
+            {
+                PlayerController player = FindFirstObjectByType<PlayerController>();
 
-        int amount = inventory[selected];
+                if (player != null && player.IsWeaponEquipped(weaponItem))
+                {
+                    Debug.Log("Cannot transfer equipped weapon!");
+                    continue;
+                }
+            }
 
-        // ADD TO CAMPSITE FIRST
-        CampsiteInventory.Instance.AddItem(selected, amount);
+            if (!inventory.ContainsKey(selected))
+            {
+                continue;
+            }
 
-        // REMOVE FROM PLAYER
-        // REMOVE FROM PLAYER
-        PlayerInventory.Instance.RemoveItem(selected, amount);
+            int amount = inventory[selected];
 
-        // CLEAR LAST CLICKED WEAPON
-        PlayerController playerController =
-            FindFirstObjectByType<PlayerController>();
+            CampsiteInventory.Instance.AddItem(selected, amount);
 
-        if (playerController != null)
-        {
-            playerController.SetLastClickedWeapon(null);
+            PlayerInventory.Instance.RemoveItem(selected, amount);
+
+            // CLEAR LAST CLICKED WEAPON
+            PlayerController playerController =
+                FindFirstObjectByType<PlayerController>();
+
+            if (playerController != null)
+            {
+                playerController.SetLastClickedWeapon(null);
+            }
         }
 
         RefreshUI();

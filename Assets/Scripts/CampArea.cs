@@ -44,6 +44,16 @@ public class CampArea : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q) && isCampSceneLoaded)
+        {
+            InventoryUI inventoryUI =
+                FindFirstObjectByType<InventoryUI>(FindObjectsInactive.Include);
+
+            if (inventoryUI != null)
+            {
+                inventoryUI.TransferAllSelectedItem();
+            }
+        }
         // 🔥 BLOCK INVENTORY IN CAMP
         if (isCampSceneLoaded && blockPlayerInventory)
         {
@@ -257,22 +267,32 @@ public class CampArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            InventoryUI inventoryUI = FindFirstObjectByType<InventoryUI>();
+            Debug.Log("✅ PLAYER ENTERED CAMP AREA");
+
+            InventoryUI inventoryUI =
+                FindFirstObjectByType<InventoryUI>(FindObjectsInactive.Include);
 
             if (inventoryUI != null)
+            {
                 inventoryUI.SetInsideCamp(true);
 
+                Debug.Log("✅ InventoryUI found - InsideCamp TRUE");
+            }
+            else
+            {
+                Debug.LogError("❌ InventoryUI NOT FOUND");
+            }
+
             playerWithinRange = true;
+
             TutorialUIManager.Instance?.ShowStep(
                 "campIntro",
-                //$"🏕️ Press E to SAVE & ENTER TENT\n📍 {playerRespawnPoint?.name ?? "None"}"
                 "Craft, cook, and upgrade here.\n" +
                 "Serves as a save and respawn point.\n" +
                 "Press E to enter."
-            ) ;
+            );
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
