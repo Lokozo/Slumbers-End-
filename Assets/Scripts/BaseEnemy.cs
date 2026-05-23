@@ -335,10 +335,10 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     // =========================
     // DAMAGE
     // =========================
-    protected void EndHit()
-    {
-        animator.SetBool("IsHit", false);
-    }
+    //protected void EndHit()
+    //{
+    //    animator.SetBool("IsHit", false);
+    //}
 
     public virtual void TakeDamage(float damage)
     {
@@ -351,15 +351,10 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         {
             health = 0;
             Die();
-            return; // IMPORTANT
+            return;
         }
 
         PlayRandomHurtSound();
-
-        animator.SetBool("IsHit", true);
-
-        CancelInvoke(nameof(EndHit));
-        Invoke(nameof(EndHit), 0.5f);
     }
 
     protected virtual void Die()
@@ -379,7 +374,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
             controller.enabled = false;
 
         animator.SetBool("IsWalking", false);
-        animator.SetBool("IsHit", false);
+        //animator.SetBool("IsHit", false);
 
         // PLAY DEATH ANIMATION DIRECTLY
         animator.Play("BaseEnemyDeath");

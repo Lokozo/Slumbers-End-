@@ -19,8 +19,7 @@ MonoBehaviour:
   isCrafted: 1
   isUsedInCrafting: 0
   isEquipped: 0
-  ammoType: 1
-  ammoPerShot: 1
+  ammoType: 0
   maxStack: 1
   maxUses: 1
   width: 1
@@ -29,7 +28,10 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0
   weaponType: 1
   damage: 13
-  maxAmmo: 7
+  requiredAmmoType: 1
+  ammoPerShot: 1
   reloadTime: 1

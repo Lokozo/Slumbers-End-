@@ -28,7 +28,6 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        // Don't destroy - parent ManagerBootstrapper handles this
         InitializeIfNeeded();
     }
 
@@ -39,13 +38,15 @@ public class PlayerStats : MonoBehaviour
 
     public void InitializeIfNeeded()
     {
-        health = Mathf.Max(health, maxHealth);
-        hunger = Mathf.Max(hunger, maxHunger);
-        energy = Mathf.Max(energy, maxEnergy);
+        health = maxHealth;
+        hunger = maxHunger;
+        energy = maxEnergy;
     }
 
     void Update()
     {
+        HandleHungerDrain();
+
         if (recoveryBuffTimer > 0)
         {
             recoveryBuffTimer -= Time.deltaTime;

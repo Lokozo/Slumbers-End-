@@ -131,15 +131,25 @@ public class PlayerInventory : MonoBehaviour
         if (item == null)
             return false;
 
-        if (IsInventoryFull(item))
-        {
-            Debug.Log("Inventory Full!");
-            return false;
-        }
-        // 🔥 NO Instantiate for weapons - use existing reference
+        // WEAPONS
         if (item is WeaponItem)
         {
+            // already owned
+            if (resourceInventory.ContainsKey(item))
+            {
+                Debug.Log("Weapon already exists!");
+                return false;
+            }
+
+            // inventory full
+            if (resourceInventory.Count >= 10)
+            {
+                Debug.Log("Inventory Full!");
+                return false;
+            }
+
             resourceInventory[item] = 1;
+
             OnInventoryChanged?.Invoke();
             return true;
         }
@@ -147,18 +157,39 @@ public class PlayerInventory : MonoBehaviour
         int currentAmount = 0;
         resourceInventory.TryGetValue(item, out currentAmount);
 
-        int newAmount = currentAmount + quantity;
+        // EXISTING STACK
+        if (resourceInventory.ContainsKey(item))
+        {
+            // STACK FULL
+            if (currentAmount + quantity > item.maxStack)
+            {
+                Debug.Log(item.itemName + " stack is full!");
+                return false;
+            }
 
-        // 🔥 APPLY MAX STACK
-        newAmount = Mathf.Min(newAmount, item.maxStack);
+            // SAFE TO ADD
+            resourceInventory[item] += quantity;
 
-        resourceInventory[item] = newAmount;
+            Debug.Log($"{item.itemName} now: {resourceInventory[item]}/{item.maxStack}");
 
-        Debug.Log($"{item.itemName} now: {newAmount}/{item.maxStack}");
+            OnInventoryChanged?.Invoke();
+            return true;
+        }
+
+        // NEW ITEM NEEDS EMPTY SLOT
+        if (resourceInventory.Count >= 10)
+        {
+            Debug.Log("Inventory Full!");
+            return false;
+        }
+
+        // CREATE NEW STACK
+        resourceInventory[item] = quantity;
+
+        Debug.Log($"{item.itemName} now: {resourceInventory[item]}/{item.maxStack}");
 
         OnInventoryChanged?.Invoke();
         return true;
-    
     }
 
     public bool HasItem(Item item, int amount)

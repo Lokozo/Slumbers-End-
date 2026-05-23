@@ -12878,7 +12878,7 @@ Transform:
   m_GameObject: {fileID: 716736800}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 60.06, y: 4.1281214, z: 5.2630653}
+  m_LocalPosition: {x: 15.33, y: 18.568123, z: 0.76306593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26175,9 +26175,9 @@ MonoBehaviour:
   TargetOffset: {x: 0.1, y: 1.5, z: 0.33}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
+    Enabled: 1
+    Time: 0.45
+    Smoothing: 10
     IgnoreY: 0
 --- !u!114 &1408198715
 MonoBehaviour:

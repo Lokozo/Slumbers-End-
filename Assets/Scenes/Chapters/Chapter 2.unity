@@ -1102,9 +1102,9 @@ MonoBehaviour:
   TargetOffset: {x: 0.1, y: 1.5, z: 0.33}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
+    Enabled: 1
+    Time: 0.45
+    Smoothing: 10
     IgnoreY: 0
 --- !u!114 &147149058
 MonoBehaviour:
@@ -4622,6 +4622,10 @@ PrefabInstance:
     - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 65536
+      objectReference: {fileID: 0}
+    - target: {fileID: 524330876806081417, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
+      propertyPath: pushableLayer.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 2822265576785357143, guid: c7badd7e782520f48b8948ee9a19b8d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8360,7 +8364,7 @@ Transform:
   m_GameObject: {fileID: 1861489762}
   serializedVersion: 2
   m_LocalRotation: {x: 0.061571185, y: 0, z: 0, w: 0.9981027}
-  m_LocalPosition: {x: 83.43, y: 3.4981215, z: 5.5730658}
+  m_LocalPosition: {x: 15.33, y: 18.568123, z: 0.76306593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10868,7 +10872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3746482032585479425, guid: 4e6e3c81ac643834da4eaf325be0d123, type: 3}
       propertyPath: m_LocalPosition.z
