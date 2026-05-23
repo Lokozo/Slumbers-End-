@@ -15,7 +15,7 @@ public class TumorCheck : MonoBehaviour
     public Item lighterItem;
 
     [Header("Optional Cinematic")]
-    public CinematicTrigger tumorTrigger;
+    public CutsceneTrigger tumorCutscene;
 
     [Header("Ladder")]
     public Ladder basementLadder;
@@ -62,7 +62,7 @@ public class TumorCheck : MonoBehaviour
             Debug.Log("Tumor Burned");
 
             // Optional cinematic
-            if (tumorTrigger != null)
+            if (tumorCutscene != null)
             {
                 StartCoroutine(StartTumorEvent());
             }
@@ -77,6 +77,8 @@ public class TumorCheck : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        tumorTrigger.PlayExternally();
+        CutsceneManager.Instance.PlayCutscene(
+    tumorCutscene.cutsceneParent
+);
     }
 }
