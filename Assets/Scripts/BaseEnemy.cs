@@ -378,7 +378,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
         // PLAY DEATH ANIMATION DIRECTLY
         animator.Play("BaseEnemyDeath");
-
+        animator.SetTrigger("Die");
         PlaySound(enemyData.deathSound);
 
         StartCoroutine(DieRoutine());
