@@ -104,10 +104,25 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator HandleDeath()
     {
-        // Wait for death animation
-        yield return new WaitForSeconds(4f);
+        SceneLoader loader = FindFirstObjectByType<SceneLoader>();
 
+        // Wait for death animation
+        yield return new WaitForSeconds(1.5f);
+
+        // FADE TO BLACK
+        if (loader != null)
+            yield return StartCoroutine(loader.FadeToBlack());
+
+        yield return new WaitForSeconds(0.2f);
+
+        // RESPAWN
         Respawn();
+
+        yield return new WaitForSeconds(0.2f);
+
+        // FADE BACK IN
+        if (loader != null)
+            yield return StartCoroutine(loader.FadeFromBlack());
     }
 
     void Respawn()

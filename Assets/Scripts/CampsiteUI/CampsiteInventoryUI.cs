@@ -57,19 +57,20 @@ public class CampsiteInventoryUI : MonoBehaviour
     {
         if (selectedItem == null) return;
 
-        var inventory = CampsiteInventory.Instance.GetInventory();
+        var playerInventory = PlayerInventory.Instance.GetInventory();
 
-        if (!inventory.ContainsKey(selectedItem)) return;
+        if (!playerInventory.ContainsKey(selectedItem)) return;
 
-        int amount = inventory[selectedItem];
+        int amount = playerInventory[selectedItem];
 
-        // 🔥 THIS is the reverse transfer
-        CampsiteInventory.Instance.RemoveItem(selectedItem, amount);
-        PlayerInventory.Instance.AddItem(selectedItem, amount);
+        // 🔥 PLAYER → CAMPSITE
+        PlayerInventory.Instance.RemoveItem(selectedItem, amount);
+        CampsiteInventory.Instance.AddItem(selectedItem, amount);
 
         RefreshInventoryDisplay();
 
         var playerUI = FindFirstObjectByType<InventoryUI>();
+
         if (playerUI != null)
             playerUI.RefreshUI();
     }

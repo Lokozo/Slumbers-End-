@@ -318,28 +318,45 @@ public class ResourceInteraction : MonoBehaviour
     {
         if (PlayerInventory.Instance == null)
         {
-            Debug.LogError("PlayerInventory instance is missing in the scene!");
+            Debug.LogError("PlayerInventory instance is missing!");
             return;
         }
 
+        List<Item> collectedItems = new List<Item>();
+
         foreach (var pair in currentDropList)
         {
-            PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
+            bool added = PlayerInventory.Instance.AddItem(pair.Key, pair.Value);
+
+            if (added)
+            {
+                collectedItems.Add(pair.Key);
+            }
+            else
+            {
+                Debug.Log("Inventory Full! Could not collect: " + pair.Key.itemName);
+            }
         }
 
+        // ONLY REMOVE successfully collected items
+        foreach (Item item in collectedItems)
+        {
+            currentDropList.Remove(item);
+        }
+
+        // Recipes
         foreach (var recipe in currentRecipeDrops.ToList())
         {
             if (RecipeManager.Instance != null)
+            {
                 RecipeManager.Instance.UnlockRecipe(recipe);
-
-            Debug.Log("Learned recipe: " + recipe.recipeName);
+                currentRecipeDrops.Remove(recipe);
+            }
         }
 
-        currentDropList.Clear();
-        currentRecipeDrops.Clear();
+        RebuildUI();
 
-        ClearUI();
-
+        // ONLY EMPTY = collected
         if (currentDropList.Count == 0 && currentRecipeDrops.Count == 0)
         {
             hasBeenCollected = true;

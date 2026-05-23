@@ -224,20 +224,22 @@ public class PlayerAttack : MonoBehaviour
     // 🔥 CLOSEST ENEMY DAMAGE
     public void AnimEvent_DealDamage()
     {
-        Debug.Log($"💥 [ATTACK] {currentWeaponData?.itemName} - Damage: {currentWeaponData?.damage}");
+        if (currentWeaponData == null)
+            return;
 
-        // 🪓 MELEE WEAPONS (No ammo needed)
+        // 🪓 MELEE
         if (currentWeaponData.weaponType == WeaponItem.WeaponType.Melee)
         {
             PlayerStats.Get().ModifyEnergy(-staminaCostPerAttack);
+
             DealMeleeDamage();
             return;
         }
 
-        // 🔫 RANGED WEAPONS (Ammo required!)
+        // 🔫 RANGED
         if (!ConsumeAmmo())
         {
-            Debug.Log("❌ OUT OF AMMO!");
+            ResetCombo();
             return;
         }
 

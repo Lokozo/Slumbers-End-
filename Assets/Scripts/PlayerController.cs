@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayFootstep()
     {
-        Debug.Log("FOOTSTEP");
         if (footstepClips.Length == 0) return;
 
         AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
@@ -161,8 +160,6 @@ public class PlayerController : MonoBehaviour
 
     public void PlayRunFootstep()
     {
-        Debug.Log("running");
-
         if (runFootstepClips.Length == 0) return;
 
         AudioClip clip = runFootstepClips[Random.Range(0, runFootstepClips.Length)];
@@ -434,30 +431,35 @@ public class PlayerController : MonoBehaviour
     {
         if (!controller.enabled) return;
 
-        // 1. Determine Speed & Energy Consumption
-        if (isRunPressed && isMovementPressed && !pushing)
+        PlayerStats stats = PlayerStats.Get();
+
+        bool canRun = stats != null && stats.energy > 1f;
+
+        // RUN
+        if (isRunPressed && isMovementPressed && !pushing && canRun)
         {
             speed = origSpeed * runMulti;
-            if (PlayerStats.Get() != null)
-                PlayerStats.Get().ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
+
+            stats.ModifyEnergy(-energyCostPerSecond * Time.deltaTime);
 
             animator.SetBool("IsRunning", true);
         }
         else
         {
+            // WALK
             speed = pushing ? origSpeed * 0.5f : origSpeed;
+
             animator.SetBool("IsRunning", false);
         }
 
         animator.SetBool("IsWalking", isMovementPressed);
 
-        // 2. Direction logic
         Vector3 moveDir = new Vector3(currentMovementInput.x, 0f, currentMovementInput.y);
 
-        // 3. Apply Rotation (only if not pushing AND not climbing)
         if (moveDir.sqrMagnitude > 0.01f && !pushing && !isClimbing)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveDir);
+
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRot,
@@ -465,7 +467,6 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        // 4. Final Movement
         controller.Move(moveDir.normalized * speed * Time.deltaTime + velocity * Time.deltaTime);
     }
 

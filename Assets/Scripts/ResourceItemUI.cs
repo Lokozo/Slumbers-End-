@@ -42,7 +42,17 @@ public class ResourceItemUI : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        PlayerInventory.Instance.AddItem(item, 1);
+        // TRY ADDING ITEM
+        bool added = PlayerInventory.Instance.AddItem(item, 1);
+
+        // INVENTORY FULL = STOP
+        if (!added)
+        {
+            Debug.Log("Inventory full - item stays in loot");
+            return;
+        }
+
+        // ONLY REMOVE IF SUCCESSFULLY ADDED
         amount--;
 
         parent.RemoveItem(item, 1);
@@ -53,7 +63,9 @@ public class ResourceItemUI : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            var text = transform.Find("ItemAmount")?.GetComponent<TMPro.TextMeshProUGUI>();
+            var text = transform.Find("ItemAmount")
+                ?.GetComponent<TMPro.TextMeshProUGUI>();
+
             if (text != null)
                 text.text = "x" + amount;
         }
