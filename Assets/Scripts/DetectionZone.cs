@@ -12,7 +12,7 @@ public class EnemyDetection : MonoBehaviour
     {
         enemy = GetComponentInParent<BaseEnemy>();
     }
-
+    /*
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -43,6 +43,28 @@ public class EnemyDetection : MonoBehaviour
             dir,
             distance,
             obstacleMask))
+        {
+            enemy.SetPlayer(ph.transform);
+            enemy.SetStateChase();
+        }
+    }
+    */
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+        PlayerHealth ph = other.GetComponentInParent<PlayerHealth>();
+        if (ph == null) return;
+
+        Vector3 enemyEye = transform.position + Vector3.up * eyeHeight;
+        Vector3 playerEye = ph.transform.position + Vector3.up * 1.5f;
+        Vector3 dir = (playerEye - enemyEye).normalized;
+        float distance = Vector3.Distance(enemyEye, playerEye);
+
+        // 🔥 This will draw a bright red line in your Scene View when the player enters the zone
+        Debug.DrawLine(enemyEye, playerEye, Color.red, 2f);
+
+        if (!Physics.Raycast(enemyEye, dir, distance, obstacleMask))
         {
             enemy.SetPlayer(ph.transform);
             enemy.SetStateChase();

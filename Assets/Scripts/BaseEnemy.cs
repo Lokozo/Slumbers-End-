@@ -53,7 +53,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     public EnemyAttackRadius attackRadiusTrigger;
     protected float attackTimer = 0f;
 
-    void Start()
+    public void Start()
     {
         controller = GetComponent<CharacterController>();
 

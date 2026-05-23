@@ -24,7 +24,7 @@ public class MenuGlowPlace : MonoBehaviour
     private RectTransform rect;
     private Vector3 startScale;
 
-    void Start()
+    public void Start()
     {
         img = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
