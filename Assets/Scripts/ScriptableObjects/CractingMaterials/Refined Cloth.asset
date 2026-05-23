@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 'More durable cloth.
 
 '
-  icon: {fileID: 21300000, guid: acf3e3c3773e2cb44b0863cac4adf4d9, type: 2}
+  icon: {fileID: 21300000, guid: b40f74b448d87e348b3a450a898fdd3d, type: 3}
   itemType: 0
   isCrafted: 1
   isUsedInCrafting: 1
@@ -30,3 +30,5 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0
