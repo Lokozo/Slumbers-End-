@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3d1bf65b4e50d7b42a455fe219304b1a, type: 2}
+    - target: {fileID: 3369351946991425238, guid: 4037c2d5b58c83e46baddf409a28454f, type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 1240250018707908, guid: 5656e7ea1f1a75d4c895547ec2b824b3, type: 3}
     - target: {fileID: 4793142174520884834, guid: 4037c2d5b58c83e46baddf409a28454f, type: 3}
       propertyPath: m_UseGravity
       value: 0

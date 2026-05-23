@@ -53,7 +53,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     public EnemyAttackRadius attackRadiusTrigger;
     protected float attackTimer = 0f;
 
-    void Start()
+    public void Start()
     {
         controller = GetComponent<CharacterController>();
 
@@ -378,7 +378,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
         // PLAY DEATH ANIMATION DIRECTLY
         animator.Play("BaseEnemyDeath");
-
+        animator.SetTrigger("Die");
         PlaySound(enemyData.deathSound);
 
         StartCoroutine(DieRoutine());
