@@ -68,10 +68,12 @@ public class CutsceneManager : MonoBehaviour
 
     #region PUBLIC ENTRY
 
-    public void PlayCutscene(GameObject cutsceneParent)
-    {
-        StartCoroutine(PlayWithFadeRoutine(cutsceneParent));
-    }
+    //public void PlayCutscene(GameObject cutsceneParent)
+    //{
+    //    StartCoroutine(PlayWithFadeRoutine(cutsceneParent));
+    //}
+
+    public void PlayCutscene(GameObject cutsceneParent) { StartCoroutine(PlayWithFadeRoutine(cutsceneParent)); }
 
     private IEnumerator PlayRoutine(GameObject cutsceneParent)
     {
@@ -246,6 +248,7 @@ public class CutsceneManager : MonoBehaviour
 
         yield return StartCoroutine(Fade(0, endFadeDuration));
 
+     
         SceneLoader loader = FindFirstObjectByType<SceneLoader>();
 
         if (loader != null)

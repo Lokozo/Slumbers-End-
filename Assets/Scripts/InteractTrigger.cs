@@ -19,5 +19,6 @@ public class InteractTrigger : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         UIManager.Instance.ladderHoldEIcon.SetActive(false);
+        TutorialUIManager.Instance.Hide();
     }
 }
