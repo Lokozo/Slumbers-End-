@@ -26,7 +26,7 @@ MonoBehaviour:
   height: 1
   isConsumable: 0
   healthRestoreAmount: 0
-  hungerRestoreAmount: 30
+  hungerRestoreAmount: 0
   energyRestoreAmount: 0
   energyRecoveryBonus: 0
   energyRecoveryDuration: 0
