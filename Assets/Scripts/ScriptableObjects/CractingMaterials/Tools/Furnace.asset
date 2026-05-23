@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Furnace
   description: Used to smelt raw scraps.
-  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  icon: {fileID: 1139461691, guid: d7bf1c7d7913ae44490a163f2c661387, type: 3}
   itemType: 0
   isCrafted: 1
   isUsedInCrafting: 1
@@ -28,3 +28,5 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 0
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0

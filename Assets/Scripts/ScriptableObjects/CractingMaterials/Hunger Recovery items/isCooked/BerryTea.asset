@@ -28,3 +28,5 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 18
   energyRestoreAmount: 0
+  energyRecoveryBonus: 10
+  energyRecoveryDuration: 300

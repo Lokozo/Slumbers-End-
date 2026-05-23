@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Sweet Trail Mix
   description: A lightweight snack packed with natural sugar and dry energy.
-  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  icon: {fileID: 21300000, guid: f502b7bd12cb83b4fa8bb427b2285def, type: 3}
   itemType: 1
   isCrafted: 1
-  isUsedInCrafting: 0
+  isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
   maxStack: 1
@@ -28,3 +28,5 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 18
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0
