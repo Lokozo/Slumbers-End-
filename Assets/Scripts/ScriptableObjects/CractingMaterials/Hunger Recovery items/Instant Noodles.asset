@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Instant Noodles
   description: Dried noodles that cook quickly.
-  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  icon: {fileID: 21300000, guid: a9a45657478cbf3489920d09ed16a554, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
@@ -26,5 +26,7 @@ MonoBehaviour:
   height: 1
   isConsumable: 0
   healthRestoreAmount: 0
-  hungerRestoreAmount: 0
+  hungerRestoreAmount: 30
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0

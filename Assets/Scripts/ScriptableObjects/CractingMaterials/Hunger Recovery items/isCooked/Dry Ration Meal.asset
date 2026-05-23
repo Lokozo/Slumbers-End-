@@ -15,10 +15,10 @@ MonoBehaviour:
   itemName: Dry Ration Meal
   description: A dense survival ration combining dry carbs and preserved protein.
     Highly filling and reliable in emergencies.
-  icon: {fileID: 3643772185187624922, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  icon: {fileID: 21300000, guid: f4d21e86ba50c9a47a4f6d56a009222c, type: 3}
   itemType: 1
   isCrafted: 1
-  isUsedInCrafting: 0
+  isUsedInCrafting: 1
   isEquipped: 0
   ammoType: 0
   maxStack: 1
@@ -29,3 +29,5 @@ MonoBehaviour:
   healthRestoreAmount: 0
   hungerRestoreAmount: 60
   energyRestoreAmount: 0
+  energyRecoveryBonus: 0
+  energyRecoveryDuration: 0
