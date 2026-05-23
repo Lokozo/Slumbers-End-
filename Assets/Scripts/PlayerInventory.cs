@@ -191,7 +191,10 @@ public class PlayerInventory : MonoBehaviour
         OnInventoryChanged?.Invoke();
         return true;
     }
-
+    public bool HasItem(Item item)
+    {
+        return resourceInventory.ContainsKey(item);
+    }
     public bool HasItem(Item item, int amount)
     {
         return resourceInventory.ContainsKey(item) && resourceInventory[item] >= amount;

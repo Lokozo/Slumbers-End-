@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class BreakableObject : MonoBehaviour
@@ -6,6 +6,13 @@ public class BreakableObject : MonoBehaviour
     public static event Action OnAnyBreakableDestroyed;
 
     public int health = 30;
+
+    private PuzzleBreakable pb;
+
+    private void Awake()
+    {
+        pb = GetComponent<PuzzleBreakable>();
+    }
 
     public void TakeDamage(int damage)
     {
@@ -19,6 +26,12 @@ public class BreakableObject : MonoBehaviour
 
     private void DestroyObject()
     {
+        // 🔥 PUZZLE CHECK
+        if (pb != null)
+        {
+            pb.PuzzleDestroyed();
+        }
+
         OnAnyBreakableDestroyed?.Invoke();
 
         Destroy(gameObject);
