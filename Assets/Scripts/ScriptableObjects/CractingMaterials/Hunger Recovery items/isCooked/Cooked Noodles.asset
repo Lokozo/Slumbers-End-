@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Cooked Noodles
   description: A quick hot meal made from rehydrated noodles. Fills hunger fast but
     offers little long-term nourishment.
-  icon: {fileID: 21300000, guid: afc78a84b0a64a34e8f0fb668d2bcca7, type: 3}
+  icon: {fileID: 21300000, guid: 829607261a580d940983f022818a6ddc, type: 3}
   itemType: 1
   isCrafted: 1
   isUsedInCrafting: 1
