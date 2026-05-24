@@ -45,11 +45,19 @@ public class RecipeManager : MonoBehaviour
         }
     }
 
+
     public bool IsRecipeUnlocked(CraftingRecipe recipe)
     {
+        // DEVELOPER MODE = UNLOCK EVERYTHING
+        if (DeveloperMode.Instance != null &&
+            DeveloperMode.Instance.developerModeEnabled &&
+            DeveloperMode.Instance.unlockAllRecipes)
+        {
+            return true;
+        }
+
         return unlockedRecipes.Contains(recipe);
     }
-
     public List<CraftingRecipe> GetUnlockedRecipes()
     {
         return new List<CraftingRecipe>(unlockedRecipes);

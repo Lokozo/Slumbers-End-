@@ -172,34 +172,62 @@ public class CraftingMenuController : MonoBehaviour
             return;
         }
 
-        // CHECK INGREDIENTS
-        foreach (var ingredient in selectedRecipe.ingredients)
+        bool devMode =
+     DeveloperMode.Instance != null &&
+     DeveloperMode.Instance.developerModeEnabled &&
+     DeveloperMode.Instance.ignoreCraftingRequirements;
+
+        if (!devMode)
         {
-            if (!PlayerInventory.Instance.HasItem(
-                ingredient.item,
-                ingredient.amount))
+            // CHECK INGREDIENTS
+            foreach (var ingredient in selectedRecipe.ingredients)
             {
-                Debug.Log("Not enough resources.");
-                return;
+                if (!PlayerInventory.Instance.HasItem(
+                    ingredient.item,
+                    ingredient.amount))
+                {
+                    Debug.Log("Not enough resources.");
+                    return;
+                }
             }
         }
 
-        // REMOVE INGREDIENTS
-        foreach (var ingredient in selectedRecipe.ingredients)
+        // REMOVE INGREDIENTS ONLY IF NOT IN DEV MODE
+        if (!devMode)
         {
-            PlayerInventory.Instance.RemoveItem(
-                ingredient.item,
-                ingredient.amount);
+            foreach (var ingredient in selectedRecipe.ingredients)
+            {
+                PlayerInventory.Instance.RemoveItem(
+                    ingredient.item,
+                    ingredient.amount);
+            }
         }
 
         // ADD RESULT
-        PlayerInventory.Instance.AddItem(
-            selectedRecipe.resultItem,
-            selectedRecipe.resultAmount);
+        CampArea camp = FindFirstObjectByType<CampArea>();
 
-        Debug.Log(
-            $"Crafted {selectedRecipe.resultAmount}x {selectedRecipe.resultItem.itemName}");
+        // IF INSIDE CAMP -> ADD TO CAMPSITE
+        if (camp != null && camp.IsInCamp())
+        {
+            CampsiteInventory.Instance.AddItem(
+                selectedRecipe.resultItem,
+                selectedRecipe.resultAmount);
 
+            Debug.Log(
+                $"Crafted {selectedRecipe.resultAmount}x {selectedRecipe.resultItem.itemName} to Campsite Inventory");
+        }
+        else
+        {
+            // NORMAL CRAFTING
+            PlayerInventory.Instance.AddItem(
+                selectedRecipe.resultItem,
+                selectedRecipe.resultAmount);
+
+            Debug.Log(
+                $"Crafted {selectedRecipe.resultAmount}x {selectedRecipe.resultItem.itemName}");
+        }
+
+     
         // UNLOCK STATION IF THIS ITEM IS A STATION
         if (selectedRecipe.resultItem.itemName == "Workbench")
         {

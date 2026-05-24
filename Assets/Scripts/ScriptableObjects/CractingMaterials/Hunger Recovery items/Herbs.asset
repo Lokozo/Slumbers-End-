@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Herbs
   description: Wild plants used for basic healing and survival crafting.
-  icon: {fileID: 21300000, guid: 054b7b2aadf7f29499454e09bd911cfd, type: 3}
+  icon: {fileID: 21300000, guid: c2c5d6b0034136640b8e591449c5b743, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1

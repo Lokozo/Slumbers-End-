@@ -30,6 +30,18 @@ public class InventoryUI : MonoBehaviour
 
     void Update()
     {
+        // USE SELECTED CONSUMABLE
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (selectedItem != null &&
+                selectedItem.isConsumable)
+            {
+                PlayerInventory.Instance.UseItem(selectedItem);
+
+                Debug.Log("Consumed: " + selectedItem.itemName);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Q) && isInsideCamp)
         {
             TransferAllSelectedItem();

@@ -47,6 +47,20 @@ public class PlayerStats : MonoBehaviour
     {
         HandleHungerDrain();
 
+        // DEVELOPER MODE
+        if (DeveloperMode.Instance != null &&
+            DeveloperMode.Instance.developerModeEnabled)
+        {
+            if (DeveloperMode.Instance.unlimitedHealth)
+                health = maxHealth;
+
+            if (DeveloperMode.Instance.unlimitedHunger)
+                hunger = maxHunger;
+
+            if (DeveloperMode.Instance.unlimitedEnergy)
+                energy = maxEnergy;
+        }
+
         if (recoveryBuffTimer > 0)
         {
             recoveryBuffTimer -= Time.deltaTime;
