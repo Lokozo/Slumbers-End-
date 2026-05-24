@@ -76,18 +76,7 @@ public class ItemSlot : MonoBehaviour
 
     private void Update()
     {
-        // PRESS E TO USE SELECTED CONSUMABLE
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (currentItem != null &&
-                currentItem.isConsumable &&
-                contextType == SlotContextType.Inventory)
-            {
-                PlayerInventory.Instance.UseItem(currentItem);
-
-                Debug.Log("Consumed: " + currentItem.itemName);
-            }
-        }
+      
     }
 
     private void OnClick()
@@ -102,26 +91,21 @@ public class ItemSlot : MonoBehaviour
         // DOUBLE CLICK
         if (timeSinceLastClick <= doubleClickTime)
         {
-            // 🔥 USE CONSUMABLES
-            if (currentItem.isConsumable)
+            // CONSUMABLE IN PLAYER INVENTORY = USE
+            if (currentItem.isConsumable &&
+                contextType == SlotContextType.Inventory)
             {
-                // ONLY USE FROM PLAYER INVENTORY
-                if (contextType == SlotContextType.Inventory)
-                {
-                    Item usedItem = currentItem;
+                Item usedItem = currentItem;
 
-                    PlayerInventory.Instance.UseItem(usedItem);
+                PlayerInventory.Instance.UseItem(usedItem);
 
-                    Debug.Log("Consumed: " + usedItem.itemName);
+                Debug.Log("Consumed: " + usedItem.itemName);
 
-                    return;
-                }
+                return;
             }
-            else
-            {
-                // TRANSFER NON-CONSUMABLES
-                TransferOne();
-            }
+
+            // OTHERWISE TRANSFER
+            TransferOne();
         }
         else
         {
@@ -213,12 +197,18 @@ public class ItemSlot : MonoBehaviour
         }
         else if (contextType == SlotContextType.Campsite)
         {
-            bool removed =
-                CampsiteInventory.Instance.RemoveItem(transferItem, 1);
-
-            if (removed)
-            {
+            // TRY ADDING TO PLAYER FIRST
+            bool added =
                 PlayerInventory.Instance.AddItem(transferItem, 1);
+
+            // ONLY REMOVE FROM CAMPSITE IF ADD SUCCEEDED
+            if (added)
+            {
+                CampsiteInventory.Instance.RemoveItem(transferItem, 1);
+            }
+            else
+            {
+                Debug.Log("Player inventory full!");
             }
         }
 

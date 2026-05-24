@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Crackers
   description: Dry, hardened biscuits that last long and fill the stomach in a pinch.
-  icon: {fileID: 21300000, guid: 0bbf95c5b22e7d84db3cf47410224a9b, type: 3}
+  icon: {fileID: 21300000, guid: c6c3851861c11454abeb09fdbe2426ec, type: 3}
   itemType: 1
   isCrafted: 0
   isUsedInCrafting: 1

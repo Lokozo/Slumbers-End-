@@ -4896,6 +4896,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f8413d694261647b08c546eb4953af, type: 3}
+--- !u!114 &1023220945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2507223056970601964, guid: a2ca7c1f7508d364e8c9aaf7d9011823, type: 3}
+  m_PrefabInstance: {fileID: 620160970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &1034212589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23f8413d694261647b08c546eb4953af, type: 3}
@@ -6716,7 +6727,7 @@ PrefabInstance:
       objectReference: {fileID: 21789008}
     - target: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.76
+      value: 28.259998
       objectReference: {fileID: 0}
     - target: {fileID: 3501050479223707221, guid: 04d9a3c97e115384594d2c694005e6fc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7794,8 +7805,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 777a4c9d970e865429f100c86f8f32ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1771931517}
   m_SourcePrefab: {fileID: 100100000, guid: 777a4c9d970e865429f100c86f8f32ec, type: 3}
+--- !u!1 &1771931516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 777a4c9d970e865429f100c86f8f32ec, type: 3}
+  m_PrefabInstance: {fileID: 1771931515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1771931517
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771931516}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 10, z: 1}
+  m_Center: {x: 0, y: 5, z: 9}
 --- !u!1001 &1797505958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9739,11 +9779,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 314751599087480567, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -54.09
+      value: -54.59
       objectReference: {fileID: 0}
     - target: {fileID: 314751599087480567, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.92
+      value: 1.9200001
       objectReference: {fileID: 0}
     - target: {fileID: 314751599087480567, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9836,7 +9876,7 @@ PrefabInstance:
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.data[2].item
       value: 
-      objectReference: {fileID: 11400000, guid: fd465c51d09d8b14fafd6f2a910c31ef, type: 2}
+      objectReference: {fileID: 11400000, guid: b6037d2c663b64243890b72eee0ae568, type: 2}
     - target: {fileID: 5632798566875334807, guid: ec7b48363b95ecd4b93b1024445fcac8, type: 3}
       propertyPath: possibleDrops.Array.data[3].item
       value: 
@@ -10032,6 +10072,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2155682120258581758, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
       propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174788556522823810, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: developerModeText
+      value: 
+      objectReference: {fileID: 1023220945}
+    - target: {fileID: 2174788556522823810, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}
+      propertyPath: developerModeEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3076337899235451461, guid: 9fec7b15b1db0c843845751cb5dd150d, type: 3}

@@ -133,7 +133,42 @@ public class CampsiteInventoryUI : MonoBehaviour
         itemDescriptionText.text = "";
         descriptionPanel.SetActive(false);
     }
+    public void TransferSelectedItemToPlayer()
+    {
+        if (selectedItem == null)
+            return;
 
+        var inventory = CampsiteInventory.Instance.GetInventory();
+
+        if (!inventory.ContainsKey(selectedItem))
+            return;
+
+        int amount = 1; // ONLY TRANSFER 1 ITEM
+
+        if (PlayerInventory.Instance.IsInventoryFull(selectedItem))
+        {
+            Debug.Log("Player inventory full!");
+            return;
+        }
+
+        bool added =
+            PlayerInventory.Instance.AddItem(selectedItem, amount);
+
+        if (!added)
+            return;
+
+        CampsiteInventory.Instance.RemoveItem(selectedItem, amount);
+
+        RefreshInventoryDisplay();
+
+        InventoryUI inventoryUI =
+            FindFirstObjectByType<InventoryUI>();
+
+        if (inventoryUI != null)
+            inventoryUI.RefreshUI();
+
+        ClearSelectedItem();
+    }
     private void OnEnable()
     {
         StartCoroutine(WaitForInventory());

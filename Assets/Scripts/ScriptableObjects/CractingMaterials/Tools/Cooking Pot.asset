@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699c362b845bba249a82952d46c9896a, type: 3}
   m_Name: Cooking Pot
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
-  recipeIcon: {fileID: -346396116, guid: 7ed0cfd8c98b8b24c8003117ad918b30, type: 3}
+  recipeIcon: {fileID: 21300000, guid: f0618f545b21c704db998f614ecbc347, type: 3}
   recipeName: Cooking Pot
   resultItem: {fileID: 0}
   resultAmount: 1

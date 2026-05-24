@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Coffee Powder
   description: Ground coffee.
-  icon: {fileID: 21300000, guid: 43ce626548d9a5f45b3a44cf915171eb, type: 3}
+  icon: {fileID: 21300000, guid: 9e584e70afe02d945b3758bb70fc7329, type: 3}
   itemType: 0
   isCrafted: 0
   isUsedInCrafting: 1
