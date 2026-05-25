@@ -7,7 +7,7 @@ using static WeaponItem;
 public class PlayerController : MonoBehaviour
 {
     private InputSystem_Actions playerInputs;
-    private Animator animator;
+    public Animator animator;
     private CharacterController controller;
     private PlayerStats stats; // Assumed for energy logic
     private PlayerAttack playerAttack;
@@ -231,6 +231,15 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsRunning", false);
             return;
         }
+        GoToStairs stairs = GetComponent<GoToStairs>();
+
+        if (stairs != null && stairs.IsMovingByStairs)
+        {
+            animator.SetBool("IsWalking", true);
+            animator.SetBool("IsRunning", false);
+            return;
+        }
+
         if (isClimbing || movementLocked || (playerAttack != null && playerAttack.IsAttacking()))
         {
             animator.SetBool("IsWalking", false);
