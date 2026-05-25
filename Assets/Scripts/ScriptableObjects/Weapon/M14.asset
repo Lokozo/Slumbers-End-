@@ -35,3 +35,10 @@ MonoBehaviour:
   requiredAmmoType: 2
   ammoPerShot: 1
   reloadTime: 1
+  fireEffects: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
+  fireClips:
+  - {fileID: 8300000, guid: fe5eb738887b7e64aa4e8842dba25055, type: 3}
+  - {fileID: 8300000, guid: bc32d9bf02c0ffb428bd4c2d5a9dc318, type: 3}
+  - {fileID: 8300000, guid: 240b4624bf1487343bdacda7fc63774d, type: 3}
+  - {fileID: 8300000, guid: 28f5fc2e759e6c847b325b86be3cf129, type: 3}
+  volume: 1

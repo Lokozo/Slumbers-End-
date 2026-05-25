@@ -323,8 +323,22 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // 🔥 NEW: Ranged damage only  
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gunShotSFX;
+
+    [SerializeField] private Transform muzzleNozzlePoint;
+
+    [SerializeField] private LineRenderer tracerEffectPrefab;
+
     private void DealRangedDamage()
     {
+        if (muzzleFlash != null)
+            muzzleFlash.Play();
+
+        if (audioSource != null && gunShotSFX != null)
+            audioSource.PlayOneShot(gunShotSFX);
+
         List<BaseEnemy> targets = gunRange.detectedEnemies;
 
         if (targets != null && targets.Count > 0)
@@ -332,12 +346,51 @@ public class PlayerAttack : MonoBehaviour
             foreach (BaseEnemy enemy in targets)
             {
                 if (enemy == null) continue;
+
                 enemy.TakeDamage(currentWeaponData.damage);
+
+                // 2. FIX: Pass both the nozzle point AND the enemy's position
+                PlayTracerAndMuzzleFX(muzzleNozzlePoint, enemy.transform.position);
+
                 Debug.Log($"🔫 RANGED HIT: {enemy.name}");
-                break; // Only first enemy
+                break;
             }
         }
     }
+
+    private void PlayTracerAndMuzzleFX(Transform nozzle, Vector3 targetPosition)
+    {
+        if (nozzle == null) return;
+
+        // 3. Spawn Muzzle Flash at Nozzle Point
+        if (currentWeaponData.fireEffects != null)
+        {
+            GameObject muzzleFX = Instantiate(currentWeaponData.fireEffects, nozzle.position, nozzle.rotation);
+            Destroy(muzzleFX, 1f); // Quick auto-destruction for local muzzle particles
+        }
+
+        // 4. Create the visual beam line from Nozzle to Enemy
+        if (tracerEffectPrefab != null)
+        {
+            LineRenderer line = Instantiate(tracerEffectPrefab, nozzle.position, Quaternion.identity);
+
+            // Set point 0 at the nozzle and point 1 at the enemy
+            line.SetPosition(0, nozzle.position);
+            line.SetPosition(1, targetPosition);
+
+            // Destroys the line object shortly after creation so it looks like a flash
+            Destroy(line.gameObject, 0.08f);
+        }
+
+        // Play Audio Clip
+        if (currentWeaponData.fireClips != null && currentWeaponData.fireClips.Length > 0 && audioSource != null)
+        {
+            AudioClip weaponClip = currentWeaponData.fireClips[0];
+            if (weaponClip != null)
+                audioSource.PlayOneShot(weaponClip, currentWeaponData.volume);
+        }
+    }
+
 
     // 🔥 IMPROVED: Find exact ammo type
     private Item FindAmmoItem(WeaponItem.AmmoType ammoType)
