@@ -7374,6 +7374,59 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5867642838859041904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118709052382107072}
+  - component: {fileID: 9209857170098431951}
+  m_Layer: 13
+  m_Name: MuzzleTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118709052382107072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867642838859041904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.318, z: 0.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2822265576785357143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &9209857170098431951
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867642838859041904}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5908468124099610306
 GameObject:
   m_ObjectHideFlags: 0
@@ -8115,6 +8168,7 @@ Transform:
   - {fileID: 2666925095507847218}
   - {fileID: 6671607165208050532}
   - {fileID: 524397760626208185}
+  - {fileID: 1118709052382107072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!143 &1687053178610186725
@@ -8263,6 +8317,11 @@ MonoBehaviour:
   currentWeaponData: {fileID: 11400000, guid: 17cb026ad2c062c4390e5b62f308ba3a, type: 2}
   ammoType: 0
   ammoPerShot: 1
+  muzzleFlash: {fileID: 0}
+  audioSource: {fileID: 2795847949620694432}
+  gunShotSFX: {fileID: 0}
+  muzzleNozzlePoint: {fileID: 1118709052382107072}
+  tracerEffectPrefab: {fileID: 320920397656594934, guid: 9d7675191b31a1f44a4f730d94b91551, type: 3}
 --- !u!114 &4116484645221212738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8328,7 +8387,7 @@ MonoBehaviour:
   pushableLayer:
     serializedVersion: 2
     m_Bits: 128
-  pushPoint: {fileID: 6989472148089949161}
+  moveSpeed: 2
   pushPromptUI: {fileID: 0}
 --- !u!114 &2659202323850831212
 MonoBehaviour:

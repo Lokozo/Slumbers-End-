@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 3
   isCrafted: 1
   isUsedInCrafting: 0
-  isEquipped: 0
+  isEquipped: 1
   ammoType: 0
   maxStack: 1
   maxUses: 1
@@ -35,3 +35,8 @@ MonoBehaviour:
   requiredAmmoType: 2
   ammoPerShot: 1
   reloadTime: 1
+  fireEffects: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
+  fireClips:
+  - {fileID: 8300000, guid: 273f71658df2a4246b0b9480de0ce683, type: 3}
+  - {fileID: 8300000, guid: 955ddbdd4b02fbf4d97fddb875dd3bdc, type: 3}
+  volume: 1
