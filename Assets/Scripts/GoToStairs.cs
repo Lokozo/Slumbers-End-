@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class GoToStairs : MonoBehaviour
 {
     public float moveSpeed = 3f;
     public float rotateSpeed = 8f;
-
+    public Animator animator;
     [Header("Camera")]
     public Transform cameraTransform;
 
@@ -37,7 +38,23 @@ public class GoToStairs : MonoBehaviour
         ApplyGravity();
 
         if (isMovingPath)
+        {
+            Debug.Log("Walking ON");
+
+            animator.SetBool("IsWalking", true);
+
             FollowPath();
+            return;
+        }
+
+        if (Mathf.Abs(verticalInput) > 0.1f)
+        {
+            animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+        }
     }
 
     // =========================
@@ -71,6 +88,8 @@ public class GoToStairs : MonoBehaviour
 
         IsMovingByStairs = true;
         CanExit = false;
+
+        animator.SetBool("IsWalking", true);
     }
 
     private void FollowPath()
@@ -85,13 +104,15 @@ public class GoToStairs : MonoBehaviour
 
         float distance = toTarget.magnitude;
 
-        if (distance < 0.03f)
+        if (distance < 0.1f)
         {
             isMovingPath = false;
             hasPath = false;
 
             IsMovingByStairs = false;
             verticalVelocity = 0f;
+
+            animator.SetBool("IsWalking", false);
 
             CanExit = true;
 
@@ -100,6 +121,8 @@ public class GoToStairs : MonoBehaviour
 
         Vector3 move = toTarget.normalized * moveSpeed * Time.deltaTime;
         controller.Move(move);
+
+        animator.SetBool("IsWalking", true);
 
         if (toTarget.sqrMagnitude > 0.001f)
         {
