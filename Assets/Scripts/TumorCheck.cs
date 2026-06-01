@@ -33,7 +33,7 @@ public class TumorCheck : MonoBehaviour
             tumorAudio.playOnAwake = false;
         }
 
-        // Disable ladder first
+        // Disable ladder at start
         if (basementLadder != null)
             basementLadder.enabled = false;
     }
@@ -43,28 +43,27 @@ public class TumorCheck : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
+ 
         if (tumorActivated)
             return;
 
         // Check if player has lighter
         if (PlayerInventory.Instance.HasResource(lighterItem))
         {
+            
             tumorActivated = true;
 
-            // Turn ON fire
-            if (fireEffects != null)
-                fireEffects.SetActive(true);
+          
+            GetComponent<Collider>().enabled = false;
 
-            // Play fire sound
-            if (tumorAudio != null)
-                tumorAudio.Play();
-
-            Debug.Log("Tumor Burned");
-
-            // Optional cinematic
+          
             if (tumorCutscene != null)
             {
                 StartCoroutine(StartTumorEvent());
+            }
+            else
+            {
+                StartCoroutine(StartFireEvent());
             }
         }
         else
@@ -75,10 +74,43 @@ public class TumorCheck : MonoBehaviour
 
     private IEnumerator StartTumorEvent()
     {
-        yield return new WaitForSeconds(2f);
-
+     
         CutsceneManager.Instance.PlayCutscene(
-    tumorCutscene.cutsceneParent
-);
+            tumorCutscene.cutsceneParent);
+
+     
+        yield return null;
+
+
+        while (!CutsceneManager.IsCutscenePlaying)
+        {
+            yield return null;
+        }
+
+        while (CutsceneManager.IsCutscenePlaying)
+        {
+            yield return null;
+        }
+
+       
+        yield return StartCoroutine(StartFireEvent());
+
+        if (basementLadder != null)
+            basementLadder.enabled = true;
+
+        Debug.Log("Tumor Burned");
+    }
+
+    private IEnumerator StartFireEvent()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+       
+        if (fireEffects != null)
+            fireEffects.SetActive(true);
+
+        // Play fire sound
+        if (tumorAudio != null)
+            tumorAudio.Play();
     }
 }

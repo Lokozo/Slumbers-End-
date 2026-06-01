@@ -8,5 +8,6 @@ public class GunController : MonoBehaviour
     {
         Debug.Log($"Firing {gunData.itemName} for {gunData.damage} damage!");
         // Play sound, spawn bullet, etc.
+       // int bulletCount = gunData.bulletsPerShot;
     }
 }

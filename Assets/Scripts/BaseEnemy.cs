@@ -22,6 +22,11 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     public float gravity = -9.81f;
     public float health = 100f;
 
+    [Header("Health")]
+   public float maxHealth = 100f;
+
+
+
     protected Vector3 velocity;
     protected bool isGrounded;
 
@@ -484,7 +489,10 @@ public class BaseEnemy : MonoBehaviour, IDamageable
             return;
         }
 
-        health = enemyData.health;
+
+        maxHealth = enemyData.health;
+        health = maxHealth;
+
         speed = enemyData.speed;
         chaseSpeed = enemyData.chaseSpeed;
 
